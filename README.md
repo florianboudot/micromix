@@ -1,4 +1,0 @@
-micromix
-========
-
-Theme Wordpress
