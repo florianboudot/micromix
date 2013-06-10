@@ -1,0 +1,375 @@
+/*------------------------------------------------------------------------------
+    CSS Document (http://www.w3.org/Style/CSS/)
+
+    project:    Micromix.fr (2008-2010)
+    created:    2010-06-15 (v2)
+    author:     supakazes@hotmail.com
+
+    summary:    PRINT
+                RESET
+                GENERIC
+                
+----------------------------------------------------------------------------- */
+
+/*  =PRINT
+----------------------------------------------------------------------------- */
+@media print {
+    
+}
+
+/*  =RESET
+----------------------------------------------------------------------------- */
+* { margin:0; padding:0; vertical-align:baseline; }
+
+body {
+    font-family:Arial, Verdana, Helvetica, sans-serif;
+    font-size:69%; /* :INFO:1em = 11px */
+    text-align:left;
+    margin:0;
+    height:100%;
+    color:#000;
+    background:#fff;
+}
+input { height:auto; }
+a img, fieldset, form { border:0; }
+ins, abbr, acronym { text-decoration:none; border:0; font-style:normal; }
+a:hover ins, a:hover abbr, a:hover acronym { text-decoration:underline; }
+address { font-style:normal; }
+ul { list-style:none; }
+q:before, q:after { content:''; }
+small { font-size:0.9em; }
+textarea { overflow:auto; }
+.accessibility { 
+    position:absolute;
+    left:-9999em;
+}
+img { display:block; }
+
+/*  =FORMS
+----------------------------------------------------------------------------- */
+input, select, textarea, button { 
+    font:1em Arial, Verdana, Helvetica, sans-serif; 
+    color:#555; 
+    border:1px solid #e1e1e1;
+}
+input, textarea, select { padding:2px; }
+textarea { overflow:auto; }
+select { padding:1px; }
+button {
+    width:auto;
+    overflow:visible;
+    border:0;
+    background:none;
+    cursor:pointer;
+}
+input[type=radio], 
+input[type=checkbox] { 
+    margin:0 3px 0 0; 
+    padding:0; 
+    vertical-align:middle;
+    border:none;
+}
+input[type=submit] {
+    width:auto !important;
+    height:auto !important;
+    cursor:pointer !important;
+    border:0 !important;
+    overflow:visible;
+}
+
+
+
+
+/*  =GENERIC
+----------------------------------------------------------------------------- */
+a {
+    color:#00f;
+    cursor:pointer;
+    text-decoration:none;
+}
+a:hover { text-decoration:underline; }
+h1, h2, h3, h4, h5, h6 { 
+    margin:0 0 10px 0; 
+    border-bottom:1px solid black;
+    color:#666;
+}
+h1 { font-size:2em; }
+h2 { 
+    font-size:2em; 
+    color:black;
+}
+h2 a { color:black; }
+h3 { 
+    font-size:1.5em; 
+    border-bottom:1px solid black;
+}
+h4 { 
+    font-size:1.3em; 
+    margin:0;
+}
+#main-container { 
+    margin:0 auto; 
+    width:800px;
+    padding:20px 0;
+    overflow:hidden;
+    zoom:1;
+}
+p { padding:0 0 10px 0; }
+ol { 
+    padding-left:25px; 
+    padding-bottom:15px;
+}
+
+/*  =MAIN HEADER
+----------------------------------------------------------------------------- */
+#main-header { 
+    border:1px solid black; 
+    margin:0 0 10px 0;
+    padding:10px;
+}
+
+/*  =HOME TOP
+----------------------------------------------------------------------------- */
+#home-top { 
+    overflow:hidden;
+    zoom:1;
+}
+
+/*  =TWITTER
+----------------------------------------------------------------------------- */
+#twitter { 
+    width:236px;
+    margin:0 20px 10px 0;
+    float:left;
+}
+#twitter li { 
+    background:#ddd;
+    -moz-border-radius:5px;
+    margin:0 0 5px 0;
+    padding:5px;
+}
+#twitter li.aktt_more_updates {
+    -moz-border-radius:0;
+    background:none;
+    text-align:right;
+    padding:0;
+}
+
+/*  =TOP PLAYED
+----------------------------------------------------------------------------- */
+#top-played { 
+    float:left; 
+    width:244px;
+}
+#top-played li {
+    overflow:hidden;
+    zoom:1;
+}
+
+/*  =COLUMN 1
+----------------------------------------------------------------------------- */
+#column-1 { 
+    float:left; 
+    width:500px;
+    font-size:1.1em;
+}
+.post { 
+    padding:0 0 15px 0; 
+    overflow:hidden;
+    zoom:1;
+    position:relative;
+}
+.result h3 {/*post result on archive.php*/
+    display:none;
+}
+.post-image img { 
+    width:496px; 
+    border:2px solid #666;
+}
+.post-title {
+	font-size:2em;
+	font-family:Georgia, "Times New Roman", Times, serif;
+	overflow:hidden;
+	padding:0 0 0 0;
+	border:0;
+	margin:0;
+	width:100%;
+}
+.post-title strong,
+.post-title a {
+	background:#fff;
+	color:black;
+	padding:0 5px;
+	display:block;
+	float:left;
+}
+.post-title a { 
+	margin:14px 0 0 0; 
+	text-decoration:none;
+}
+.post-title a:hover {
+	background:#1e4279;
+	color:white;
+}
+.post-title strong {
+	font-size:2em;
+	padding:0 5px 3px 5px;
+	position:absolute;
+	left:2px;
+	top:50px;
+	line-height:1em;
+	opacity:0.8;
+}
+.post-date {
+	opacity:0.6;
+	filter:alpha(opacity=60);
+	padding:3px 0 0 0;
+	position:absolute;
+	left:2px;
+	top:103px;
+}
+.post-date small { 
+    font-size:0.8em;
+	background:#fff;
+}
+.post-comments { 
+    overflow:hidden; 
+    zoom:1;
+}
+.post-comments p { 
+    float:right; 
+    padding:0 0 0 20px;
+}
+
+.result .post-image { 
+    float:left; 
+    padding:0 10px 10px 0;
+}
+.result .post-image img { 
+    width:180px; 
+}
+.result .post-content { 
+    float:left; 
+    width:300px;
+}
+.result .post-content p { display:none; }
+.result .author { clear:left; }
+.result .post-title strong { font-size:0.9em; }
+.search-excerpt { background:yellow; }
+
+/* =NAVIGATION
+----------------------------------------------------------------------------- */
+.navigation { 
+    overflow:hidden; 
+    zoom:1;
+    padding:10px 0 0 0;
+}
+.navigation .prev { float:left; }
+.navigation .next { float:right; }
+
+
+/*  =RELATED POSTS
+----------------------------------------------------------------------------- */
+.related-list { 
+    overflow:hidden; 
+    zoom:1;
+    padding-left:0;
+}
+.related-list li { 
+    float:left;
+    list-style:none;
+    margin-right:10px;
+    overflow:hidden;
+    width:156px;
+}
+.related-list li img { 
+    height:175px; 
+    margin-left:-15px;
+    margin-top:-15px;
+    display:block;
+}
+.related-list li a.img { 
+    display:block; 
+    height:130px;
+    overflow:hidden;
+}
+
+
+
+/*  =PAGER
+----------------------------------------------------------------------------- */
+.wp-paginate { text-align:right; }
+
+/* =WPAUDIO
+----------------------------------------------------------------------------- */
+.bt-player img { display:inline; }
+
+
+/*  =COLUMN 2
+----------------------------------------------------------------------------- */
+#column-2 { 
+    float:left; 
+    width:250px;
+    padding-left:50px;
+}
+#column-2 ul,
+#column-2 ol { 
+    padding-bottom:10px;
+}
+
+/*  =SEARCH
+----------------------------------------------------------------------------- */
+.searchform .s { width:195px; }
+#current-action { display:none; }
+
+/*  =POSTS YEAR MONTH
+----------------------------------------------------------------------------- */
+#posts-year-month li li { 
+    padding:0 0 0 10px;
+}
+#posts-year-month h3 { 
+    cursor:pointer; 
+    background:url(img/icons.png) 2px 4px no-repeat;
+    padding:0 0 0 13px;
+}
+#posts-year-month h3.active { background-position:-486px 4px; }
+#posts-year-month .month { 
+    text-transform:uppercase; 
+    padding:7px 0 6px 8px; 
+    margin-bottom:5px; 
+    cursor:pointer; 
+    font-size:1em; 
+}
+#posts-year-month .month a { color:#7c5ccb; }
+#posts-year-month ul ul { padding-bottom:0; }
+
+.hasJS #posts-year-month ul { display:none; }
+.hasJS #posts-year-month ul ul { display:block; }/*do not keep this if you wanna display months */
+.hasJS #posts-year-month ul.open { display:block; }
+
+#posts-year-month ul ul li a { padding:0 0 0 7px; }
+#posts-year-month ul ul li strong a { font-weight:bold; }
+
+#column-2 ul.wp-tag-cloud { 
+    list-style:decimal; 
+    padding-left:25px;
+}
+
+
+/*  =FOOTER
+----------------------------------------------------------------------------- */
+footer { text-align:center; }/*oui, la balise footer*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* END */
