@@ -5,6 +5,7 @@ Template Name: covers
 ?>
 <?php get_header(); ?>
 
+
 <?php
 $debut = 0; //The first article to be displayed
 ?>
