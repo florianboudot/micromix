@@ -440,12 +440,10 @@ function allPostsByYear() {
 					$fat_image_src = empty( $image_src ) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['large']['file'];
 //                  $fat_image_src = empty($fat_image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "" . $fat_image_src;
 					$image_src = empty( $image_src ) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['medium']['file'];
-					$image_tag = '<span class="thumbnail-wrapper"><img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster">';
-					$image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span></span>';
+					$image_tag = '<img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster thumbnail-wrapper play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '">';
 
 					// build list item
-					$list .= '<span class="micromix-number">#' . $micromix_number . '</span>';
-					$list .= '<a href="' . $post_url . '" class="history">' . $post_title . $image_tag . '</a>';
+					$list .= '<a href="' . $post_url . '" class="history">#' . $micromix_number . ' ' . $post_title . $image_tag . '</a>';
 					$list .= '</li>';
 					$list .= "\n";
 					array_push( $post_number_array, $micromix_number ); // for javascript purposes

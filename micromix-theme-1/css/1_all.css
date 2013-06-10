@@ -681,22 +681,8 @@ ol {
     font-size: 0.9em;
 }
 
-#sidebar ul {
-    margin: 0;
-    padding: 1px 0 10px 0;
-    list-style: none;
-}
-
-#sidebar li {
-    padding: 0 0 10px 0;
-}
-
 #sidebar li ul {
     padding-bottom: 0;
-}
-
-#sidebar .list-item {
-    padding: 0 0 1px 0;
 }
 
 #sidebar .list-item.currentsoundplayed {
@@ -706,7 +692,6 @@ ol {
 #sidebar li a,
 #column1 li a,
 #column1 li span {
-    color: black;
     background: #e6e8e7;
     padding: 0 2px;
 }
