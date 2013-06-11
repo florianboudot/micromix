@@ -22,11 +22,11 @@
 						</p>
 						
 						<p id="btTwitter">
-							<a href="http://twitter.com/micromix" title="follow micromix"><img src="/wp-content/themes/micromix/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
+							<a href="http://twitter.com/micromix" title="follow micromix"><img src="/wp-content/themes/micromix-theme-1/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
 						</p>
 						
 						<p id="btFB">
-							<a href="http://www.facebook.com/micromix" title="become a fan of micromix"><img src="/wp-content/themes/micromix/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
+							<a href="http://www.facebook.com/micromix" title="become a fan of micromix"><img src="/wp-content/themes/micromix-theme-1/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
 						</p>
 						
 						
