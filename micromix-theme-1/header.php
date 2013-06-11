@@ -13,9 +13,9 @@
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
 <?php wp_head(); ?>
-<script type="text/javascript" src="/wp-content/themes/micromix/js/audio-player.js"></script>
+<script type="text/javascript" src="/wp-content/themes/micromix-theme-1/js/audio-player.js"></script>
 <script type="text/javascript">  
-    AudioPlayer.setup("/wp-content/themes/micromix/swf/player.swf", {  
+    AudioPlayer.setup("/wp-content/themes/micromix-theme-1/swf/player.swf", {
         width: 290,  
         initialvolume: 80,  
         transparentpagebg: "yes",  

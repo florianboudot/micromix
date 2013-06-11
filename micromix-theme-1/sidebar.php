@@ -1,4 +1,4 @@
-    					<div id="column3">
+    			    <div id="column3">
                     <!-- STATS
                     <?php
                         $top = get_top_downloads(10);
@@ -22,11 +22,11 @@
 						</p>
 						
 						<p id="btTwitter">
-							<a href="http://twitter.com/micromix" title="follow micromix"><img src="/wp-content/themes/micromix-theme-1/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
+							<a href="http://twitter.com/micromix" title="follow micromix on twitter"><img src="/wp-content/themes/micromix-theme-1/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
 						</p>
 						
 						<p id="btFB">
-							<a href="http://www.facebook.com/micromix" title="become a fan of micromix"><img src="/wp-content/themes/micromix-theme-1/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
+							<a href="http://www.facebook.com/micromix" title="micromix on facebook"><img src="/wp-content/themes/micromix-theme-1/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
 						</p>
 						
 						
@@ -154,7 +154,6 @@
 							
 							
 						</div><!-- #sidebar -->
-						
 					</div><!-- #column3 -->
 				</div><!-- #mainContent -->
 			</div><!-- #mainFooter -->

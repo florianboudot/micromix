@@ -14,7 +14,7 @@ jQuery(document).ready(function() {
             jQuery.ajax({
                 type:'POST',
                 data: 'postId='+postId,
-                url: '/wp-content/themes/micromix/ajax.php',
+                url: '/wp-content/themes/micromix-theme-1/ajax.php',
                 success : function(obj) {
                     console.info('success');
                     console.info(obj);   
