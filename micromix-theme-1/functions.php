@@ -1,6 +1,7 @@
 <?php
 
 
+define( 'theme_root', get_bloginfo('template_url'));
 
 // Jean-Luc Nguyen 2010/06/29
 /*
