@@ -380,7 +380,10 @@ select {
 .hasJS #posts-year-month ul.open { display:block; }
 
 #posts-year-month ul ul li a { padding:0 0 0 7px; }
-#posts-year-month ul ul li strong a { font-weight:bold; }
+#posts-year-month ul ul li strong a {
+    font-weight:bold;
+    color: red !important;
+}
 
 #column-2 ul.wp-tag-cloud {
     list-style:decimal;
