@@ -50,7 +50,6 @@ a:hover {
 /*ie7*/
 
 .clearfix { display:block; }
-* html .clearfix { height:1%; }
 /* FORMS */
 
 input,
@@ -100,7 +99,6 @@ select {
 #mainHeader h1 a:hover { text-indent:inherit; }
 #mainHeader .description { display:none; }
 #curtain { background:url(img/bg-curtain.png) center top repeat-y; }
-* html #curtain { background-image:url(img/ie6-bg-curtain.gif); }
 #mainContent {
 	width:1150px;
 	margin:0 auto;
@@ -115,7 +113,7 @@ select {
 }
 #column2 {
 	float:left;
-	width:674px;
+	width:610px;
 	padding:280px 0 0 0;
 }
 #column3 {
@@ -125,7 +123,7 @@ select {
 }
 /*article*/
 .article {
-	padding:0 0 30px 80px;
+	padding:0 0 30px 47px;
 	position:relative;
 	overflow:hidden;
 	zoom:1;
@@ -160,7 +158,7 @@ select {
 	font-size:2em;
 	padding:0 5px 3px 5px;
 	position:absolute;
-	left:83px;
+	left:49px;
 	top:50px;
 	line-height:1em;
 	opacity:0.8;
@@ -170,16 +168,14 @@ select {
 	left:52px;
 	top:48px;
 }
-* html .article h2 strong { left:-131px; }
 .article .date {
 	opacity:0.6;
 	filter:alpha(opacity=60);
 	padding:3px 0 0 0;
 	position:absolute;
-	left:83px;
+	left:49px;
 	top:96px;
 }
-* html .article .date { left:-131px; }
 .article .date small { background:#E6E8E7; }
 .page { padding:0 100px 120px 0; }
 .page p { padding:0 0 10px 0; }
