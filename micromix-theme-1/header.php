@@ -1,19 +1,18 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?>>
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
 
-<head profile="http://gmpg.org/xfn/11">
-<meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php bloginfo('charset'); ?>" />
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-<title><?php bloginfo('name'); ?> <?php if ( is_single() ) {  echo "#".get_post_meta($post->ID, 'micromixNumber', true);  } ?> <?php wp_title(); ?></title>
+    <title><?php bloginfo('name'); ?> <?php if ( is_single() ) {  echo "#".get_post_meta($post->ID, 'micromixNumber', true);  } ?> <?php wp_title(); ?></title>
 
-<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>?12" type="text/css" media="all" />
-<link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
-<link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
+    <link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); ?>?12" type="text/css" media="all" />
+    <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
+    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 
-<?php wp_head(); ?>
-
+    <?php wp_head(); ?>
 </head>
 <body>
 
@@ -21,13 +20,12 @@
 
 
 
-<div id="mainContainer">	
-    
-    
+<div id="mainContainer">
     <div id="bricks">
         <div id="curtain">
             <div id="mainFooter">
                 <div id="mainContent">
+
                     <div id="mainHeader">
                         <h1><a href="<?php echo get_option('home'); ?>/" title="back to home page"><?php bloginfo('name'); ?></a></h1>
                         <p class="description"><?php bloginfo('description'); ?></p>

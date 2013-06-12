@@ -22,11 +22,11 @@
 						</p>
 						
 						<p id="btTwitter">
-							<a href="http://twitter.com/micromix" title="follow micromix on twitter"><img src="<?= theme_root ?>/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
+							<a href="http://twitter.com/micromix" title="follow micromix on twitter"><img src="<?= theme_path ?>/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
 						</p>
 						
 						<p id="btFB">
-							<a href="http://www.facebook.com/micromix" title="micromix on facebook"><img src="<?= theme_root ?>/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
+							<a href="http://www.facebook.com/micromix" title="micromix on facebook"><img src="<?= theme_path ?>/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
 						</p>
 						
 						
@@ -81,10 +81,11 @@
 					
 								<?php wp_list_pages('title_li=<h3>Micromix</h3>' ); ?>
 
-								<li><h3>Archives</h3>
-									<ul>
-									<?php wp_get_archives('type=monthly&show_post_count=1'); ?>
-									</ul>
+								<li>
+                                    <div id="posts-year-month">
+                                        <h2>Archives</h2>
+                                        <?php getPostYearMonth(); ?>
+                                    </div>
 								</li>
 								
 								<li>
@@ -150,9 +151,6 @@
 									
 								<?php endif; ?>
 							</ul>
-							
-							
-							
 						</div><!-- #sidebar -->
 					</div><!-- #column3 -->
 				</div><!-- #mainContent -->
