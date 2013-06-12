@@ -87,17 +87,6 @@
                                         <?php getPostYearMonth(); ?>
                                     </div>
 								</li>
-								
-								<li>
-									<?php 
-									/*if(function_exists('MostVotedAllTime')) {
-										MostVotedAllTime();
-									}*/?>
-								</li>
-								
-								<?php // wp_list_categories('show_count=1&title_li=<h3>Categories</h3>&orderby=count&order=DESC'); ?>
-
-
                                 <li>
                                     <!-- FORM NEWSLETTER (le récupérer dans l'admin car généré. Oui, c'est sale) -->
                                     <script type="text/javascript">

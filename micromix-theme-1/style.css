@@ -306,10 +306,12 @@ select {
 /* sidebar */
 #sidebar { padding:20px 45px 0 9px; }
 #sidebar .searchform .s {
-	width:90px;
+	width:146px;
 	margin:0 0 3px 0;
 }
-#sidebar .searchform .searchsubmit { width:96px; }
+#sidebar .searchform .searchsubmit {
+    width:56px;
+}
 
  #sidebar h2,
  #column1 h3,
