@@ -1,0 +1,25 @@
+.player{
+    background: #484986;
+    height: 10px;
+    position: relative;
+}
+.player .loaded,.player .currenttime{
+    height: 100%;
+    position: absolute;
+}
+.player .loaded{
+    background: #f8f478;
+    -o-transition: width 1000ms linear;
+    -ms-transition: width 1000ms linear;
+    -moz-transition: width 1000ms linear;
+    -webkit-transition: width 1000ms linear;
+    transition: width 1000ms linear;
+}
+.player .currenttime{
+    background: #4d8fb4;
+    -o-transition: width 5000ms linear;
+    -ms-transition: width 5000ms linear;
+    -moz-transition: width 5000ms linear;
+    -webkit-transition: width 5000ms linear;
+    transition: width 5000ms linear;
+}

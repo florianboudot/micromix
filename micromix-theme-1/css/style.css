@@ -123,7 +123,7 @@ select {
 }
 /*article*/
 .article {
-	padding:0 0 30px 47px;
+	padding:0 57px 30px 47px;
 	position:relative;
 	overflow:hidden;
 	zoom:1;
@@ -262,7 +262,7 @@ select {
 	background:yellow;
 	color:black;
 }
-.imagePost { padding:0 0 10px 0; }
+/*.imagePost { padding:0 0 10px 0; }*/
 .imagePost img {
 	border:3px solid #E6E8E7;
 	width:500px;

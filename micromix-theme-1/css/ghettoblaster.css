@@ -1,0 +1,8 @@
+.ghettoblaster{
+    position:fixed;
+    height:20px;
+    width:20px;
+    background:red;
+    top:40px;
+    right:40px;
+}
