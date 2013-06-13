@@ -1,35 +1,4 @@
     			    <div id="column3">
-                    <!-- STATS
-                    <?php
-                        $top = get_top_downloads(10);
-                    ?>
-                    
-                    <div>
-                        <h3>top played</h3>
-                        <ol>
-                            <?php foreach( $top as $t ) { ?>
-                            <?php $p = get_post($t->post_id); ?>
-                            <li><a href="<?php echo get_permalink($p); ?>" title="<?php echo $p->post_title; ?>"><?php echo $p->post_title; ?> (<?php echo $t->download_count; ?> clicks)</a></li>
-                            <?php } ?>
-                        </ol>
-                    </div>
-                    -->
-                        
-                        
-                        
-						<p id="btRss">
-							<a href="<?php bloginfo('rss2_url'); ?>" title="Entries (RSS)">Entries (RSS)</a>
-						</p>
-						
-						<p id="btTwitter">
-							<a href="http://twitter.com/micromix" title="follow micromix on twitter"><img src="<?= theme_path ?>/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
-						</p>
-						
-						<p id="btFB">
-							<a href="http://www.facebook.com/micromix" title="micromix on facebook"><img src="<?= theme_path ?>/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
-						</p>
-						
-						
 						<div id="sidebar">
 							<ul>
 								<?php 	/* Widgetized sidebar, if you have the plugin installed. */
@@ -78,8 +47,7 @@
 								<?php } ?>
 					
 								</span></p></li> <?php }?>
-					
-								<?php wp_list_pages('title_li=<h3>Micromix</h3>' ); ?>
+
 
 								<li>
                                     <div id="posts-year-month">
@@ -133,13 +101,22 @@
                                         </form>
                                     </div>
                                 </li>
-								<!-- MUSIC BLOGS -->
-								<?php //wp_list_bookmarks(); ?>
-					
-									
-									
+                                <?php wp_list_pages('title_li=<h3>Micromix</h3>' ); ?>
 								<?php endif; ?>
 							</ul>
+                            <div class="social-container">
+                                <p class="bt-social" id="btRss">
+                                    <a href="<?php bloginfo('rss2_url'); ?>" title="Entries (RSS)">Entries (RSS)</a>
+                                </p>
+
+                                <p class="bt-social" id="btTwitter">
+                                    <a href="http://twitter.com/micromix" title="follow micromix on twitter"><img src="<?= theme_path ?>/img/ico-twitter.png" alt="follow micromix on twitter" /></a>
+                                </p>
+
+                                <p class="bt-social" id="btFB">
+                                    <a href="http://www.facebook.com/micromix" title="micromix on facebook"><img src="<?= theme_path ?>/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
+                                </p>
+                            </div>
 						</div><!-- #sidebar -->
 					</div><!-- #column3 -->
 				</div><!-- #mainContent -->

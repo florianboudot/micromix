@@ -86,7 +86,7 @@ select {
 }
 #mainHeader h1 a {
 	display:block;
-	width:675px;
+	width:597px;
 	height:201px;
 	text-align:center;
 	font-size:11em;
@@ -119,7 +119,7 @@ select {
 #column3 {
 	float:left;
 	width:300px;
-	padding:0 0 450px 0;
+	padding:260px 0 450px 0;
 }
 /*article*/
 .article {
@@ -272,6 +272,11 @@ select {
 .postmetadata span {
 	background:#E6E8E7;
 	padding:0 5px;
+}
+
+/* BUTTONS SOCIAL (facebook, twitter, etc) */
+.bt-social {
+
 }
 #btRss { padding:94px 0 0 12px; }
 #btRss a {
