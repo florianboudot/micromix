@@ -2,6 +2,9 @@
 // returns absolute theme path in a variable 'theme_path'
 define( 'theme_path', get_bloginfo('template_url'));
 
+// post thumbnails enabled (images uploaded & attached to the post)
+add_theme_support( 'post-thumbnails' );
+
 
 /*
 function : ALL POSTS BY YEAR (in the sidebar)
@@ -42,15 +45,43 @@ function allPostsByYear() {
         if (count($posts)) {
             $list = '';
             foreach ($posts as $p) {
-                ($_SESSION["article_id"] == $p->ID) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
-                $postUrl  = get_permalink($p);
-                $micromixNumber = get_post_meta($p->ID, 'micromixNumber', true);
-                $imagePostSrc = get_post_meta($p->ID, 'imagePost', true);
-                $image = '<img src="'.$imagePostSrc.'" class="mini-poster">';
+                $post_id = $p->ID;
+                $post_url  = get_permalink($p);
+                $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
+                $post_title = $p->post_title;
 
-                $list .= '<span class="micromix-number">#'.$micromixNumber.'</span>';
-                $list .= '<a href="'.$postUrl.'">'.$p->post_title.'</a>';
-                $list .= $image;
+                // mark item as active. or not
+                ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
+
+                // get image from the post
+                $images = get_children(array(
+                    'post_type'      => 'attachment',
+                    'post_status'    => null,
+                    'post_parent'    => $post_id,
+                    'post_mime_type' => 'image',
+                    'order'          => 'ASC',
+                    'orderby'        => 'menu_order ID'
+                ));
+                $first_image_attachment = array_shift($images);
+                //$image_src = $first_image_attachment->guid;
+                $image_id = $first_image_attachment->ID;
+                $image_src = wp_get_attachment_thumb_url($image_id);
+                $image_tag = '<img src="'.$image_src.'" alt="" class="mini-poster">';
+
+
+
+
+
+
+                //$image_attributes = wp_get_attachment_image_src( $attachment->ID, 'thumbnail' )  ? wp_get_attachment_image_src( $attachment->ID, 'thumbnail' ) : wp_get_attachment_image_src( $attachment->ID, 'full' );
+
+                //echo '<img src="'.wp_get_attachment_thumb_url( $attachment->ID ).'" class="current">';
+
+
+
+                // build list item
+                $list .= '<span class="micromix-number">#'.$micromix_number.'</span>';
+                $list .= '<a href="'.$post_url.'">'. $post_title .$image_tag.'</a>';
                 $list .= '</li>';
                 $list .= "\n";
             }

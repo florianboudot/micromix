@@ -394,7 +394,7 @@ select {
     border: 3px solid #e6e8e7;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
-.year-list-container .list-item:hover .mini-poster{
+.year-list-container .list-item a:hover .mini-poster{
     display: block;
 }
 
@@ -623,10 +623,9 @@ li#currentAction span {
 .search-excerpt { background:yellow; }
 
 
-/*  =RELATED POSTS
------------------------------------------------------------------------------ */
+/* RELATED POSTS */
 .related-list {
-    padding-left:80px;
+    padding-left:47px;
     padding-bottom:40px;
 }
 .related-list h3 {
