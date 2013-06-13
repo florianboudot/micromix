@@ -52,7 +52,7 @@
 								<li>
                                     <div id="posts-year-month">
                                         <h2>Archives</h2>
-                                        <?php getPostYearMonth(); ?>
+                                        <?php allPostsByYear(); ?>
                                     </div>
 								</li>
                                 <li>

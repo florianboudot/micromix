@@ -347,49 +347,42 @@ select {
 	padding:0 2px;
 }
 #sidebar ul li a:hover,
-#column1 ul li a:hover,
-#column1 ul li a:visited {
+#column1 ul li a:hover {
 	color:#e6e8e7;
 	background:#1e4279;
-}
-#column1 ul li a:visited,
-#sidebar ul li a:visited {
-	color:#888;
-	background:#e6e8e7;
-	text-decoration:none;
 }
 
 /*  =POSTS YEAR MONTH
 ----------------------------------------------------------------------------- */
-#posts-year-month li li {
+.year-title {
+    /*background:url(../img/icons.png) 2px 3px no-repeat;*/
+    padding:0 0 5px 0;
+    font-size: 13px;
+}
+.year-text {
+    background: #e6e8e7;
+}
+.year-title.active {
+    background-position:-486px 4px;
+}
+.year-list-container {
+    padding-bottom: 20px !important;/* todo */
+}
+.year-list-container .list-item {
     padding:0 0 0 10px;
 }
-#posts-year-month h3 {
-    cursor:pointer;
-    background:url(../img/icons.png) 2px 4px no-repeat;
-    padding:0 0 0 13px;
+.year-list-container .list-item a {
+    text-decoration: none;
 }
-#posts-year-month h3.active { background-position:-486px 4px; }
-#posts-year-month .month {
-    text-transform:uppercase;
-    padding:7px 0 6px 8px;
-    margin-bottom:5px;
-    cursor:pointer;
-    font-size:1em;
-}
-#posts-year-month .month a { color:#7c5ccb; }
-#posts-year-month ul ul { padding-bottom:0; }
-
-.hasJS #posts-year-month ul { display:none; }
-.hasJS #posts-year-month ul ul { display:block; }/*do not keep this if you wanna display months */
-.hasJS #posts-year-month ul.open { display:block; }
-
-#posts-year-month ul ul li a { padding:0 0 0 7px; }
-#posts-year-month ul ul li strong a {
+.year-list-container .list-item.active a {
     font-weight:bold;
-    color: red !important;
+    color: red !important;/* todo */
+}
+.year-list-container .micromix-number {
+    background: #e6e8e7;
 }
 
+/* TAG CLOUD */
 #column-2 ul.wp-tag-cloud {
     list-style:decimal;
     padding-left:25px;

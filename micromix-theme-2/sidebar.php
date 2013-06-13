@@ -112,13 +112,9 @@
 			?>
 				
 			<?php endif; ?>
-		
-		
-		
-		
-		
 	</div><!-- #sidebar -->
-	
 </div><!-- #column-2 -->
+
+
 <?php get_footer(); ?>
 

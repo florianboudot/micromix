@@ -1,93 +1,58 @@
 <?php
-// declares a var with the absolute theme path
+// returns absolute theme path in a variable 'theme_path'
 define( 'theme_path', get_bloginfo('template_url'));
 
 
-
-
-
-
-
-
-
-// Jean-Luc Nguyen 2009/11/03
 /*
- 2009
-    septembre
-        post 1
-        post 2
-    aout
-        post 1
-        post 2
-2008
-    septembre
-        post 1
-        post 2
-    aout
-        post 1
-        post 2
-*/
-function getPostYearMonth() {
-    global $wpdb, $wp_locale;
+function : ALL POSTS BY YEAR (in the sidebar)
+author : Jean-Luc Nguyen (2009/11/03)
 
-    $rows = array();
+2009
+    post 1
+    post 2
+2008
+    post 1
+    post 2
+*/
+function allPostsByYear() {
+    global $wpdb, $content;
+
     $query = "SELECT DISTINCT(YEAR(post_date)) as year
               FROM wp_posts
 			  WHERE post_type='post'
               ORDER BY year DESC";
     $years = $wpdb->get_results($query);
+
     foreach ($years as $year) {
-        $content .= "<h3 class='year' title='fold / unfold'>".$year->year."</h3>";
-        $query = "SELECT DISTINCT(MONTH(post_date)) as month
-                  FROM wp_posts
-                  WHERE post_date LIKE '".$year->year."-%'
-				  AND post_type='post'
-                  ORDER BY month DESC";
-        $months = $wpdb->get_results($query);
-        if (count($months)) {
-            $content .= "<ul>";
-            foreach ($months as $month) {
-                $monthUrl = get_month_link($year->year, $month->month);
+        $content .= '<h3 class="year-title"><span class="year-text">'.$year->year.'</span></h3>';
+        $content .= "\n";
+        $content .= '<ul class="year-list-container">';
+        $content .= "\n";
 
-                // no months in micromix cause too few mixes in a month!
-                $content .= "<li><!--<h4 class='month' title='fold / unfold'>".$wp_locale->get_month($month->month)."</h4>-->";
+        // get all posts from this year
+        $query = "SELECT *
+                  FROM ".$wpdb->posts."
+                  WHERE post_type='post'
+                  AND post_status='publish'
+                  AND post_date LIKE '".$year->year."-%'
+                  ORDER BY post_date DESC";
+        $posts = $wpdb->get_results($query);
 
-                if ($month->month < 10) $month->month = '0'.$month->month;
-                $query = "SELECT *
-                          FROM ".$wpdb->posts."
-                          WHERE post_type='post'
-                          AND post_status='publish'
-                          AND post_date LIKE '".$year->year."-".$month->month."-%'
-                          ORDER BY post_date DESC";
-                //echo $query;
-                $posts = $wpdb->get_results($query);
-                if (count($posts)) {
-                    $list = '';
-
-                    foreach ($posts as $p) {
-                        ($_SESSION["article_id"] == $p->ID) ? $list .= '<li><strong>' : $list .= '<li>';
-                        $postUrl  = get_permalink($p);
-
-
-
-                        $number = get_post_meta($p->ID, 'micromixNumber', true);
-
-                        $list .= '#'.$number.'<a href="'.$postUrl.'">'.$p->post_title.'</a>';
-                        ($_SESSION["article_id"] == $p->ID) ? $list .= '</strong></li>' : $list .= '</li>';
-                    }
-
-                    if (strpos($list,'strong') !== false) {
-                        $content .= "<ul class=\"open\">".$list."</ul>";
-                    }
-                    else {
-                        $content .= "<ul>".$list."</ul>";
-                    }
-                }
-                $content .= "</li>";
+        if (count($posts)) {
+            $list = '';
+            foreach ($posts as $p) {
+                ($_SESSION["article_id"] == $p->ID) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
+                $postUrl  = get_permalink($p);
+                $micromixNumber = get_post_meta($p->ID, 'micromixNumber', true);
+                $list .= '<span class="micromix-number">#'.$micromixNumber.'</span><a href="'.$postUrl.'">'.$p->post_title.'</a></li>';
+                $list .= "\n";
             }
-            $content .= "</ul>";
+
+            $content .= $list;
         }
-        $content .= "";
+
+        $content .= "</ul>";
+        $content .= "\n";
     }
     echo $content;
 }
