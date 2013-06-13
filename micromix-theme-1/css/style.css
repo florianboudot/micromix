@@ -75,7 +75,7 @@ select {
 
 #column2 .searchform { padding:0 0 100px 21px; }
 #mainContainer { }
-#bricks { background:url(img/bricks.jpg) left top repeat; }
+#bricks { background:url(../img/bricks.jpg) left top repeat; }
 #mainHeader { position:relative; }
 #mainHeader h1 {
 	position:absolute;
@@ -98,14 +98,14 @@ select {
 }
 #mainHeader h1 a:hover { text-indent:inherit; }
 #mainHeader .description { display:none; }
-#curtain { background:url(img/bg-curtain.png) center top repeat-y; }
+#curtain { background:url(../img/bg-curtain.png) center top repeat-y; }
 #mainContent {
 	width:1150px;
 	margin:0 auto;
 	overflow:hidden;
-	background:url(img/top.png) left top no-repeat;
+	background:url(../img/top.png) left top no-repeat;
 }
-#mainFooter { background:url(img/footer.png) center bottom no-repeat; }
+#mainFooter { background:url(../img/footer.png) center bottom no-repeat; }
 #column1 {
 	float:left;
 	width:168px;
@@ -280,7 +280,7 @@ select {
 	height:96px;
 	text-indent:-9999px;
 	overflow:hidden;
-	background:url(img/rss-feeds.gif) left top no-repeat;
+	background:url(../img/rss-feeds.gif) left top no-repeat;
 }
 #btTwitter { 
 	padding:9px 0 0 30px;
@@ -361,7 +361,7 @@ select {
 }
 #posts-year-month h3 {
     cursor:pointer;
-    background:url(img/icons.png) 2px 4px no-repeat;
+    background:url(../img/icons.png) 2px 4px no-repeat;
     padding:0 0 0 13px;
 }
 #posts-year-month h3.active { background-position:-486px 4px; }
