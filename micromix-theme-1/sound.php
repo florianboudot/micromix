@@ -10,7 +10,11 @@ if (get_post_meta($post->ID, 'enclosure', true)) :
 	$file = str_replace("http://www.micromix.fr/upload/", "", $enclosure);
 	$file = urldecode($file);
 ?>
-
+<div class="player" style="background: red;">
+    <div class="loaded">
+        <div class="currenttime"></div>
+    </div>
+</div>
 	<div class="sound">
         <p class="bt-player" id="bt-player-<?php echo the_ID(); ?>">
 		    <a href="<?php echo $enclosure; ?>" class="wpaudio"><?php echo $file; ?></a>	    
