@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" href="<?= theme_path ?>/css/style.css" type="text/css" media="all" />
     <link rel="stylesheet" href="<?= theme_path ?>/css/player.css" type="text/css" media="all" />
+    <script type="text/javascript" src="<?= theme_path ?>/js/libs/jquery-2.0.2.js"></script>
     <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>" />
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" />
 
