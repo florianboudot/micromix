@@ -38,26 +38,32 @@ function allPostsByYear() {
                   ORDER BY post_date DESC";
         $posts = $wpdb->get_results($query);
 
+        // build list items
         if (count($posts)) {
             $list = '';
             foreach ($posts as $p) {
                 ($_SESSION["article_id"] == $p->ID) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
                 $postUrl  = get_permalink($p);
                 $micromixNumber = get_post_meta($p->ID, 'micromixNumber', true);
-                $list .= '<span class="micromix-number">#'.$micromixNumber.'</span><a href="'.$postUrl.'">'.$p->post_title.'</a></li>';
+                $imagePostSrc = get_post_meta($p->ID, 'imagePost', true);
+                $image = '<img src="'.$imagePostSrc.'" class="mini-poster">';
+
+                $list .= '<span class="micromix-number">#'.$micromixNumber.'</span>';
+                $list .= '<a href="'.$postUrl.'">'.$p->post_title.'</a>';
+                $list .= $image;
+                $list .= '</li>';
                 $list .= "\n";
             }
-
             $content .= $list;
         }
 
         $content .= "</ul>";
         $content .= "\n";
     }
+
+    // display full html list
     echo $content;
 }
-
-
 
 
 

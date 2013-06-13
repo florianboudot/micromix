@@ -370,9 +370,13 @@ select {
 }
 .year-list-container .list-item {
     padding:0 0 0 10px;
+    position: relative;
 }
 .year-list-container .list-item a {
     text-decoration: none;
+}
+.year-list-container .list-item.active {
+
 }
 .year-list-container .list-item.active a {
     font-weight:bold;
@@ -380,6 +384,18 @@ select {
 }
 .year-list-container .micromix-number {
     background: #e6e8e7;
+}
+.year-list-container .mini-poster {
+    width: 80px;/* todo : generate smaller thumbs */
+    position: absolute;
+    left: -100px;
+    top: -10px;
+    display:none;
+    border: 3px solid #e6e8e7;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+}
+.year-list-container .list-item:hover .mini-poster{
+    display: block;
 }
 
 /* TAG CLOUD */
