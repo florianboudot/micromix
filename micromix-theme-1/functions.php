@@ -3,6 +3,21 @@
 define( 'theme_path', get_bloginfo('template_url'));
 
 
+// RETURNS SRC PATH OF THE FIRST IMAGE ATTACHED TO THE POST
+function image_attachment_src($the_post_id, $the_size){
+    $images_attachment = get_children(array(
+        'post_type'      => 'attachment',
+        'post_status'    => null,
+        'post_parent'    => $the_post_id,
+        'post_mime_type' => 'image',
+        'order'          => 'ASC',
+        'orderby'        => 'menu_order ID'
+    ));
+    $first_image = array_shift($images_attachment);
+    $image_id = $first_image->ID;
+    return wp_get_attachment_image_src($image_id, $the_size)[0]; // must be set to 150x0 in the admin/settings/media
+}
+
 /*
  * please keep this code
  * regenerate image thumbnails for old posts

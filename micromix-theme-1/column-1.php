@@ -60,21 +60,7 @@
             foreach($top[0] as $row) {
                 if($j <= 5){
                     $p = get_post($row);
-                    //$image_post_thumb = get_post_meta($p->ID, "imagePost", true);
-
-                    $images_attachment = get_children(array(
-                        'post_type'      => 'attachment',
-                        'post_status'    => null,
-                        'post_parent'    => $p->ID,
-                        'post_mime_type' => 'image',
-                        'order'          => 'ASC',
-                        'orderby'        => 'menu_order ID'
-                    ));
-                    $first_image = array_shift($images_attachment);
-                    $image_id = $first_image->ID;
-                    $image_post_thumb = wp_get_attachment_image_src($image_id, 'thumbnail')[0]; // must be set to 150x0 in the admin/settings/media
-
-
+                    $image_post_thumb = image_attachment_src($p->ID, 'thumbnail'); // thumbnail (150), medium (220), large (500)
                     ?>
                     <li>
                         <strong><?= get_post_meta($p->ID, 'micromixNumber', true); ?></strong>
