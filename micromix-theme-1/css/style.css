@@ -1,7 +1,6 @@
 /* www.micromix.fr (2008) - florian.boudot@gmail.com */
 
 /* DEFAULT DEFINITION */
-
 html, body {
 	margin:0;
 	padding:0;
@@ -50,8 +49,8 @@ a:hover {
 /*ie7*/
 
 .clearfix { display:block; }
-/* FORMS */
 
+/* FORMS */
 input,
 select,
 textarea,
@@ -352,51 +351,7 @@ select {
 	background:#1e4279;
 }
 
-/*  =POSTS YEAR MONTH
------------------------------------------------------------------------------ */
-.year-title {
-    /*background:url(../img/icons.png) 2px 3px no-repeat;*/
-    padding:0 0 5px 0;
-    font-size: 13px;
-}
-.year-text {
-    background: #e6e8e7;
-}
-.year-title.active {
-    background-position:-486px 4px;
-}
-.year-list-container {
-    padding-bottom: 20px !important;/* todo */
-}
-.year-list-container .list-item {
-    padding:0 0 0 10px;
-    position: relative;
-}
-.year-list-container .list-item a {
-    text-decoration: none;
-}
-.year-list-container .list-item.active {
 
-}
-.year-list-container .list-item.active a {
-    font-weight:bold;
-    color: red !important;/* todo */
-}
-.year-list-container .micromix-number {
-    background: #e6e8e7;
-}
-.year-list-container .mini-poster {
-    width: 150px;/* todo : generate smaller thumbs */
-    position: absolute;
-    left: -180px;
-    top: -10px;
-    display:none;
-    border: 3px solid #e6e8e7;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-}
-.year-list-container .list-item a:hover .mini-poster{
-    display: block;
-}
 
 /* TAG CLOUD */
 #column-2 ul.wp-tag-cloud {

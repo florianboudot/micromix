@@ -13,18 +13,7 @@
 
 <!-- IMAGE -->
 <?php
-$images_attachment = get_children(array(
-    'post_type'      => 'attachment',
-    'post_status'    => null,
-    'post_parent'    => $post->ID,
-    'post_mime_type' => 'image',
-    'order'          => 'ASC',
-    'orderby'        => 'menu_order ID'
-));
-$first_image = array_shift($images_attachment);
-$image_id = $first_image->ID;
-$image_src = wp_get_attachment_image_src($image_id, 'large')[0]; // must be set to 500x0 in the admin/settings/media
-
+$image_src = image_attachment_src($post->ID, 'large'); // thumbnail (150), medium (220), large (500)
 if ($image_src) : ?>
 	<div class="imagePost">
 		<?php if(!is_single()): ?>

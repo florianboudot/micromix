@@ -1,6 +1,15 @@
+
+</div><!-- #mainContent -->
+</div><!-- #mainFooter -->
+</div><!-- #curtain -->
+</div><!-- #bricks -->
+</div><!-- #mainContainer -->
 <a href="/?theme=micromix-theme-2">switch to theme 2 (work in progress, no design yet)</a>
 
 <?php wp_footer(); ?>
+
+
+<script type="text/javascript" src="<?= theme_path ?>/js/libs/jquery-2.0.2.js"></script>
 
 <!-- THEME PATH -->
 <script>
