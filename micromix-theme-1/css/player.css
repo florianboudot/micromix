@@ -17,9 +17,4 @@
 }
 .player .currenttime{
     background: #4d8fb4;
-    -o-transition: width 5000ms linear;
-    -ms-transition: width 5000ms linear;
-    -moz-transition: width 5000ms linear;
-    -webkit-transition: width 5000ms linear;
-    transition: width 5000ms linear;
 }

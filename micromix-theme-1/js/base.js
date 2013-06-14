@@ -7,6 +7,10 @@ jQuery(document).ready(function() {
         var $ghettoblaster = $('<div>');
         var $linkwithaudiohref = $('.wpaudio');
         var currentidplay = '';
+        var $empty = $();
+        var $currentplayer = $empty;
+        var $currenttimeline = $empty;
+        var $currentloadprogress = $empty;
 
         var _onplay = function(){
             if (debug)console.error('onplay');
@@ -19,25 +23,35 @@ jQuery(document).ready(function() {
             $ghettoblaster.css({background:'green'})
         };
 
-        var _lastupdatetimeprogress = new Date().getTime();
-        var _lastupdateloadprogress = new Date().getTime();
-        var _updatetimeprogress = function () {
-            if (debug)console.info('_updatetimeprogress');
-            var now = new Date().getTime();
-            if(now - _lastupdatetimeprogress > 5000){
-               _lastupdatetimeprogress = new Date().getTime();
-                $('#' + this.id.replace('bt-player', 'post')).find('.currenttime').width(this.position / this.duration  *100 + '%')
+        var _lastupdatetimeprogress = 0;
+        var _lastupdateloadprogress = 0;
+
+        var _updatetimeprogress = function (force) {
+//            if (debug)console.info('_updatetimeprogress');//flood
+            var position = this.position;
+            if(Math.abs(position - _lastupdatetimeprogress) > 5000 || force){
+               _lastupdatetimeprogress = position;
+                $currenttimeline.width(position / this.duration  *100 + '%')
             }
        };
 
-        var _updateloadprogress = function () {
-            if (debug)console.error('_updateloadprogress');
-            var now = new Date().getTime();
-            if(now - _lastupdateloadprogress > 1000){
-                _lastupdateloadprogress = new Date().getTime();
-                $('#' + this.id.replace('bt-player', 'post')).find('.loaded').width(this.bytesLoaded/this.bytesTotal  *100 + '%')
+        var _updateloadprogress = function (force) {
+//            if (debug)console.info('_updateloadprogress');//flood
+            var position = this.bytesLoaded;
+            if((position - _lastupdateloadprogress) > 0.01 || force){
+                _lastupdateloadprogress = position;
+                $currentloadprogress.width(position/this.bytesTotal  *100 + '%')
             }
-       };
+        };
+
+        var _gotothistime = function (e) {
+            if (debug)console.info('_gotothistime');
+
+            var positionratio = e.offsetX / this.clientWidth;
+            var actualplayingsound = soundManager.sounds[currentidplay];
+            var totalduration = actualplayingsound.duration * positionratio;
+            actualplayingsound.setPosition(totalduration);
+        };
 
         /**
          * @this {Object} refer to dom element
@@ -47,8 +61,7 @@ jQuery(document).ready(function() {
             soundManager.createSound({
                 url:audiosrc,
                 id: this.parentNode.id
-            })
-
+            });
         };
 
         var _playthissound = function(e){
@@ -56,6 +69,14 @@ jQuery(document).ready(function() {
             soundManager.pauseAll();
             soundManager.play(this.parentNode.id);
             currentidplay = this.parentNode.id;
+
+            $currentplayer.off('click', _gotothistime); // before update current
+
+            var $post = $(this).parents('.article').first();
+            $currentplayer       = $post.find('.player');
+            $currentloadprogress = $currentplayer.find('.loaded');
+            $currenttimeline     = $currentplayer.find('.currenttime');
+            $currentplayer.on('click', _gotothistime);
         };
 
         var pauseall = function(){
