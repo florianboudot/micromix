@@ -129,6 +129,40 @@ jQuery(document).ready(function() {
     var managethisawesomemicromixsound = new Mangethesound();
     managethisawesomemicromixsound.initsound();
 
+    var Inactivity = function(options){
+        var debug = true;
+        var events = options.events;
+
+        var isactiv = false;
+        var TIMEOUTactivity = 0;
+
+        var getstatus = function () {
+            if (debug)console.info('getstatus');
+
+            return isactiv;
+
+        };
+
+        var _setinactiv = function () {
+            if (debug)console.info('_setinactiv');
+            isactiv = false;
+        };
+        var _bindevents = function () {
+            if (debug)console.info('_bindevents');
+
+            clearTimeout(TIMEOUTactivity);
+            isactiv = true;
+            TIMEOUTactivity = setTimeout(_setinactiv, 10*1000*60); // 10 minutes
+
+        };
+        $(window).on(events, _bindevents);
+
+        this.isactiv = getstatus;
+
+    };
+
+    var activity = new Inactivity({events:'mousemove keydown click touchend'});
+
 	var stachts = {}; // object
     jQuery('.bt-player a').bind('mousedown',function(){
         var postId = jQuery(this).parents('.bt-player')[0].id;
