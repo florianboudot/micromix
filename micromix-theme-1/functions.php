@@ -5,6 +5,31 @@ define( 'theme_path', get_bloginfo('template_url'));
 // post thumbnails enabled (images uploaded & attached to the post)
 add_theme_support( 'post-thumbnails' );
 
+/*
+ * please keep this code
+ * regenerate image thumbnails for old posts
+ *
+require ( ABSPATH . 'wp-admin/includes/image.php' );
+
+function regenerate_all_attachment_sizes() {
+    $args = array(
+        'post_type' => 'attachment',
+        'numberposts' => 95,
+        'post_status' => null,
+        'post_parent' => null,
+        'post_mime_type' => 'image'
+    );
+    $attachments = get_posts( $args );
+    if ($attachments) {
+        foreach ( $attachments as $post ) {
+            $file = get_attached_file( $post->ID );
+            wp_update_attachment_metadata( $post->ID, wp_generate_attachment_metadata( $post->ID, $file ) );
+        }
+    }
+}
+
+regenerate_all_attachment_sizes();
+*/
 
 /*
 function : ALL POSTS BY YEAR (in the sidebar)
@@ -65,10 +90,14 @@ function allPostsByYear() {
                 $first_image_attachment = array_shift($images);
                 //$image_src = $first_image_attachment->guid;
                 $image_id = $first_image_attachment->ID;
-                $image_src = wp_get_attachment_thumb_url($image_id);
+
+
+
+
+
+                $image_src = wp_get_attachment_image_src($image_id)[0];
                 $image_tag = '<img src="'.$image_src.'" alt="" class="mini-poster">';
-
-
+                // todo : generate smaller image via wordpress
 
 
 
