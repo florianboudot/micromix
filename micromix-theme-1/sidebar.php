@@ -58,7 +58,7 @@
 								</li>
                                 <li>
                                     <!-- FORM NEWSLETTER (le récupérer dans l'admin car généré. Oui, c'est sale) -->
-                                    <script type="text/javascript">
+                                    <script>
                                         //<![CDATA[
                                         if (typeof newsletter_check !== "function") {
                                             window.newsletter_check = function (f) {
@@ -118,6 +118,7 @@
                                     <a href="http://www.facebook.com/micromix" title="micromix on facebook"><img src="<?= theme_path ?>/img/ico-facebook.png" alt="become a fan of micromix on facebook" /></a>
                                 </p>
                             </div>
+
 						</div><!-- #sidebar -->
 					</div><!-- #column3 -->
 				</div><!-- #mainContent -->
