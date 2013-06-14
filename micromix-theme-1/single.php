@@ -15,9 +15,6 @@
 		<?php if(function_exists('related_posts')) related_posts(); ?>
 		
 		<?php comments_template(); ?>
-		<?php //ddpa_show_posts();  marche pas ? ?>
-		
-	
 	
 		
 	<?php endwhile; else: ?>
