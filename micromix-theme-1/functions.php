@@ -15,7 +15,8 @@ function image_attachment_src($the_post_id, $the_size){
     ));
     $first_image = array_shift($images_attachment);
     $image_id = $first_image->ID;
-    return wp_get_attachment_image_src($image_id, $the_size)[0]; // must be set to 150x0 in the admin/settings/media
+    $img_src = wp_get_attachment_image_src($image_id, $the_size)[0];
+    return ($img_src == '') ? theme_path.'/img/steven-seagal-album-cover.jpg' : $img_src;
 }
 
 /*
@@ -23,13 +24,13 @@ function image_attachment_src($the_post_id, $the_size){
  * regenerate image thumbnails for old posts
  *
  */
-/*
+
 require ( ABSPATH . 'wp-admin/includes/image.php' );
 
 function regenerate_all_attachment_sizes() {
     $args = array(
         'post_type' => 'attachment',
-        'numberposts' => 95,
+        'numberposts' => 95, // important
         'post_status' => null,
         'post_parent' => null,
         'post_mime_type' => 'image'
@@ -43,9 +44,9 @@ function regenerate_all_attachment_sizes() {
     }
 }
 
-regenerate_all_attachment_sizes();
+// regenerate_all_attachment_sizes();
 
-*/
+
 /*
 function : ALL POSTS BY YEAR (in the sidebar)
 author : Jean-Luc Nguyen (2009/11/03)
@@ -93,18 +94,7 @@ function allPostsByYear() {
                 // mark item as active. or not
                 ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
 
-                // get image from the post
-                $images_attachment = get_children(array(
-                    'post_type'      => 'attachment',
-                    'post_status'    => null,
-                    'post_parent'    => $post_id,
-                    'post_mime_type' => 'image',
-                    'order'          => 'ASC',
-                    'orderby'        => 'menu_order ID'
-                ));
-                $first_image = array_shift($images_attachment);
-                $image_id = $first_image->ID;
-                $image_src = wp_get_attachment_image_src($image_id, 'thumbnail')[0]; // must be set to 150x0 in the admin/settings/media
+                $image_src = image_attachment_src($post_id, 'thumbnail'); // thumbnail (150), medium (220), large (500)
                 $image_tag = '<img src="'.$image_src.'" alt="" class="mini-poster">';
 
                 // build list item
