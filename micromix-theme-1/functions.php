@@ -60,6 +60,8 @@ author : Jean-Luc Nguyen (2009/11/03)
 */
 function allPostsByYear() {
     global $wpdb, $content;
+    $post_id_array = array();
+    $post_url_array = array();
 
     $query = "SELECT DISTINCT(YEAR(post_date)) as year
               FROM wp_posts
@@ -87,7 +89,9 @@ function allPostsByYear() {
             $list = '';
             foreach ($posts as $p) {
                 $post_id = $p->ID;
+                array_push($post_id_array, $post_id); // for javascript purposes
                 $post_url  = get_permalink($p);
+                array_push($post_url_array, $post_url);// for javascript purposes
                 $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
                 $post_title = $p->post_title;
 
@@ -99,7 +103,7 @@ function allPostsByYear() {
 
                 // build list item
                 $list .= '<span class="micromix-number">#'.$micromix_number.'</span>';
-                $list .= '<a href="'.$post_url.'">'. $post_title .$image_tag.'</a>';
+                $list .= '<a href="'.$post_url.'">'. $post_title . $image_tag.'</a>';
                 $list .= '</li>';
                 $list .= "\n";
             }
@@ -109,6 +113,24 @@ function allPostsByYear() {
         $content .= "</ul>";
         $content .= "\n";
     }
+
+    // build javascript object (to give full list to music player)
+    $full_list = "<script>";
+    $full_list .= "var list_all_posts = [";
+    $nb_posts = count($post_id_array) - 2;
+
+    foreach ($post_id_array as $index => $id) {
+        $full_list .= "{ id : ".$id.", ";
+        $full_list .= "url : '".$post_url_array[$index]."' }";
+        if($index <= ($nb_posts)){
+            $full_list .= ",";
+        }
+        $full_list .= "\n";
+    }
+    $full_list .= "];";
+    $full_list .= "</script>";
+    echo $full_list;
+
 
     // display full html list
     echo $content;
