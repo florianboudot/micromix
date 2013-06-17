@@ -1,6 +1,5 @@
 /* www.micromix.fr (2008) - florian.boudot@gmail.com */
-
-/* DEFAULT DEFINITION */
+/* DEFAULT */
 html, body {
 	margin:0;
 	padding:0;
@@ -70,7 +69,18 @@ select {
 	border:1px solid #333;
 	padding:1px;
 }
-/**/
+
+/* LISTS (default) */
+ul {
+    list-style: none;
+    padding: 0 0 0 0;
+}
+ol {
+    list-style: decimal;
+    padding: 0 0 0 17px;
+}
+
+
 
 #column2 .searchform { padding:0 0 100px 21px; }
 #mainContainer { }
@@ -97,18 +107,27 @@ select {
 }
 #mainHeader h1 a:hover { text-indent:inherit; }
 #mainHeader .description { display:none; }
-#curtain { background:url(../img/bg-curtain.png) center top repeat-y; }
+#curtain {
+    margin: 0 auto;
+    background:url(../img/bg-curtain.png) center top repeat-y;
+}
 #mainContent {
-	width:1150px;
+	width:1000px;
 	margin:0 auto;
 	overflow:hidden;
 	background:url(../img/top.png) left top no-repeat;
 }
 #mainFooter { background:url(../img/footer.png) center bottom no-repeat; }
+
+
+/* COLUMN 1 */
 #column1 {
 	float:left;
-	width:168px;
+	width:142px;
 	padding:588px 0 300px 0;
+}
+#column1 .col-block {
+    padding-left:25px;
 }
 #column2 {
 	float:left;
@@ -117,7 +136,7 @@ select {
 }
 #column3 {
 	float:left;
-	width:300px;
+	width:220px;
 	padding:260px 0 450px 0;
 }
 /*article*/
@@ -307,8 +326,12 @@ select {
 	background:#e6e8e7;
 	line-height:1.47em;
 }
-/* sidebar */
-#sidebar { padding:20px 45px 0 9px; }
+
+
+/* COLUMN 3 */
+#sidebar {
+    padding:20px 45px 0 9px;
+}
 #sidebar .searchform .s {
 	width:146px;
 	margin:0 0 3px 0;
@@ -317,8 +340,7 @@ select {
     width:56px;
 }
 
- #sidebar h2,
- #column1 h3,
+.col-block-title,
 .text-bg {
 	color:black;
 	background:#e6e8e7;
@@ -334,7 +356,6 @@ select {
 	padding:1px 0 10px 0;
 	list-style:none;
 }
-#column1 ul, #column1 ol { list-style:none; margin:0; padding:0 0 35px 0; }
 #sidebar li { padding:0 0 10px 0; }
 #sidebar li ul { padding-bottom:0; }
 #sidebar li ul li { padding:0 0 1px 0; }
@@ -388,29 +409,20 @@ li#currentAction span {
 .navigation .alignright { float:right; }
 .navigation .alignleft { margin:0 10px 0 0; }
 
-/*artists*/
-#artists, #authors { padding:10px 0 0 51px; }
-#artists ul, #authors ul {
-	margin:0;
-	padding:8px 0 35px 0;
-    list-style:decimal outside none;
-    padding-left:25px;    
-}
-#artists ul li {  }
 
-/*random mixes*/
-#randoms,
-#top-played { padding:0 0 0 57px; }
-#randoms ul,
-#top-played ol { padding:10px 0 0 0; margin:0; }
-#randoms ul li,
-#top-played ol li { 
-	overflow:hidden; 
-	zoom:1;
+/* TOP 5 */
+#top-played {
+
+}
+#top-played ol {
+    padding:10px 0 0 0;
+    margin:0;
+}
+#top-played ol li {
+	overflow:hidden;
 	margin:0 0 10px 0;
 	position:relative;
 }
-#randoms ul li strong,
 #top-played ol li strong {
 	font-size:1.6em;
 	font-family:Georgia, "Times New Roman", Times, serif;
@@ -423,10 +435,16 @@ li#currentAction span {
 	left:0;
 	top:5px;
 }
-#randoms ul li a,
-#top-played ol li a { padding:2px; display:block; float:left; background:#E6E8E7; }
-#randoms img,
-#top-played img { width:95px; display:block; }
+#top-played ol li a {
+    padding:2px;
+    display:block;
+    float:left;
+    background:#E6E8E7;
+}
+#top-played img {
+    width:95px;
+    display:block;
+}
 
 
 /* comments */

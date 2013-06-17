@@ -114,8 +114,15 @@ function allPostsByYear() {
         $content .= "\n";
     }
 
-    // build javascript object (to give full list to music player)
+
+    /* build javascript array of objects (to give full list to music player)
+    /* [
+     *  { id : 1506, url : 'http://micromix.localhost/donne-moi-un-peu-de-toi/' },
+     *  { id : 1470, url : 'http://micromix.localhost/pochette-souple/' }
+     * ]
+    */
     $full_list = "<script>";
+    $full_list .= "\n";
     $full_list .= "var list_all_posts = [";
     $nb_posts = count($post_id_array) - 2;
 

@@ -1,43 +1,35 @@
-<div id="column1">
-    <div id="artists">
-        <h3>Top artists played</h3>
-
-        <?php wp_tag_cloud('smallest=1&largest=1&orderby=count&order=DESC&number=20&unit=em&format=list'); ?>
-
-        <!--<ul>
-            <li>
-                <div><?php //wp_tag_cloud('smallest=.8&largest=1.8&orderby=count&order=DESC&number=30&unit=em'); ?> <span>...</span></div>
-            </li>
-        </ul>-->
+<div id="column1" class="column">
+    <div id="artists" class="col-block">
+        <h3 class="col-block-title">Top artists played</h3>
+        <?php
+            $array_tags = wp_tag_cloud(array(
+                'smallest'  => 1, // font-size
+                'largest'   => 1,
+                'unit'      => 'em',
+                'orderby'   => 'count',
+                'order'     => 'DESC',
+                'number'    => 20,
+                'format'    => 'array' // array, list
+            ));
+            echo '<ol class="list-artists">';
+            foreach($array_tags as $tag_link){
+                echo '<li>'.$tag_link.'</li>';
+                echo "\n";
+            }
+            echo '</ol>';
+        ?>
     </div><!-- #artists -->
 
 
-    <div id="authors">
-        <h3>Mixed by :</h3>
-        <ul>
+    <div id="authors" class="col-block">
+        <h3 class="col-block-title">Mixed by :</h3>
+        <ol class="list-authors">
             <?php wp_list_authors('show_fullname=0&optioncount=1&orderby=post_count&order=DESC&format=list'); ?>
-        </ul>
+        </ol>
     </div><!-- #authors -->
 
 
-    <!--<div id="randoms">
-        <h3>3 random mixes</h3>
-        <ul>
-        <?php
-        //$rand_posts = get_posts('orderby=rand&showposts=3');
-        //foreach( $rand_posts as $post ) :
-            //if (get_post_meta($post->ID, 'imagePost', true)) : ?>
-
-            <li>
-                <strong><?php //echo get_post_meta($post->ID, 'micromixNumber', true); ?></strong>
-                <a href="<?php the_permalink() ?>" title="<?php the_title_attribute(); ?>"><img src="<?php //echo get_post_meta($post->ID, "imagePost", true); ?>" alt="<?php the_title_attribute(); ?>" /></a></li>
-            <?php //endif; ?>
-        <?php //endforeach; ?>
-        </ul>
-    </div> randoms -->
-
-
-    <div id="top-played">
+    <div id="top-played" class="col-block">
         <?php
         $onlyThisMonth = true;//true = only this month, false = global stats
         $top = get_top_downloads($onlyThisMonth);
@@ -47,24 +39,29 @@
         if($onlyThisMonth && empty($top[0])) { // si y'a pas encore de stats ce mois-ci
             $top = get_top_downloads(false); //alors on affiche les stats globales
             $onlyThisMonth = false;
-        } else {
+        }
+        else {
             $stringMonth = '(this month)';
         }
-
         ?>
 
 
-        <h3>Top 5 <?= $stringMonth ?></h3>
-        <ol>
+        <h3 class="col-block-title">Top 5 <?= $stringMonth ?></h3>
+        <ol class="list-top-5">
             <?php
             foreach($top[0] as $row) {
                 if($j <= 5){
-                    $p = get_post($row);
-                    $image_post_thumb = image_attachment_src($p->ID, 'thumbnail'); // thumbnail (150), medium (220), large (500)
+                    $post = get_post($row);
+                    $image_post_thumb = image_attachment_src($post->ID, 'thumbnail'); // thumbnail (150), medium (220), large (500)
+                    $micromixNumber = get_post_meta($post->ID, 'micromixNumber', true);
+                    $post_title = $post->post_title;
+                    $nb_plays = $top[1][$row];
                     ?>
                     <li>
-                        <strong><?= get_post_meta($p->ID, 'micromixNumber', true); ?></strong>
-                        <a href="<?= get_permalink($p); ?>" title="Micromix #<?= get_post_meta($p->ID, 'micromixNumber', true); ?> - <?= $p->post_title;?> (<?= $top[1][$row]; ?> plays)"><img src="<?= $image_post_thumb; ?>" alt="<?= $p->post_title; ?>" /></a>
+                        <strong><?= $micromixNumber; ?></strong>
+                        <a href="<?= get_permalink($post); ?>" title="Micromix #<?= $micromixNumber; ?> - <?= $post_title;?> (<?= $nb_plays; ?> plays)">
+                            <img src="<?= $image_post_thumb; ?>" alt="<?= $post_title; ?>" />
+                        </a>
                     </li>
                 <?php
                 }
@@ -72,22 +69,5 @@
             }
             ?>
         </ol>
-
-
-        <!-- old top 5 (before monthly stats)
-            <ol>
-                <?php
-                    /*$top = get_top_downloads(5);
-                    foreach( $top as $t ) {
-                        $p = get_post($t->post_id); */?>
-                    <li>
-                        <strong><?php //echo get_post_meta($p->ID, 'micromixNumber', true); ?></strong>
-                        <a href="<?php //echo get_permalink($p); ?>" title="Micromix #<?php //echo get_post_meta($p->ID, 'micromixNumber', true); ?> - <?php //echo $p->post_title;?> (<?php //echo $t->download_count; ?> plays)"><img src="<?php //echo get_post_meta($p->ID, "imagePost", true); ?>" alt="<?php //echo $p->post_title; ?>" /></a>
-                    </li>
-                <?php //} ?>
-            </ol>
-        -->
     </div>
-
-
 </div><!-- #column1 -->
