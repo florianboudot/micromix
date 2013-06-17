@@ -15,7 +15,8 @@ function image_attachment_src($the_post_id, $the_size){
     ));
     $first_image = array_shift($images_attachment);
     $image_id = $first_image->ID;
-    $img_src = wp_get_attachment_image_src($image_id, $the_size)[0];
+    $img_src = wp_get_attachment_image_src($image_id, $the_size);
+    $img_src = $img_src[0];
     return ($img_src == '') ? theme_path.'/img/steven-seagal-album-cover.jpg' : $img_src;
 }
 
