@@ -18,7 +18,9 @@
 
     if ($image_src) : ?>
 	<div class="post-image">
-		<a href="<?php the_permalink() ?>" rel="bookmark"><img src="<?= $image_src; ?>" alt="<?php the_title(); ?>" /></a>
+		<a href="<?php the_permalink() ?>" class="link-thumb">
+            <img src="<?= $image_src; ?>" alt="<?php the_title(); ?>" />
+        </a>
 	<?php include('sound.php'); ?>
 	</div>
 <?php endif; ?>

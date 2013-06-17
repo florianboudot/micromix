@@ -1,6 +1,7 @@
 .player{
     background: #484986;
-    height: 10px;
+    box-shadow: inset 0 3px 4px rgba(0,0,0,0.5);/* lol */
+    height: 15px;
     position: relative;
 }
 .player .loaded,.player .currenttime{

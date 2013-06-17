@@ -562,18 +562,25 @@ li#currentAction span {
     float:right; 
     padding:0 0 0 20px;
 }
-.result .sound .wpa_bar { width:147px !important; }
+
+
+/* RESULT */
 .result .post-image { 
-    float:left; 
-    padding:0 10px 10px 0;
+    float:left;
+    width: 30%;
+    padding:0 0 10px 0;
 }
-.result .post-image img { 
-    width:180px; 
+.result .post-image .link-thumb {
+    display: block;
 	border:2px solid #E6E8E7;
+}
+.result .post-image img {
+    width:100%;
+    display: block;
 }
 .result .post-content { 
     float:left; 
-    width:395px;
+    width:70%;
 }
 .result .post-permalink { 
 	text-align:right; 
