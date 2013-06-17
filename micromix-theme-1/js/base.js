@@ -1,5 +1,22 @@
+/* highlight plugin */
+$.fn.extend({
+    highlight: function(search, insensitive, hls_class){
+        var regex = new RegExp("(<[^>]*>)|(\\b"+ search.replace(/([-.*+?^${}()|[\]\/\\])/g,"\\$1") +")", insensitive ? "ig" : "g");
+        return this.html(this.html().replace(regex, function(a, b, c){
+            return (a.charAt(0) == "<") ? a : "<span class=\""+ hls_class +"\">" + c + "</span>";
+        }));
+    }
+});
+
+
 jQuery(document).ready(function() {
     var $ = jQuery;
+
+
+    /* If search, call highlight */
+    if(typeof(hls_query) != 'undefined'){
+        $(".result").highlight(hls_query, 1, "hilite");
+    }
 
 
     var Mangethesound = function(){

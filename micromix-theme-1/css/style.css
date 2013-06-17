@@ -632,7 +632,13 @@ li#currentAction span {
     width: 90px;
 }
 
-
+/* highlight title & search result */
+.article .hilite {
+    background:yellow;
+    float: none;
+    display: inline;
+    padding: 0;
+}
 
 @media print {
 /* TO DO : no backgrounds */
