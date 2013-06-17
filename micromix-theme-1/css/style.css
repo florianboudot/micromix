@@ -330,7 +330,7 @@ ol {
 
 /* COLUMN 3 */
 #sidebar {
-    padding:20px 45px 0 9px;
+    padding:20px 0 0 9px;
 }
 #sidebar .searchform .s {
 	width:146px;
@@ -447,8 +447,10 @@ li#currentAction span {
 }
 
 
-/* comments */
-.commentsContainer { padding:0 0 0 80px; }
+/* COMMENTS */
+.commentsContainer {
+    padding:0 0 0 47px;
+}
 #comments { padding:0 0 5px 0; }
 #comments span {
 	display:inline-block;

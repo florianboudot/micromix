@@ -16,15 +16,15 @@ if (get_post_meta($post->ID, 'enclosure', true)) :
 </div>
 
 <div class="sound">
-    <p class="bt-player" id="bt-player-<?php echo the_ID(); ?>">
-        <a href="<?php echo $enclosure; ?>" class="wpaudio"><?php echo $file; ?></a>
+    <p class="bt-player" id="bt-player-<?= the_ID(); ?>">
+        <a href="<?= $enclosure; ?>" class="wpaudio"><?= $file; ?></a>
     </p>
 
 
     <p class="stats" style="clear: both; display: none">
         <em>
-            <?php echo print_download(get_the_ID(), false); ?> total plays
-            (<?php echo print_download(get_the_ID(), true); ?> plays this month)
+            <?= print_download(get_the_ID(), false); ?> total plays
+            (<?= print_download(get_the_ID(), true); ?> plays this month)
             <br>
             <?php
             //afficher toutes les dl stats pour chaque mois
