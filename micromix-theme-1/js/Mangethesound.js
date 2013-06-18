@@ -20,6 +20,7 @@ var Mangethesound = function(){
     var $currentplayer = $empty;
     var $currenttimeline = $empty;
     var $currentloadprogress = $empty;
+    var _ispostondisplay = false;
 
     var _playlist = typeof list_all_posts === 'object' ? list_all_posts : [];
     var _mp3byid = {};
@@ -108,19 +109,23 @@ var Mangethesound = function(){
 
     var _updatetimeprogress = function (force) {
 //            if (debug)console.info('_updatetimeprogress');//flood
-        var position = this.position;
-        if(Math.abs(position - _lastupdatetimeprogress) > 5000 || force){
-            _lastupdatetimeprogress = position;
-            $currenttimeline.width(position / this.duration  *100 + '%')
+        if(_ispostondisplay){
+            var position = this.position;
+            if(Math.abs(position - _lastupdatetimeprogress) > 5000 || force){
+                _lastupdatetimeprogress = position;
+                $currenttimeline.width(position / this.duration  *100 + '%')
+            }
         }
     };
 
     var _updateloadprogress = function (force) {
 //            if (debug)console.info('_updateloadprogress');//flood
-        var position = this.bytesLoaded;
-        if((position - _lastupdateloadprogress) > 0.01 || force){
-            _lastupdateloadprogress = position;
-            $currentloadprogress.width(position/this.bytesTotal  *100 + '%')
+        if(_ispostondisplay){
+            var position = this.bytesLoaded;
+            if((position - _lastupdateloadprogress) > 0.01 || force){
+                _lastupdateloadprogress = position;
+                $currentloadprogress.width(position/this.bytesTotal  *100 + '%')
+            }
         }
     };
 
@@ -234,6 +239,7 @@ var Mangethesound = function(){
      */
     var _updatecurrentprogressbars = function ($post) {
         if (debug)console.info('_updatecurrentprogressbars');
+        _ispostondisplay = !!$post.length;
         $currentplayer.off('click', _gotothistime); // before update current
         $currentplayer       = $post.find('.player');
         $currentloadprogress = $currentplayer.find('.loaded');
