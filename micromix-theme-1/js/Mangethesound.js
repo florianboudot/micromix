@@ -30,6 +30,8 @@ var Mangethesound = function(){
     var _indexbyid = {};
     var _idbyindex = {};
 
+    var splayingclassname = 'playing';
+
     (function(){
         for (var index = 0; index < _playlist.length; index++) {
             var obj = _playlist[index];
@@ -72,12 +74,12 @@ var Mangethesound = function(){
 
     var _onplay = function(){
         if (debug)console.info('_onplay');
-        $ghettoblaster.css({background:'green'});
+        $ghettoblaster.addClass(splayingclassname);
         document.title = '♫ ' + document.title;
     };
     var _onpause = function(){
         if (debug)console.info('_onpause');
-        $ghettoblaster.css({background:'red'});
+        $ghettoblaster.removeClass(splayingclassname);
         document.title = document.title.replace('♫ ', '');
     };
     var _onresume = function(){

@@ -5,6 +5,14 @@
     background:red;
     top:40px;
     right:40px;
+    -o-transition: all 125ms ease-in-out;
+    -ms-transition: all 125ms ease-in-out;
+    -moz-transition: all 125ms ease-in-out;
+    -webkit-transition: all 125ms ease-in-out;
+    transition: all 125ms ease-in-out;
+}
+.ghettoblaster.playing{
+    background: green;
 }
 .ghettoblaster-next{
     position:fixed;
