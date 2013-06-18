@@ -24,6 +24,7 @@ jQuery(document).ready(function() {
         var $empty = $();
         var $body = $('body');
         var $ghettoblaster = $('<div>');
+        var $cassette = $('<div>');
         var $ghettonext = $('<div>');
         var $ghettoprev = $('<div>');
         var $ghettoinfo = $('<div>');
@@ -270,10 +271,12 @@ jQuery(document).ready(function() {
             $ghettoblaster.addClass('ghettoblaster');
             $ghettonext.bind('click', _playnextsound);
             $ghettonext.addClass('ghettoblaster-next').html('▐►');
+            $cassette.addClass('cassette');
             $ghettoprev.bind('click', _playprevsound);
             $ghettoprev.addClass('ghettoblaster-prev').html('◄▌');
             $ghettoinfo.addClass('ghettoblaster-info').html('micromix');
             $body.append($ghettoblaster);
+            $body.append($cassette);
             $body.append($ghettonext);
             $body.append($ghettoprev);
             $body.append($ghettoinfo);
