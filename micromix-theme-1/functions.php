@@ -92,7 +92,12 @@ function allPostsByYear() {
                 $post_id = $p->ID;
                 array_push($post_id_array, $post_id); // for javascript purposes
                 $post_url  = get_permalink($p);
-                array_push($post_url_array, $post_url);// for javascript purposes
+
+                $valmp3_uri = get_post_meta($p->ID, 'enclosure', false);
+                $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
+                $mp3_uri = str_replace("http://www.micromix.fr", "", $mp3_uri);
+
+                array_push($post_url_array, $mp3_uri);// for javascript purposes
                 $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
                 $post_title = $p->post_title;
 

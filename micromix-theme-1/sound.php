@@ -17,7 +17,7 @@ if (get_post_meta($post->ID, 'enclosure', true)) :
 
 <div class="sound">
     <p class="bt-player" id="bt-player-<?= the_ID(); ?>">
-        <a href="<?= $enclosure; ?>" class="wpaudio"><?= $file; ?></a>
+        <a href="<?= $enclosure; ?>" class="wpaudio" data-postid="<?= the_ID(); ?>"><?php echo $file; ?></a>
     </p>
 
 

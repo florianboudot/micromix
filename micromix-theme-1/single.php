@@ -7,7 +7,7 @@
         <?php $_SESSION["article_id"] = get_the_ID(); // to get current id and highlight item in the menu (function allPostsByYear) ?>
 		<?php include("navigation.php"); ?>
 		
-		<div class="article">
+		<div class="article" id="post-<?php the_ID(); ?>">
 			<?php include("the_post.php"); //title, image, playlist, player, etc. ?>
 		</div><!-- .article -->
 		

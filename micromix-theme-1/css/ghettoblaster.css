@@ -6,3 +6,26 @@
     top:40px;
     right:40px;
 }
+.ghettoblaster-next{
+    position:fixed;
+    height:20px;
+    width:20px;
+    background:red;
+    top:40px;
+    right:10px;
+}
+.ghettoblaster-prev{
+    position:fixed;
+    height:20px;
+    width:20px;
+    background:red;
+    top:40px;
+    right:70px;
+}
+.ghettoblaster-info{
+    position: fixed;
+    width: 80px;
+    background: rgb(255, 0, 0);
+    top: 66px;
+    right: 10px;
+}
