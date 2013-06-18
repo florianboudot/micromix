@@ -282,10 +282,10 @@ var Mangethesound = function(){
         if (debug)console.info('init');
 
         soundManager.setup({
-            url: '/wp-content/plugins/wpaudio-mp3-player/sm2/', // where to find flash audio SWFs, as needed
+            url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo should find a better whay to extract the themepath without http full link
             // optional: prefer HTML5 over Flash for MP3/MP4
-            debugMode: false,
-            preferFlash: false,
+            debugMode: true,
+            preferFlash: true,
             onready: _onsoundmanagerready,
             defaultOptions: {
                 // set global default volume for all sound objects
