@@ -62,6 +62,7 @@ author : Jean-Luc Nguyen (2009/11/03)
 function allPostsByYear() {
     global $wpdb, $content;
     $post_id_array = array();
+    $post_mp3_array = array();
     $post_url_array = array();
 
     $query = "SELECT DISTINCT(YEAR(post_date)) as year
@@ -97,7 +98,8 @@ function allPostsByYear() {
                 $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
                 $mp3_uri = str_replace("http://www.micromix.fr", "", $mp3_uri);
 
-                array_push($post_url_array, $mp3_uri);// for javascript purposes
+                array_push($post_mp3_array, $mp3_uri);// for javascript purposes
+                array_push($post_url_array, $post_url);// for javascript purposes
                 $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
                 $post_title = $p->post_title;
 
@@ -134,6 +136,7 @@ function allPostsByYear() {
 
     foreach ($post_id_array as $index => $id) {
         $full_list .= "{ id : ".$id.", ";
+        $full_list .= " mp3 : '".$post_mp3_array[$index]."', ";
         $full_list .= "url : '".$post_url_array[$index]."' }";
         if($index <= ($nb_posts)){
             $full_list .= ",";
