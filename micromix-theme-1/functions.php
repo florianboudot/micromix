@@ -240,11 +240,21 @@ function get_top_downloads($isCurrentMonth) {
 
 /* HIGHLIGHT SEARCH RESULT*/
 function hls_set_query() {
-    $query  =get_search_query();
+    $tag = single_tag_title("", false);
+    $query  = get_search_query();
+    $searchTerm =  null;
+
+    /* Is it a query or a tag*/
     if(strlen($query) > 0){
+        $searchTerm = $query;
+    }elseif (strlen($tag) > 0){
+        $searchTerm = $tag;
+    }
+
+    if(strlen($searchTerm) > 0){
         echo '
       <script type="text/javascript">
-        var hls_query  = "'.$query.'";
+        var hls_query  = "'.$searchTerm.'";
       </script>
     ';
     }

@@ -6,17 +6,13 @@
 
 
 	<div class="result">
-		<h2 class="pagetitle"><span>Search Results</span></h2>
-	
-	
-	
-		
-	
-	
-	
-	
-	
-		<?php while (have_posts()) : the_post(); ?>
+		<h2 class="pagetitle">
+            <span>
+                <?php echo $wp_query->found_posts; // display number of results ?> Search results for <?php the_search_query(); ?>
+            </span>
+        </h2>
+
+        <?php while (have_posts()) : the_post(); ?>
 			<div class="article" id="post-<?php the_ID(); ?>">
 				<?php include("the_post_result.php"); //title, image, playlist, player, etc. ?>
 			</div><!-- .article -->
