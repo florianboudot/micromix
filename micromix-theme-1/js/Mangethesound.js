@@ -31,6 +31,7 @@ var Mangethesound = function(){
     var _idbyindex = {};
 
     var splayingclassname = 'playing';
+    var _sound = null;
 
     (function(){
         for (var index = 0; index < _playlist.length; index++) {
@@ -96,7 +97,7 @@ var Mangethesound = function(){
     };
     var _onload = function (isloaded) {
         if (debug)console.info('_onload', isloaded);
-        if(isloaded === false){
+        if(!isloaded){
             _onloadfail();
         }
     };
@@ -161,6 +162,7 @@ var Mangethesound = function(){
         if(sound){
             sound.unload();
             soundManager.destroySound(id);
+            _sound = null;
             _ondestroy();
         }
     };
@@ -177,7 +179,8 @@ var Mangethesound = function(){
             url:url,
             id: id
         });
-        return soundManager.sounds[id];
+        _sound = soundManager.sounds[id];
+        return _sound;
     };
     /**
      * @deprecated
@@ -206,6 +209,27 @@ var Mangethesound = function(){
         }
         else{
             console.warn('no more sound, shall we play the last sound?')
+        }
+    };
+    /**
+     *
+     * @param time {Number}
+     * @private
+     */
+    var _goforward = function (time) {
+        if (debug)console.info('_goforward', time);
+        if(_sound){
+            var position = _sound.position;
+            var _time = time ? time : 1000;
+            _sound.setPosition(position+_time);
+        }
+    };
+    var _gobackward = function (time) {
+        if (debug)console.info('_gobackward', time);
+        if(_sound){
+            var position = _sound.position;
+            var _time = time ? time : 1000;
+            _sound.setPosition(position-_time);
         }
     };
 
@@ -265,6 +289,54 @@ var Mangethesound = function(){
         soundManager.togglePause(_currentidplay);
     };
 
+    var _keyboardshortcuts = function (e) {
+//        if (debug)console.info('_keyboardshortcuts');
+        var fuckyeah = false;
+        var keyCode = e.keyCode;
+        var isshift = e.shiftKey;
+        var isctrl = e.ctrlKey;
+        var leftkey = keyCode === 37;
+        var rightkey = keyCode === 39;
+
+        if(keyCode === 32 || keyCode === 179){
+            if(!_sound){
+                //todo what happend if _sound but not on first sound play?
+                var postid = $('.wpaudio').first().data('postid');
+                _playthissound(_getmp3byid(postid), postid)
+            }
+            else{
+                togglepause();
+            }
+            fuckyeah = true;
+        }
+        else if(!isshift && !isctrl && leftkey){
+            _gobackward();
+            fuckyeah = true;
+        }
+        else if(!isshift && !isctrl && rightkey){
+            _goforward();
+            fuckyeah = true;
+        }
+        else if(!isshift && isctrl && leftkey){
+            _gobackward(10000);
+            fuckyeah = true;
+        }
+        else if(!isshift && isctrl && rightkey){
+            _goforward(10000);
+            fuckyeah = true;
+        }
+        else if(isshift && leftkey){
+            _playprevsound();
+            fuckyeah = true;
+        }
+        else if(isshift && rightkey){
+            _playnextsound();
+            fuckyeah = true;
+        }
+        if(fuckyeah){
+            e.preventDefault();
+        }
+    };
 
     var _onsoundmanagerready = function () {
         if (debug)console.info('_onsoundmanagerready');
@@ -284,6 +356,8 @@ var Mangethesound = function(){
         $body.append($ghettoprev);
         $body.append($ghettoinfo);
 
+        $(window).on('keydown', _keyboardshortcuts);
+
     };
 
     var init = function () {
@@ -292,7 +366,7 @@ var Mangethesound = function(){
         soundManager.setup({
             url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo should find a better whay to extract the themepath without http full link
             // optional: prefer HTML5 over Flash for MP3/MP4
-            debugMode: true,
+            debugMode: false,
             preferFlash: true,
             onready: _onsoundmanagerready,
             defaultOptions: {
