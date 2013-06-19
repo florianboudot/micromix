@@ -75,8 +75,14 @@ var Mangethesound = function(){
 
     var _onplay = function(){
         if (debug)console.info('_onplay');
-        $ghettoblaster.addClass(splayingclassname);
-        document.title = '♫ ' + document.title;
+        if(this.readyState == 2){
+            _onmp3fail();
+            togglepause();
+        }
+        else{
+            $ghettoblaster.addClass(splayingclassname);
+            document.title = '♫ ' + document.title;
+        }
     };
     var _onpause = function(){
         if (debug)console.info('_onpause');
@@ -85,7 +91,13 @@ var Mangethesound = function(){
     };
     var _onresume = function(){
         if (debug)console.info('_onresume');
-        _onplay();
+        _onplay.apply(this);
+    };
+    var _onstop = function(){
+        if (debug)console.info('_onstop');
+    };
+    var _onid3 = function(){
+        if (debug)console.info('_onid3', this.id3);
     };
     var _ondestroy = function(){
         if (debug)console.info('_ondestroy');
@@ -95,18 +107,36 @@ var Mangethesound = function(){
         if (debug)console.info('_onfinishsound');
         _playnextsound();
     };
+    var _ondataerror = function () {
+        if (debug)console.error('_ondataerror');
+
+    };
     var _onload = function (isloaded) {
         if (debug)console.info('_onload', isloaded);
         if(!isloaded){
-            _onloadfail();
+            _onloadfail.apply(this, arguments);
         }
     };
     var _onloadfail = function () {
         if (debug)console.info('_onloadfail');
-        _onpause();
+        togglepause();
         console.error('network error or mp3 missing');
 
     };
+    var _onmp3fail = function () {
+        if (debug)console.info('_onmp3fail');
+        $.get('/').always(function(data, status, xhr){
+            if(status === 'error') {
+                console.error('OUPS, ' + location.host + ' IS UNREACHABLE, DO YOU STILL PAY FOR YOU INTENRET MEMBERSHIP? LOLOLOLOLOLOL');
+                //show a status to tell that intenret has gone, and will never be back :(
+            }
+            else if(status === 'success'){
+                console.error('MP3 IS DEAD, PLEASE REFRESH OR FREEZE ON THE DANCEFLOOR OR PLAY NEXT');
+                //show a status somewhere (over the rainbow) to refresh, play next or play a funky gif of that stop dancing
+            }
+        });
+    };
+
     var _lastupdatetimeprogress = 0;
     var _lastupdateloadprogress = 0;
 
@@ -286,6 +316,7 @@ var Mangethesound = function(){
     };
 
     var togglepause = function(){
+        if (debug)console.info('togglepause');
         soundManager.togglePause(_currentidplay);
     };
 
@@ -375,9 +406,12 @@ var Mangethesound = function(){
                 onplay: _onplay,
                 onpause: _onpause,
                 onresume: _onresume,
+                onstop: _onstop,
+                onid3: _onid3,
                 whileloading: _updateloadprogress,
                 whileplaying: _updatetimeprogress,
                 onfinish: _onfinishsound,
+                ondataerror: _ondataerror,
                 onload: _onload
             }
 
