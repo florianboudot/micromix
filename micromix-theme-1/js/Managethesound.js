@@ -34,7 +34,7 @@ var Managethesound = function(){
     var _indexbyid = {};
     var _idbyindex = {};
 
-    var splayingclassname = 'playing';
+    var splayingclassname = 'active';
     var _sound = null;
 
     (function(){
@@ -84,13 +84,13 @@ var Managethesound = function(){
             togglepause();
         }
         else{
-            $ghettoblaster.addClass(splayingclassname);
+            $ghettoplay.addClass(splayingclassname);
             document.title = '♫ ' + document.title;
         }
     };
     var _onpause = function(){
         if (debug)console.info('_onpause');
-        $ghettoblaster.removeClass(splayingclassname);
+        $ghettoplay.removeClass(splayingclassname);
         document.title = document.title.replace('♫ ', '');
     };
     var _onresume = function(){
