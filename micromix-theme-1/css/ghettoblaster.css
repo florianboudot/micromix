@@ -78,10 +78,11 @@
     text-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
     width: 227px;
     font-style: italic;
-    top: 92px;
+    top: 90px;
     left: 70px;
     text-decoration: none;
     font-weight: bold;
+    font-size: 10px;
 }
 .cassette {
     display: none;/* temp */
