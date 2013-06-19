@@ -9,8 +9,10 @@ $.fn.extend({
 });
 
 
+var $ = jQuery;
+var $window = $(window);
+var $body = $('body');
 jQuery(document).ready(function() {
-    var $ = jQuery;
 
 
     /* If search, call highlight */
@@ -18,7 +20,7 @@ jQuery(document).ready(function() {
         $(".result").highlight(hls_query, 1, "hilite");
     }
 
-    var managethisawesomemicromixsound = new Mangethesound();
+    var managethisawesomemicromixsound = new Managethesound();
     managethisawesomemicromixsound.initsound();
 
     var Inactivity = function(options){
@@ -47,7 +49,7 @@ jQuery(document).ready(function() {
             TIMEOUTactivity = setTimeout(_setinactiv, 10*1000*60); // 10 minutes
 
         };
-        $(window).on(events, _bindevents);
+        $window.on(events, _bindevents);
 
         this.isactiv = getstatus;
 
@@ -78,8 +80,29 @@ jQuery(document).ready(function() {
             });
         }
     });
-
-
-
-
 });
+
+
+
+/* STICK GHETTOBLASTER TO BOTTOM */
+var $ghetto = $();
+var fixed = true;
+var stickGhettoToBottom = function(){
+    if($ghetto.length < 1){
+        $ghetto = $('.ghettoblaster');
+    }
+
+    var windowheight = $window.height();
+    var scrollTop = $window.scrollTop();
+    var bottomLimit = $body.height() - 214;
+    var isLimitReached = windowheight + scrollTop >= bottomLimit;
+
+    if (isLimitReached && fixed){
+        $ghetto.addClass('positionabsolute');
+        fixed = false;
+    }
+    else if(!isLimitReached && !fixed) {
+        $ghetto.removeClass('positionabsolute');
+        fixed = true;
+    }
+};

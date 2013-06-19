@@ -3,13 +3,17 @@
  * BECAUSE I MAKE TYPO
  * @constructor
  */
-var Mangethesound = function(){
+var Managethesound = function(){
     var debug = true;
     var $empty = $();
-    var $body = $('body');
+    var $footer = $('#footer');
     var $ghettoblaster = $('<div>');
     var $cassette = $('<div>');
     var $ghettonext = $('<div>');
+    var $ghettoplay = $('<div>');
+    var $ghettopause = $('<div>');
+    var $ghettostop = $('<div>');
+    var $ghettobuttonscontainer = $('<div>');
     var $ghettoprev = $('<div>');
     var $ghettoinfo = $('<a>');
     var $linkwithaudiohref = $('.wpaudio');
@@ -373,21 +377,47 @@ var Mangethesound = function(){
         if (debug)console.info('_onsoundmanagerready');
 
         $linkwithaudiohref.bind('click', _getandplaythissound);
-        $ghettoblaster.bind('click', togglepause);
-        $ghettoblaster.addClass('ghettoblaster');
-        $ghettonext.bind('click', _playnextsound);
-        $ghettonext.addClass('ghettoblaster-next').html('▐►');
-        $cassette.addClass('cassette');
-        $ghettoprev.bind('click', _playprevsound);
-        $ghettoprev.addClass('ghettoblaster-prev').html('◄▌');
-        $ghettoinfo.addClass('ghettoblaster-info history').html('micromix').attr('href', '/');
-        $body.append($ghettoblaster);
-        $body.append($cassette);
-        $body.append($ghettonext);
-        $body.append($ghettoprev);
-        $body.append($ghettoinfo);
 
+        $cassette.addClass('cassette');
+        $ghettoblaster.addClass('ghettoblaster');
+
+
+        $ghettoinfo.addClass('ghettoblaster-info history').html('micromix').attr('href', '/');
+
+        // ghettoblaster
+        $footer.append($ghettoblaster);
+
+        // cassette
+        $ghettoblaster.append($cassette);
+
+        // buttons
+        $ghettobuttonscontainer.addClass('buttons-container');
+        $ghettoblaster.append($ghettobuttonscontainer);
+        $ghettonext.bind('click', _playnextsound);
+        $ghettonext.addClass('button next');
+        $ghettoplay.bind('click', togglepause);
+        $ghettoplay.addClass('button play');
+
+
+        $ghettopause.bind('click', togglepause);
+        $ghettopause.addClass('button pause');
+        $ghettostop.bind('click', togglepause);
+        $ghettostop.addClass('button stop');
+
+        $ghettoprev.bind('click', _playprevsound);
+        $ghettoprev.addClass('button prev');
+        $ghettobuttonscontainer.append($ghettonext);
+        $ghettobuttonscontainer.append($ghettostop);
+        $ghettobuttonscontainer.append($ghettoplay);
+        $ghettobuttonscontainer.append($ghettopause);
+        $ghettobuttonscontainer.append($ghettoprev);
+
+        // info
+        $ghettoblaster.append($ghettoinfo);
+
+        // bind
         $(window).on('keydown', _keyboardshortcuts);
+        $(window).on('scroll', stickGhettoToBottom);
 
     };
 

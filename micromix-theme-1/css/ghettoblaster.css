@@ -1,47 +1,64 @@
 .ghettoblaster{
     position:fixed;
-    height:20px;
-    width:20px;
-    background:red;
-    top:40px;
-    right:40px;
-    -o-transition: all 125ms ease-in-out;
-    -ms-transition: all 125ms ease-in-out;
-    -moz-transition: all 125ms ease-in-out;
-    -webkit-transition: all 125ms ease-in-out;
-    transition: all 125ms ease-in-out;
+    width:416px;
+    height:308px;
+    background:url(../img/ghettoblaster.png) 0 0 no-repeat;
+    bottom:-36px;
+    right:0;
 }
 .ghettoblaster.playing{
-    background: green;
+    /*background: green;*/
 }
-.ghettoblaster-next{
-    position:fixed;
-    height:20px;
-    width:20px;
-    background:red;
-    top:40px;
-    right:10px;
+.ghettoblaster.positionabsolute{
+    position: absolute;
+    bottom: 214px;
 }
-.ghettoblaster-prev{
-    position:fixed;
-    height:20px;
-    width:20px;
-    background:red;
-    top:40px;
-    right:70px;
+.ghettoblaster .buttons-container {
+    position: absolute;
+    left: 162px;
+    top: 214px;
+}
+.ghettoblaster .button {
+    cursor: pointer;
+    position:absolute;
+    top: 0;
+    width:18px;
+    height:14px;
+    background-image: url(../img/ghetto-buttons.png);
+    background-repeat: no-repeat;
+}
+.ghettoblaster .button.prev{
+    background-position: 0 0;
+    left: 0;
+}
+.ghettoblaster .button.play{
+    background-position: -18px 0;
+    left: 18px;
+}
+.ghettoblaster .button.pause{
+    background-position: -36px 0;
+    left: 36px;
+}
+.ghettoblaster .button.next{
+    background-position: -73px 0;
+    left: 55px;
+}
+.ghettoblaster .button.stop{
+    background-position: -55px 0;
+    left: 73px;
 }
 .ghettoblaster-info{
-    position: fixed;
-    width: 80px;
-    background: rgb(255, 0, 0);
-    top: 66px;
-    right: 10px;
+    position: absolute;
+    /*background: rgb(255, 0, 0);*/
+    width: 227px;
+    top: 103px;
+    left: 93px;
 }
 .cassette {
     background: url(../img/cassette.png) 0 0 no-repeat;
     width: 150px;
     height: 100px;
-    position: fixed;
+    position: absolute;
     right: 10px;
-    top: 120px;
+    top: -80px;
 }

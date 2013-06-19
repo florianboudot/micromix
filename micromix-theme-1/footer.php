@@ -1,11 +1,13 @@
 
-</div><!-- #mainContent -->
-</div><!-- #mainFooter -->
-</div><!-- #curtain -->
-</div><!-- #bricks -->
-</div><!-- #mainContainer -->
-<a href="/?theme=micromix-theme-2">switch to theme 2 (work in progress, no design yet)</a>
+                </div><!-- #mainContent -->
+            </div><!-- #mainFooter -->
+        </div><!-- #curtain -->
+    </div><!-- #bricks -->
 
+    <div id="footer">
+        footer
+    </div>
+</div><!-- #mainContainer -->
 <?php wp_footer(); ?>
 
 
@@ -17,7 +19,7 @@
 </script>
 
 <script src="<?= theme_path ?>/js/soundmanager2.js"></script>
-<script src="<?= theme_path ?>/js/Mangethesound.js"></script>
+<script src="<?= theme_path ?>/js/Managethesound.js"></script>
 <script src="<?= theme_path ?>/js/base.js"></script>
 
 
