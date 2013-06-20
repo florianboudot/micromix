@@ -39,7 +39,7 @@
                             </ul>
                         </div>
                         <audio id="spraysound" loop="loop">
-                            <source src="<?= theme_path; ?>/img/spraycan.mp3" type="audio/mpeg">
+                            <source src="<?= theme_path; ?>/sound/spraycan.mp3" type="audio/mpeg">
                         </audio>
 
                         <h1><a href="<?php echo get_option('home'); ?>/" title="back to home page"><?php bloginfo('name'); ?></a></h1>
