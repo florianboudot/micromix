@@ -25,6 +25,23 @@
                 <div id="mainContent">
 
                     <div id="mainHeader">
+                        <canvas id="tagwall" width="962" height="200"></canvas>
+                        <div id="canvas-controls">
+                            <span id="save-canvas">save</span>
+                            <span id="clear-canvas">clear</span>
+                            <ul class="spray-colors">
+                                <li id="spray-red"></li>
+                                <li id="spray-green"></li>
+                                <li id="spray-blue"></li>
+                                <li id="spray-white"></li>
+                                <li id="spray-black"></li>
+                                <li id="spray-erase"></li>
+                            </ul>
+                        </div>
+                        <audio id="spraysound" loop="loop">
+                            <source src="<?= theme_path; ?>/img/spraycan.mp3" type="audio/mpeg">
+                        </audio>
+
                         <h1><a href="<?php echo get_option('home'); ?>/" title="back to home page"><?php bloginfo('name'); ?></a></h1>
                         <p class="description"><?php bloginfo('description'); ?></p>
                     </div><!-- #mainHeader -->

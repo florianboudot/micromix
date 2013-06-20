@@ -123,6 +123,7 @@ ol {
 /* FOOTER */
 #mainFooter {
     background:url(../img/footer.png) center bottom no-repeat;
+    position: relative;
 }
 #footer {
     position: absolute;
@@ -678,6 +679,66 @@ li#currentAction span {
     float: none;
     display: inline;
     padding: 0;
+}
+
+
+/* canvas TAGWALL*/
+#tagwall{
+    cursor:url(../img/spraycan.png),auto;
+    position: absolute;
+    z-index: 1;
+    top: 62px;
+    left: 20px;
+    width: 962px;
+    height: 200px;
+    outline: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+#canvas-controls{
+    position: absolute;
+    z-index: 1;
+    top:35px;
+    left:113px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+#canvas-controls span{
+    display: inline-block;
+    margin: 0 11px 0;
+    padding: 2px 4px;
+    background: #e6e8e7;
+    line-height: 1.47em;
+    cursor: pointer;
+}
+.spray-colors{
+    margin: -22px 0 0 142px;
+    width: 40px;
+}
+.spray-colors li{
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border: 1px solid #000000;
+}
+#spray-red{
+    background: #ff0000;
+}
+#spray-green{
+    background: #00ff00;
+}
+#spray-blue{
+     background: #0000ff;
+}
+#spray-white{
+    background: #FFFFFF;
+}
+#spray-black{
+    background: #000000;
 }
 
 @media print {

@@ -20,7 +20,9 @@
 
 <script src="<?= theme_path ?>/js/soundmanager2.js"></script>
 <script src="<?= theme_path ?>/js/Managethesound.js"></script>
+<script src="<?= theme_path ?>/js/libs/sketcher.js">
 <script src="<?= theme_path ?>/js/base.js"></script>
+
 
 
 

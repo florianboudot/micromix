@@ -80,9 +80,94 @@ jQuery(document).ready(function() {
             });
         }
     });
+
+    /* -- INIT TAG WALL --  */
+    var initTagWall = function(){
+
+        var sketcher = null;
+        var $canvas = $("#tagwall");
+        var context = $canvas[0].getContext('2d');
+        var brush = new Image();
+
+        // fix cursor on canvas
+        $canvas.on('hover mousedown onselectstart', function(e){
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.style.cursor = 'url("'+theme_path+'/img/spraycan.png"), auto';
+        });
+
+        //init sketcher
+        var initSketcker = function(){
+            brush.src = theme_path+'/img/spray-red.png';
+            brush.onload = function(){
+                sketcher = new Sketcher("tagwall", brush );
+            };
+        };
+
+        // clear Canvas
+        var clearCanvas = function(){
+            sketcher.clear();
+            localStorage.removeItem('savedcanvas');
+        };
+
+        // save Canvas
+        var saveCanvas = function(){
+            var imgBase64 = sketcher.toDataURL();
+            localStorage.setItem("savedcanvas",imgBase64);
+        };
+
+        // load Saved Canvas
+        var loadSavedCanvas = function(){
+            var imgBase64 = localStorage.getItem("savedcanvas");
+            if (imgBase64){
+                var imageObj = new Image();
+                imageObj.src = imgBase64;
+                imageObj.onload = function() {
+                    context.drawImage(this, 0, 0);
+                };
+            }
+        };
+
+        // spray sound
+        var spraySound = function(){
+            var $tagwall = $('#tagwall');
+            var spraysound = $('#spraysound')[0];
+            $tagwall.on('mousedown',function(){
+                spraysound.play();
+            });
+            $tagwall.on('mouseup',function(){
+                spraysound.pause();
+            });
+        };
+
+        // change Brush Color
+        var changeBrushColor = function(){
+            $('.spray-colors li').each(function(i,o){
+                $(o).on('click',function(){
+                    var id = $(o).attr('id');
+                    brush.src = theme_path+'/img/'+id+'.png';
+
+                    if (id === 'spray-erase'){
+                        // erase mode
+                        context.globalCompositeOperation = 'destination-out';
+                    }else{
+                        context.globalCompositeOperation = 'source-over';
+                    }
+                })
+            });
+        };
+
+        loadSavedCanvas();
+        initSketcker();
+        spraySound();
+        changeBrushColor();
+
+        $('#save-canvas').on('click',saveCanvas);
+        $('#clear-canvas').on('click',clearCanvas);
+
+    };
+    initTagWall();
 });
-
-
 
 /* STICK GHETTOBLASTER TO BOTTOM */
 var $ghetto = $();
