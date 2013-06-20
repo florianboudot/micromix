@@ -96,7 +96,7 @@ function allPostsByYear() {
 
                 $valmp3_uri = get_post_meta($p->ID, 'enclosure', false);
                 $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
-                $mp3_uri = str_replace("http://www.micromix.fr", "", $mp3_uri);
+                $mp3_uri = "/upload/" . $mp3_uri;
 
                 array_push($post_mp3_array, $mp3_uri);// for javascript purposes
                 array_push($post_url_array, $post_url);// for javascript purposes
@@ -170,7 +170,7 @@ $dateMonth = date('Y_m');
 function incrementVisit($postID) {
     global $wpdb;
     global $dateMonth;
-    
+    //todo see mp3.php
     $query = "SELECT post_id, download_count FROM wp_downloadstats WHERE post_id = ".$postID." AND dl_month = '".$dateMonth."'";
     $line = $wpdb->get_results($query);
     if (!$line) {

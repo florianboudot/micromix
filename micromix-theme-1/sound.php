@@ -8,8 +8,9 @@ $enclosure_customfield = get_post_meta($currentID, 'enclosure', true);
 $mp3_link  = trim(htmlspecialchars($enclosure_customfield));
 
 // get file name (trim if there is prefix)
-$file_name = str_replace("http://www.micromix.fr/", "", $mp3_link);
-$file_name = str_replace("upload/", "", $file_name);
+$file_name = $mp3_link;
+//$file_name = str_replace("http://www.micromix.fr/", "", $mp3_link);
+//$file_name = str_replace("upload/", "", $file_name);
 
 // format url the same for everyone
 $mp3_link = "http://www.micromix.fr/upload/" . $file_name;
