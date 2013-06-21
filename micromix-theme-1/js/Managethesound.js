@@ -18,8 +18,10 @@ var Managethesound = function(){
     var $ghettoinfo = $('<a>');
     var $linkwithaudiohref = $('.wpaudio');
     var _currentidplay = '';
+    var _maybecurrentidplay = '';
     var _lastidplay = '';
     var _currentindexplay = 0;
+    var _maybecurrentindexplay = 0;
     var _lastindexplay = 0;
     var $currentplayer = $empty;
     var $currenttimeline = $empty;
@@ -224,22 +226,70 @@ var Managethesound = function(){
         var audiosrc = this.href.replace('http://www.micromix.fr', '');
         _createsound(audiosrc, this.parentNode.id)
     };
+    var TIMEOUTusergoprevnext = 0;
 
-    var _playnextsound = function () {
-        if (debug)console.info('_playnextsound',_currentindexplay, _playlist.length);
+    var _usergonextprevanimation = function (sclass) {
+        if (debug)console.info('_usergonextprevanimation');
 
-        if(_currentindexplay+1 < _playlist.length){
-            _playthissound(_getmp3byindex(_currentindexplay+1), _getidbyindex(_currentindexplay+1));
+        var $k7 = $cassette.clone();
+        $k7.width(100).addClass(sclass);
+        $ghettobuttonscontainer.append($k7);
+        setTimeout(function(){$k7.addClass('loading')},0);
+        $k7.on('transitionend webkitTransitionEnd msTransitionEnd mozTransitionEnd oTransitionEnd', function(){
+            var $this = $(this);
+            setTimeout(function(){
+                $this.remove();
+            },500);
+        })
+
+    };
+
+    var _usergonext = function () {
+        if (debug)console.info('_usergonext');
+        _usergoprevnext('next');
+        _usergonextprevanimation('toloadnext');
+    };
+    var _usergoprev = function () {
+        if (debug)console.info('_usergoprev');
+        _usergoprevnext('prev');
+        _usergonextprevanimation('toloadprev');
+    };
+
+    var _usergoprevnext = function (direction) {
+        if (debug)console.info('_usergoprevnext');
+        var fn;
+        if(direction === 'next'){
+            fn = _playnextsound;
+        }
+        else if(direction === 'prev'){
+            fn = _playprevsound;
+        }
+
+        if(fn){
+            fn(true);
+        }
+
+    };
+    /**
+     *
+     * @param wait {Boolean} wait to play next sound
+     * @private
+     */
+    var _playnextsound = function (wait) {
+        if (debug)console.info('_playnextsound', wait);
+
+        if(_maybecurrentindexplay+1 < _playlist.length){
+            _playthissound(_getmp3byindex(_maybecurrentindexplay+1), _getidbyindex(_maybecurrentindexplay+1), wait);
         }
         else{
             console.warn('no more sound, shall we play the first sound?')
         }
     };
-    var _playprevsound = function () {
+    var _playprevsound = function (wait) {
         if (debug)console.info('_playprevsound');
 
-        if(_currentindexplay-1 >= 0){
-            _playthissound(_getmp3byindex(_currentindexplay-1), _getidbyindex(_currentindexplay-1));
+        if(_maybecurrentindexplay-1 >= 0){
+            _playthissound(_getmp3byindex(_maybecurrentindexplay-1), _getidbyindex(_maybecurrentindexplay-1), wait);
         }
         else{
             console.warn('no more sound, shall we play the last sound?')
@@ -274,22 +324,42 @@ var Managethesound = function(){
      * @param id
      * @private
      */
-    var _playthissound = function (url, id) {
-        if (debug)console.info('_playthissound');
+    var _playthissound = function (url, id, wait) {
+        if (debug)console.warn('_playthissound', id, _maybecurrentindexplay, wait);
 
-        _deletesound(_currentidplay);
-        var $post = $('#post-' + id);
-        _updatecurrentprogressbars($post);
-        _createsound(url, id).play();
+        _maybecurrentidplay = id;
+        _maybecurrentindexplay = _getindexbyid(_maybecurrentidplay);
+        clearTimeout(TIMEOUTusergoprevnext);
+        if(wait){
+            TIMEOUTusergoprevnext = setTimeout(function(){
+                _playthissound(_getmp3byid(_maybecurrentidplay), _maybecurrentidplay, false);
+            },500);
+            return false;
+        }
+        else{
 
-        _lastidplay = _currentidplay;
-        _lastindexplay = _getindexbyid(_currentidplay);
-        _currentidplay = id;
-        _currentindexplay = _getindexbyid(_currentidplay);
+            _lastidplay = _currentidplay;
+            _lastindexplay = _getindexbyid(_currentidplay);
+            _currentidplay = _maybecurrentidplay = id;
+            _currentindexplay = _maybecurrentindexplay = _getindexbyid(_currentidplay);
 
+            _deletesound(_lastidplay);
+            var $post = $('#post-' + id);
+            _updatecurrentprogressbars($post);
+            _createsound(url, id).play();
+
+        }
+
+
+
+        _updatehtmlinfo();
+
+    };
+
+    var _updatehtmlinfo = function () {
+        if (debug)console.info('_updatehtmlinfo');
         $ghettoinfo.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
         $ghettoinfo.attr('href', _getmp3byid(_currentidplay));
-
     };
 
     /**
@@ -361,11 +431,11 @@ var Managethesound = function(){
             fuckyeah = true;
         }
         else if(isshift && leftkey){
-            _playprevsound();
+            _usergoprev();
             fuckyeah = true;
         }
         else if(isshift && rightkey){
-            _playnextsound();
+            _usergonext();
             fuckyeah = true;
         }
         if(fuckyeah){
@@ -393,7 +463,7 @@ var Managethesound = function(){
         // buttons
         $ghettobuttonscontainer.addClass('buttons-container');
         $ghettoblaster.append($ghettobuttonscontainer);
-        $ghettonext.bind('click', _playnextsound);
+        $ghettonext.bind('click', _usergonext);
         $ghettonext.addClass('button next');
         $ghettoplay.bind('click', togglepause);
         $ghettoplay.addClass('button play');
@@ -404,8 +474,9 @@ var Managethesound = function(){
         $ghettostop.bind('click', togglepause);
         $ghettostop.addClass('button stop');
 
-        $ghettoprev.bind('click', _playprevsound);
+        $ghettoprev.bind('click', _usergoprev);
         $ghettoprev.addClass('button prev');
+
         $ghettobuttonscontainer.append($ghettonext);
         $ghettobuttonscontainer.append($ghettostop);
         $ghettobuttonscontainer.append($ghettoplay);
