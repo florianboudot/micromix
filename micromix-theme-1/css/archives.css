@@ -20,6 +20,13 @@
 }
 .year-list-container .list-item a {
     text-decoration: none;
+    display: inline-block;
+    -webkit-perspective: 600;
+       -moz-perspective: 600;
+            perspective: 600;
+    -webkit-perspective-origin: 50% 50%;
+       -moz-perspective-origin: 50% 50%;
+            perspective-origin: 50% 50%;
 }
 .year-list-container .list-item.active {
 
@@ -34,12 +41,21 @@
 .year-list-container .mini-poster {
     width: 150px;/* todo : generate smaller thumbs */
     position: absolute;
-    left: -180px;
+    left: -200px;
     top: -10px;
-    display:none;
+    visibility: hidden;
+    opacity: 0;
     border: 3px solid #e6e8e7;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -webkit-transform-style: preserve-3d;
+       -moz-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+    -webkit-transition: visibility 0s linear 100ms, opacity 300ms linear 0, -webkit-transform 200ms linear 500ms;
+       -moz-transition: visibility 0s linear 100ms, opacity 300ms linear 0,    -moz-transform 200ms linear 500ms;
+            transition: visibility 0s linear 100ms, opacity 300ms linear 0,         transform 200ms linear 500ms;
 }
 .year-list-container .list-item a:hover .mini-poster{
-    display: block;
-}
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: rotateY(45deg) scale(1.2);
+ }
