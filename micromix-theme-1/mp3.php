@@ -1,6 +1,6 @@
 <?php
 // to work, you need to edit the .htaccess file with thie line:
-// RewriteRule \.(mp3)$ /mp3.php?file=%{REQUEST_URI}
+// RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}
 $filename = '';
 if(isset($_GET) && isset($_GET['file'])){
     $filename = '../../../' . substr($_GET['file'], 1);
