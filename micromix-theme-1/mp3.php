@@ -12,20 +12,21 @@ if(isset($_GET) && isset($_GET['file'])){
 
         /*
          * c'est une requête trop cool pour cleaner les chemin vers les MP3 dans la table wp-postmeta
-                $query2 = "SELECT * FROM  `wp_postmeta` WHERE meta_key =  'enclosure' LIMIT 0 , 500";
-                $lines2 = $wpdb->get_results($query2);
-                foreach ($lines2 as $line) {
-                    $mp3clean = urldecode($line->meta_value);
-                    $mp3clean = str_ireplace('/upload/','',$mp3clean);
-                    $mp3clean = str_ireplace('http://www.micromix.fr','',$mp3clean);
-                    $mp3clean = addslashes($mp3clean);
-                    $query3 = "UPDATE  `wp_postmeta` SET `meta_value` =  '". $mp3clean ."' WHERE `meta_id` = ". $line->meta_id;
-                    echo $query3 . "\n";
-                    $wpdb->query($query3);
+         * /
+        $query2 = "SELECT * FROM  `wp_postmeta` WHERE meta_key =  'enclosure' LIMIT 0 , 500";
+        $lines2 = $wpdb->get_results($query2);
+        foreach ($lines2 as $line) {
+            $mp3clean = urldecode($line->meta_value);
+            $mp3clean = str_ireplace('/upload/','',$mp3clean);
+            $mp3clean = str_ireplace('http://www.micromix.fr','',$mp3clean);
+            $mp3clean = addslashes($mp3clean);
+            $query3 = "UPDATE  `wp_postmeta` SET `meta_value` =  '". $mp3clean ."' WHERE `meta_id` = ". $line->meta_id;
+            echo $query3 . "\n";
+            $wpdb->query($query3);
 
-                }
-        */
+        }
 
+*/
         $id = null;
         $query = "SELECT post_id FROM wp_postmeta WHERE meta_value = '". $mp3 ."'";
         $lines = $wpdb->get_results($query);

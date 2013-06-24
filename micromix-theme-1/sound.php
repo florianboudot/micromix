@@ -9,14 +9,12 @@ $mp3_link  = trim(htmlspecialchars($enclosure_customfield));
 
 // get file name (trim if there is prefix)
 $file_name = $mp3_link;
-//$file_name = str_replace("http://www.micromix.fr/", "", $mp3_link);
-//$file_name = str_replace("upload/", "", $file_name);
 
 // format url the same for everyone
-$mp3_link = "http://www.micromix.fr/upload/" . $file_name;
+$mp3_link = "/upload/" . $file_name;
 $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
 
-// wordpress delete enclosure custom field if post update.
+// bug : wordpress delete enclosure custom field if post update.
 // please check /wp-includes/functions.php and comment code starting with "foreach ( $pung as $link_test ) {"
 // more info : http://kevinjedwards.com/51/how-to-stop-wordpress-28-from-deleting-enclosures/
 ?>

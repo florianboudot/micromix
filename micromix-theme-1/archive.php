@@ -31,7 +31,7 @@
 
 	
 	<div class="article" id="post-<?php the_ID(); ?>">	
-		<?php include("the_post_result.php"); //title, image, playlist, player, etc. ?>
+		<?php include("the_post.php"); //title, image, playlist, player, etc. ?>
 	</div><!-- .article -->
 
 

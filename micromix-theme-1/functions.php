@@ -3,6 +3,11 @@
 define( 'theme_path', get_bloginfo('template_url'));
 
 
+function the_permalink_return() {
+    return apply_filters('the_permalink', get_permalink());
+}
+
+
 // RETURNS SRC PATH OF THE FIRST IMAGE ATTACHED TO THE POST
 function image_attachment_src($the_post_id, $the_size){
     $images_attachment = get_children(array(

@@ -12,9 +12,8 @@ $.fn.extend({
 var $ = jQuery;
 var $window = $(window);
 var $body = $('body');
-jQuery(document).ready(function() {
 
-
+$(document).ready(function() {
     /* If search, call highlight */
     if(typeof(hls_query) != 'undefined'){
         $(".result").highlight(hls_query, 1, "hilite");
