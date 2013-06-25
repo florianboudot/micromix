@@ -38,7 +38,8 @@
                                 <li id="spray-erase"></li>
                             </ul>
                         </div>
-                        <audio id="spraysound" loop="loop">
+                        <audio id="spraysound">
+                            <source src="<?= theme_path; ?>/sound/spraycan.wav" type="audio/wav"> <!-- chrome need wav for looping!!! -->
                             <source src="<?= theme_path; ?>/sound/spraycan.mp3" type="audio/mpeg">
                         </audio>
 

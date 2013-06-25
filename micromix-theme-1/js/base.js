@@ -130,11 +130,20 @@ $(document).ready(function() {
         // spray sound
         var spraySound = function(){
             var $tagwall = $('#tagwall');
-            var spraysound = $('#spraysound')[0];
+            var spraysound = document.getElementById('spraysound');
+
+            // looping
+            spraysound.addEventListener('ended', function(){
+                this.currentTime = 0;
+                this.play();
+            });
+
             $tagwall.on('mousedown',function(){
                 spraysound.play();
             });
+
             $tagwall.on('mouseup',function(){
+                spraysound.currentTime = 0;
                 spraysound.pause();
             });
         };
