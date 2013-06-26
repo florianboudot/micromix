@@ -38,6 +38,8 @@ var Managethesound = function(){
 
     var splayingclassname = 'active';
     var _sound = null;
+    var starttime = null;
+    var _autoplay = false;
 
     (function(){
         for (var index = 0; index < _playlist.length; index++) {
@@ -122,6 +124,21 @@ var Managethesound = function(){
         if(!isloaded){
             _onloadfail.apply(this, arguments);
         }
+        if(starttime){
+            var _interval = setInterval(function(){
+                _setvolume(0);
+                if(_sound.position < starttime){
+                    _gotoposition(starttime);
+                }
+                else{
+                    _setvolume(100);
+                    clearInterval(_interval);
+                    starttime = null;
+                    _autoplay = false;
+                }
+            },50);
+        }
+
     };
     var _onloadfail = function () {
         if (debug)console.info('_onloadfail');
@@ -305,18 +322,46 @@ var Managethesound = function(){
         if(_sound){
             var position = _sound.position;
             var _time = time ? time : 1000;
-            _sound.setPosition(position+_time);
+            _gotoposition(position+_time);
         }
     };
+    /**
+     *
+     * @param time {Number}
+     * @private
+     */
     var _gobackward = function (time) {
         if (debug)console.info('_gobackward', time);
         if(_sound){
             var position = _sound.position;
             var _time = time ? time : 1000;
-            _sound.setPosition(position-_time);
+            _gotoposition(position-_time);
         }
     };
 
+    /**
+     *
+     * @param position {Number}
+     * @private
+     */
+    var _gotoposition = function (position) {
+        if (debug)console.info('_gotoposition', position);
+        if(_sound && position){
+            _sound.setPosition(position);
+        }
+    };
+
+    /**
+     *
+     * @param volume {Number}
+     * @private
+     */
+    var _setvolume = function (volume) {
+        if (debug)console.info('_setvolume');
+        if(_sound && volume <= 100 && volume >= 0){
+            _sound.setVolume(volume);
+        }
+    };
     /**
      * will create a sound in soundmanager and play it
      * set the vars of currenttimer
@@ -347,7 +392,6 @@ var Managethesound = function(){
             var $post = $('#post-' + id);
             _updatecurrentprogressbars($post);
             _createsound(url, id).play();
-
         }
 
 
@@ -382,7 +426,7 @@ var Managethesound = function(){
         soundManager.pauseAll();
 
         var thisid = $(this).data('postid');
-        _playthissound(_getmp3byid(thisid), thisid);
+        _playthissound(_getmp3byid(thisid), thisid, false);
     };
 
     var pauseall = function(){
@@ -393,7 +437,11 @@ var Managethesound = function(){
         if (debug)console.info('togglepause');
         soundManager.togglePause(_currentidplay);
     };
-
+    var _playtheveryfirstsoundinpage = function () {
+        if (debug)console.info('_playtheveryfirstsoundinpage');
+        var postid = $('.wpaudio').first().data('postid');
+        _playthissound(_getmp3byid(postid), postid, false)
+    };
     var _keyboardshortcuts = function (e) {
 //        if (debug)console.info('_keyboardshortcuts');
         var fuckyeah = false;
@@ -406,8 +454,7 @@ var Managethesound = function(){
         if(keyCode === 32 || keyCode === 179){
             if(!_sound){
                 //todo what happend if _sound but not on first sound play?
-                var postid = $('.wpaudio').first().data('postid');
-                _playthissound(_getmp3byid(postid), postid)
+                _playtheveryfirstsoundinpage()
             }
             else{
                 togglepause();
@@ -490,10 +537,38 @@ var Managethesound = function(){
         $(window).on('keydown', _keyboardshortcuts);
         $(window).on('scroll', stickGhettoToBottom);
 
+        if(_autoplay){
+            _playtheveryfirstsoundinpage(starttime);
+        }
+
+
     };
 
     var init = function () {
         if (debug)console.info('init');
+
+        //todo externalize this hash extract
+        var hashsplit = location.hash.split('#')[1];
+        var hashs = hashsplit ? hashsplit.split('&') : [];
+        if(hashs.length){
+
+            for (var i = 0; i < hashs.length; i++) {
+                var hashrequest = hashs[i].split('=');
+                var hashparam = hashrequest[0];
+                var hashvalue = hashrequest[1];
+                if(hashparam === 't'){
+                    starttime = eval(hashvalue.replace('s', '* 1000').replace('m', '* 1000 * 60'));
+                    starttime = typeof starttime === 'number' ? starttime : null;
+                }
+                else if(hashparam === 'autoplay'){
+                    _autoplay = hashvalue === "true";
+                }
+
+            }
+            if(starttime !== null){
+                _autoplay = true;
+            }
+        }
 
         soundManager.setup({
             url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo should find a better whay to extract the themepath without http full link
