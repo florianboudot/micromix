@@ -159,6 +159,9 @@ ol {
 	position:relative;
 	overflow:hidden;
 }
+.result .article {
+    padding-left:50px;
+}
 .post-title {
     font-size:2em;
     font-family:Georgia, "Times New Roman", Times, serif;
@@ -201,6 +204,9 @@ ol {
 .post-date small {
     background:#E6E8E7;
 }
+.result .post-date {
+    display: none;
+}
 
 /* POST - IMAGE */
 .post-image img {
@@ -240,11 +246,32 @@ ol {
 .article li span strong { font-weight:bold; }
 .article li a { text-decoration:underline; }
 
+/* POST - PERMALINK */
+.post-permalink {
+    display: none;/* default is display:none */
+    text-align:right;
+    clear:both;
+    padding:20px 0 0 0;
+}
+.result .post-content p.post-permalink {
+    display: block;/* default is display:none */
+}
+.post-permalink a {
+    background:#E6E8E7;
+    padding:0 2px;
+}
+.post-permalink a:hover {
+    color:black;
+}
+
 /* POST - AUTHOR */
 .author {
     padding:0 0 20px 0;
     color:white;
     opacity:0.9;
+}
+.result .author {
+    display: none;
 }
 .author span {
     background:gray;
@@ -332,16 +359,21 @@ ol {
 	display:block;
 }
 #btFB a:hover { background:none; }
-.intro {
+
+/* POST CONTENT */
+.post-content {
 	padding:0 0 20px 0;
 	width:508px;
 	line-height:1.3em;
 }
-.intro p {
+.post-content p {
 	margin:0 0 10px 0;
 	padding:2px 4px;
 	background:#e6e8e7;
 	line-height:1.47em;
+}
+.result .post-content p {
+    display:none;
 }
 
 
@@ -520,9 +552,7 @@ li#currentAction span {
 
 
 /* POST RESULT */
-.result .article {
-    padding-left:50px;
-}
+
 .result .post-micromix-number {
     left:52px;
     top:36px;
@@ -550,29 +580,15 @@ li#currentAction span {
 .result .article ol {
     padding-top:4px;
 }
-.result .post-permalink {
-    text-align:right;
-    clear:both;
-    padding:20px 0 0 0;
-}
-.result .post-permalink a {
-    background:#E6E8E7;
-    padding:0 2px;
-}
-.result .post-permalink a:hover {
-    color:black;
-}
-.result .post-content p,
+
+
 .result .shtats,
 .result .wpa_dl {
     display:none;
 }
-.result .post-content p.post-permalink {
-    display:block;
-}
-.result .author {
-    clear:left;
-}
+
+
+
 .search-excerpt {
     background:yellow;
 }

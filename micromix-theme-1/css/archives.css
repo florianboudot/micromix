@@ -1,4 +1,4 @@
-/* ARCHIVES - ALL POSTS BY YEAR */
+/* ARCHIVES IN SIDEBAR - ALL POSTS BY YEAR */
 
 .year-title {
     /*background:url(../img/icons.png) 2px 3px no-repeat;*/
@@ -47,15 +47,15 @@
     opacity: 0;
     border: 3px solid #e6e8e7;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    -webkit-transform: rotateY(18deg);
     -webkit-transform-style: preserve-3d;
        -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
-    -webkit-transition: visibility 0s linear 100ms, opacity 300ms linear 0, -webkit-transform 200ms linear 500ms;
-       -moz-transition: visibility 0s linear 100ms, opacity 300ms linear 0,    -moz-transform 200ms linear 500ms;
-            transition: visibility 0s linear 100ms, opacity 300ms linear 0,         transform 200ms linear 500ms;
+    -webkit-transition: visibility 0s linear 100ms, opacity 300ms linear 0;
+       -moz-transition: visibility 0s linear 100ms, opacity 300ms linear 0;
+            transition: visibility 0s linear 100ms, opacity 300ms linear 0;
 }
 .year-list-container .list-item a:hover .mini-poster{
     visibility: visible;
     opacity: 1;
-    -webkit-transform: rotateY(45deg) scale(1.2);
  }
