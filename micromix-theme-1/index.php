@@ -1,33 +1,38 @@
-<?php get_header(); ?>
+<!-- TEMPLATE INDEX.PHP (home) -->
+<?php
+// HEADER
+if(!isajax()){
+    get_header(); // <div id="column2"> is in header
+}
 
-    <?php if (have_posts()) : ?>
+// POSTS LOOP
+if (have_posts()) {
+    while (have_posts()) {
+        the_post();
 
-        <?php while (have_posts()) : the_post(); ?>
+        // THE POST : title, image, playlist, player, etc.
+        include("the_post.php");
+    }
 
-        <div class="article" id="post-<?php the_ID(); ?>">
-            <?php include("the_post.php"); //title, image, playlist, player, etc. ?>
-        </div><!-- .article -->
-        
-        <?php endwhile; ?>
+    // NAVIGATION
+    if(!isajax()){
+        include("navigation.php");
+    }
+}
+else { // NO POSTS FOUND ?>
+    <h2 class="center">Not Found</h2>
+    <p class="center">Sorry, but you are looking for something that isn't here.</p>
+    <?php include (TEMPLATEPATH . "/searchform.php");
+}
 
-        <div class="navigation">
-            <div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-            <div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-        </div>
-    <?php else : ?>
-        <h2 class="center">Not Found</h2>
+// FOOTER
+if(!isajax()){
+    include("support.php");
+    echo "</div><!-- #column2 -->";
+    get_sidebar();
+}
 
-        <p class="center">Sorry, but you are looking for something that isn't here.</p>
-
-        <?php include (TEMPLATEPATH . "/searchform.php"); ?>
-
-    <?php endif; ?>
-
-    <?php include("support.php"); ?>
-
-</div><!-- #column2 -->
-
-<?php get_sidebar(); ?>
+?>
 
 
 

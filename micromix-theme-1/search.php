@@ -1,6 +1,12 @@
-<?php get_header(); ?>
+<!-- TEMPLATE SEARCH.PHP -->
+<?php
 
-<?php if (have_posts()) : ?>
+// HEADER
+if(!isajax()){
+    get_header(); // <div id="column2"> is in header
+}
+
+if (have_posts()) { ?>
 	<div class="result">
 		<h2 class="pagetitle">
             <span>
@@ -8,28 +14,31 @@
             </span>
         </h2>
 
-        <?php while (have_posts()) : the_post(); ?>
-			<div class="article" id="post-<?php the_ID(); ?>">
-				<?php include("the_post.php"); //title, image, playlist, player, etc. ?>
-			</div><!-- .article -->
-		<?php endwhile; ?>
-	
-		<?php include("navigation.php"); ?>
-		<?php //if(function_exists('wp_paginate')) { wp_paginate(); } ?>
+        <?php
+        while (have_posts()) {
+            the_post();
+
+            // THE POST : title, image, playlist, player, etc.
+            include("the_post.php");
+		}
+
+        // NAVIGATION
+        if(!isajax()){
+            include("navigation.php");
+        } ?>
 	</div><!-- .result -->
+<?php
 
-<?php else : ?>
-
+} else { // NO POSTS FOUND ?>
 	<h2 class="pagetitle"><span>No posts found. Try a different search?</span></h2>
 
-	<?php include (TEMPLATEPATH . '/searchform.php'); ?>
+	<?php include (TEMPLATEPATH . '/searchform.php');
+}
 
-<?php endif; ?>
-
-<?php include("support.php"); ?>
-
-</div><!-- #column2 -->
-
-
-
-<?php get_sidebar(); ?>
+// FOOTER
+if(!isajax()){
+    include("support.php");
+    echo "</div><!-- #column2 -->";
+    get_sidebar();
+}
+?>

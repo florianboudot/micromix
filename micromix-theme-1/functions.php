@@ -3,6 +3,11 @@
 define( 'theme_path', get_bloginfo('template_url'));
 
 
+function isajax(){
+    return isset($_GET['ajax']) || isset($_GET['kjax']) || isset($_GET['kajax']);
+}
+
+
 function the_permalink_return() {
     return apply_filters('the_permalink', get_permalink());
 }
