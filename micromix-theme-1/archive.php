@@ -6,33 +6,40 @@ if(!isajax()){
 }
 
 if (have_posts()) {
+    $post = $posts[0]; // Hack. Set $post so that the_date() works.
     $authordata = get_userdata($post->post_author);
-    $post = $posts[0]; // Hack. Set $post so that the_date() works. ?>
-
+    $author = $authordata->user_nicename;
+    $nb_posts_found = $wp_query->found_posts; ?>
 
     <div class="result">
         <h2 class="pagetitle">
             <span>
-            <?php echo $wp_query->found_posts; // display number of results ?>
+                <?php echo $nb_posts_found; ?>
 
-            <?php /* If this is a category archive */ if (is_category()) { ?>
-            Archive for the &#8216;<?php single_cat_title(); ?>&#8217; Category
-            <?php /* If this is a tag archive */ } elseif( is_tag() ) { ?>
-            Mixtapes with artist &#8216;<?php single_tag_title(); ?>&#8217;
-            <?php /* If this is a daily archive */ } elseif (is_day()) { ?>
-            Archive for
-            <?php the_time('F jS, Y'); ?>
-            <?php /* If this is a monthly archive */ } elseif (is_month()) { ?>
-            Archive for
-            <?php the_time('F, Y'); ?>
-            <?php /* If this is a yearly archive */ } elseif (is_year()) { ?>
-            Archive for
-            <?php the_time('Y'); ?>
-            <?php /* If this is an author archive */ } elseif (is_author()) { ?>
-            mixes by <?php echo $authordata->user_nicename; ?>
-            <?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
-                Blog Archives
-            <?php } ?>
+                <?php
+                if (is_category()) {
+                    echo "Archive for the &#8216;".single_cat_title()."&#8217 Category";
+                }
+                elseif( is_tag() ) {
+                    echo "Mixtapes with artist &#8216;";
+                    echo single_tag_title();
+                    echo "&#8217;";
+                }
+                elseif (is_day()) {
+                    echo "Archive for" .the_time('F jS, Y');
+                }
+                elseif (is_month()) {
+                    echo "Archive for". the_time('F, Y');
+                }
+                elseif (is_year()) {
+                    echo "Archive for" . the_time('Y');
+                }
+                elseif (is_author()) {
+                    echo "mixes by " . $author;
+                }
+                elseif (isset($_GET['paged']) && !empty($_GET['paged'])) {
+                    echo "Blog Archives";
+                } ?>
             </span>
         </h2>
 
@@ -62,8 +69,6 @@ if(!isajax()){
     echo "</div><!-- #column2 -->";
     get_sidebar();
 }
-
-
 ?>
 
 

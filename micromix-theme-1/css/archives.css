@@ -54,8 +54,9 @@
     -webkit-transition: visibility 0s linear 100ms, opacity 300ms linear 0;
        -moz-transition: visibility 0s linear 100ms, opacity 300ms linear 0;
             transition: visibility 0s linear 100ms, opacity 300ms linear 0;
+
 }
 .year-list-container .list-item a:hover .mini-poster{
     visibility: visible;
     opacity: 1;
- }
+}
