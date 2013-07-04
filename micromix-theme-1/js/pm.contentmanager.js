@@ -64,14 +64,26 @@ pm.Contentmanager = function() {
                 needcancel:true,
                 ispage:true,
                 success: function(data) {
-                    console.warn('ici');
-                    cacheset(url, data);
-//                    var data2 = data.data;
-//                    var page_title = data2.page_title;
+                    if(typeof data === 'string'){
+                        var html = data;
+                        data = {
+                            html : html,
+                            data:{
+                                viewname : 'index'
+                            }
+                        }
+                    }
+                    else{
+                        var data2 = data.data;
+                        var page_title = data2.page_title;
 
-//                    if(page_title){
-//                        document.title = page_title
-//                    }
+                        if(page_title){
+                            document.title = page_title
+                        }
+
+                    }
+                    cacheset(url, data);
+
                     reeadytoloadview(data, url);
 
                 },
@@ -83,9 +95,10 @@ pm.Contentmanager = function() {
 
     };
 
-    var context = $('.view').data('context');
+    var $view = $('.view');
+    var context = $view.data('context');
     var urlforcache = location.pathname + location.search;
-    cacheset(urlforcache, {data:{viewname:context},html:$('.view-container').html()});
+    cacheset(urlforcache, {data:{viewname:context},html:$view.prop('outerHTML')});
     pm.setters.setviewkey(context);
 
     this.getpage = getpage;

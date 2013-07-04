@@ -85,20 +85,6 @@ pm.extendviewmanageractions = function (options) {
                     checkview();
                 }
 
-
-
-
-
-                var $responsivemenus = $('.access-menu-responsive-link-no-callback');
-                $responsivemenus.each(function(i,o){
-                    pm.responsivemenu[o.id] = new pm.Responsivemenu($(o));
-                });
-
-                // css pointer-event fix for IE
-                if($.browser.msie){
-                    baseKenzo.nopointerevents($('#site').find('.no-pointer-events'));
-                }
-
             }
         },
 

@@ -108,18 +108,6 @@ pm.Viewmanager = function() {
         if (debug)console.info('pm.base.Viewmanager:load', data, url);
 
         //todo a bit dirty between PJAX and simple HTML page load
-        if(typeof data === 'string'){
-            var html = data;
-            data = {
-                html : html,
-                data:{
-                    viewname : 'index'
-                }
-            }
-        }
-        else{
-
-        }
 
         var viewName = getViewName(url);
         var realView = viewName.view;

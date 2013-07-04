@@ -75,7 +75,7 @@ pm.initkenzo = (function() {
         pm.manager.resize.addlive('resizeViewport', resizeViewport);
         pm.manager.resize.add('viewMinHeight', viewMinHeight);
 
-        var $view = $('#column2');
+        var $view = $('#column2').find(('.view'));//todo should be a param somewhere
         if(pm.manager.history.needfirstview){
             pm.manager.view.onfirstview($view, function(){ });
         }
