@@ -121,7 +121,7 @@ function allPostsByYear() {
 
                 // build list item
                 $list .= '<span class="micromix-number">#'.$micromix_number.'</span>';
-                $list .= '<a href="'.$post_url.'">'. $post_title . $image_tag.'</a>';
+                $list .= '<a href="'.$post_url.'" class="history">'. $post_title . $image_tag.'</a>';
                 $list .= '</li>';
                 $list .= "\n";
             }

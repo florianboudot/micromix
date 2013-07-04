@@ -63,10 +63,8 @@ else { // NO POSTS FOUND
 }
 
 
-// FOOTER
+// SIDEBAR
 if(!isajax()){
-    include("support.php");
-    echo "</div><!-- #column2 -->";
     get_sidebar();
 }
 ?>

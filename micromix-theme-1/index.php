@@ -25,10 +25,8 @@ else { // NO POSTS FOUND ?>
     <?php include (TEMPLATEPATH . "/searchform.php");
 }
 
-// FOOTER
+// SIDEBAR
 if(!isajax()){
-    include("support.php");
-    echo "</div><!-- #column2 -->";
     get_sidebar();
 }
 

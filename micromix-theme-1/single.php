@@ -1,4 +1,3 @@
-<!-- TEMPLATE SINGLE (one post + its comments) -->
 <?php
 // HEADER
 if(!isajax()){
@@ -34,10 +33,8 @@ else { // NO POSTS FOUND
     echo "<p>Sorry, no posts matched your criteria.</p>";
 } // end if
 
-// FOOTER
+// SIDEBAR
 if(!isajax()){
-    include("support.php");
-    echo "</div><!-- #column2 -->";
     get_sidebar();
 }
 ?>

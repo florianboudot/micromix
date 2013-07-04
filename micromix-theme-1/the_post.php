@@ -1,4 +1,3 @@
-<!-- THE_POST.PHP -->
 <?php
 $micromix_number = get_post_meta($post->ID, 'micromixNumber', true);
 $the_permalink = the_permalink_return();
