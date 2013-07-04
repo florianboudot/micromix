@@ -4,7 +4,7 @@
 if(!isajax()){
     get_header(); // <div id="column2"> is in header
 }
-echo '<div class="view">';
+echo '<div class="view" data-context="index">';
 
 if (have_posts()) {
     $post = $posts[0]; // Hack. Set $post so that the_date() works.

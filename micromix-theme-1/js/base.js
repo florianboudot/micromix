@@ -12,15 +12,15 @@ $.fn.extend({
 var $ = jQuery;
 var $window = $(window);
 var $body = $('body');
-
+var micromix = {};
 $(document).ready(function() {
     /* If search, call highlight */
     if(typeof(hls_query) != 'undefined'){
         $(".result").highlight(hls_query, 1, "hilite");
     }
 
-    var managethisawesomemicromixsound = new Managethesound();
-    managethisawesomemicromixsound.initsound();
+    micromix.managethisawesomemicromixsound = new Managethesound();
+    micromix.managethisawesomemicromixsound.initsound();
 
     var Inactivity = function(options){
         var debug = true;

@@ -5,11 +5,8 @@ pm.manager.viewscript['index'] = function () {
     /* BIND */
     var bind = function ($view) {
         if (debug)console.info('pm.manager.view[index].bind');
-//        $viewindex = $view;
-//        pm.manager.resize.addlive('index_resize', resize);
 
-//        $view.on('onviewdisplayed', initindex);
-
+        micromix.managethisawesomemicromixsound.refreshprogressbar();//todo there's a generic function for viewchange, move it there somewhere
     };
 
     /* UNBIND */

@@ -437,8 +437,7 @@ var Managethesound = function(){
             _currentindexplay = _maybecurrentindexplay = _getindexbyid(_currentidplay);
 
             _deletesound(_lastidplay);
-            var $post = $('#post-' + id);
-            _updatecurrentprogressbars($post);
+            _updatecurrentprogressbars(id);
             _createsound(url, id).play();
         }
 
@@ -456,11 +455,11 @@ var Managethesound = function(){
 
     /**
      *
-     * @param $post {jQuery}
-     * @private
      */
-    var _updatecurrentprogressbars = function ($post) {
+    var _updatecurrentprogressbars = function () {
         if (debug)console.info('_updatecurrentprogressbars');
+
+        var $post = $('#post-' + _currentidplay);
         _ispostondisplay = !!$post.length;
         $currentplayer.off(timelineevents, _gotothistime); // before update current
         $currentplayer          = $post.find('.player');
@@ -652,5 +651,5 @@ var Managethesound = function(){
 
     this.addaudiopost = _inicreatesound;
     this.initsound = init;
-
+    this.refreshprogressbar = _updatecurrentprogressbars;
 };
