@@ -87,6 +87,27 @@ var Managethesound = function(){
         if (debug)console.info('_getindexbyid');
         return _indexbyid[id]
     };
+    var TIMEOUTanimatewindowtitle = 0;
+    var _actualchardocumenttitle = '♫';
+    var _animatedocumenttitle = function () {
+        if (debug)console.info('_animatedocumenttitle');
+        var oldchar = _actualchardocumenttitle;
+        _actualchardocumenttitle = _actualchardocumenttitle === '♪' ? '♫' : '♪';
+        if(/[♪|♫]/.test(document.title)){
+            document.title = document.title.replace(oldchar, _actualchardocumenttitle);
+        }
+        else{
+            document.title = _actualchardocumenttitle + ' ' + document.title;
+        }
+        TIMEOUTanimatewindowtitle = setTimeout(_animatedocumenttitle, 2000);
+
+    };
+
+    var _cancelanimatedocumenttitle = function () {
+        if (debug)console.info('_cancelanimatedocumenttitle');
+        clearTimeout(TIMEOUTanimatewindowtitle);
+        document.title = document.title.replace(/[♫|♪] /, '');
+    };
 
     var _onplay = function(){
         if (debug)console.info('_onplay');
@@ -96,7 +117,7 @@ var Managethesound = function(){
         }
         else{
             $ghettoplay.addClass(splayingclassname);
-            document.title = '♫ ' + document.title;
+            _animatedocumenttitle();
             $currentsoundplayer.removeClass(classnamecurrentlistitem);
             $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
         }
@@ -104,7 +125,7 @@ var Managethesound = function(){
     var _onpause = function(){
         if (debug)console.info('_onpause');
         $ghettoplay.removeClass(splayingclassname);
-        document.title = document.title.replace('♫ ', '');
+        _cancelanimatedocumenttitle();
     };
     var _onresume = function(){
         if (debug)console.info('_onresume');
