@@ -435,7 +435,12 @@ var Managethesound = function(){
 
     var togglepause = function(){
         if (debug)console.info('togglepause');
-        soundManager.togglePause(_currentidplay);
+        if(soundManager.soundIDs.length){
+            soundManager.togglePause(_currentidplay);
+        }
+        else{
+            _playtheveryfirstsoundinpage();
+        }
     };
     var _playtheveryfirstsoundinpage = function () {
         if (debug)console.info('_playtheveryfirstsoundinpage');
@@ -538,7 +543,7 @@ var Managethesound = function(){
         $(window).on('scroll', stickGhettoToBottom);
 
         if(_autoplay){
-            _playtheveryfirstsoundinpage(starttime);
+            _playtheveryfirstsoundinpage();
         }
 
 
