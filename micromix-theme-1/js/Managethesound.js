@@ -450,7 +450,8 @@ var Managethesound = function(){
     var _updatehtmlinfo = function () {
         if (debug)console.info('_updatehtmlinfo');
         $ghettoinfo.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
-        $ghettoinfo.attr('href', _getmp3byid(_currentidplay));
+        $ghettoinfo.attr('href', _geturlbyid(_currentidplay));
+        pm.manager.history.bindLinks($ghettoblaster);
     };
 
     /**
@@ -649,7 +650,6 @@ var Managethesound = function(){
 
     };
 
-    this.addaudiopost = _inicreatesound;
     this.initsound = init;
     this.refreshprogressbar = _updatecurrentprogressbars;
 };
