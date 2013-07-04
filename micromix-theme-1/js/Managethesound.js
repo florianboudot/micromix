@@ -16,6 +16,9 @@ var Managethesound = function(){
     var $ghettobuttonscontainer = $('<div>');
     var $ghettoprev = $('<div>');
     var $ghettoinfo = $('<a>');
+    var $listsitems = $('#posts-year-month .list-item');
+    var $currentsoundplayer = $empty;
+    var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkwithaudiohref = $('.wpaudio');
     var _currentidplay = '';
     var _maybecurrentidplay = '';
@@ -94,6 +97,8 @@ var Managethesound = function(){
         else{
             $ghettoplay.addClass(splayingclassname);
             document.title = '♫ ' + document.title;
+            $currentsoundplayer.removeClass(classnamecurrentlistitem);
+            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
         }
     };
     var _onpause = function(){
