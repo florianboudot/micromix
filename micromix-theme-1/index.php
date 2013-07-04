@@ -5,11 +5,11 @@ if(!isajax()){
     get_header(); // <div id="column2"> is in header
 }
 
+echo '<div class="view">';
 // POSTS LOOP
 if (have_posts()) {
     while (have_posts()) {
         the_post();
-
         // THE POST : title, image, playlist, player, etc.
         include("the_post.php");
     }
@@ -24,6 +24,7 @@ else { // NO POSTS FOUND ?>
     <p class="center">Sorry, but you are looking for something that isn't here.</p>
     <?php include (TEMPLATEPATH . "/searchform.php");
 }
+echo '</div>';
 
 // SIDEBAR
 if(!isajax()){
@@ -31,8 +32,3 @@ if(!isajax()){
 }
 
 ?>
-
-
-
-
-

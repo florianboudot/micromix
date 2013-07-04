@@ -8,7 +8,7 @@ pm.Viewmanager = function() {
     var getters = pm.getters;
     var setters = pm.setters;
     var viewaction;
-    var $viewcontainer = $('.view-container');
+    var $viewcontainer = $('#column2');//todo should be a param
     var $viewsctn = $viewcontainer;
     var viewNotCached = 'club-index';
     var $viewnext = $();
@@ -66,13 +66,8 @@ pm.Viewmanager = function() {
 
     var _appendbind = function ($viewnext, data, viewname) {
         if (debug)console.info('pm.base.Viewmanager:_appendbind', $viewnext, data);
-        //TODO: if browsing to fast view is append but not deleted
-        var $currentview;
         removeview($('.view').not($viewnow).not($viewnext));
         $viewcontainer.prepend($viewnext);
-
-        if (debug)console.info('pm.base.Viewmanager:$currentview', $currentview);
-
         unbind($viewnow.data('context'), $viewnow); // view now because not switched yet
         bind($viewnext, data);
     };
@@ -112,7 +107,7 @@ pm.Viewmanager = function() {
     var load = function (data, url) {
         if (debug)console.info('pm.base.Viewmanager:load', data, url);
 
-
+        //todo a bit dirty between PJAX and simple HTML page load
         if(typeof data === 'string'){
             var html = data;
             data = {

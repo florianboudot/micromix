@@ -8,7 +8,7 @@ pm.Transitionmanager = function() {
     if (debug)console.info('pm.base.Transitionmanager.js');
 
     var viewManager = pm.manager.view;
-    var $viewcontainer = $('.view-container');
+    var $viewcontainer = $('#column2'); // todo should be a param
 
     var doTransition = function ($futurview, $actualview, options) {
         if (debug)console.info('pm.base.Transitionmanager:show', $futurview, $actualview);

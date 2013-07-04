@@ -4,6 +4,7 @@
 if(!isajax()){
     get_header(); // <div id="column2"> is in header
 }
+echo '<div class="view">';
 
 if (have_posts()) {
     $post = $posts[0]; // Hack. Set $post so that the_date() works.
@@ -61,6 +62,7 @@ else { // NO POSTS FOUND
     echo '<h2 class="center">Not Found</h2>';
     include (TEMPLATEPATH . '/searchform.php');
 }
+echo '</div>';
 
 
 // SIDEBAR

@@ -5,6 +5,7 @@
 if(!isajax()){
     get_header(); // <div id="column2"> is in header
 }
+echo '<div class="view">';
 
 if (have_posts()) { ?>
 	<div class="result">
@@ -34,6 +35,7 @@ if (have_posts()) { ?>
 
 	<?php include (TEMPLATEPATH . '/searchform.php');
 }
+echo '</div>';
 
 // SIDEBAR
 if(!isajax()){

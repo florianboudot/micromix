@@ -3,6 +3,7 @@
 if(!isajax()){
     get_header(); // <div id="column2"> is in header
 }
+echo '<div class="view">';
 
 // POSTS LOOP
 if (have_posts()) {
@@ -32,6 +33,7 @@ if (have_posts()) {
 else { // NO POSTS FOUND
     echo "<p>Sorry, no posts matched your criteria.</p>";
 } // end if
+echo '</div>';
 
 // SIDEBAR
 if(!isajax()){
