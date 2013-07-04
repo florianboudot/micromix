@@ -20,7 +20,8 @@ $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
 ?>
 <div class="player">
     <div class="loaded"></div>
-    <div class="currenttime"></div>
+    <div class="currenttime"><span class="timetext"></span></div>
+    <span class="totaltime"></span>
 </div>
 
 <div class="sound">

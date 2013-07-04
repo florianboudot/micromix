@@ -19,3 +19,11 @@
 .player .currenttime{
     background: #4d8fb4;
 }
+.player .totaltime{
+    position: absolute;
+    right: 0;
+}
+.player .timetext{
+    position: absolute;
+    right: 0;
+}

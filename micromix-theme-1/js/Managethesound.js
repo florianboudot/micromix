@@ -24,8 +24,10 @@ var Managethesound = function(){
     var _maybecurrentindexplay = 0;
     var _lastindexplay = 0;
     var $currentplayer = $empty;
-    var $currenttimeline = $empty;
-    var $currentloadprogress = $empty;
+    var DOMcurrenttimeline = null;
+    var DOMcurrentloadprogress = null;
+    var DOMcurrenttimetext = null;
+    var DOMcurrenttotaltimetext = null;
     var _ispostondisplay = false;
 
     var _playlist = typeof list_all_posts === 'object' ? list_all_posts : [];
@@ -35,6 +37,8 @@ var Managethesound = function(){
     var _urlbyindex = {};
     var _indexbyid = {};
     var _idbyindex = {};
+
+    var timelineevents = 'mousedown mousemove'; // add touch if touch
 
     var splayingclassname = 'active';
     var _sound = null;
@@ -160,6 +164,18 @@ var Managethesound = function(){
         });
     };
 
+    /**
+     *
+     * @param fullseconds {Number} full seconds
+     * @private
+     */
+    var _getminutesandseconds = function (fullseconds) {
+        if (debug)console.info('_getminutesandseconds');
+        var minVar = Math.floor(fullseconds/60);
+        var seconds = (fullseconds % 60) >> 0;
+        return {s:seconds,m:minVar};
+    };
+
     var _lastupdatetimeprogress = 0;
     var _lastupdateloadprogress = 0;
 
@@ -167,9 +183,11 @@ var Managethesound = function(){
 //            if (debug)console.info('_updatetimeprogress');//flood
         if(_ispostondisplay){
             var position = this.position;
-            if(Math.abs(position - _lastupdatetimeprogress) > 5000 || force){
+            if(Math.abs(position - _lastupdatetimeprogress) > 1000 || force){
                 _lastupdatetimeprogress = position;
-                $currenttimeline.width(position / this.duration  *100 + '%')
+                DOMcurrenttimeline.style.cssText = 'width:' + (position / this.duration  *100 + '%;');
+                var otime = _getminutesandseconds(position / 1000);
+                DOMcurrenttimetext.textContent = otime.m + 'm:' + otime.s + 's';
             }
         }
     };
@@ -180,18 +198,22 @@ var Managethesound = function(){
             var position = this.bytesLoaded;
             if((position - _lastupdateloadprogress) > 0.01 || force){
                 _lastupdateloadprogress = position;
-                $currentloadprogress.width(position/this.bytesTotal  *100 + '%')
+                DOMcurrentloadprogress.style.cssText = 'width:' + (position/this.bytesTotal  *100 + '%;');
+                var otime = _getminutesandseconds(this.duration / 1000);
+                DOMcurrenttotaltimetext.textContent = otime.m + 'm:' + otime.s + 's';
             }
         }
     };
 
     var _gotothistime = function (e) {
         if (debug)console.info('_gotothistime');
-
-        var positionratio = e.offsetX / this.clientWidth;
-        var actualplayingsound = soundManager.sounds[_currentidplay];
-        var totalduration = actualplayingsound.duration * positionratio;
-        actualplayingsound.setPosition(totalduration);
+        if(e.which === 1){
+            var eventtarget = e.target;
+            var offsetx = this != eventtarget ? e.offsetX + eventtarget.offsetLeft : e.offsetX;
+            var positionratio = offsetx / this.clientWidth;
+            var totalduration = _sound.duration * positionratio;
+            _sound.setPosition(totalduration);
+        }
     };
 
     /**
@@ -414,11 +436,13 @@ var Managethesound = function(){
     var _updatecurrentprogressbars = function ($post) {
         if (debug)console.info('_updatecurrentprogressbars');
         _ispostondisplay = !!$post.length;
-        $currentplayer.off('click', _gotothistime); // before update current
-        $currentplayer       = $post.find('.player');
-        $currentloadprogress = $currentplayer.find('.loaded');
-        $currenttimeline     = $currentplayer.find('.currenttime');
-        $currentplayer.on('click', _gotothistime);
+        $currentplayer.off(timelineevents, _gotothistime); // before update current
+        $currentplayer          = $post.find('.player');
+        DOMcurrentloadprogress  = $currentplayer.find('.loaded')[0];
+        DOMcurrenttimeline      = $currentplayer.find('.currenttime')[0];
+        DOMcurrenttimetext      = $currentplayer.find('.timetext')[0];
+        DOMcurrenttotaltimetext = $currentplayer.find('.totaltime')[0];
+        $currentplayer.on(timelineevents, _gotothistime);
     };
 
     var _getandplaythissound = function(e){
