@@ -26,7 +26,7 @@ $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
 
 <div class="sound">
     <p class="bt-player" id="bt-player-<?= $currentID; ?>">
-        <a href="<?= $mp3_link; ?>" class="wpaudio" data-postid="<?= the_ID(); ?>"><?= $file_name; ?></a>
+        <a href="<?= $mp3_link; ?>" class="wpaudio JSplaysoundbyid" data-soundid="<?= the_ID(); ?>"><?= $file_name; ?></a>
     </p>
 
     <p class="stats" style="clear: both; display: none;">

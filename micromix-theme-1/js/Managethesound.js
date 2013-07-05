@@ -19,7 +19,8 @@ var Managethesound = function(){
     var $listsitems = $('#posts-year-month .list-item');
     var $currentsoundplayer = $empty;
     var classnamecurrentlistitem = 'currentsoundplayed';
-    var $linkwithaudiohref = $('.wpaudio');
+    var $linkplaysoundbyid = $('.JSplaysoundbyid');
+    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
     var _currentidplay = '';
     var _maybecurrentidplay = '';
     var _lastidplay = '';
@@ -45,7 +46,9 @@ var Managethesound = function(){
 
     var splayingclassname = 'active';
     var _sound = null;
-    var starttime = null;
+    var _soundpreview = null;
+    var _soundpreviewid = null;
+    var _starttime = null;
     var _autoplay = false;
 
     (function(){
@@ -154,22 +157,47 @@ var Managethesound = function(){
         if(!isloaded){
             _onloadfail.apply(this, arguments);
         }
+        if(_starttime){
+            _playsoundattime(_starttime, _sound);
+        }
+        _starttime = null;
+        _autoplay = false;
+
+    };
+
+    /**
+     *
+     * @param starttime
+     * @param sound
+     * @private
+     */
+    var _playsoundattime = function (starttime, sound) {
+        if (debug)console.warn('_playsoundattime', sound);
         if(starttime){
+            var attemp = 0;
+            var done = false;
+            _setvolume(0,sound);
             var _interval = setInterval(function(){
-                _setvolume(0);
-                if(_sound.position < starttime){
-                    _gotoposition(starttime);
+                attemp++;// about 10s
+                if(!sound){
+                    sound = {};
+                    done = true;
+                }
+                if(sound.position < starttime){
+                    _gotoposition(starttime, sound);
                 }
                 else{
-                    _setvolume(100);
+                    done = true;
+                }
+                if(attemp > 200 || done){
+                    _setvolume(100,sound);
                     clearInterval(_interval);
-                    starttime = null;
-                    _autoplay = false;
                 }
             },50);
         }
 
     };
+
     var _onloadfail = function () {
         if (debug)console.info('_onloadfail');
         togglepause();
@@ -278,7 +306,17 @@ var Managethesound = function(){
         if (debug)console.info('_createsound', id);
         soundManager.createSound({
             url:url,
-            id: id
+            id: id,
+            onplay: _onplay,
+            onpause: _onpause,
+            onresume: _onresume,
+            onstop: _onstop,
+            onid3: _onid3,
+            whileloading: _updateloadprogress,
+            whileplaying: _updatetimeprogress,
+            onfinish: _onfinishsound,
+            ondataerror: _ondataerror,
+            onload: _onload
         });
         _sound = soundManager.sounds[id];
         return _sound;
@@ -392,10 +430,11 @@ var Managethesound = function(){
      * @param position {Number}
      * @private
      */
-    var _gotoposition = function (position) {
+    var _gotoposition = function (position, sound) {
         if (debug)console.info('_gotoposition', position);
-        if(_sound && position){
-            _sound.setPosition(position);
+        var __sound = sound ? sound : _sound;
+        if(__sound && position){
+            __sound.setPosition(position);
         }
     };
 
@@ -404,10 +443,11 @@ var Managethesound = function(){
      * @param volume {Number}
      * @private
      */
-    var _setvolume = function (volume) {
-        if (debug)console.info('_setvolume');
-        if(_sound && volume <= 100 && volume >= 0){
-            _sound.setVolume(volume);
+    var _setvolume = function (volume, sound) {
+        if (debug)console.info('_setvolume', sound);
+        var __sound = sound ? sound : _sound;
+        if(__sound && volume <= 100 && volume >= 0){
+            __sound.setVolume(volume);
         }
     };
     /**
@@ -473,16 +513,49 @@ var Managethesound = function(){
 
     var _getandplaythissound = function(e){
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
         soundManager.pauseAll();
 
-        var thisid = $(this).data('postid');
+        var thisid = $(this).data('soundid');
         _playthissound(_getmp3byid(thisid), thisid, false);
     };
 
     var pauseall = function(){
         soundManager.pauseAll();
     };
-
+    /**
+     *
+     * @param sound {Object}
+     * @return {Boolean}
+     * @private
+     */
+    var _pausesound = function (sound) {
+        if (debug)console.info('_pausesound');
+        var __sound = sound ? sound : _sound;
+        var hasbeenpaused = false;
+        if(__sound){
+            hasbeenpaused = !__sound.paused;
+            __sound.pause();
+        }
+        return hasbeenpaused;
+    };
+    /**
+     *
+     * @param sound {Object}
+     * @return {Boolean}
+     * @private
+     */
+    var _resumesound = function (sound) {
+        if (debug)console.info('_resumesound');
+        var __sound = sound ? sound : _sound;
+        var hasbeenresumed = false;
+        if(__sound){
+            hasbeenresumed = __sound.paused;
+            __sound.resume();
+        }
+        return hasbeenresumed;
+    };
     var togglepause = function(){
         if (debug)console.info('togglepause');
         if(soundManager.soundIDs.length){
@@ -494,8 +567,8 @@ var Managethesound = function(){
     };
     var _playtheveryfirstsoundinpage = function () {
         if (debug)console.info('_playtheveryfirstsoundinpage');
-        var postid = $('.wpaudio').first().data('postid');
-        _playthissound(_getmp3byid(postid), postid, false)
+        var soundid = $('.wpaudio').first().data('soundid');
+        _playthissound(_getmp3byid(soundid), soundid, false)
     };
     var _keyboardshortcuts = function (e) {
 //        if (debug)console.info('_keyboardshortcuts');
@@ -545,10 +618,75 @@ var Managethesound = function(){
         }
     };
 
+    var _unbindplaybyid = function ($elem) {
+        if (debug)console.info('_unbindplaybyid');
+        $elem.off('click', _getandplaythissound);
+    };
+    var _bindplaybyid = function ($elem) {
+        if (debug)console.info('_bindplaybyid');
+        $elem.on('click', _getandplaythissound);
+
+    };
+    var previewhaspausedcurrentsound = false;
+    var _previewsound = function ($elem) {
+        if (debug)console.info('_previewsound');
+
+        previewhaspausedcurrentsound = false;
+        _unbindplaybyid($elem);
+
+        $elem.on('mouseup mouseout', _previewend);
+
+        var id = $elem.data('soundid');
+
+        _soundpreviewid = 'preview' + id;
+        soundManager.createSound({
+            url:_getmp3byid(id),
+            id: _soundpreviewid,
+            autoPlay: true,
+            autoLoad: true,
+            onplay: function(){
+                previewhaspausedcurrentsound = _pausesound();
+            }
+        });
+        _soundpreview = soundManager.sounds[_soundpreviewid];
+        _playsoundattime(10*1000, _soundpreview);
+
+    };
+    var _previewend = function () {
+        if (debug)console.info('_previewend');
+        var $elem = $(this);
+
+        if(_soundpreview){
+            soundManager.destroySound(_soundpreviewid);
+            _soundpreview = null;
+            _soundpreviewid = null;
+        }
+        if(previewhaspausedcurrentsound){
+            previewhaspausedcurrentsound = false;
+            _resumesound();
+        }
+        _bindplaybyid($elem);
+        $elem.off('mouseup mouseout', _previewend);
+
+
+    };
+    var _previewsoundbyidctrl = function (e) {
+        if (debug)console.info('_previewsoundbyidctrl');
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        // settimout unbind
+        var $elem = $(this);
+        setTimeout(function(){_previewsound($elem)}, 500);
+
+    };
+
     var _onsoundmanagerready = function () {
         if (debug)console.info('_onsoundmanagerready');
 
-        $linkwithaudiohref.bind('click', _getandplaythissound);
+        $linkplaysoundbyid.bind('click', _getandplaythissound);
+
+        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         $cassette.addClass('cassette');
         $ghettoblaster.addClass('ghettoblaster');
@@ -612,15 +750,15 @@ var Managethesound = function(){
                 var hashparam = hashrequest[0];
                 var hashvalue = hashrequest[1];
                 if(hashparam === 't'){
-                    starttime = eval(hashvalue.replace('s', '* 1000').replace('m', '* 1000 * 60'));
-                    starttime = typeof starttime === 'number' ? starttime : null;
+                    _starttime = eval(hashvalue.replace('s', '* 1000').replace('m', '* 1000 * 60'));
+                    _starttime = typeof _starttime === 'number' ? _starttime : null;
                 }
                 else if(hashparam === 'autoplay'){
                     _autoplay = hashvalue === "true";
                 }
 
             }
-            if(starttime !== null){
+            if(_starttime !== null){
                 _autoplay = true;
             }
         }
@@ -633,22 +771,14 @@ var Managethesound = function(){
             onready: _onsoundmanagerready,
             defaultOptions: {
                 // set global default volume for all sound objects
-                volume: 100,
-                onplay: _onplay,
-                onpause: _onpause,
-                onresume: _onresume,
-                onstop: _onstop,
-                onid3: _onid3,
-                whileloading: _updateloadprogress,
-                whileplaying: _updatetimeprogress,
-                onfinish: _onfinishsound,
-                ondataerror: _ondataerror,
-                onload: _onload
+                volume: 100
             }
 
         });
 
     };
+
+
 
     this.initsound = init;
     this.refreshprogressbar = _updatecurrentprogressbars;
