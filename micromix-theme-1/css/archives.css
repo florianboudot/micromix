@@ -51,9 +51,9 @@
     -webkit-transform-style: preserve-3d;
        -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
-    -webkit-transition: visibility 0s linear 100ms, opacity 300ms linear 0;
-       -moz-transition: visibility 0s linear 100ms, opacity 300ms linear 0;
-            transition: visibility 0s linear 100ms, opacity 300ms linear 0;
+    -webkit-transition: visibility 0s linear 100ms, opacity 300ms linear 250ms;
+       -moz-transition: visibility 0s linear 100ms, opacity 300ms linear 250ms;
+            transition: visibility 0s linear 100ms, opacity 300ms linear 250ms;
 
 }
 .year-list-container .list-item a:hover .mini-poster{
