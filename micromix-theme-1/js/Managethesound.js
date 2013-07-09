@@ -93,7 +93,7 @@ var Managethesound = function(){
     var TIMEOUTanimatewindowtitle = 0;
     var _actualchardocumenttitle = '♫';
     var _animatedocumenttitle = function () {
-        if (debug)console.info('_animatedocumenttitle');
+//        if (debug)console.info('_animatedocumenttitle');
         var oldchar = _actualchardocumenttitle;
         _actualchardocumenttitle = _actualchardocumenttitle === '♪' ? '♫' : '♪';
         if(/[♪|♫]/.test(document.title)){
@@ -178,17 +178,19 @@ var Managethesound = function(){
             var done = false;
             _setvolume(0,sound);
             var _interval = setInterval(function(){
-                attemp++;// about 10s
                 if(!sound){
                     sound = {};
                     done = true;
                 }
-                if(sound.position < starttime){
-                    _gotoposition(starttime, sound);
+                if(typeof sound.position === 'number'){
+                    if(sound.position < starttime){
+                        _gotoposition(starttime, sound);
+                    }
+                    else{
+                        done = true;
+                    }
                 }
-                else{
-                    done = true;
-                }
+                attemp++;// about 10s
                 if(attemp > 200 || done){
                     _setvolume(100,sound);
                     clearInterval(_interval);
@@ -512,10 +514,11 @@ var Managethesound = function(){
     };
 
     var _getandplaythissound = function(e){
+        if (debug)console.info('_getandplaythissound', e);
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
-        soundManager.pauseAll();
+        pauseall();
 
         var thisid = $(this).data('soundid');
         _playthissound(_getmp3byid(thisid), thisid, false);
@@ -634,6 +637,7 @@ var Managethesound = function(){
         previewhaspausedcurrentsound = false;
         _unbindplaybyid($elem);
 
+        $elem.off('mouseup mouseout', _cancelbeforepreviewbegin);
         $elem.on('mouseup mouseout', _previewend);
 
         var id = $elem.data('soundid');
@@ -652,10 +656,9 @@ var Managethesound = function(){
         _playsoundattime(10*1000, _soundpreview);
 
     };
-    var _previewend = function () {
+    var _previewend = function (e) {
         if (debug)console.info('_previewend');
         var $elem = $(this);
-
         if(_soundpreview){
             soundManager.destroySound(_soundpreviewid);
             _soundpreview = null;
@@ -665,10 +668,22 @@ var Managethesound = function(){
             previewhaspausedcurrentsound = false;
             _resumesound();
         }
+        $elem.one('click', function(e){
+            //ugly canceler, avoid playing sound on release mousedown
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+        });
         _bindplaybyid($elem);
         $elem.off('mouseup mouseout', _previewend);
 
-
+    };
+    var TIMEOUTpreview = 0;
+    var _cancelbeforepreviewbegin = function () {
+        if (debug)console.info('_cancelbeforepreviewbegin');
+        var $elem = $(this);
+        $elem.off('mouseup mouseout', _cancelbeforepreviewbegin);
+        clearTimeout(TIMEOUTpreview);
     };
     var _previewsoundbyidctrl = function (e) {
         if (debug)console.info('_previewsoundbyidctrl');
@@ -677,7 +692,8 @@ var Managethesound = function(){
         e.stopImmediatePropagation();
         // settimout unbind
         var $elem = $(this);
-        setTimeout(function(){_previewsound($elem)}, 500);
+        $elem.on('mouseup mouseout', _cancelbeforepreviewbegin);
+        TIMEOUTpreview = setTimeout(function(){_previewsound($elem)}, 500);
 
     };
 
