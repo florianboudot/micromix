@@ -648,12 +648,16 @@ var Managethesound = function(){
             id: _soundpreviewid,
             autoPlay: true,
             autoLoad: true,
-            onplay: function(){
-                previewhaspausedcurrentsound = _pausesound();
+            onload: function(){
+                var __starttime = 10*1000;
+                this.onPosition(__starttime, function() {
+                    previewhaspausedcurrentsound = _pausesound();
+                });
+                _playsoundattime(__starttime, _soundpreview);
+
             }
         });
         _soundpreview = soundManager.sounds[_soundpreviewid];
-        _playsoundattime(10*1000, _soundpreview);
 
     };
     var _previewend = function (e) {
