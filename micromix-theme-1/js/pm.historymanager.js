@@ -211,20 +211,27 @@ pm.Historymanager = function() {
 
     };
 
+    var _bindlink = function (i,o) {
+        if (debug)console.info('_bindlink');
+        var $historyitem = $(o);
+        if(/FORM/.test(o.nodeName)){
+            $historyitem.off('submit', bindformhistorypush).on('submit', bindformhistorypush);
+        }
+        else{
+            $historyitem.off('click', bindlinkhistorypush).on('click', bindlinkhistorypush);
+        }
+        $historyitem.addClass('history');
+    };
+
     var bindLinks = function(parent) {
         if (debug)console.info('pm.base.Historymanager.js:bindLinks', parent);
         if(PJAX){
-            var $selector = parent ? $('.history', parent) : $('.history');
-            $selector.each(function(i,o){
-                var $historyitem = $(o);
-                if(/FORM/.test(o.nodeName)){
-                    $historyitem.off('submit', bindformhistorypush).on('submit', bindformhistorypush);
-                }
-                else{
-                    $historyitem.off('click', bindlinkhistorypush).on('click', bindlinkhistorypush);
-                }
-
-            });
+            var $parent = parent ? parent : $('body');
+            var $selector = $parent.find('.history');
+            $selector.each(_bindlink);
+            var $selector2 = $parent.find('.parenthistory a,form').not('.history');
+            if (debug)console.error('$selector2', $selector2);
+            $selector2.each(_bindlink)
         }
         else{
             if (debug)console.warn('PJAX = false, no link will be binded');

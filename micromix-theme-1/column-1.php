@@ -13,7 +13,7 @@
             ));
             echo '<ol class="list-artists">';
             foreach($array_tags as $tag_link){
-                echo '<li>'.$tag_link.'</li>';
+                echo '<li>'.str_ireplace('class=\'','class=\'history ',$tag_link).'</li>';
                 echo "\n";
             }
             echo '</ol>';
@@ -23,7 +23,7 @@
 
     <div id="authors" class="col-block">
         <h3 class="col-block-title">Mixed by :</h3>
-        <ol class="list-authors">
+        <ol class="list-authors parenthistory">
             <?php wp_list_authors('show_fullname=0&optioncount=1&orderby=post_count&order=DESC&format=list'); ?>
         </ol>
     </div><!-- #authors -->

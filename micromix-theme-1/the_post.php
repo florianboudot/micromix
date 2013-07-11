@@ -10,7 +10,7 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
     <h2 class="post-title">
         <strong class="post-micromix-number"><?= $micromix_number ?></strong>
         <?php if(!is_single()): ?>
-            <a class="the-title" href="<?= $the_permalink ?>" rel="bookmark" title="Leave a comment ?">
+            <a class="history" class="the-title" href="<?= $the_permalink ?>" rel="bookmark" title="Leave a comment ?">
                 &ldquo;<?php the_title(); ?>&rdquo;
             </a>
         <?php else: ?>
@@ -25,7 +25,7 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
     <!-- IMAGE -->
     <div class="post-image">
         <?php if(!is_single()): ?>
-            <a href="<?= $the_permalink ?>" title="See this post">
+            <a class="history" href="<?= $the_permalink ?>" title="See this post">
                 <img src="<?= $image_src ?>" alt="<?= the_title(); ?>">
             </a>
         <?php else: ?>
@@ -38,9 +38,9 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
 
 
     <!-- POST CONTENT -->
-    <div class="post-content">
+    <div class="post-content parenthistory">
         <?php the_content('<p>Read the rest of this entry &raquo;</p>'); ?>
-        <p class="post-permalink">> <a href="<?= $the_permalink ?>" rel="bookmark">read this post</a></p>
+        <p class="post-permalink">> <a class="history" href="<?= $the_permalink ?>" rel="bookmark">read this post</a></p>
     </div>
 
 
