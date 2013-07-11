@@ -59,7 +59,7 @@
                     ?>
                     <li>
                         <strong><?= $micromixNumber; ?></strong>
-                        <a href="<?= get_permalink($post); ?>" title="Micromix #<?= $micromixNumber; ?> - <?= $post_title;?> (<?= $nb_plays; ?> plays)">
+                        <a class="history" href="<?= get_permalink($post); ?>" title="Micromix #<?= $micromixNumber; ?> - <?= $post_title;?> (<?= $nb_plays; ?> plays)">
                             <img src="<?= $image_post_thumb; ?>" alt="<?= $post_title; ?>" />
                         </a>
                     </li>

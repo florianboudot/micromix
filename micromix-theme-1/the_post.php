@@ -10,7 +10,7 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
     <h2 class="post-title">
         <strong class="post-micromix-number"><?= $micromix_number ?></strong>
         <?php if(!is_single()): ?>
-            <a class="history" class="the-title" href="<?= $the_permalink ?>" rel="bookmark" title="Leave a comment ?">
+            <a class="history the-title" href="<?= $the_permalink ?>" rel="bookmark" title="Leave a comment ?">
                 &ldquo;<?php the_title(); ?>&rdquo;
             </a>
         <?php else: ?>
