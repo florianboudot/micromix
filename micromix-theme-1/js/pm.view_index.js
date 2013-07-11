@@ -6,7 +6,7 @@ pm.manager.viewscript['index'] = function () {
     var bind = function ($view) {
         if (debug)console.info('pm.manager.view[index].bind');
 
-        micromix.managethisawesomemicromixsound.refreshprogressbar();//todo there's a generic function for viewchange, move it there somewhere
+        micromix.managethisawesomemicromixsound.refreshbind($view);//todo there's a generic function for viewchange, move it there somewhere
     };
 
     /* UNBIND */

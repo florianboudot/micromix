@@ -480,7 +480,7 @@ var Managethesound = function(){
             _currentindexplay = _maybecurrentindexplay = _getindexbyid(_currentidplay);
 
             _deletesound(_lastidplay);
-            _updatecurrentprogressbars(id);
+            refreshbind();
             _createsound(url, id).play();
         }
 
@@ -500,8 +500,8 @@ var Managethesound = function(){
     /**
      *
      */
-    var _updatecurrentprogressbars = function () {
-        if (debug)console.info('_updatecurrentprogressbars');
+    var refreshbind = function ($parent) {
+        if (debug)console.info('refreshbind');
 
         var $post = $('#post-' + _currentidplay);
         _ispostondisplay = !!$post.length;
@@ -512,6 +512,12 @@ var Managethesound = function(){
         DOMcurrenttimetext      = $currentplayer.find('.timetext')[0];
         DOMcurrenttotaltimetext = $currentplayer.find('.totaltime')[0];
         $currentplayer.on(timelineevents, _gotothistime);
+
+        if($parent){
+            $parent.find('.JSplaysoundbyid').on('click', _getandplaythissound);
+        }
+
+
     };
 
     var _getandplaythissound = function(e){
@@ -714,7 +720,7 @@ var Managethesound = function(){
     var _onsoundmanagerready = function () {
         if (debug)console.info('_onsoundmanagerready');
 
-        $linkplaysoundbyid.bind('click', _getandplaythissound);
+        $linkplaysoundbyid.on('click', _getandplaythissound);
 
         $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
@@ -733,18 +739,18 @@ var Managethesound = function(){
         // buttons
         $ghettobuttonscontainer.addClass('buttons-container');
         $ghettoblaster.append($ghettobuttonscontainer);
-        $ghettonext.bind('click', _usergonext);
+        $ghettonext.on('click', _usergonext);
         $ghettonext.addClass('button next');
-        $ghettoplay.bind('click', togglepause);
+        $ghettoplay.on('click', togglepause);
         $ghettoplay.addClass('button play');
 
 
-        $ghettopause.bind('click', togglepause);
+        $ghettopause.on('click', togglepause);
         $ghettopause.addClass('button pause');
-        $ghettostop.bind('click', togglepause);
+        $ghettostop.on('click', togglepause);
         $ghettostop.addClass('button stop');
 
-        $ghettoprev.bind('click', _usergoprev);
+        $ghettoprev.on('click', _usergoprev);
         $ghettoprev.addClass('button prev');
 
         $ghettobuttonscontainer.append($ghettonext);
@@ -811,5 +817,5 @@ var Managethesound = function(){
 
 
     this.initsound = init;
-    this.refreshprogressbar = _updatecurrentprogressbars;
+    this.refreshbind = refreshbind;
 };
