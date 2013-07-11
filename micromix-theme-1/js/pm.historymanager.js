@@ -230,7 +230,6 @@ pm.Historymanager = function() {
             var $selector = $parent.find('.history');
             $selector.each(_bindlink);
             var $selector2 = $parent.find('.parenthistory a,form').not('.history');
-            if (debug)console.error('$selector2', $selector2);
             $selector2.each(_bindlink)
         }
         else{
