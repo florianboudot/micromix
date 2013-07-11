@@ -48,6 +48,8 @@
     border: 3px solid #e6e8e7;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     -webkit-transform: rotateY(18deg);
+       -moz-transform: rotateY(18deg);
+            transform: rotateY(18deg);
     -webkit-transform-style: preserve-3d;
        -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
@@ -68,7 +70,11 @@
     top: 20px;
     visibility: hidden;
     width: 50px;
-    -webkit-transform: rotateY(18deg);
+         -o-transform: translateZ(7px);
+        -ms-transform: translateZ(7px);
+       -moz-transform: translateZ(7px);
+    -webkit-transform: translateZ(7px);
+            transform: translateZ(7px);
     -webkit-transform-style: preserve-3d;
        -moz-transform-style: preserve-3d;
             transform-style: preserve-3d;
@@ -109,9 +115,26 @@ a:hover .play-sound-inside:hover{
 }
 .play-sound-text{
     font-size: 25px;
-    left: 18px;
+    left: 0;
+    line-height: 24px;
+    padding: 16px;
     position: absolute;
-    top: 15px;
+    top: 0;
+    -o-transform: translate3d(0,0,0);
+    -ms-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    -webkit-transform: translate3d(0,0,1px);
+    transform: translate3d(0,0,0);
+    -webkit-transform-style: preserve-3d;
+}
+.sound-preview-title{
+    background: rgba(0,0,0,.8);
+    border: solid 1px #FFF;
+    left: -62px;
+    padding: 15px;
+    position: absolute;
+    right: -50px;
+    top: -85px;
     -o-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);

@@ -17,6 +17,7 @@ var Managethesound = function(){
     var $ghettoprev = $('<div>');
     var $ghettoinfo = $('<a>');
     var $listsitems = $('#posts-year-month .list-item');
+    var $previewtitle = $('<span>').addClass('sound-preview-title');
     var $currentsoundplayer = $empty;
     var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
@@ -660,6 +661,11 @@ var Managethesound = function(){
         _soundpreview = soundManager.sounds[_soundpreviewid];
 
     };
+    var _onpreviewendfinally = function () {
+        if (debug)console.info('_onpreviewendfinally');
+        $previewtitle.animate3({opacity:0},{duration:500,complete:function(){$(this).remove()}});
+    };
+
     var _previewend = function (e) {
         if (debug)console.info('_previewend');
         var $elem = $(this);
@@ -680,7 +686,7 @@ var Managethesound = function(){
         });
         _bindplaybyid($elem);
         $elem.off('mouseup mouseout', _previewend);
-
+        _onpreviewendfinally();
     };
     var TIMEOUTpreview = 0;
     var _cancelbeforepreviewbegin = function () {
@@ -688,6 +694,7 @@ var Managethesound = function(){
         var $elem = $(this);
         $elem.off('mouseup mouseout', _cancelbeforepreviewbegin);
         clearTimeout(TIMEOUTpreview);
+        _onpreviewendfinally();
     };
     var _previewsoundbyidctrl = function (e) {
         if (debug)console.info('_previewsoundbyidctrl');
@@ -696,6 +703,9 @@ var Managethesound = function(){
         e.stopImmediatePropagation();
         // settimout unbind
         var $elem = $(this);
+        $previewtitle.css({opacity:0}).html('hold your click to preview');//todo translate
+        $elem.append($previewtitle);
+        $previewtitle.animate3({opacity:1},{duration:500});
         $elem.on('mouseup mouseout', _cancelbeforepreviewbegin);
         TIMEOUTpreview = setTimeout(function(){_previewsound($elem)}, 500);
 
