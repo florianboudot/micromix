@@ -1,16 +1,12 @@
-micromix
-========
+#micromix theme
 
 This is the custom Wordpress theme for www.micromix.fr
 
-installation steps :
---------------------
+##installation steps
 
+* download Wordpress, install it and clone this repo into your `/wp-content/themes/` so you will have `/wp-content/themes/micromix-theme-1`
 
-* download Wordpress, install it and clone this repo into your /wp-content/themes/ so you will have /wp-content/themes/micromix-theme-1
-
-* configure your apache with
-    Listen *:80
+* configure your apache with `Listen *:80`
 
 and
 
@@ -29,17 +25,16 @@ and
         Allow from all
     </Directory>
 
-* configure your host file with :
-    127.0.0.1 micromix.localhost
+* configure your host file with `127.0.0.1 micromix.localhost`
 
-* set your /wp-config.php wordpress file with your local database login
+* set your `/wp-config.php` wordpress file with your local database login
 
 * import the micromix database (ask the owner)
 
-* import the images and mp3 files in your /upload/ folder (ask the owner)
+* import the images and mp3 files in your `/upload/` folder (ask the owner)
 
-* if you need to regenerate all thumbnails jpg files (small, medium, large), got to functions.php
+* if you need to regenerate all thumbnails jpg files (small, medium, large), got to `functions.php`
 
-* modify your .htacccess adding this line :
+* modify your `.htacccess` adding this line
     RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}
 
