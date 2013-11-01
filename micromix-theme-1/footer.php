@@ -13,7 +13,7 @@
 
 <!-- SCRIPTS -->
 <script src="<?= theme_path ?>/js/libs/jquery-2.0.2.js"></script>
-<script> theme_path = '<?= theme_path ?>'; // being used in js files </script>
+<script> theme_path = '<?= theme_path ?>'; // javascript var </script>
 
 <script src="<?= theme_path ?>/js/libs/soundmanager2.js"></script>
 <script src="<?= theme_path ?>/js/libs/sketcher.js"></script>

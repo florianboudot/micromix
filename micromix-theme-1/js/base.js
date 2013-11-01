@@ -1,4 +1,4 @@
-/* highlight plugin */
+/* highlight search results plugin */
 $.fn.extend({
     highlight: function(search, insensitive, hls_class){
         var regex = new RegExp("(<[^>]*>)|(\\b"+ search.replace(/([-.*+?^${}()|[\]\/\\])/g,"\\$1") +")", insensitive ? "ig" : "g");
@@ -56,6 +56,9 @@ $(document).ready(function() {
 
     var activity = new Inactivity({events:'mousemove keydown click touchend'});
 
+
+    // STATS
+    // play = +1 in the statistics
 	var stachts = {}; // object
     jQuery('.bt-player a').bind('mousedown',function(){
         var postId = jQuery(this).parents('.bt-player')[0].id;
@@ -67,7 +70,7 @@ $(document).ready(function() {
             jQuery.ajax({
                 type:'POST',
                 data: 'postId='+postId,
-                url: '/wp-content/themes/micromix-theme-1/ajax.php',
+                url: theme_path + '/ajax.php', //todo make this path dynamic, this won't work if we change the theme folder name
                 success : function(obj) {
                     //console.info('success');
                     //console.info(obj);

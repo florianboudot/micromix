@@ -29,7 +29,7 @@ $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
         <a href="<?= $mp3_link; ?>" class="wpaudio JSplaysoundbyid" data-soundid="<?= the_ID(); ?>"><?= $file_name; ?></a>
     </p>
 
-    <p class="stats" style="clear: both; display: none;">
+    <p class="stats" style="clear: both;">
         <em>
              <?= print_download($currentID, false); ?> total plays
             (<?= print_download($currentID, true); ?> plays this month) <br>
