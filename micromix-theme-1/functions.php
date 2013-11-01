@@ -31,8 +31,7 @@ function image_attachment_src($the_post_id, $the_size){
 }
 
 /*
- * please keep this code
- * it regenerates image thumbnails for old posts
+ * regenerates image thumbnails for old posts
  *
  */
 /*
