@@ -35,8 +35,7 @@ and
 
 * if you need to regenerate all thumbnails jpg files (small, medium, large), got to `functions.php` and uncomment the function `regenerate_all_attachment_sizes`
 
-* modify your `.htacccess` adding this line
-    RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}
+* modify your `.htacccess` adding this line `RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}`
 
 
 
