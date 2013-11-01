@@ -32,12 +32,11 @@ function image_attachment_src($the_post_id, $the_size){
 
 /*
  * please keep this code
- * regenerate image thumbnails for old posts
+ * it regenerates image thumbnails for old posts
  *
  */
-
+/*
 require ( ABSPATH . 'wp-admin/includes/image.php' );
-
 function regenerate_all_attachment_sizes() {
     $args = array(
         'post_type' => 'attachment',
@@ -54,9 +53,8 @@ function regenerate_all_attachment_sizes() {
         }
     }
 }
-
-// regenerate_all_attachment_sizes();
-
+regenerate_all_attachment_sizes();
+*/
 
 /*
 function : ALL POSTS BY YEAR (in the sidebar)

@@ -1,5 +1,5 @@
 <?php
-// to work, you need to edit the .htaccess file with thie line:
+// to work, you need to edit the .htaccess file with this line:
 // RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}
 $filename = '';
 if(isset($_GET) && isset($_GET['file'])){
@@ -11,7 +11,7 @@ if(isset($_GET) && isset($_GET['file'])){
         global $wpdb;
 
         /*
-         * c'est une requête trop cool pour cleaner les chemin vers les MP3 dans la table wp-postmeta
+         * requête optionelle pour cleaner les chemins vers les MP3 dans la table wp-postmeta
          * /
         $query2 = "SELECT * FROM  `wp_postmeta` WHERE meta_key =  'enclosure' LIMIT 0 , 500";
         $lines2 = $wpdb->get_results($query2);
