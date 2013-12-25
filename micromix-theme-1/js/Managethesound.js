@@ -717,11 +717,29 @@ var Managethesound = function(){
 
     };
 
+    var $controls = $('.control');
+    var $controls_pushed = $('.control-pushed');
+    var pushControl = function () {
+        if (debug)console.info('pushControl');
+        var $control = $(this),
+            id = $control.attr('id'),
+            id_pushed = '#' + id + '-pushed',
+            $skin_pushed = $(id_pushed);
+
+        $controls.removeClass('active');
+        $control.addClass('active');
+
+        $controls_pushed.removeClass('active');
+        $skin_pushed.addClass('active');
+
+    };
+
     var _onsoundmanagerready = function () {
         if (debug)console.info('_onsoundmanagerready');
 
         $linkplaysoundbyid.on('click', _getandplaythissound);
 
+        $controls.on('click', pushControl);
         $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         $cassette.addClass('cassette');
@@ -731,7 +749,8 @@ var Managethesound = function(){
         $ghettoinfo.addClass('ghettoblaster-info history').html('micromix').attr('href', '/');
 
         // ghettoblaster
-        $footer.append($ghettoblaster);
+        // TEMP : let's comment this and build the cassette player (no ghettoblaster anymore)
+        // $footer.append($ghettoblaster);
 
         // cassette
         $ghettoblaster.append($cassette);

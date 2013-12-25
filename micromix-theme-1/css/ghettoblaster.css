@@ -121,3 +121,89 @@
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);
 }
+
+
+/* NEW ! (will replace ghettoblasger) */
+/* CASSETTE PLAYER */
+#cassette-player {
+    position:fixed;
+    width:842px;
+    height:422px;
+    background:url(../img/player/cassette-player-full.png) 0 0 no-repeat;
+    bottom: -37px;
+    right:0;
+}
+#cassette-player .control {
+    position:absolute;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 63px;
+    cursor: pointer;
+    height: 82px;
+    top: 296px;
+    z-index: 5;
+}
+#cassette-player .control.active {
+    cursor: default;
+}
+#cassette-player #control-1 {
+    left: 137px;
+}
+#cassette-player #control-2 {
+    left: 197px;
+    width: 63px;
+}
+#cassette-player #control-3 {
+    left: 256px;
+    width: 62px;
+}
+#cassette-player #control-4 {
+    left: 316px;
+    width: 60px;
+}
+#cassette-player #control-5 {
+    left: 375px;
+    width: 60px;
+}
+#cassette-player #control-6 {
+    left: 432px;
+}
+
+/* pushed */
+#cassette-player .control-pushed {
+    z-index: 4;
+    position: absolute;
+    top: 299px;
+    width: 81px;
+    height: 82px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    display: none;
+}
+#cassette-player .control-pushed.active {
+    display: block;
+}
+#cassette-player #control-1-pushed {
+    background-image: url(../img/player/control-1-pushed.jpg); /* todo sprite me */
+    left: 130px;
+}
+#cassette-player #control-2-pushed {
+    background-image: url(../img/player/control-2-pushed.jpg);
+    left: 187px;
+}
+#cassette-player #control-3-pushed {
+    background-image: url(../img/player/control-3-pushed.jpg);
+    left: 245px;
+}
+#cassette-player #control-4-pushed {
+    background-image: url(../img/player/control-4-pushed.jpg);
+    left: 306px;
+}
+#cassette-player #control-5-pushed {
+    background-image: url(../img/player/control-5-pushed.jpg);
+    left: 363px;
+}
+#cassette-player #control-6-pushed {
+    background-image: url(../img/player/control-6-pushed.jpg);
+    left: 421px;
+}
