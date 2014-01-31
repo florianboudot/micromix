@@ -1,4 +1,10 @@
-/* highlight search results plugin */
+
+var $ = jQuery;
+
+
+/**
+ * HIGHLIGHT SEARCH RESULTS plugin
+ */
 $.fn.extend({
     highlight: function(search, insensitive, hls_class){
         var regex = new RegExp("(<[^>]*>)|(\\b"+ search.replace(/([-.*+?^${}()|[\]\/\\])/g,"\\$1") +")", insensitive ? "ig" : "g");
@@ -9,7 +15,6 @@ $.fn.extend({
 });
 
 
-var $ = jQuery;
 var $window = $(window);
 var $body = $('body');
 var micromix = {};
@@ -185,13 +190,13 @@ var $ghetto = $();
 var fixed = true;
 var stickGhettoToBottom = function(){
     if($ghetto.length < 1){
-        $ghetto = $('.ghettoblaster');
+        $ghetto = $('#cassette-player');
     }
 
-    var windowheight = $window.height();
-    var scrollTop = $window.scrollTop();
-    var bottomLimit = $body.height() - 214;
-    var isLimitReached = windowheight + scrollTop >= bottomLimit;
+    var windowheight = $window.height(),
+        scrollTop = $window.scrollTop(),
+        bottomLimit = $body.height() - 214,
+        isLimitReached = windowheight + scrollTop >= bottomLimit;
 
     if (isLimitReached && fixed){
         $ghetto.addClass('positionabsolute');
@@ -202,3 +207,27 @@ var stickGhettoToBottom = function(){
         fixed = true;
     }
 };
+
+
+/* CONSOLE COLOR */
+var CONSOLE_CSS = 'background:#a4aa0a; color:white; padding:0 4px'; // default
+
+function CustomConsole (prefix, console_css) {
+    console_css = console_css || CONSOLE_CSS;// choose passed arg or default constant
+
+    function processArgs () {
+        var args = Array.prototype.slice.call(arguments);  // converts Arguments to Array
+        args.shift();                                      // remove console method
+        args.unshift('%c' + prefix, console_css);          // adds custom css and prefix at the beginning
+        return args;
+    }
+
+    function handler (type) {
+        return console[type].apply(console, processArgs.apply(this, arguments));
+    }
+
+    // export public methods: .info(), .warn(), whatever method from console you need...
+    ['log', 'info', 'warn'].forEach(function(type) {
+        this[type] = handler.bind(handler, type); // IE9+
+    }, this);
+}

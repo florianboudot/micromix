@@ -58,3 +58,4 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
     </p>
     <?php } ?>
 </div><!-- .article -->
+

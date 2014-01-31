@@ -5,6 +5,7 @@
  */
 var Managethesound = function(){
     var debug = true;
+    var counter = null;
     var $empty = $();
     var $footer = $('#footer');
     var $ghettoblaster = $('<div>');
@@ -52,6 +53,12 @@ var Managethesound = function(){
     var _starttime = null;
     var _autoplay = false;
 
+    /* CONSOLE COLOR */
+    // create an instance of CustomColor
+    var console_css = 'background:#baff00; color:black; padding:0 4px';
+    var _console = new CustomConsole('Managethesound', console_css);
+
+
     (function(){
         for (var index = 0; index < _playlist.length; index++) {
             var obj = _playlist[index];
@@ -68,33 +75,33 @@ var Managethesound = function(){
     })();
 
     var _getmp3byindex = function (index) {
-        if (debug)console.info('_getmp3byindex', index);
+        _console.info('_getmp3byindex', index);
         return _mp3byindex[index];
     };
     var _getmp3byid = function (id) {
-        if (debug)console.info('_getmp3byid', id);
+        _console.info('_getmp3byid', id);
         return _mp3byid[id];
     };
     var _geturlbyindex = function (index) {
-        if (debug)console.info('_getmp3byindex', index);
+        _console.info('_getmp3byindex', index);
         return _urlbyindex[index];
     };
     var _geturlbyid = function (id) {
-        if (debug)console.info('_getmp3byid', id);
+        _console.info('_getmp3byid', id);
         return _urlbyid[id];
     };
     var _getidbyindex = function (index) {
-        if (debug)console.info('_getidbyindex');
+        _console.info('_getidbyindex');
         return _idbyindex[index]
     };
     var _getindexbyid = function (id) {
-        if (debug)console.info('_getindexbyid');
+        _console.info('_getindexbyid');
         return _indexbyid[id]
     };
     var TIMEOUTanimatewindowtitle = 0;
     var _actualchardocumenttitle = '♫';
     var _animatedocumenttitle = function () {
-//        if (debug)console.info('_animatedocumenttitle');
+//        _console.info('_animatedocumenttitle');
         var oldchar = _actualchardocumenttitle;
         _actualchardocumenttitle = _actualchardocumenttitle === '♪' ? '♫' : '♪';
         if(/[♪|♫]/.test(document.title)){
@@ -108,13 +115,13 @@ var Managethesound = function(){
     };
 
     var _cancelanimatedocumenttitle = function () {
-        if (debug)console.info('_cancelanimatedocumenttitle');
+        _console.info('_cancelanimatedocumenttitle');
         clearTimeout(TIMEOUTanimatewindowtitle);
         document.title = document.title.replace(/[♫|♪] /, '');
     };
 
     var _onplay = function(){
-        if (debug)console.info('_onplay');
+        _console.info('_onplay');
         if(this.readyState == 2){
             _onmp3fail();
             togglepause();
@@ -127,34 +134,34 @@ var Managethesound = function(){
         }
     };
     var _onpause = function(){
-        if (debug)console.info('_onpause');
+        _console.info('_onpause');
         $ghettoplay.removeClass(splayingclassname);
         _cancelanimatedocumenttitle();
     };
     var _onresume = function(){
-        if (debug)console.info('_onresume');
+        _console.info('_onresume');
         _onplay.apply(this);
     };
     var _onstop = function(){
-        if (debug)console.info('_onstop');
+        _console.info('_onstop');
     };
     var _onid3 = function(){
-        if (debug)console.info('_onid3', this.id3);
+        _console.info('_onid3', this.id3);
     };
     var _ondestroy = function(){
-        if (debug)console.info('_ondestroy');
+        _console.info('_ondestroy');
         _onpause();
     };
     var _onfinishsound = function () {
-        if (debug)console.info('_onfinishsound');
+        _console.info('_onfinishsound');
         _playnextsound();
     };
     var _ondataerror = function () {
-        if (debug)console.error('_ondataerror');
+        _console.error('_ondataerror');
 
     };
     var _onload = function (isloaded) {
-        if (debug)console.info('_onload', isloaded);
+        _console.info('_onload', isloaded);
         if(!isloaded){
             _onloadfail.apply(this, arguments);
         }
@@ -173,7 +180,7 @@ var Managethesound = function(){
      * @private
      */
     var _playsoundattime = function (starttime, sound) {
-        if (debug)console.warn('_playsoundattime', sound);
+        _console.warn('_playsoundattime', sound);
         if(starttime){
             var attemp = 0;
             var done = false;
@@ -202,20 +209,20 @@ var Managethesound = function(){
     };
 
     var _onloadfail = function () {
-        if (debug)console.info('_onloadfail');
+        _console.info('_onloadfail');
         togglepause();
         console.error('network error or mp3 missing');
 
     };
     var _onmp3fail = function () {
-        if (debug)console.info('_onmp3fail');
+        _console.info('_onmp3fail');
         $.get('/').always(function(data, status, xhr){
             if(status === 'error') {
-                console.error('OUPS, ' + location.host + ' IS UNREACHABLE, DO YOU STILL PAY FOR YOU INTENRET MEMBERSHIP? LOLOLOLOLOLOL');
+                console.error('OUPS, ' + location.host + ' IS UNREACHABLE, Y U NO PAY INTENRET CONNEXION ? LOLOLOLOLOLOL');
                 //show a status to tell that intenret has gone, and will never be back :(
             }
             else if(status === 'success'){
-                console.error('MP3 IS DEAD, PLEASE REFRESH OR FREEZE ON THE DANCEFLOOR OR PLAY NEXT');
+                console.error('MP3 IS DEAD, PLEASE PLAY NEXT, REFRESH OR FREEZE ON THE DANCEFLOOR');
                 //show a status somewhere (over the rainbow) to refresh, play next or play a funky gif of that stop dancing
             }
         });
@@ -227,7 +234,7 @@ var Managethesound = function(){
      * @private
      */
     var _getminutesandseconds = function (fullseconds) {
-        if (debug)console.info('_getminutesandseconds');
+        _console.info('_getminutesandseconds');
         var minVar = Math.floor(fullseconds/60);
         var seconds = (fullseconds % 60) >> 0;
         return {s:seconds,m:minVar};
@@ -237,12 +244,14 @@ var Managethesound = function(){
     var _lastupdateloadprogress = 0;
 
     var _updatetimeprogress = function (force) {
-//            if (debug)console.info('_updatetimeprogress');//flood
+//            _console.info('_updatetimeprogress');//flood
         if(_ispostondisplay){
             var position = this.position;
             if(Math.abs(position - _lastupdatetimeprogress) > 1000 || force){
                 _lastupdatetimeprogress = position;
-                DOMcurrenttimeline.style.cssText = 'width:' + (position / this.duration  *100 + '%;');
+                var progression = position / this.duration * 100;
+                DOMcurrenttimeline.style.cssText = 'width:' + (progression + '%;');
+                counter.update(progression);
                 var otime = _getminutesandseconds(position / 1000);
                 DOMcurrenttimetext.textContent = otime.m + 'm:' + otime.s + 's';
             }
@@ -250,7 +259,7 @@ var Managethesound = function(){
     };
 
     var _updateloadprogress = function (force) {
-//            if (debug)console.info('_updateloadprogress');//flood
+//            _console.info('_updateloadprogress');//flood
         if(_ispostondisplay){
             var position = this.bytesLoaded;
             if((position - _lastupdateloadprogress) > 0.01 || force){
@@ -263,7 +272,7 @@ var Managethesound = function(){
     };
 
     var _gotothistime = function (e) {
-        if (debug)console.info('_gotothistime');
+        _console.info('_gotothistime');
         if(e.which === 1){
             var eventtarget = e.target;
             var offsetx = this != eventtarget ? e.offsetX + eventtarget.offsetLeft : e.offsetX;
@@ -278,7 +287,7 @@ var Managethesound = function(){
      * @private
      */
     var _deleteplaylist = function () {
-        if (debug)console.info('_deleteplaylist');
+        _console.info('_deleteplaylist');
 
         var sounds = soundManager.soundIDs;
         for (var i = 0; i < sounds.length; i++) {
@@ -288,7 +297,7 @@ var Managethesound = function(){
     };
 
     var _deletesound = function (id) {
-        if (debug)console.info('_deletesound');
+        _console.info('_deletesound');
 
         var sound = soundManager.sounds[id];
         if(sound){
@@ -306,7 +315,7 @@ var Managethesound = function(){
      * @return {Object} the current added sound of soundManager
      */
     var _createsound = function (url, id) {
-        if (debug)console.info('_createsound', id);
+        _console.info('_createsound', id);
         soundManager.createSound({
             url:url,
             id: id,
@@ -335,7 +344,7 @@ var Managethesound = function(){
     var TIMEOUTusergoprevnext = 0;
 
     var _usergonextprevanimation = function (sclass) {
-        if (debug)console.info('_usergonextprevanimation');
+        _console.info('_usergonextprevanimation');
 
         var $k7 = $cassette.clone();
         $k7.width(100).addClass(sclass);
@@ -351,18 +360,18 @@ var Managethesound = function(){
     };
 
     var _usergonext = function () {
-        if (debug)console.info('_usergonext');
+        _console.info('_usergonext');
         _usergoprevnext('next');
         _usergonextprevanimation('toloadnext');
     };
     var _usergoprev = function () {
-        if (debug)console.info('_usergoprev');
+        _console.info('_usergoprev');
         _usergoprevnext('prev');
         _usergonextprevanimation('toloadprev');
     };
 
     var _usergoprevnext = function (direction) {
-        if (debug)console.info('_usergoprevnext');
+        _console.info('_usergoprevnext');
         var fn;
         if(direction === 'next'){
             fn = _playnextsound;
@@ -382,7 +391,7 @@ var Managethesound = function(){
      * @private
      */
     var _playnextsound = function (wait) {
-        if (debug)console.info('_playnextsound', wait);
+        _console.info('_playnextsound', wait);
 
         if(_maybecurrentindexplay+1 < _playlist.length){
             _playthissound(_getmp3byindex(_maybecurrentindexplay+1), _getidbyindex(_maybecurrentindexplay+1), wait);
@@ -392,7 +401,7 @@ var Managethesound = function(){
         }
     };
     var _playprevsound = function (wait) {
-        if (debug)console.info('_playprevsound');
+        _console.info('_playprevsound');
 
         if(_maybecurrentindexplay-1 >= 0){
             _playthissound(_getmp3byindex(_maybecurrentindexplay-1), _getidbyindex(_maybecurrentindexplay-1), wait);
@@ -407,7 +416,7 @@ var Managethesound = function(){
      * @private
      */
     var _goforward = function (time) {
-        if (debug)console.info('_goforward', time);
+        _console.info('_goforward', time);
         if(_sound){
             var position = _sound.position;
             var _time = time ? time : 1000;
@@ -420,7 +429,7 @@ var Managethesound = function(){
      * @private
      */
     var _gobackward = function (time) {
-        if (debug)console.info('_gobackward', time);
+        _console.info('_gobackward', time);
         if(_sound){
             var position = _sound.position;
             var _time = time ? time : 1000;
@@ -434,7 +443,7 @@ var Managethesound = function(){
      * @private
      */
     var _gotoposition = function (position, sound) {
-        if (debug)console.info('_gotoposition', position);
+        _console.info('_gotoposition', position);
         var __sound = sound ? sound : _sound;
         if(__sound && position){
             __sound.setPosition(position);
@@ -447,7 +456,7 @@ var Managethesound = function(){
      * @private
      */
     var _setvolume = function (volume, sound) {
-        if (debug)console.info('_setvolume', sound);
+        _console.info('_setvolume', sound);
         var __sound = sound ? sound : _sound;
         if(__sound && volume <= 100 && volume >= 0){
             __sound.setVolume(volume);
@@ -461,7 +470,7 @@ var Managethesound = function(){
      * @private
      */
     var _playthissound = function (url, id, wait) {
-        if (debug)console.warn('_playthissound', id, _maybecurrentindexplay, wait);
+        _console.warn('_playthissound', id, _maybecurrentindexplay, wait);
 
         _maybecurrentidplay = id;
         _maybecurrentindexplay = _getindexbyid(_maybecurrentidplay);
@@ -491,7 +500,7 @@ var Managethesound = function(){
     };
 
     var _updatehtmlinfo = function () {
-        if (debug)console.info('_updatehtmlinfo');
+        _console.info('_updatehtmlinfo');
         $ghettoinfo.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
         $ghettoinfo.attr('href', _geturlbyid(_currentidplay));
         pm.manager.history.bindLinks($ghettoblaster);
@@ -501,7 +510,7 @@ var Managethesound = function(){
      *
      */
     var refreshbind = function ($parent) {
-        if (debug)console.info('refreshbind');
+        _console.info('refreshbind');
 
         var $post = $('#post-' + _currentidplay);
         _ispostondisplay = !!$post.length;
@@ -521,7 +530,7 @@ var Managethesound = function(){
     };
 
     var _getandplaythissound = function(e){
-        if (debug)console.info('_getandplaythissound', e);
+        _console.info('_getandplaythissound', e);
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -541,7 +550,7 @@ var Managethesound = function(){
      * @private
      */
     var _pausesound = function (sound) {
-        if (debug)console.info('_pausesound');
+        _console.info('_pausesound');
         var __sound = sound ? sound : _sound;
         var hasbeenpaused = false;
         if(__sound){
@@ -557,7 +566,7 @@ var Managethesound = function(){
      * @private
      */
     var _resumesound = function (sound) {
-        if (debug)console.info('_resumesound');
+        _console.info('_resumesound');
         var __sound = sound ? sound : _sound;
         var hasbeenresumed = false;
         if(__sound){
@@ -567,7 +576,7 @@ var Managethesound = function(){
         return hasbeenresumed;
     };
     var togglepause = function(){
-        if (debug)console.info('togglepause');
+        _console.info('togglepause');
         if(soundManager.soundIDs.length){
             soundManager.togglePause(_currentidplay);
         }
@@ -576,12 +585,12 @@ var Managethesound = function(){
         }
     };
     var _playtheveryfirstsoundinpage = function () {
-        if (debug)console.info('_playtheveryfirstsoundinpage');
+        _console.info('_playtheveryfirstsoundinpage');
         var soundid = $('.wpaudio').first().data('soundid');
         _playthissound(_getmp3byid(soundid), soundid, false)
     };
     var _keyboardshortcuts = function (e) {
-//        if (debug)console.info('_keyboardshortcuts');
+//        _console.info('_keyboardshortcuts');
         var fuckyeah = false;
         var keyCode = e.keyCode;
         var isshift = e.shiftKey;
@@ -629,17 +638,17 @@ var Managethesound = function(){
     };
 
     var _unbindplaybyid = function ($elem) {
-        if (debug)console.info('_unbindplaybyid');
+        _console.info('_unbindplaybyid');
         $elem.off('click', _getandplaythissound);
     };
     var _bindplaybyid = function ($elem) {
-        if (debug)console.info('_bindplaybyid');
+        _console.info('_bindplaybyid');
         $elem.on('click', _getandplaythissound);
 
     };
     var previewhaspausedcurrentsound = false;
     var _previewsound = function ($elem) {
-        if (debug)console.info('_previewsound');
+        _console.info('_previewsound');
 
         previewhaspausedcurrentsound = false;
         _unbindplaybyid($elem);
@@ -668,12 +677,12 @@ var Managethesound = function(){
 
     };
     var _onpreviewendfinally = function () {
-        if (debug)console.info('_onpreviewendfinally');
+        _console.info('_onpreviewendfinally');
         $previewtitle.animate3({opacity:0},{duration:500,complete:function(){$(this).remove()}});
     };
 
     var _previewend = function (e) {
-        if (debug)console.info('_previewend');
+        _console.info('_previewend');
         var $elem = $(this);
         if(_soundpreview){
             soundManager.destroySound(_soundpreviewid);
@@ -696,14 +705,14 @@ var Managethesound = function(){
     };
     var TIMEOUTpreview = 0;
     var _cancelbeforepreviewbegin = function () {
-        if (debug)console.info('_cancelbeforepreviewbegin');
+        _console.info('_cancelbeforepreviewbegin');
         var $elem = $(this);
         $elem.off('mouseup mouseout', _cancelbeforepreviewbegin);
         clearTimeout(TIMEOUTpreview);
         _onpreviewendfinally();
     };
     var _previewsoundbyidctrl = function (e) {
-        if (debug)console.info('_previewsoundbyidctrl');
+        _console.info('_previewsoundbyidctrl');
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -717,10 +726,29 @@ var Managethesound = function(){
 
     };
 
+    var Counter = function(){
+        // html container
+        var $counter = $('#cassette-player').find('.counter');
+
+        var update = function(number){
+            var progression = (number).toFixed(2); // round to 2 decimals (3.80)
+            $counter.html(progression);
+        };
+
+        var reset = function(){
+            this.update(0);
+        };
+
+        // pubic methods
+        this.update = update;
+        this.reset = reset;
+    };
+
+
     var $controls = $('.control');
     var $controls_pushed = $('.control-pushed');
     var pushControl = function () {
-        if (debug)console.info('pushControl');
+        _console.info('pushControl');
         var $control = $(this),
             id = $control.attr('id'),
             id_pushed = '#' + id + '-pushed',
@@ -735,7 +763,7 @@ var Managethesound = function(){
     };
 
     var _onsoundmanagerready = function () {
-        if (debug)console.info('_onsoundmanagerready');
+        _console.info('_onsoundmanagerready');
 
         $linkplaysoundbyid.on('click', _getandplaythissound);
 
@@ -745,6 +773,8 @@ var Managethesound = function(){
         $cassette.addClass('cassette');
         $ghettoblaster.addClass('ghettoblaster');
 
+        // define html counter
+        counter = new Counter();
 
         $ghettoinfo.addClass('ghettoblaster-info history').html('micromix').attr('href', '/');
 
@@ -793,7 +823,14 @@ var Managethesound = function(){
     };
 
     var init = function () {
-        if (debug)console.info('init');
+        _console.info('init');
+
+
+        // todo TEST function
+        var toggleOpenDeck = function () {
+            $('#deck').toggleClass('open');
+        };
+        $('#deck').on('click', toggleOpenDeck);
 
         //todo externalize this hash extract
         var hashsplit = location.hash.split('#')[1];
@@ -830,10 +867,7 @@ var Managethesound = function(){
             }
 
         });
-
     };
-
-
 
     this.initsound = init;
     this.refreshbind = refreshbind;
