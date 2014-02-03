@@ -829,6 +829,7 @@ var Managethesound = function(){
         // todo TEST function
         var toggleOpenDeck = function () {
             $('#deck').toggleClass('open');
+            $('#deck-door-shadow').toggleClass('active');
         };
         $('#deck').on('click', toggleOpenDeck);
 
