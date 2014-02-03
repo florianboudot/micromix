@@ -127,55 +127,75 @@
 /* CASSETTE PLAYER */
 #cassette-player {
     position:fixed;
-    width:842px;
-    height:422px;
+    width:673px;
+    height:338px;
     background:url(../img/player/cassette-player-full.png) 0 0 no-repeat;
-    bottom: -37px;
+    bottom: -24px;
     right:0;
+}
+#cassette-player.positionabsolute{
+    position: absolute;
+    bottom: 198px;
 }
 #cassette-player .control {
     position:absolute;
     overflow: hidden;
     text-indent: -9999px;
-    width: 63px;
+    width: 46px;
     cursor: pointer;
-    height: 82px;
-    top: 296px;
+    height: 61px;
+    top: 241px;
     z-index: 5;
 }
 #cassette-player .control.active {
     cursor: default;
 }
 #cassette-player #control-1 {
-    left: 137px;
+    left: 112px;
 }
 #cassette-player #control-2 {
-    left: 197px;
-    width: 63px;
+    left: 159px;
+    width: 46px;
 }
 #cassette-player #control-3 {
-    left: 256px;
-    width: 62px;
+    left: 205px;
+    width: 47px;
 }
 #cassette-player #control-4 {
-    left: 316px;
-    width: 60px;
+    left: 253px;
+    width: 46px;
 }
 #cassette-player #control-5 {
-    left: 375px;
-    width: 60px;
+    left: 299px;
+    width: 47px;
 }
 #cassette-player #control-6 {
-    left: 432px;
+    left: 347px;
 }
 
-/* pushed */
+/* DECK (OPEN / CLOSE)*/
+#deck {
+    width: 458px;
+    height: 243px;
+    background:url(../img/player/deck.png) 0 0 no-repeat;
+    position: absolute;
+    left: 24px;
+    top: -32px;
+    -webkit-transform:scale3d(0.8, 0.8, 1);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    -webkit-transform-origin: 50% 100%;
+}
+#deck.open {
+    -webkit-transform: perspective( 1947px ) rotateX( -30deg ) scale3d(0.8, 0.8, 1);
+}
+
+/* BUTTON PUSHED */
 #cassette-player .control-pushed {
     z-index: 4;
     position: absolute;
-    top: 299px;
-    width: 81px;
-    height: 82px;
+    top: 238px;
+    width: 61px;
+    height: 70px;
     background-repeat: no-repeat;
     background-position: 0 0;
     display: none;
@@ -185,25 +205,25 @@
 }
 #cassette-player #control-1-pushed {
     background-image: url(../img/player/control-1-pushed.jpg); /* todo sprite me */
-    left: 130px;
+    left: 105px;
 }
 #cassette-player #control-2-pushed {
     background-image: url(../img/player/control-2-pushed.jpg);
-    left: 187px;
+    left: 151px;
 }
 #cassette-player #control-3-pushed {
     background-image: url(../img/player/control-3-pushed.jpg);
-    left: 245px;
+    left: 198px;
 }
 #cassette-player #control-4-pushed {
     background-image: url(../img/player/control-4-pushed.jpg);
-    left: 306px;
+    left: 246px;
 }
 #cassette-player #control-5-pushed {
     background-image: url(../img/player/control-5-pushed.jpg);
-    left: 363px;
+    left: 292px;
 }
 #cassette-player #control-6-pushed {
     background-image: url(../img/player/control-6-pushed.jpg);
-    left: 421px;
+    left: 338px;
 }
