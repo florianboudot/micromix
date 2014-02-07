@@ -1,9 +1,8 @@
 <!-- ghettoblaster is build here (Managethesound.js) -->
 
 <div id="cassette-player">
-
-
     <div id="deck">
+        <div id="top-depth"></div>
         <div id="dark-on-deck-open"></div>
     </div>
     <div id="deck-door-shadow"></div>
@@ -27,6 +26,10 @@
     <div class="control-pushed" id="control-5-pushed"></div>
     <div class="control-pushed" id="control-6-pushed"></div>
 </div>
+
+
+
+
 
 
 

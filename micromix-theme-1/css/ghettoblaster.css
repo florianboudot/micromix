@@ -183,7 +183,7 @@
     top: 17px;
     z-index: 2;
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    -webkit-transform-origin: 50% 100%;
+    -webkit-transform-origin: 50% 94%;
 }
 #deck.open {
     -webkit-transform: perspective( 1947px ) rotateX( -30deg );
@@ -211,11 +211,28 @@
     width: 366px;
     height: 190px;
     opacity: 0;
-    -webkit-transition: opacity 0.3s ease-in-out;/* 50ms delay after deck opens */
+    -webkit-transition: opacity 0.3s ease-in-out;
 }
 .open #dark-on-deck-open {
     opacity: 0.2;
 }
+#top-depth {
+    background: white;
+    width: 350px;
+    height: 63px;
+    margin-top: -30px;
+    -webkit-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    margin-left: 8px;
+}
+.open #top-depth {
+
+    margin-top: -31px;
+    
+
+    -webkit-transform: perspective( 1918px ) rotateX( 87deg )  rotateY(-0.3deg);
+}
+
 
 /* BUTTON PUSHED */
 #cassette-player .control-pushed {
