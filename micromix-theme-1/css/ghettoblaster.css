@@ -274,3 +274,32 @@
     background-image: url(../img/player/control-6-pushed.jpg);
     left: 338px;
 }
+/* counter */
+#counter{
+    position: absolute;
+    background:white;
+    left: 465px;
+    top: 39px;
+    width: 47px;
+    height: 14px;
+    font-size: 12px;
+}
+#counter .unit {
+    position: absolute;
+    left: 0;
+    text-align: center;
+    top: 0px;
+}
+.unit .number {
+    width: 12px;
+    height: 14px;
+}
+#counter #unit-1 {
+    left: 0;
+}
+#counter #unit-2 {
+    left: 18px;
+}
+#counter #unit-3 {
+    left: 36px;
+}

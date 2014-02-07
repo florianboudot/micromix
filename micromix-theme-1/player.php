@@ -2,17 +2,25 @@
 
 <div id="cassette-player">
 
+    <!-- counter -->
+    <div id="counter">
+        <?php for ($i = 1; $i <= 3; $i++) { ?>
+            <div class="unit" id="unit-<?php echo $i; ?>">
+                <?php for ($j = 1; $j <= 10; $j++) { ?>
+                    <div class="number number-<?php echo $j; ?>"><?php echo $j; ?></div>
+                <?php } ?>
+            </div>
+        <?php } ?>
+    </div>
 
-    <div id="cassette"></div>
-
+    <!-- deck door -->
     <div id="deck">
         <div id="top-depth"></div>
         <div id="dark-on-deck-open"></div>
     </div>
     <div id="deck-door-shadow"></div>
 
-    <!-- counter -->
-    <div class="counter"></div>
+    <div id="cassette"></div>
 
     <!-- action buttons here -->
     <div class="control" id="control-1">pause</div>
@@ -30,10 +38,6 @@
     <div class="control-pushed" id="control-5-pushed"></div>
     <div class="control-pushed" id="control-6-pushed"></div>
 </div>
-
-
-
-
 
 
 

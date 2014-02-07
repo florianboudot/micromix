@@ -315,7 +315,7 @@ var Managethesound = function(){
      * @return {Object} the current added sound of soundManager
      */
     var _createsound = function (url, id) {
-        _console.info('_createsound', id);
+        if (debug)console.info('_createsound', id, url);
         soundManager.createSound({
             url:url,
             id: id,
@@ -823,7 +823,33 @@ var Managethesound = function(){
     };
 
     var init = function () {
-        _console.info('init');
+        if (debug)console.info('init');
+
+
+        /**
+         * Counter
+         * @constructor
+         */
+        var Counter = function(){
+            var $counter = $('#cassette-player').find('.counter');
+            var old_num = 0; // init
+
+            this.update = function(num){
+                var number = num ? Math.round(num) : 'error : wrong number';
+                if(number != old_num){
+                    console.log('update');
+
+                    // render
+                    $counter.html(number);
+
+                    // save
+                    old_num = number;
+                }
+            };
+
+        };
+
+        window.counter = new Counter();
 
 
         // todo TEST function
