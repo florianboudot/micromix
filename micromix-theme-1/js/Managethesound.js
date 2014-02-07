@@ -726,23 +726,6 @@ var Managethesound = function(){
 
     };
 
-    var Counter = function(){
-        // html container
-        var $counter = $('#cassette-player').find('.counter');
-
-        var update = function(number){
-            var progression = (number).toFixed(2); // round to 2 decimals (3.80)
-            $counter.html(progression);
-        };
-
-        var reset = function(){
-            this.update(0);
-        };
-
-        // pubic methods
-        this.update = update;
-        this.reset = reset;
-    };
 
 
     var $controls = $('.control');
@@ -772,9 +755,6 @@ var Managethesound = function(){
 
         $cassette.addClass('cassette');
         $ghettoblaster.addClass('ghettoblaster');
-
-        // define html counter
-        counter = new Counter();
 
         $ghettoinfo.addClass('ghettoblaster-info history').html('micromix').attr('href', '/');
 
@@ -831,7 +811,7 @@ var Managethesound = function(){
          * @constructor
          */
         var Counter = function(){
-            var $counter = $('#cassette-player').find('.counter');
+            var $counter = $('#counter');
             var old_num = 0; // init
 
             this.update = function(num){
@@ -839,6 +819,10 @@ var Managethesound = function(){
                 if(number != old_num){
                     console.log('update');
 
+                    number = typeof number == 'number' ? number.toString() : number;
+                    while(number.length < 3){
+                        number = '0' + number;
+                    }
                     // render
                     $counter.html(number);
 
@@ -849,7 +833,7 @@ var Managethesound = function(){
 
         };
 
-        window.counter = new Counter();
+        counter = new Counter();
 
 
         // todo TEST function

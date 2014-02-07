@@ -285,10 +285,12 @@
     font-size: 12px;
 }
 #counter .unit {
+    -webkit-transition: top 200ms ease-in-out;
+
     position: absolute;
     left: 0;
+    top: 0;
     text-align: center;
-    top: 0px;
 }
 .unit .number {
     width: 12px;
