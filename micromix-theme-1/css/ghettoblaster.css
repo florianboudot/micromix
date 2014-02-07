@@ -84,42 +84,43 @@
     font-weight: bold;
     font-size: 10px;
 }
-.cassette {
-    /*display: none;*//* temp */
 
+
+/* CASSETTE */
+#cassette {
     background: url(../img/cassette.png) 0 0 no-repeat;
-    background-size: 100%;
-    width: 150px;
-    height: 100px;
+    width: 501px;
+    height: 319px;
     position: absolute;
-    right: 10px;
-    top: -80px;
-    -o-transition: all 100ms ease-out;
-    -ms-transition: all 100ms ease-out;
-    -moz-transition: all 100ms ease-out;
-    -webkit-transition: all 100ms ease-out;
-    transition: all 100ms ease-out;
+    right: 165px;
+    bottom: 272px;
+    -webkit-transform: scale(0.55);
+    -webkit-transition: bottom 0.3s ease-in-out;
+    z-index: 1;
 }
-.cassette.toloadnext {
-    -o-transform: translate3d(100px,0,0);
+#cassette.move {
+    bottom: 72px;
+}
+#cassette.toloadnext {
+ /*   -o-transform: translate3d(100px,0,0);
     -ms-transform: translate3d(100px,0,0);
     -moz-transform: translate3d(100px,0,0);
     -webkit-transform: translate3d(100px,0,0);
-    transform: translate3d(100px,0,0);
+    transform: translate3d(100px,0,0);*/
 }
-.cassette.toloadprev {
-    -o-transform: translate3d(-100px,0,0);
+#cassette.toloadprev {
+    /*-o-transform: translate3d(-100px,0,0);
     -ms-transform: translate3d(-100px,0,0);
     -moz-transform: translate3d(-100px,0,0);
     -webkit-transform: translate3d(-100px,0,0);
-    transform: translate3d(-100px,0,0);
+    transform: translate3d(-100px,0,0);*/
 }
-.cassette.loading {
-    -o-transform: translate3d(0,0,0);
+#cassette.loading {
+    /*-o-transform: translate3d(0,0,0);
     -ms-transform: translate3d(0,0,0);
     -moz-transform: translate3d(0,0,0);
     -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);*/
 }
 
 
@@ -131,6 +132,7 @@
     height:338px;
     background:url(../img/player/cassette-player-full.png) 0 0 no-repeat;
     bottom: -24px;
+    z-index: 1;
     right:0;
 }
 #cassette-player.positionabsolute{
@@ -177,7 +179,7 @@
 #deck {
     width: 366px;
     height: 194px;
-    background:url(../img/player/deck.png) 0 0 no-repeat;
+    background: url(../img/player/deck.png) 0 0 no-repeat;
     position: absolute;
     left: 70px;
     top: 17px;
@@ -217,10 +219,10 @@
     opacity: 0.2;
 }
 #top-depth {
-    background: white;
+    background: url(../img/player/deck-top-depth.jpg) 0 0 repeat-x;
     width: 350px;
     height: 63px;
-    margin-top: -30px;
+    margin-top: -31px;
     -webkit-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
     -webkit-transition: -webkit-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
     margin-left: 8px;

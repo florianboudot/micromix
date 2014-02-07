@@ -1,6 +1,10 @@
 <!-- ghettoblaster is build here (Managethesound.js) -->
 
 <div id="cassette-player">
+
+
+    <div id="cassette"></div>
+
     <div id="deck">
         <div id="top-depth"></div>
         <div id="dark-on-deck-open"></div>

@@ -783,7 +783,7 @@ var Managethesound = function(){
         // $footer.append($ghettoblaster);
 
         // cassette
-        $ghettoblaster.append($cassette);
+        //$footer.append($cassette);
 
         // buttons
         $ghettobuttonscontainer.addClass('buttons-container');
@@ -832,6 +832,12 @@ var Managethesound = function(){
             $('#deck-door-shadow').toggleClass('active');
         };
         $('#deck').on('click', toggleOpenDeck);
+
+        // todo TEST function
+        var toggleCassetteMove = function () {
+            $('#cassette').toggleClass('move');
+        };
+        $('#cassette').on('click', toggleCassetteMove);
 
         //todo externalize this hash extract
         var hashsplit = location.hash.split('#')[1];
