@@ -823,8 +823,14 @@ var Managethesound = function(){
                     while(number.length < 3){
                         number = '0' + number;
                     }
+
+                    number.split('').forEach(function(num,index){
+                        $('#unit-'+(index+1)).css({ 'top':-(14*num)+'px' });
+                        console.log(num,index);
+                    });
+
                     // render
-                    $counter.html(number);
+                    //$counter.html(number);
 
                     // save
                     old_num = number;

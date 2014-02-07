@@ -6,7 +6,7 @@
     <div id="counter">
         <?php for ($i = 1; $i <= 3; $i++) { ?>
             <div class="unit" id="unit-<?php echo $i; ?>">
-                <?php for ($j = 1; $j <= 10; $j++) { ?>
+                <?php for ($j = 0; $j <= 9; $j++) { ?>
                     <div class="number number-<?php echo $j; ?>"><?php echo $j; ?></div>
                 <?php } ?>
             </div>
