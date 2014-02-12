@@ -16,7 +16,7 @@ var Managethesound = function(){
     var $ghettostop = $('<div>');
     var $ghettobuttonscontainer = $('<div>');
     var $ghettoprev = $('<div>');
-    var $ghettoinfo = $('<a>');
+    var $ghettoinfo = $('#cassette-info');
     var $listsitems = $('#posts-year-month .list-item');
     var $previewtitle = $('<span>').addClass('sound-preview-title');
     var $currentsoundplayer = $empty;
@@ -749,47 +749,30 @@ var Managethesound = function(){
         _console.info('_onsoundmanagerready');
 
         $linkplaysoundbyid.on('click', _getandplaythissound);
-
-        $controls.on('click', pushControl);
         $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         $cassette.addClass('cassette');
         $ghettoblaster.addClass('ghettoblaster');
 
-        $ghettoinfo.addClass('ghettoblaster-info history').html('micromix').attr('href', '/');
-
         // ghettoblaster
         // TEMP : let's comment this and build the cassette player (no ghettoblaster anymore)
-        // $footer.append($ghettoblaster);
+         //$footer.append($ghettoblaster);
 
         // cassette
         //$footer.append($cassette);
 
-        // buttons
-        $ghettobuttonscontainer.addClass('buttons-container');
-        $ghettoblaster.append($ghettobuttonscontainer);
-        $ghettonext.on('click', _usergonext);
-        $ghettonext.addClass('button next');
-        $ghettoplay.on('click', togglepause);
-        $ghettoplay.addClass('button play');
+        // New K7 buttons
+        $controls.on('click', pushControl);
 
-
-        $ghettopause.on('click', togglepause);
-        $ghettopause.addClass('button pause');
-        $ghettostop.on('click', togglepause);
-        $ghettostop.addClass('button stop');
-
-        $ghettoprev.on('click', _usergoprev);
-        $ghettoprev.addClass('button prev');
-
-        $ghettobuttonscontainer.append($ghettonext);
-        $ghettobuttonscontainer.append($ghettostop);
-        $ghettobuttonscontainer.append($ghettoplay);
-        $ghettobuttonscontainer.append($ghettopause);
-        $ghettobuttonscontainer.append($ghettoprev);
-
+        $controls.filter('.pause').on('click', togglepause);
+        $controls.filter('.play').on('click', togglepause);
+        $controls.filter('.rewind').on('click', _gobackward);
+        $controls.filter('.forward').on('click', _goforward);
+        $controls.filter('.prev').on('click', _usergoprev);
+        $controls.filter('.next').on('click', _usergonext);
         // info
-        $ghettoblaster.append($ghettoinfo);
+        $ghettoinfo.addClass('history').html('micromix').attr('href', '/');
+
 
         // bind
         $(window).on('keydown', _keyboardshortcuts);

@@ -122,7 +122,15 @@
     -webkit-transform: translate3d(0,0,0);
     transform: translate3d(0,0,0);*/
 }
-
+#cassette-info{
+    display: block;
+    color : #454742;
+    background: #afaea6;
+    width: 189px;
+    position: absolute;
+    bottom: 47px;
+    right: 36px;
+}
 
 /* NEW ! (will replace ghettoblasger) */
 /* CASSETTE PLAYER */
