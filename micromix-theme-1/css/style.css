@@ -1,5 +1,18 @@
-/* www.micromix.fr (2008) - florian.boudot@gmail.com */
+/*
+    www.micromix.fr (2008 - 2014)
+    author : supakazes@hotmail.com
+*/
 /* DEFAULT */
+@font-face {
+    font-family: 'llpikseliregular';
+    src: url('../fonts/llpiksel-webfont.eot');
+    src: url('../fonts/llpiksel-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/llpiksel-webfont.woff') format('woff'),
+    url('../fonts/llpiksel-webfont.ttf') format('truetype'),
+    url('../fonts/llpiksel-webfont.svg#llpikseliregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 html, body {
 	margin:0;
 	padding:0;

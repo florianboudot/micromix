@@ -123,13 +123,22 @@
     transform: translate3d(0,0,0);*/
 }
 #cassette-info{
+    font-family:'llpikseliregular';
+    font-size: 38px;
+    height: 40px;
+    overflow: hidden;
+    line-height: 34px;
+    white-space: nowrap;
     display: block;
-    color : #454742;
-    background: #afaea6;
-    width: 189px;
+    text-decoration: none;
+    color: #fff;
+    text-indent: 0;
     position: absolute;
-    bottom: 47px;
-    right: 36px;
+    top: 247px;
+    right: 47px;
+    left: 447px;
+    -webkit-transform: perspective( 260px ) rotateX( 6deg );
+    -webkit-transform-origin: -72% -15%;
 }
 
 /* NEW ! (will replace ghettoblasger) */
