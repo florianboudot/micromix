@@ -13,8 +13,8 @@ var Managethesound = function(){
     var $ghettoplay = $('<div>');
     var $ghettoinfo = $('#cassette-info');
     var $cassette_player = $('#cassette-player');
-    var $controls = $cassette_player.find('.control');
-    var $controls_pushed = $cassette_player.find('.control-pushed');
+    var $controls_all = $cassette_player.find('.control');
+    var $controls_pushed_all = $cassette_player.find('.control-pushed');
     var $listsitems = $('#posts-year-month .list-item');
     var $previewtitle = $('<span>').addClass('sound-preview-title');
     var $currentsoundplayer = $empty;
@@ -480,6 +480,7 @@ var Managethesound = function(){
             _deletesound(_lastidplay);
             refreshbind();
             _createsound(url, id).play();
+            pushButton('play');
         }
 
 
@@ -716,6 +717,22 @@ var Managethesound = function(){
     };
 
 
+    var pushButton = function (action) {
+        if (debug)console.info('pushButton');
+
+        var button_id = '#control-' + action;
+        var id_pushed = button_id + '-pushed';
+        var $control_pushed = $(id_pushed);
+
+        // remove cursor hand
+        $controls_all.removeClass('active');
+        $(button_id).addClass('active');
+
+        // show control "pushed"
+        $controls_pushed_all.removeClass('active');
+        $control_pushed.addClass('active');
+    };
+
     /**
      * control manager
      */
@@ -724,18 +741,11 @@ var Managethesound = function(){
         var $control = $(this),
             id = $control.attr('id'),
             action = id.split('control-')[1],
-            id_pushed = '#' + id + '-pushed',
-            $skin_pushed = $(id_pushed);
+            is_already_pushed = $control.hasClass('active');
 
-        if(!$control.hasClass('active')){ // do nothing if already pushed
-
-            // remove cursor hand
-            $controls.removeClass('active');
-            $control.addClass('active');
-
-            // show control "pushed"
-            $controls_pushed.removeClass('active');
-            $skin_pushed.addClass('active');
+        if(!is_already_pushed){
+            // mark button as pushed (skin)
+            pushButton(action);
 
             // aaaand ... action !
             switch (action){
@@ -777,7 +787,7 @@ var Managethesound = function(){
         $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         // New K7 buttons
-        $controls.on('click', controlManager);
+        $controls_all.on('click', controlManager);
         // info
         $ghettoinfo.addClass('history').html('micromix').attr('href', '/');
 
