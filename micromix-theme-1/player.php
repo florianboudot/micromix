@@ -1,6 +1,5 @@
-<!-- ghettoblaster is build here (Managethesound.js) -->
-
-<div id="cassette-player" style="display: block">
+<!-- The cassette player is build from file Managethesound.js -->
+<div id="cassette-player">
 
     <!-- counter -->
     <div id="counter">
@@ -13,31 +12,33 @@
         <?php } ?>
     </div>
 
-    <!-- deck door -->
+    <!-- Deck door -->
     <div id="deck">
         <div id="top-depth"></div>
         <div id="dark-on-deck-open"></div>
     </div>
     <div id="deck-door-shadow"></div>
 
+    <!-- K7 -->
     <div id="cassette"></div>
 
-    <!-- action buttons here -->
-    <div class="control pause" id="control-1">pause</div>
-    <div class="control play" id="control-2">play</div>
-    <div class="control rewind" id="control-3">rewind</div>
-    <div class="control forward" id="control-4">fast forward</div>
-    <div class="control prev" id="control-5">prev</div>
-    <div class="control next" id="control-6">next</div>
+    <!-- Controls -->
+    <div class="control" id="control-pause">pause</div>
+    <div class="control" id="control-play">play</div>
+    <div class="control" id="control-rewind">rewind</div>
+    <div class="control" id="control-forward">fast forward</div>
+    <div class="control" id="control-prev">prev</div>
+    <div class="control" id="control-next">next</div>
 
-    <!-- button skin hover -->
-    <div class="control-pushed" id="control-1-pushed"></div>
-    <div class="control-pushed" id="control-2-pushed"></div>
-    <div class="control-pushed" id="control-3-pushed"></div>
-    <div class="control-pushed" id="control-4-pushed"></div>
-    <div class="control-pushed" id="control-5-pushed"></div>
-    <div class="control-pushed" id="control-6-pushed"></div>
+    <!-- Controls when pushed (default : hidden) -->
+    <div class="control-pushed" id="control-pause-pushed"></div>
+    <div class="control-pushed" id="control-play-pushed"></div>
+    <div class="control-pushed" id="control-rewind-pushed"></div>
+    <div class="control-pushed" id="control-forward-pushed"></div>
+    <div class="control-pushed" id="control-prev-pushed"></div>
+    <div class="control-pushed" id="control-next-pushed"></div>
 
+    <!-- Information screen -->
     <a id="cassette-info"></a>
 </div>
 

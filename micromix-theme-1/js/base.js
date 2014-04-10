@@ -63,7 +63,7 @@ $(document).ready(function() {
 
 
     // STATS
-    // play = +1 in the statistics
+    // play +=1 in the statistics
 	var stachts = {}; // object
     jQuery('.bt-player a').bind('mousedown',function(){
         var postId = jQuery(this).parents('.bt-player')[0].id;
@@ -231,3 +231,4 @@ function CustomConsole (prefix, console_css) {
         this[type] = handler.bind(handler, type); // IE9+
     }, this);
 }
+
