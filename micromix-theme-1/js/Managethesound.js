@@ -80,7 +80,7 @@ var Managethesound = function(){
         return _urlbyindex[index];
     };
     var _geturlbyid = function (id) {
-        console.info('_getmp3byid', id);
+        console.info('_geturlbyid', id);
         return _urlbyid[id];
     };
     var _getidbyindex = function (index) {
@@ -91,6 +91,8 @@ var Managethesound = function(){
         console.info('_getindexbyid');
         return _indexbyid[id]
     };
+
+
     var TIMEOUTanimatewindowtitle = 0;
     var _actualchardocumenttitle = '♫';
     var _animatedocumenttitle = function () {
@@ -117,13 +119,14 @@ var Managethesound = function(){
         console.info('_onplay');
         if(this.readyState == 2){
             _onmp3fail();
-            togglepause();
+            playSound();
         }
         else{
             $ghettoplay.addClass(splayingclassname);
             _animatedocumenttitle();
             $currentsoundplayer.removeClass(classnamecurrentlistitem);
             $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
+
         }
     };
     var _onpause = function(){
@@ -155,6 +158,7 @@ var Managethesound = function(){
     };
     var _onload = function (isloaded) {
         console.info('_onload', isloaded);
+
         if(!isloaded){
             _onloadfail.apply(this, arguments);
         }
@@ -203,7 +207,7 @@ var Managethesound = function(){
 
     var _onloadfail = function () {
         console.info('_onloadfail');
-        togglepause();
+        playSound();
         console.error('network error or mp3 missing');
 
     };
@@ -348,6 +352,7 @@ var Managethesound = function(){
         _usergoprevnext('next');
         _usergonextprevanimation('toloadnext');
     };
+
     var _usergoprev = function () {
         console.info('_usergoprev');
         _usergoprevnext('prev');
@@ -384,6 +389,8 @@ var Managethesound = function(){
             console.warn('no more sound, shall we play the first sound ?')
         }
     };
+
+
     var _playprevsound = function (wait) {
         console.info('_playprevsound');
 
@@ -399,7 +406,7 @@ var Managethesound = function(){
      * @param time {Number}
      * @private
      */
-    var _goforward = function (time) {
+    var _fastForward = function (time) {
         console.info('_goforward', time);
         if(_sound){
             var position = _sound.position;
@@ -412,7 +419,7 @@ var Managethesound = function(){
      * @param time {Number}
      * @private
      */
-    var _gobackward = function (time) {
+    var _rewind = function (time) {
         console.info('_gobackward', time);
         if(_sound){
             var position = _sound.position;
@@ -470,8 +477,7 @@ var Managethesound = function(){
             },500);
             return false;
         }
-        else{
-
+        else {
             _lastidplay = _currentidplay;
             _lastindexplay = _getindexbyid(_currentidplay);
             _currentidplay = _maybecurrentidplay = id;
@@ -480,13 +486,10 @@ var Managethesound = function(){
             _deletesound(_lastidplay);
             refreshbind();
             _createsound(url, id).play();
-            pushButton('play');
+
         }
-
-
-
+        pushButton('play');
         _updatehtmlinfo();
-
     };
 
     var _updatehtmlinfo = function () {
@@ -546,6 +549,7 @@ var Managethesound = function(){
         if(__sound){
             hasbeenpaused = !__sound.paused;
             __sound.pause();
+            pushButton('pause');
         }
         return hasbeenpaused;
     };
@@ -562,67 +566,101 @@ var Managethesound = function(){
         if(__sound){
             hasbeenresumed = __sound.paused;
             __sound.resume();
+            pushButton('play');
         }
         return hasbeenresumed;
     };
+
+
     var _playtheveryfirstsoundinpage = function () {
         console.info('_playtheveryfirstsoundinpage');
         var soundid = $('.wpaudio').first().data('soundid');
         _playthissound(_getmp3byid(soundid), soundid, false)
     };
-    var togglepause = function(){
-        console.info('togglepause');
-        if(soundManager.soundIDs.length){
-            soundManager.togglePause(_currentidplay);
+
+
+    /**
+     * play the first sound found or resume a paused sound
+     */
+    var playSound = function(){
+        console.info('playSound', _sound);
+        if(_sound){
+            if(_sound.paused){
+                _resumesound();
+            }
         }
         else{
             _playtheveryfirstsoundinpage();
         }
     };
-    var _keyboardshortcuts = function (e) {
-//        console.info('_keyboardshortcuts');
-        var fuckyeah = false;
-        var keyCode = e.keyCode;
-        var isshift = e.shiftKey;
-        var isctrl = e.ctrlKey;
-        var leftkey = keyCode === 37;
-        var rightkey = keyCode === 39;
 
-        if(keyCode === 32 || keyCode === 179){
-            if(!_sound){
-                //todo what happend if _sound but not on first sound play?
-                _playtheveryfirstsoundinpage()
-            }
-            else{
-                togglepause();
-            }
-            fuckyeah = true;
+
+    var togglePlayPause = function () {
+        if (debug)console.info('togglePlayPause');
+        if(_sound && !_sound.paused){
+            _pausesound();
         }
-        else if(!isshift && !isctrl && leftkey){
-            _gobackward();
-            fuckyeah = true;
+        else {
+            playSound();
         }
-        else if(!isshift && !isctrl && rightkey){
-            _goforward();
-            fuckyeah = true;
+    };
+
+    /**
+     * Keyboard shortcuts
+     * @param e
+     * @private
+     */
+    var _keyboardshortcuts = function (e) {
+        console.info('_keyboardshortcuts', e);
+        var is_keyboard_shortcut = false;
+        var is_keyup = e.type === 'keyup'; // keyup or keydown
+        var key_code = e.keyCode;
+        var is_shift = e.shiftKey;
+        var is_ctrl = e.ctrlKey;
+        var is_left_arrow = key_code === 37;
+        var is_right_arrow = key_code === 39;
+        var is_spacebar = key_code === 32;
+        var is_music_play_pause_key = key_code === 179; // some keyboards have a sound play/pause button
+
+        // toggle play/pause
+        // we test event keyup because we don't want infinite toggle when user keeps pressing
+        if(is_spacebar && is_keyup || is_music_play_pause_key && is_keyup){
+            togglePlayPause();
+
+            is_keyboard_shortcut = true;
         }
-        else if(!isshift && isctrl && leftkey){
-            _gobackward(10000);
-            fuckyeah = true;
+        // rewind <<
+        else if(!is_shift && !is_ctrl && is_left_arrow){
+            _rewind();
+            is_keyboard_shortcut = true;
         }
-        else if(!isshift && isctrl && rightkey){
-            _goforward(10000);
-            fuckyeah = true;
+        // fast forward >>
+        else if(!is_shift && !is_ctrl && is_right_arrow){
+            _fastForward();
+            is_keyboard_shortcut = true;
         }
-        else if(isshift && leftkey){
+        // rewind faster
+        else if(!is_shift && is_ctrl && is_left_arrow){
+            _rewind(10000);
+            is_keyboard_shortcut = true;
+        }
+        // fast forward faster
+        else if(!is_shift && is_ctrl && is_right_arrow){
+            _fastForward(10000);
+            is_keyboard_shortcut = true;
+        }
+        // previous track
+        else if(is_shift && is_left_arrow){
             _usergoprev();
-            fuckyeah = true;
+            is_keyboard_shortcut = true;
         }
-        else if(isshift && rightkey){
+        // next track
+        else if(is_shift && is_right_arrow){
             _usergonext();
-            fuckyeah = true;
+            is_keyboard_shortcut = true;
         }
-        if(fuckyeah){
+
+        if(is_keyboard_shortcut){
             e.preventDefault();
         }
     };
@@ -683,6 +721,7 @@ var Managethesound = function(){
             previewhaspausedcurrentsound = false;
             _resumesound();
         }
+
         $elem.one('click', function(e){
             //ugly canceler, avoid playing sound on release mousedown
             e.preventDefault();
@@ -717,36 +756,41 @@ var Managethesound = function(){
     };
 
 
+    /**
+     * Mark player button as pushed (skin)
+     * @param action
+     */
     var pushButton = function (action) {
         if (debug)console.info('pushButton');
 
         var button_id = '#control-' + action;
         var id_pushed = button_id + '-pushed';
         var $control_pushed = $(id_pushed);
+        var is_already_pushed = $control_pushed.hasClass('active');
 
-        // remove cursor hand
-        $controls_all.removeClass('active');
-        $(button_id).addClass('active');
+        if(!is_already_pushed){
+            // remove cursor hand
+            $controls_all.removeClass('active');
+            $(button_id).addClass('active');
 
-        // show control "pushed"
-        $controls_pushed_all.removeClass('active');
-        $control_pushed.addClass('active');
+            // show control "pushed"
+            $controls_pushed_all.removeClass('active');
+            $control_pushed.addClass('active');
+        }
     };
 
     /**
-     * control manager
+     * Player control manager
+     * What to do when asking an action with the player (onclick)
      */
-    var controlManager = function () {
-        console.info('controlManager');
-        var $control = $(this),
-            id = $control.attr('id'),
+    var playerControlManager = function () {
+        console.info('playerControlManager');
+        var $control_clicked = $(this),
+            id = $control_clicked.attr('id'),
             action = id.split('control-')[1],
-            is_already_pushed = $control.hasClass('active');
+            is_already_pushed = $control_clicked.hasClass('active');
 
         if(!is_already_pushed){
-            // mark button as pushed (skin)
-            pushButton(action);
-
             // aaaand ... action !
             switch (action){
                 case 'pause':
@@ -754,15 +798,15 @@ var Managethesound = function(){
                     break;
 
                 case 'play':
-                    togglepause();
+                    playSound();
                     break;
 
                 case 'rewind':
-                    _gobackward();
+                    _rewind();
                     break;
 
                 case 'forward':
-                    _goforward();
+                    _fastForward();
                     break;
 
                 case 'prev':
@@ -787,20 +831,18 @@ var Managethesound = function(){
         $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         // New K7 buttons
-        $controls_all.on('click', controlManager);
+        $controls_all.on('click', playerControlManager);
         // info
         $ghettoinfo.addClass('history').html('micromix').attr('href', '/');
 
 
         // bind
-        $(window).on('keydown', _keyboardshortcuts);
+        $(window).on('keydown keyup', _keyboardshortcuts);
         $(window).on('scroll', stickGhettoToBottom);
 
         if(_autoplay){
             _playtheveryfirstsoundinpage();
         }
-
-
     };
 
 
@@ -810,7 +852,6 @@ var Managethesound = function(){
      * @constructor
      */
     var Counter = function(){
-//            var $counter = $('#counter');
         var old_num = 0; // init
         var NUM_HEIGHT = 14;
 
@@ -834,6 +875,8 @@ var Managethesound = function(){
         };
 
     };
+
+
     var init = function () {
         if (debug)console.info('init');
 
