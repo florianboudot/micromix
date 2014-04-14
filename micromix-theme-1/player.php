@@ -39,7 +39,9 @@
     <div class="control-pushed" id="control-next-pushed"></div>
 
     <!-- Information screen -->
-    <a id="cassette-info"></a>
+    <div id="infos">
+        <a id="infos-text"><!-- text from javascript --></a>
+    </div>
 </div>
 
 

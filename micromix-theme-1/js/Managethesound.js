@@ -11,7 +11,7 @@ var Managethesound = function(){
     var $empty = $();
     var $ghettoblaster = $('<div>');
     var $ghettoplay = $('<div>');
-    var $ghettoinfo = $('#cassette-info');
+    var $infos_text = $('#infos-text');
     var $cassette_player = $('#cassette-player');
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
@@ -493,9 +493,32 @@ var Managethesound = function(){
     };
 
     var _updatehtmlinfo = function () {
-        console.info('_updatehtmlinfo');
-        $ghettoinfo.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
-        $ghettoinfo.attr('href', _geturlbyid(_currentidplay));
+        console.info('defil _updatehtmlinfo');
+        $infos_text.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
+        $infos_text.attr('href', _geturlbyid(_currentidplay));
+
+        // text defil animation (work in progress)
+        // todo make a function of the defil text
+        var text_width = $infos_text.width();
+        var pane = 25; // px
+        var nb_steps = Math.round(text_width / pane);
+        console.log('defil, width',text_width);
+        console.log('defil, nb_steps',nb_steps);
+
+        // start defil
+        var position = 0;
+
+        setInterval(function(){
+            if(nb_steps > 0){
+                console.log('defil nb_steps',nb_steps);
+                $infos_text.css('left', position);
+                position = position - pane;
+                nb_steps --;
+            }
+        },1000);
+        // end defilText()
+
+
         pm.manager.history.bindLinks($ghettoblaster);
     };
 
@@ -833,7 +856,7 @@ var Managethesound = function(){
         // New K7 buttons
         $controls_all.on('click', playerControlManager);
         // info
-        $ghettoinfo.addClass('history').html('micromix').attr('href', '/');
+        $infos_text.addClass('history').html('micromix').attr('href', '/');
 
 
         // bind

@@ -229,22 +229,27 @@
     -webkit-animation-fill-mode: forwards;
 }
 
-#cassette-info{
-    font-family:'displayotfregular';
-    /*font-family:'llpikseliregular';*/
-    font-size: 47px;
+/* CASSETTE INFO  */
+#infos {
     height: 40px;
     overflow: hidden;
     line-height: 34px;
-    white-space: nowrap;
-    display: block;
-    text-decoration: none;
-    color: #fff;
-    text-indent: 0;
     position: absolute;
     top: 247px;
     right: 47px;
     left: 447px;
     -webkit-transform: perspective( 260px ) rotateX( 6deg );
     -webkit-transform-origin: -72% -15%;
+}
+
+#infos-text{
+    font-family:'displayotfregular';
+    /* font-family:'llpikseliregular'; */
+    font-size: 47px;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    /* right: -520%; */
+    color: #fff;
+    position: absolute;
 }
