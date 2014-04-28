@@ -16,18 +16,6 @@ pm.Viewmanager = function() {
     var $viewold = $();
     var viewinaction = false;
 
-    var resizeview = function () {
-        if (debug)console.info('pm.base.Viewmanager:resizeview');
-
-    };
-
-    pm.manager.resize.add('resizeview', resizeview);
-    var removeresize = function () {
-        if (debug)console.info('pm.base.Viewmanager:removeresize');
-        pm.manager.resize.remove('resizeview', resizeview);
-
-    };
-
     var preshow = function (data, callback) {
         if (debug)console.info('pm.base.Viewmanager:preshow', data);
 
@@ -37,7 +25,6 @@ pm.Viewmanager = function() {
 
     var postshow = function ($view) {
         if (debug)console.info('pm.base.Viewmanager:postshow');
-        if (debug)console.info('______pm.manager.timing.now', pm.manager.timing.now());
 
         onviewdisplayed($view);
         $viewold = $viewnow;
@@ -96,7 +83,7 @@ pm.Viewmanager = function() {
      */
     var onbetweentransition = function (callback) {
         if (debug)console.info('onbetweentransition');
-        getters.getscrollelement().prop('scrollTop', 0);
+        $('body').prop('scrollTop', 0);
         if(callback){callback();}
     };
     /**
@@ -321,7 +308,6 @@ pm.Viewmanager = function() {
 
     viewaction = pm.extendviewmanageractions({cache:cache,makeviewname:makeviewname});
 
-    this.removeresize = removeresize;
     this.loadview = load;
     this.addtoonloadingview    = addonloading;
     this.addtoonloadedview     = addonloaded;

@@ -1,6 +1,8 @@
-if(typeof(pm) == 'undefined'){var pm = {}}
+if (typeof(pm) == 'undefined') {
+    var pm = {}
+}
 
-pm.Transitionmanager = function() {
+pm.Transitionmanager = function () {
     var debug = pm.base.debug.Transitionmanager;
 
     //todo when navigating to fast, transition is fucked up
@@ -15,7 +17,9 @@ pm.Transitionmanager = function() {
 
         options = options ? options : {};
         var callbackbetween = options.callbackbetween;
-        callbackbetween = callbackbetween ? callbackbetween : function(callback){callback()};
+        callbackbetween = callbackbetween ? callbackbetween : function (callback) {
+            callback()
+        };
 
         var duration = 100;
 
@@ -23,21 +27,21 @@ pm.Transitionmanager = function() {
             if (debug)console.info('onalltransitioncomplete');
             $viewcontainer.height('auto');
             $actualview.hide();
-            $futurview.css({position: 'relative',width:'auto'});
+            $futurview.css({position: 'relative', width: 'auto'});
             viewManager.postshow($futurview);
         };
 
         var futurwidth = $futurview.width();
-        $futurview.css({position:'absolute',opacity:0,width:futurwidth});
+        $futurview.css({position: 'absolute', opacity: 0, width: futurwidth});
         $viewcontainer.height($viewcontainer.height());
-        $actualview.css({opacity:1,position:'absolute'}).animate3({opacity:0},{duration:duration,easing:'easeOutExpo',complete:function completeoldview(){
-            callbackbetween(function(){
-                $futurview.animate3({marginTop:0,opacity:1},{duration:duration,easing:'easeInExpo',complete:function completefutureview(){
+        $actualview.css({opacity: 1, position: 'absolute'}).animate({opacity: 0}, {duration: duration, easing: 'easeOutExpo', complete: function completeoldview() {
+            callbackbetween(function () {
+                $futurview.animate({marginTop: 0, opacity: 1}, {duration: duration, easing: 'easeInExpo', complete: function completefutureview() {
                     var futureheight = $futurview.height();
-                    if(futureheight != $viewcontainer.height()){
-                        $viewcontainer.animate({height:futureheight},{duration:50,complete:onalltransitioncomplete});
+                    if (futureheight != $viewcontainer.height()) {
+                        $viewcontainer.animate({height: futureheight}, {duration: 50, complete: onalltransitioncomplete});
                     }
-                    else{
+                    else {
                         onalltransitioncomplete();
                     }
                 }});

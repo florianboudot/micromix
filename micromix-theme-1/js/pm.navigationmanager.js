@@ -16,14 +16,6 @@ pm.Navigationmanager = function() {
     //todo: goto position
     //todo: events of prexecution, execution, postexecution
 
-
-    var scrollhpctrl = function () {
-        if (debug)console.info('scrollhpctrl');
-
-    };
-
-    $('.JS_HPscroll').bind('scroll', scrollhpctrl);
-
     var goTo = function(view) {
         if (debug)console.info('pm.base.Navigationmanager.js:goTo', view);
 
