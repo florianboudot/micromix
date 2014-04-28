@@ -162,9 +162,7 @@ var Managethesound = function(){
         if(!isloaded){
             _onloadfail.apply(this, arguments);
         }
-        if(_starttime){
-            _playsoundattime(_starttime, _sound);
-        }
+        _playsoundattime(1, _sound); // "0" won't play the sound in flash player 9 mode. dunno why
         _starttime = null;
         _autoplay = false;
 
@@ -178,7 +176,7 @@ var Managethesound = function(){
      */
     var _playsoundattime = function (starttime, sound) {
         console.warn('_playsoundattime', sound);
-        if(starttime){
+        if(typeof starttime === "number"){
             var attemp = 0;
             var done = false;
             _setvolume(0,sound);
@@ -248,6 +246,15 @@ var Managethesound = function(){
                 _lastupdatetimeprogress = position;
                 var progression = position / this.duration * 100;
                 DOMcurrenttimeline.style.cssText = 'width:' + (progression + '%;');
+
+
+                // VU METER test
+                var peak_data_left = parseInt(this.peakData.left * 100);
+                var peak_data_right = parseInt(this.peakData.right * 100);
+                $('#vu-meter').find('.debug').html(peak_data_left + ' ' + peak_data_right);
+
+
+
                 counter.update(progression);
                 var otime = _getminutesandseconds(position / 1000);
                 DOMcurrenttimetext.textContent = otime.m + 'm:' + otime.s + 's';
@@ -329,7 +336,7 @@ var Managethesound = function(){
             onload: _onload
         });
         _sound = soundManager.sounds[id];
-        window.soundz = _sound; // test
+
         return _sound;
     };
     /**
@@ -440,7 +447,7 @@ var Managethesound = function(){
     var _gotoposition = function (position, sound) {
         console.info('_gotoposition', position);
         var __sound = sound || _sound;
-        if(__sound && position){
+        if(__sound && typeof position === 'number'){
             __sound.setPosition(position);
         }
     };
@@ -495,7 +502,7 @@ var Managethesound = function(){
     };
 
     var _updatehtmlinfo = function () {
-        console.info('defil _updatehtmlinfo');
+//        console.info('defil _updatehtmlinfo');
         $infos_text.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
         $infos_text.attr('href', _geturlbyid(_currentidplay));
 
@@ -504,15 +511,15 @@ var Managethesound = function(){
         var text_width = $infos_text.width();
         var pane = 25; // px
         var nb_steps = Math.round(text_width / pane);
-        console.log('defil, width',text_width);
-        console.log('defil, nb_steps',nb_steps);
+//        console.log('defil, width',text_width);
+//        console.log('defil, nb_steps',nb_steps);
 
         // start defil
         var position = 0;
 
         setInterval(function(){
             if(nb_steps > 0){
-                console.log('defil nb_steps',nb_steps);
+//                console.log('defil nb_steps',nb_steps);
                 $infos_text.css('left', position);
                 position = position - pane;
                 nb_steps --;
@@ -948,9 +955,12 @@ var Managethesound = function(){
         soundManager.setup({
             url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo find a better whay to extract the themepath without http full link
             // optional: prefer HTML5 over Flash for MP3/MP4
-//            flashVersion: 9,
-            debugMode: false,
+            flashVersion: 9, // for VU meter
+            debugMode: true,
             preferFlash: true,
+            useFastPolling:true, // for VU meter
+            flashPollingInterval: 1, // for VU meter
+            useHighPerformance : true,// for VU meter
             onready: _bind_controls,
             defaultOptions: {
                 // set global default volume for all sound objects

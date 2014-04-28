@@ -3,6 +3,7 @@
 
     <!-- VU meter -->
     <div id="vu-meter">
+        <div class="debug" style="position: relative; z-index: 2"></div>
         <div class="bar left">
             <div class="led vu-20 green"></div>
             <div class="led vu-40 green"></div>
