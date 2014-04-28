@@ -316,6 +316,7 @@ var Managethesound = function(){
         soundManager.createSound({
             url:url,
             id: id,
+            usePeakData: true,
             onplay: _onplay,
             onpause: _onpause,
             onresume: _onresume,
@@ -946,6 +947,7 @@ var Managethesound = function(){
         soundManager.setup({
             url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo should find a better whay to extract the themepath without http full link
             // optional: prefer HTML5 over Flash for MP3/MP4
+            flashVersion: 9,
             debugMode: false,
             preferFlash: true,
             onready: _bind_controls,
