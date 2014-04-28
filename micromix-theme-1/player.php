@@ -1,6 +1,24 @@
 <!-- The cassette player is build from file Managethesound.js -->
 <div id="cassette-player">
 
+    <!-- VU meter -->
+    <div id="vu-meter">
+        <div class="bar left">
+            <div class="led vu-20 green"></div>
+            <div class="led vu-40 green"></div>
+            <div class="led vu-60 green"></div>
+            <div class="led vu-80 red"></div>
+            <div class="led vu-100 red"></div>
+        </div>
+        <div class="bar right">
+            <div class="led vu-20 green"></div>
+            <div class="led vu-40 green"></div>
+            <div class="led vu-60 green"></div>
+            <div class="led vu-80 red"></div>
+            <div class="led vu-100 red"></div>
+        </div>
+    </div>
+
     <!-- counter -->
     <div id="counter">
         <?php for ($i = 1; $i <= 3; $i++) { ?>

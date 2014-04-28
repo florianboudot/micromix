@@ -149,6 +149,54 @@
     -webkit-transform: perspective( 1918px ) rotateX( 87deg )  rotateY(-0.3deg);
 }
 
+/* VU METER */
+#vu-meter {
+    position: absolute;
+    left: 467px;
+    top: 91px;
+    width: 10px;
+    height: 10px;
+}
+#vu-meter .led {
+    width: 26px;
+    height: 11px;
+    background: url(../img/player/vu-metre-leds.png) 0 0 no-repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+#vu-meter .led.green {
+    background-position: 0 0;
+}
+#vu-meter .led.red {
+    background-position: -26px 0;
+}
+#vu-meter .bar {
+    position: absolute;
+    left: 0;
+}
+#vu-meter .bar.left {
+    top: 0;
+}
+#vu-meter .bar.right {
+    top: 12px;
+}
+#vu-meter .vu-20 {
+    left: 0px;
+}
+#vu-meter .vu-40 {
+    left: 17px;
+}
+#vu-meter .vu-60 {
+    left: 32px;
+}
+#vu-meter .vu-80 {
+    left: 48px;
+}
+#vu-meter .vu-100 {
+    left: 65px;
+}
+
 
 /* COUNTER */
 #counter{
@@ -159,6 +207,7 @@
     width: 47px;
     height: 14px;
     font-size: 12px;
+    overflow: hidden;
 }
 #counter .unit {
     -webkit-transition: top 200ms ease-in-out;
