@@ -738,7 +738,7 @@ var Managethesound = function(){
     };
     var _onpreviewendfinally = function () {
         console.info('_onpreviewendfinally');
-        $previewtitle.animate3({opacity:0},{duration:500,complete:function(){$(this).remove()}});
+        $previewtitle.animate({opacity:0},{duration:500,complete:function(){$(this).remove()}});
     };
 
     var _previewend = function (e) {
@@ -781,7 +781,7 @@ var Managethesound = function(){
         var $elem = $(this);
         $previewtitle.css({opacity:0}).html('hold your click to preview');//todo translate
         $elem.append($previewtitle);
-        $previewtitle.animate3({opacity:1},{duration:500});
+        $previewtitle.animate({opacity:1},{duration:500});
         $elem.on('mouseup mouseout', _cancelbeforepreviewbegin);
         TIMEOUTpreview = setTimeout(function(){_previewsound($elem)}, 500);
 

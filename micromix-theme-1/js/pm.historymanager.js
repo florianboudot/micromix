@@ -7,7 +7,9 @@ pm.Historymanager = function() {
 
 	if (debug)console.info('pm.base.Historymanager.js');
 
-    var settings = pm.base.settings;
+    var settings = {
+        historyHTML5: window.history
+    };
     var noexecutiononurlchange = false;
     var needafirstview = true;
     var navigationcount = 0;
@@ -237,6 +239,10 @@ pm.Historymanager = function() {
         }
     };
 
+    /**
+     * @deprecated
+     * @param section
+     */
     var goTo = function(section){
         if (debug)console.info('pm.base.Historymanager.js:goTo', section);
 
