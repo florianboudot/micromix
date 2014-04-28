@@ -329,6 +329,7 @@ var Managethesound = function(){
             onload: _onload
         });
         _sound = soundManager.sounds[id];
+        window.soundz = _sound; // test
         return _sound;
     };
     /**
@@ -945,9 +946,9 @@ var Managethesound = function(){
         }
 
         soundManager.setup({
-            url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo should find a better whay to extract the themepath without http full link
+            url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo find a better whay to extract the themepath without http full link
             // optional: prefer HTML5 over Flash for MP3/MP4
-            flashVersion: 9,
+//            flashVersion: 9,
             debugMode: false,
             preferFlash: true,
             onready: _bind_controls,
