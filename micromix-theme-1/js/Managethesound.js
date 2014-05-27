@@ -235,24 +235,45 @@ var Managethesound = function(){
         return {s:seconds,m:minVar};
     };
 
+
+    // todo : test VU METER
+    var $vu_meter = $('#vu-meter');
+    var $left_leds = $vu_meter.find('.left .led');
+    var $right_leds = $vu_meter.find('.right .led');
+    var updateVuMeter = function (peak_data, $elements, old_leds_total) {
+        var leds_total = Math.ceil((peak_data / 20) * 1.7); // between 1 and 5
+        var is_going_up = leds_total > old_leds_total;
+        var start_led = is_going_up ? old_leds_total : leds_total; // default is 0
+        var end_led = is_going_up ? leds_total : old_leds_total;
+
+        // lights on or off the leds
+        for (var i = start_led; i <= end_led; i++) {
+            $elements.eq(i)[is_going_up ? 'addClass' : 'removeClass']('active');
+        }
+
+        // save old value
+        return leds_total;
+    };
+
     var _lastupdatetimeprogress = 0;
     var _lastupdateloadprogress = 0;
-
+    var save_peak_data_left = 0;
+    var save_peak_data_right = 0;
     var _updatetimeprogress = function (force) {
-//            console.info('_updatetimeprogress');//flood
+//        console.info('_updatetimeprogress');//flood
+
+        // todo : VU-METER test
+        var peak_data_left = parseInt(this.peakData.left * 100);
+        var peak_data_right = parseInt(this.peakData.right * 100);
+        save_peak_data_left = updateVuMeter(peak_data_left, $left_leds, save_peak_data_left);
+        save_peak_data_right = updateVuMeter(peak_data_right, $right_leds, save_peak_data_right);
+
         if(_ispostondisplay){
             var position = this.position;
             if(Math.abs(position - _lastupdatetimeprogress) > 1000 || force){
                 _lastupdatetimeprogress = position;
                 var progression = position / this.duration * 100;
                 DOMcurrenttimeline.style.cssText = 'width:' + (progression + '%;');
-
-
-                // VU METER test
-                var peak_data_left = parseInt(this.peakData.left * 100);
-                var peak_data_right = parseInt(this.peakData.right * 100);
-                $('#vu-meter').find('.debug').html(peak_data_left + ' ' + peak_data_right);
-
 
 
                 counter.update(progression);
@@ -959,7 +980,7 @@ var Managethesound = function(){
             debugMode: true,
             preferFlash: true,
             useFastPolling:true, // for VU meter
-            flashPollingInterval: 1, // for VU meter
+            flashPollingInterval: 10, // for VU meter
             useHighPerformance : true,// for VU meter
             onready: _bind_controls,
             defaultOptions: {

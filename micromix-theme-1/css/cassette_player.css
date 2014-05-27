@@ -164,6 +164,13 @@
     position: absolute;
     left: 0;
     top: 0;
+    opacity: 0;
+       -moz-transition: opacity ease-in-out 50ms;
+    -webkit-transition: opacity ease-in-out 50ms;
+            transition: opacity ease-in-out 50ms;
+}
+#vu-meter .led.active {
+    opacity: 1;
 }
 #vu-meter .led.green {
     background-position: 0 0;
@@ -182,7 +189,7 @@
     top: 12px;
 }
 #vu-meter .vu-20 {
-    left: 0px;
+    left: 0;
 }
 #vu-meter .vu-40 {
     left: 17px;
