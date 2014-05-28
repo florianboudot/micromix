@@ -236,22 +236,23 @@ var Managethesound = function(){
     };
 
 
-    // todo : test VU METER
+    /* VU METER : LEDS ANIMATION */
     var $vu_meter = $('#vu-meter');
     var $left_leds = $vu_meter.find('.left .led');
     var $right_leds = $vu_meter.find('.right .led');
+    var volume_factor = 1.7; // cheat to pump up the volume peak
     var updateVuMeter = function (peak_data, $elements, old_leds_total) {
-        var leds_total = Math.ceil((peak_data / 20) * 1.7); // between 1 and 5
-        var is_going_up = leds_total > old_leds_total;
-        var start_led = is_going_up ? old_leds_total : leds_total; // default is 0
-        var end_led = is_going_up ? leds_total : old_leds_total;
+        var leds_total = Math.ceil((peak_data / 20) * volume_factor), // between 1 and 5
+            is_going_up = leds_total > old_leds_total,
+            start_led = is_going_up ? old_leds_total : leds_total, // default is 0
+            end_led = is_going_up ? leds_total : old_leds_total;
 
         // lights on or off the leds
         for (var i = start_led; i <= end_led; i++) {
             $elements.eq(i)[is_going_up ? 'addClass' : 'removeClass']('active');
         }
 
-        // save old value
+        // return current total leds
         return leds_total;
     };
 
@@ -259,10 +260,10 @@ var Managethesound = function(){
     var _lastupdateloadprogress = 0;
     var save_peak_data_left = 0;
     var save_peak_data_right = 0;
-    var _updatetimeprogress = function (force) {
-//        console.info('_updatetimeprogress');//flood
+    var _updatetimeprogress = function () {
+        //console.info('_updatetimeprogress',force, this.peakData);//flood
 
-        // todo : VU-METER test
+        // RUN VU METER
         var peak_data_left = parseInt(this.peakData.left * 100);
         var peak_data_right = parseInt(this.peakData.right * 100);
         save_peak_data_left = updateVuMeter(peak_data_left, $left_leds, save_peak_data_left);
@@ -270,7 +271,7 @@ var Managethesound = function(){
 
         if(_ispostondisplay){
             var position = this.position;
-            if(Math.abs(position - _lastupdatetimeprogress) > 1000 || force){
+            if(Math.abs(position - _lastupdatetimeprogress) > 1000){
                 _lastupdatetimeprogress = position;
                 var progression = position / this.duration * 100;
                 DOMcurrenttimeline.style.cssText = 'width:' + (progression + '%;');
@@ -980,7 +981,7 @@ var Managethesound = function(){
             debugMode: true,
             preferFlash: true,
             useFastPolling:true, // for VU meter
-            flashPollingInterval: 10, // for VU meter
+            flashPollingInterval: 100, // for VU meter
             useHighPerformance : true,// for VU meter
             onready: _bind_controls,
             defaultOptions: {
@@ -994,4 +995,5 @@ var Managethesound = function(){
     this.initsound = init;
     this.refreshbind = refreshbind;
 };
+
 

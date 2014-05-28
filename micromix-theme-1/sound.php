@@ -35,7 +35,7 @@ $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
             (<?= print_download($currentID, true); ?> plays this month) <br>
             <?php
             //requete pour connaitre les mois renseignés
-            $query = "SELECT download_count, dl_month FROM wp_downloadstats WHERE post_id = '".$currentID."' ORDER BY dl_month DESC";
+            /*$query = "SELECT download_count, dl_month FROM wp_downloadstats WHERE post_id = '".$currentID."' ORDER BY dl_month DESC";
             $line = $wpdb->get_results($query);
 
             //afficher toutes les dl stats pour chaque mois trouvé
@@ -44,7 +44,7 @@ $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
                 $dl_current_month = $row -> dl_month;
 
                 echo $dl_current_month . ' : ('.$dl_current_count.')<br>';
-            }
+            }*/
             ?>
         </em>
     </p>

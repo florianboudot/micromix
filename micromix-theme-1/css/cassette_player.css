@@ -6,7 +6,8 @@
     background:url(../img/player/cassette-player-full.png) 0 0 no-repeat;
     bottom: -24px;
     z-index: 1;
-    right:0;
+    left: 50%;
+    margin-left: -415px;
 }
 #cassette-player.positionabsolute{
     position: absolute;
