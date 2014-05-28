@@ -32,7 +32,7 @@ var Managethesound = function(){
     var DOMcurrentloadprogress = null;
     var DOMcurrenttimetext = null;
     var DOMcurrenttotaltimetext = null;
-    var _ispostondisplay = false;
+    var is_post_in_the_page = false;
 
     var _playlist = typeof list_all_posts === 'object' ? list_all_posts : [];
     var _mp3byid = {};
@@ -269,24 +269,19 @@ var Managethesound = function(){
         save_peak_data_left = updateVuMeter(peak_data_left, $left_leds, save_peak_data_left);
         save_peak_data_right = updateVuMeter(peak_data_right, $right_leds, save_peak_data_right);
 
-        if(_ispostondisplay){
-            var position = this.position;
-            if(Math.abs(position - _lastupdatetimeprogress) > 1000){
-                _lastupdatetimeprogress = position;
-                var progression = position / this.duration * 100;
-                DOMcurrenttimeline.style.cssText = 'width:' + (progression + '%;');
-
-
-                counter.update(progression);
-                var otime = _getminutesandseconds(position / 1000);
-                DOMcurrenttimetext.textContent = otime.m + 'm:' + otime.s + 's';
-            }
+        // update player COUNTER
+        var position = this.position;
+        if (Math.abs(position - _lastupdatetimeprogress) > 1000) {
+            _lastupdatetimeprogress = position;
+            var progression = position / this.duration * 100;
+            counter.update(progression);
         }
     };
 
+
     var _updateloadprogress = function (force) {
 //            console.info('_updateloadprogress');//flood
-        if(_ispostondisplay){
+        if(is_post_in_the_page){
             var position = this.bytesLoaded;
             if((position - _lastupdateloadprogress) > 0.01 || force){
                 _lastupdateloadprogress = position;
@@ -560,7 +555,7 @@ var Managethesound = function(){
         console.info('refreshbind');
 
         var $post = $('#post-' + _currentidplay);
-        _ispostondisplay = !!$post.length;
+        is_post_in_the_page = !!$post.length;
         $currentplayer.off(timelineevents, _gotothistime); // before update current
         $currentplayer          = $post.find('.player');
         DOMcurrentloadprogress  = $currentplayer.find('.loaded')[0];

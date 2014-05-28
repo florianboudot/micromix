@@ -209,7 +209,6 @@
 /* COUNTER */
 #counter{
     position: absolute;
-    background:white;
     left: 465px;
     top: 39px;
     width: 47px;
@@ -219,7 +218,6 @@
 }
 #counter .unit {
     -webkit-transition: top 200ms ease-in-out;
-
     position: absolute;
     left: 0;
     top: 0;
@@ -228,7 +226,22 @@
 .unit .number {
     width: 12px;
     height: 14px;
+    overflow: hidden;
+    text-indent: -9999px;
+    background-image: url(../img/player/counter-numbers.png);
+    background-repeat: no-repeat;
 }
+.unit .number-0 { background-position: 0 0; }
+.unit .number-1 { background-position: 0 -14px; }
+.unit .number-2 { background-position: 0 -28px; }
+.unit .number-3 { background-position: 0 -42px; }
+.unit .number-4 { background-position: 0 -56px; }
+.unit .number-5 { background-position: 0 -70px; }
+.unit .number-6 { background-position: 0 -84px; }
+.unit .number-7 { background-position: 0 -98px; }
+.unit .number-8 { background-position: 0 -112px; }
+.unit .number-9 { background-position: 0 -126px; }
+
 #counter #unit-1 {
     left: 0;
 }
