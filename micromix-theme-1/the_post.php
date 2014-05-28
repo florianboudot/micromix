@@ -24,13 +24,18 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
 
     <!-- IMAGE -->
     <div class="post-image">
-        <?php if(!is_single()): ?>
+        <div class="case">
+            <!-- show a photo in a mask 494x324 -->
+        </div>
+        <?php if(!is_single()) { ?>
             <a class="history" href="<?= $the_permalink ?>" title="See this post">
-                <img src="<?= $image_src ?>" alt="<?= the_title(); ?>">
+        <?php } ?>
+
+        <div class="cover" style="background-image:url(<?= $image_src ?>);"></div>
+
+        <?php if(!is_single()) { ?>
             </a>
-        <?php else: ?>
-            <img src="<?= $image_src ?>" alt="<?= the_title(); ?>">
-        <?php endif; ?>
+        <?php } ?>
 
         <!-- SOUND -->
         <?php include("sound.php"); ?>

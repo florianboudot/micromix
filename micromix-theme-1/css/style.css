@@ -211,10 +211,13 @@ ol {
     background:#e6e8e7;
     color:black;
     float:left;
-	font-size:2em;
+	
+    z-index: 2;
+    font-size:2em;
 	padding:0 5px 3px 5px;
 	position:absolute;
-	left:49px;
+	
+    left: 67px;
 	top:50px;
 	line-height:1em;
 	opacity:0.8;
@@ -223,7 +226,8 @@ ol {
 	opacity:0.6;
 	padding:3px 0 0 0;
 	position:absolute;
-	left:49px;
+	z-index: 3;
+	left: 66px;
 	top:96px;
 }
 .post-date small {
@@ -233,14 +237,26 @@ ol {
     display: none;
 }
 
-/* POST - IMAGE */
-.post-image img {
-    border:3px solid #E6E8E7;
-    width:500px;
-    display: block;
+/* POST - IMAGE (CASSETTE PLASTIC CASE) */
+.post-image  {
+    position: relative;
 }
-.post-image a:hover img {
-    border-color:#1E4279;
+.post-image .case {
+    width: 536px;
+    z-index: 2;
+    position: relative;
+    height: 355px;
+    background: url(../img/cassette/plastic-case.png) 0 0 no-repeat;
+}
+.post-image .cover {
+    position: absolute;
+    left: 20px;
+    top:14px;
+    z-index: 1;
+    width:494px;
+    height: 324px;
+    background-size: cover;
+    background-position: top center;
 }
 
 /* POST - TRACKLIST */
