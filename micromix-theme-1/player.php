@@ -39,7 +39,11 @@
     <div id="deck-door-shadow"></div>
 
     <!-- K7 -->
-    <div id="cassette"></div>
+    <div id="cassette">
+        <div class="front"></div>
+        <div class="cran left rotating"></div>
+        <div class="cran right rotating"></div>
+    </div>
 
     <!-- Controls -->
     <div class="control" id="control-pause">pause</div>

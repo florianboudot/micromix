@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) {  echo "#".get_post_meta($post->ID, 'micromixNumber', true);  } ?> <?php wp_title(); ?></title>
 
-    <link rel="stylesheet" href="<?= theme_path ?>/css/style.css">
+    <link rel="stylesheet" href="<?= theme_path ?>/css/all.css">
     <link rel="stylesheet" href="<?= theme_path ?>/css/player.css">
-    <link rel="stylesheet" href="<?= theme_path ?>/css/cassette_player.css">
+    <link rel="stylesheet" href="<?= theme_path ?>/css/cassette.css">
     <link rel="stylesheet" href="<?= theme_path ?>/css/archives.css">
 
     <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>">

@@ -1,7 +1,6 @@
 <?php
 // current post ID
 $currentID = get_the_ID();
-
 $enclosure_customfield = get_post_meta($currentID, 'enclosure', true);
 
 // get mp3 link ("enclosure" tag is required by apple itunes)
@@ -14,15 +13,11 @@ $file_name = $mp3_link;
 $mp3_link = "/upload/" . $file_name;
 $file_name = urldecode($file_name); // replace '%20' by blank spaces ' '
 
-// bug : wordpress delete enclosure custom field if post update.
+// BUG : wordpress deletes enclosure custom field if post update.
 // please check /wp-includes/functions.php and comment code starting with "foreach ( $pung as $link_test ) {"
 // more info : http://kevinjedwards.com/51/how-to-stop-wordpress-28-from-deleting-enclosures/
 ?>
-<div class="player">
-    <div class="loaded"></div>
-    <div class="currenttime"><span class="timetext"></span></div>
-    <span class="totaltime"></span>
-</div>
+
 
 <div class="sound">
     <p class="bt-player" id="bt-player-<?= $currentID; ?>">
