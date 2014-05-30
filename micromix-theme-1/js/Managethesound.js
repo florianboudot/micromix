@@ -926,25 +926,72 @@ var Managethesound = function(){
     };
 
 
+    /* ANIMATIONS */
+    /* PLAYER : OPEN DECK DOOR */
+    var $deck = $('#deck');
+    var openDeckDoor = function () {
+        $deck.addClass('open'); // todo : bring the inside animations here
+        $deck.velocity({
+            rotateX:'-30deg'
+        }, {
+            easing: "easeInOut",
+            duration: 300
+        });
+        $('#deck-door-shadow').addClass('active'); // todo : bring the inside animations here
+    };
+
+
+    /* PLAYER : CLOSE DECK DOOR */
+    var closeDeckDoor = function () {
+        $deck.removeClass('open'); // todo : bring the inside animations here
+        $deck.velocity({
+            rotateX:'0deg'
+        }, {
+            easing: "easeInOut",
+            duration: 300
+        });
+        $('#deck-door-shadow').removeClass('active');// todo : bring the inside animations here
+    };
+
+    // debug mode
+    $deck.on('click', function(){
+        if($deck.hasClass('open')){
+            closeDeckDoor();
+        }
+        else {
+            openDeckDoor();
+        }
+    });
+
+    /* CASSETTE : MOVE IN */
+    var $cassette = $('#cassette');
+    var $crans = $cassette.find('.cran');
+    var cassetteMoveIn = function () {
+        openDeckDoor();
+
+        // wait for the door to open and move in cassette...
+        setTimeout(function(){
+            $cassette.velocity({
+                right: 157,
+                bottom: 61,
+                scale:0.55
+            }, {
+                complete:function(){
+                    closeDeckDoor();
+                    setTimeout(function(){
+                        $crans.addClass('rotating');
+                    },300);
+                }
+            });
+        }, 300);
+    };
+    $cassette.on('click', cassetteMoveIn); // test
+
     var init = function () {
         if (debug)console.info('init');
 
+        // instance the counter
         counter = new Counter();
-
-
-        // cassette deck animation
-        // todo TEST function
-        var toggleOpenDeck = function () {
-            $('#deck').toggleClass('open');
-            $('#deck-door-shadow').toggleClass('active');
-        };
-        $('#deck').on('click', toggleOpenDeck);
-
-        // todo TEST function
-        var toggleCassetteMove = function () {
-            $('#cassette').toggleClass('move');
-        };
-        $('#cassette').on('click', toggleCassetteMove);
 
         //todo externalize this hash extract
         var hashsplit = location.hash.split('#')[1];

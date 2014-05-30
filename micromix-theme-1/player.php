@@ -41,8 +41,8 @@
     <!-- K7 -->
     <div id="cassette">
         <div class="front"></div>
-        <div class="cran left rotating"></div>
-        <div class="cran right rotating"></div>
+        <div class="cran left"></div>
+        <div class="cran right"></div>
     </div>
 
     <!-- Controls -->

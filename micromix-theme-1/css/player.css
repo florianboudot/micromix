@@ -2,6 +2,7 @@
 #cassette-player {
     position:fixed;
     width:673px;
+    -webkit-perspective: 1947px; /* deck door animation */
     height:338px;
     background:url(../img/player/cassette-player-full.png) 0 0 no-repeat;
     bottom: -24px;
@@ -102,11 +103,10 @@
     left: 70px;
     top: 17px;
     z-index: 2;
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
     -webkit-transform-origin: 50% 94%;
 }
 #deck.open {
-    -webkit-transform: perspective( 1947px ) rotateX( -30deg );
+    /*-webkit-transform: perspective( 1947px ) rotateX( -30deg );*/
 }
 #deck-door-shadow {
     position: absolute;
@@ -146,8 +146,7 @@
     margin-left: 8px;
 }
 .open #top-depth {
-    margin-top: -31px;
-    -webkit-transform: perspective( 1918px ) rotateX( 87deg )  rotateY(-0.3deg);
+     -webkit-transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
 }
 
 /* VU METER */

@@ -5,7 +5,7 @@
     width: 520px;
     height: 340px;
     position: absolute;
-    right: 100px;/* 500 */
+    right: 37px;/* 500 */
     bottom: 500px;/* 500 */
     z-index: 1;
     /*-webkit-transform: scale(1);*/
@@ -17,6 +17,10 @@
     position: relative;
     z-index: 3;
 }
+
+
+
+/* ROTATING CRANS */
 #cassette .cran {
     background: url(../img/cassette/cran.png) 0 0 no-repeat;
     width: 87px;
@@ -43,43 +47,6 @@
 #cassette .cran.right.rotating {
     -webkit-animation: cranrotating 3s linear infinite;
 }
-
-/* K7 ANIMATION */
-@-webkit-keyframes cassettein {
-    0% {
-        -webkit-transform: scale(1);
-        right:100px;
-        bottom: 500px;
-    }
-    33% {
-        -webkit-transform: scale(1);
-        right: 200px;
-        bottom: 500px;
-    }
-    50% {
-        -webkit-transform: scale(0.55);
-        right: 157px;
-        bottom: 500px;
-    }
-    100% {
-        -webkit-transform: scale(0.55);
-        right: 157px;
-        bottom: 61px;
-    }
-}
-#cassette.move {
-    -webkit-animation-name: cassettein;
-    -webkit-animation-duration: 1.5s;
-    -webkit-animation-timing-function: ease-in-out;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-direction: normal;
-    -webkit-animation-delay: 0;
-    -webkit-animation-play-state: running;
-    -webkit-animation-fill-mode: forwards;
-}
-
-
-
 
 
 
