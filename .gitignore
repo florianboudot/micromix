@@ -1,3 +1,4 @@
 # ignore all files from phpstorm local settings
 *.idea
+node_modules
 

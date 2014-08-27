@@ -37,7 +37,13 @@ and
 
 * modify your `.htacccess` adding this line `RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}`
 
+##Node / Grunt
 
+* install nodejs on your dev environment
+
+* install grunt via: npm install -g grunt-cli
+
+* run grunt tasks
 
 ##Authors
 

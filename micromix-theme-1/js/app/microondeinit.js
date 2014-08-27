@@ -1,5 +1,8 @@
-if(typeof(pm) == 'undefined'){var pm = { base: null }}
-if(typeof(pm.base) == 'undefined'){pm.base = null;}
+if(typeof(pm) == 'undefined'){
+    var pm = { base: null }
+}
+else{
+}
 
 pm.initmicromix = (function() {
     var debug = false;
