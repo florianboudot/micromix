@@ -44,7 +44,7 @@ pm.Contentmanager = function() {
     };
 
     var getpage = function(url) {
-        if (debug)console.info('pm.base.Contentmanager.js:getpage');
+        if (true)console.info('pm.base.Contentmanager.js:getpage');
 
         var cache = cacheget(url);
         if(cache){
@@ -55,9 +55,9 @@ pm.Contentmanager = function() {
                 request = false;
             }
             request = true;
+            var paramquery = url.match(/\?/) ? '&' : '?';
             pm.manager.connexion.request({
-                url: url + '?ajax=true',
-                data:{ajax:true},
+                url: url + paramquery + 'ajax=true',
                 type: 'GET',
                 dataType: 'html',
                 cancelable:true,
