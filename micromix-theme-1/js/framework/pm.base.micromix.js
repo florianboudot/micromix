@@ -228,28 +228,17 @@ var basemicroonde = (function($) {
     pm.base.debug = {
         addfntocollection: /stecov|flobou|local|192/.test(documentlocationhost),
         Analytics: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
-        Blogmanager: /flobou|stecov|flobou|local|192/.test(documentlocationhost),
         Connexionmanager: /antsan|flobou|local|192/.test(documentlocationhost),
         Contentmanager: /antsan|flobou|local|192/.test(documentlocationhost),
-        Footermanager: /stecov|flobou|local|192/.test(documentlocationhost),
         Getters: /stecov|flobou|local|192/.test(documentlocationhost),
-        Headermanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
         Historymanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
         index: /antsan|flobou|stecov|flobou|local|192/.test(documentlocationhost),
-        initkenzo: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
-        Keymapmanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
-        Languagemanager: /stecov|flobou|local|192/.test(documentlocationhost),
-        Menumanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
         Navigationmanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
         removefntocollection: /stecov|flobou|local|192/.test(documentlocationhost),
         Resize: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
         Setters: /antsan2|stecov|flobou|local|192/.test(documentlocationhost),
-        Sitemanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
-        Templatemanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
         Transitionmanager: /antsan|flobou|local|192/.test(documentlocationhost),
-        videomanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
-        Viewmanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost),
-        Widget: /antsan|stecov|flobou|local|192/.test(documentlocationhost)
+        Viewmanager: /antsan|stecov|flobou|local|192/.test(documentlocationhost)
     };
 
 })(jQuery);

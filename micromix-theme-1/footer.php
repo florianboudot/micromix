@@ -20,25 +20,22 @@
 <script src="<?= theme_path ?>/js/libs/modernizr.js"></script>
 <script src="<?= theme_path ?>/js/libs/jquery.easing.js"></script>
 <script src="<?= theme_path ?>/js/libs/jquery.history.js"></script>
+
 <script src="<?= theme_path ?>/js/libs/conf/setting.js"></script>
-
 <script src="<?= theme_path ?>/js/Managethesound.js"></script>
-<script src="<?= theme_path ?>/js/pm.addfntocollection.js"></script>
-<script src="<?= theme_path ?>/js/pm.analytics.js"></script>
-<script src="<?= theme_path ?>/js/pm.base.kenzo.js"></script>
-<script src="<?= theme_path ?>/js/pm.connexionmanager.js"></script>
-<script src="<?= theme_path ?>/js/pm.contentmanager.js"></script>
-<script src="<?= theme_path ?>/js/pm.getterssetters.js"></script>
-<script src="<?= theme_path ?>/js/pm.historymanager.js"></script>
-<script src="<?= theme_path ?>/js/microondeinit.js"></script>
-<script src="<?= theme_path ?>/js/pm.navigationmanager.js"></script>
-<script src="<?= theme_path ?>/js/pm.transitionmanager.js"></script>
-<script src="<?= theme_path ?>/js/pm.viewactions.js"></script>
-<script src="<?= theme_path ?>/js/pm.viewmanager.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.addfntocollection.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.analytics.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.base.micromix.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.connexionmanager.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.contentmanager.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.getterssetters.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.historymanager.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.navigationmanager.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.transitionmanager.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.viewactions.js"></script>
+<script src="<?= theme_path ?>/js/framework/pm.viewmanager.js"></script>
+
 <script src="<?= theme_path ?>/js/base.js"></script>
-
-
-
-
+<script src="<?= theme_path ?>/js/microondeinit.js"></script>
 </body>
 </html>

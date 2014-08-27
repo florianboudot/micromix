@@ -231,9 +231,6 @@ pm.Viewmanager = function() {
             collectionloadedview[key]();
         }
         $view.trigger('onviewload');
-        if($view.attr('class')=="view view-movies"){
-             //pm.kenzomovies()
-        }
     };
 
     var onviewinjected = function ($view) {

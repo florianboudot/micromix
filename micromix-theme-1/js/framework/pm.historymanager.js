@@ -263,8 +263,6 @@ pm.Historymanager = function() {
         historyPush(path);
     };
 
-//    bindLinks($('#sitekenzo'));
-
     var gobackwithoutexec = function () {
         if (debug)console.info('gobackwithoutexec');
         noexecutiononurlchange = true;

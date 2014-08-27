@@ -1,13 +1,10 @@
-/* $Id: pm.base.kenzoinit.js 3023 2012-06-26 12:17:43Z antsan2 $ */
-
 if(typeof(pm) == 'undefined'){var pm = { base: null }}
 if(typeof(pm.base) == 'undefined'){pm.base = null;}
 
-pm.initkenzo = (function() {
-//    var debug = (typeof(pm.base.debug) != "undefined") ? pm.base.debug.initkenzo : false;
+pm.initmicromix = (function() {
     var debug = false;
 
-    if (debug)console.info('pm.kenzoinit.js');
+    if (debug)console.info('pm.initmicromix.js');
 
     pm.manager = {};
 
@@ -18,14 +15,14 @@ pm.initkenzo = (function() {
     };
 
     var resizeViewport = function() {
-        if (debug)console.info('pm.initkenzo:resizeViewport');
+        if (debug)console.info('pm.initmicromix:resizeViewport');
 
     };
 
     var startscript = function() {
         clearInterval(window.INTERVALJSLOADER);
 
-        if (debug)console.info('pm.initkenzo:startscript');
+        if (debug)console.info('pm.initmicromix:startscript');
 
         resizeViewport();
 

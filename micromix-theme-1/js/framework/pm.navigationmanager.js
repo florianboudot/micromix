@@ -28,7 +28,7 @@ pm.Navigationmanager = function() {
             YODAWGDATAINDATA = YODAWGDATAINDATA ? YODAWGDATAINDATA : {};
             var title_page = YODAWGDATAINDATA.title_page;
             title_page = title_page ? title_page : YODAWGDATAINDATA.page_title;
-            var page_title = typeof(title_page) == 'string' ? title_page : 'Kenzo';
+            var page_title = typeof(title_page) == 'string' ? title_page : 'Micromix';
             if(page_title){
                 document.title = page_title
             }

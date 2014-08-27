@@ -55,7 +55,7 @@ pm.extendviewmanageractions = function (options) {
                 pm.manager.history.bindLinks($view);
 
                 if(!pm.manager.viewscript[view]){
-                    var sscriptsrc = theme_path + '/js/pm.view_' + view + '.js';
+                    var sscriptsrc = theme_path + '/js/views/pm.view_' + view + '.js';
                     sscriptsrc = debug ? sscriptsrc + '?cache=' + new Date().getTime() : sscriptsrc;
                     $("<script>", { "src" : sscriptsrc, "type" : "text/javascript" }).appendTo("head");
                 }
