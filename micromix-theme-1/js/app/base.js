@@ -232,3 +232,6 @@ function CustomConsole (prefix, console_css) {
     }, this);
 }
 
+$(window).on('load', function(){
+    $('.mini-poster').attr('src', function(){return $(this).data('src')})
+});

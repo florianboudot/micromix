@@ -114,7 +114,7 @@ function allPostsByYear() {
                 ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
 
                 $image_src = image_attachment_src($post_id, 'thumbnail'); // thumbnail (150), medium (220), large (500)
-                $image_tag = '<img src="'.$image_src.'" alt="" class="mini-poster">';
+                $image_tag = '<img data-src="'.$image_src.'" alt="" class="mini-poster">';
                 $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span>';
 
                 // build list item
