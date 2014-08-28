@@ -33,8 +33,8 @@ module.exports = function (grunt) {
         },
         cssmin: {
             compress: {
-                src: ['css/imports.css', 'css/temp/*.css'],
-                dest: 'css/pm.min.css'
+                src: ['css/*', 'css/temp/*.css'],
+                dest: 'css/micromix.min.css'
             }
         },
         clean: ['css/temp'],

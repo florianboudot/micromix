@@ -5,10 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) {  echo "#".get_post_meta($post->ID, 'micromixNumber', true);  } ?> <?php wp_title(); ?></title>
 
-    <link rel="stylesheet" href="<?= theme_path ?>/css/all.css">
-    <link rel="stylesheet" href="<?= theme_path ?>/css/player.css">
-    <link rel="stylesheet" href="<?= theme_path ?>/css/cassette.css">
-    <link rel="stylesheet" href="<?= theme_path ?>/css/archives.css">
+    <?php if(true){ ?>
+        <link rel="stylesheet" href="<?= theme_path ?>/css/all.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/player.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/cassette.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/archives.css">
+    <?php } else { ?>
+        <link rel="stylesheet" href="<?= theme_path ?>/css/micromix.min.css">
+    <?php } ?>
+
 
     <link rel="alternate" type="application/rss+xml" title="<?php bloginfo('name'); ?> RSS Feed" href="<?php bloginfo('rss2_url'); ?>">
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
