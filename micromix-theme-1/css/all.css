@@ -135,7 +135,8 @@ ol {
 #mainHeader .description { display:none; }
 #curtain {
     margin: 0 auto;
-    background:url(../img/bg-curtain.png) center top repeat-y;
+    background: url(../img/bg-curtain.jpg) 21px top repeat-y, url(../img/bg-curtain-back.png) center top repeat-y;
+    width: 1000px;
 }
 #mainContent {
 	width:1000px;
