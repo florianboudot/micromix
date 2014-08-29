@@ -24,6 +24,9 @@
 <body>
 
 <div id="mainContainer">
+    <div id="top">
+
+    </div>
     <div id="bricks">
             <div id="curtain">
                 <div id="mainContent">

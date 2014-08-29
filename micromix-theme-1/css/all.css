@@ -119,6 +119,15 @@ ol {
 
 
 #column2 .searchform { padding:0 0 100px 21px; }
+#top {
+    position: absolute;
+    height: 838px;
+    background: url(../img/top1.png) 0 0 no-repeat, url(../img/top1.jpg) 145px 298px no-repeat, url(../img/top2.jpg) 24px 298px no-repeat, url(../img/top3.jpg) 24px 0 no-repeat;
+    width: 1000px;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
 #mainContainer {
     position: relative;/* helps position #footer */
 }
@@ -154,7 +163,7 @@ ol {
 	margin:0 auto;
 	overflow:hidden;
     padding-bottom: 619px;
-	background:url(../img/top.png) left top no-repeat;
+	/*background:url(../img/top.png) left top no-repeat;*/
 }
 
 /* FOOTER */
