@@ -25,8 +25,7 @@
 
 <div id="mainContainer">
     <div id="bricks">
-        <div id="curtain">
-            <div id="mainFooter">
+            <div id="curtain">
                 <div id="mainContent">
 
                     <div id="mainHeader">
@@ -51,7 +50,7 @@
                         <h1><a href="<?php echo get_option('home'); ?>/" title="back to home page"><?php bloginfo('name'); ?></a></h1>
                         <p class="description"><?php bloginfo('description'); ?></p>
                     </div><!-- #mainHeader -->
-                    
+
                     <?php include('column-1.php'); ?>
-                    
+
                     <div id="column2">

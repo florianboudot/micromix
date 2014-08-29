@@ -1,6 +1,6 @@
 
                 </div><!-- #mainContent -->
-            </div><!-- #mainFooter -->
+
         </div><!-- #curtain -->
     </div><!-- #bricks -->
 
