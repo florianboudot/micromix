@@ -3,7 +3,7 @@
     author : supakazes@hotmail.com
 */
 /* DEFAULT */
-@font-face {
+/*@font-face {
     font-family: 'llpikseliregular';
     src: url('../fonts/llpiksel-webfont.eot');
     src: url('../fonts/llpiksel-webfont.eot?#iefix') format('embedded-opentype'),
@@ -21,6 +21,17 @@
          url('../fonts/displayotf-webfont.woff') format('woff'),
          url('../fonts/displayotf-webfont.ttf') format('truetype'),
          url('../fonts/displayotf-webfont.svg#displayotfregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}*/
+
+@font-face {
+    font-family: 'digital-7mono';
+    src: url('../fonts/digital-7_mono-webfont.eot');
+    src: url('../fonts/digital-7_mono-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/digital-7_mono-webfont.woff') format('woff'),
+         url('../fonts/digital-7_mono-webfont.ttf') format('truetype'),
+         url('../fonts/digital-7_mono-webfont.svg#digital-7regular') format('svg');
     font-weight: normal;
     font-style: normal;
 
@@ -150,7 +161,7 @@ ol {
 #mainFooter {
 }
 #footer {
-    background:url(../img/footer.png) center bottom no-repeat;
+    background:url(../img/footer-bikes.jpg) center bottom no-repeat, url(../img/footer-dax-8bit.png) center top no-repeat;
     bottom: 0;
     height: 619px;
     left: 0;

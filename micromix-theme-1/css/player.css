@@ -267,13 +267,14 @@
 }
 
 #infos-text{
-    font-family:'displayotfregular';
+    /*font-family:'displayotfregular';*/
     /* font-family:'llpikseliregular'; */
+    font-family: 'digital-7mono', arial, helvetica, sans-serif;
     font-size: 47px;
     white-space: nowrap;
     display: block;
     text-decoration: none;
     /* right: -520%; */
-    color: #fff;
+    color: green;
     position: absolute;
 }
