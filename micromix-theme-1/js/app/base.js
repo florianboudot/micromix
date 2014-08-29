@@ -231,6 +231,57 @@ function CustomConsole (prefix, console_css) {
         this[type] = handler.bind(handler, type); // IE9+
     }, this);
 }
+var removethis = function () {
+    $(this).remove()
+};
+var onpostnewcomment = function () {
+    var $commentform = $('#commentform');
+    var $hide = $('<div>').addClass('comment-mask');
+    $commentform.append($hide);
+    $hide.velocity({
+        opacity:.6
+    }, {
+        easing: "easeInOut",
+        duration: 300
+    });
+
+    $.ajax( {
+        type: 'POST',
+        url: $commentform.attr('action'),
+        data: $( "#commentform" ).serialize(),
+        success: function(data){
+            var $commentlist = $('.commentlist');
+            var $newcomment;
+            var $appendto;
+            var action = '';
+            var $data = $(data);
+            if($commentlist.length){
+                $newcomment = $data.find('.commentlist li:last').addClass('new-comment');
+                $commentlist.append($newcomment);
+            }
+            else{
+                $newcomment = $data.find('.commentlist').addClass('new-comment');
+                $newcomment.find('li:last').addClass('new-comment');
+                $appendto = $('.commentsContainer');
+                $appendto.prepend($newcomment);
+                $appendto.prepend($data.find('#comments'));
+            }
+
+            //
+            $commentform.find('.comment-mask').velocity({
+                opacity:0
+            }, {
+                easing: "easeInOut",
+                duration: 300
+            }).promise().always(removethis);
+            setTimeout(function(){$('.new-comment').removeClass('new-comment')}, 1000);
+            //todo we should have an array of setTimeout/interval to clear when changing page
+
+        }
+    });
+
+    return false;
+};
 
 $(window).on('load', function(){
     $('.mini-poster').attr('src', function(){return $(this).data('src')})
