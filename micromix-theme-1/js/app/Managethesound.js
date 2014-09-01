@@ -16,11 +16,11 @@ var Managethesound = function(){
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
     var $listsitems = $('#posts-year-month .list-item');
-    var $previewtitle = $('<span>').addClass('sound-preview-title');
+//    var $previewtitle = $('<span>').addClass('sound-preview-title');
     var $currentsoundplayer = $empty;
     var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
-    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
+//    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
     var _currentidplay = '';
     var _maybecurrentidplay = '';
     var _lastidplay = '';
@@ -46,8 +46,8 @@ var Managethesound = function(){
 
     var splayingclassname = 'active';
     var _sound = null;
-    var _soundpreview = null;
-    var _soundpreviewid = null;
+//    var _soundpreview = null;
+//    var _soundpreviewid = null;
     var _starttime = null;
     var _autoplay = false;
 
@@ -723,7 +723,8 @@ var Managethesound = function(){
         $elem.on('click', _getandplaythissound);
 
     };
-    var previewhaspausedcurrentsound = false;
+//    var previewhaspausedcurrentsound = false;
+/*
     var _previewsound = function ($elem) {
         console.info('_previewsound');
 
@@ -753,11 +754,15 @@ var Managethesound = function(){
         _soundpreview = soundManager.sounds[_soundpreviewid];
 
     };
+*/
+/*
     var _onpreviewendfinally = function () {
         console.info('_onpreviewendfinally');
         $previewtitle.animate({opacity:0},{duration:500,complete:function(){$(this).remove()}});
     };
+*/
 
+/*
     var _previewend = function (e) {
         console.info('_previewend');
         var $elem = $(this);
@@ -781,7 +786,9 @@ var Managethesound = function(){
         $elem.off('mouseup mouseout', _previewend);
         _onpreviewendfinally();
     };
-    var TIMEOUTpreview = 0;
+*/
+//    var TIMEOUTpreview = 0;
+/*
     var _cancelbeforepreviewbegin = function () {
         console.info('_cancelbeforepreviewbegin');
         var $elem = $(this);
@@ -789,6 +796,8 @@ var Managethesound = function(){
         clearTimeout(TIMEOUTpreview);
         _onpreviewendfinally();
     };
+*/
+/*
     var _previewsoundbyidctrl = function (e) {
         console.info('_previewsoundbyidctrl');
         e.preventDefault();
@@ -803,6 +812,7 @@ var Managethesound = function(){
         TIMEOUTpreview = setTimeout(function(){_previewsound($elem)}, 500);
 
     };
+*/
 
 
     /**
@@ -877,7 +887,7 @@ var Managethesound = function(){
         console.info('_onsoundmanagerready');
 
         $linkplaysoundbyid.on('click', _getandplaythissound);
-        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
+//        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         // New K7 buttons
         $controls_all.on('click', playerControlManager);
