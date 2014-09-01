@@ -442,6 +442,8 @@ ol {
 /* COLUMN 3 */
 #sidebar {
     padding:20px 0 0 9px;
+    position: relative;
+    z-index: 2;
 }
 #sidebar .searchform .s {
 	width:146px;
