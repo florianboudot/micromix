@@ -45,6 +45,13 @@ and
 
 * run grunt tasks
 
+##phpstorm commit message format
+
+Open "tasks" dialog with alt + shift + N and click on the wrench (server settings)
+Configure your commit message with :
+`{id} #{number} {summary}`
+
+
 ##Authors
 
 kazes, acidre, yvg, romuleald, stecov
