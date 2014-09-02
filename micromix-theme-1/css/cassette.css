@@ -41,11 +41,43 @@
         -webkit-transform: rotate(360deg);
     }
 }
-#cassette .cran.left.rotating {
+@-webkit-keyframes cranrotatingforward {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes cranrotatingrewind {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(-360deg);
+    }
+}
+#cassette .cran{
+    -webkit-animation-fill-mode: both
+}
+#cassette.rotating .cran.left{
     -webkit-animation: cranrotating 2s linear infinite;
 }
-#cassette .cran.right.rotating {
+#cassette.rotating .cran.right {
     -webkit-animation: cranrotating 3s linear infinite;
+}
+#cassette.rotatingrewind .cran.left{
+    -webkit-animation: cranrotatingrewind .5s linear infinite;
+}
+#cassette.rotatingrewind .cran.right {
+    -webkit-animation: cranrotatingrewind .75s linear infinite;
+}
+
+#cassette.rotatingfastforward .cran.left{
+    -webkit-animation: cranrotatingforward .5s linear infinite;
+}
+#cassette.rotatingfastforward .cran.right {
+    -webkit-animation: cranrotatingforward .75s linear infinite;
 }
 
 

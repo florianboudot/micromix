@@ -6,18 +6,16 @@
 var Managethesound = function(){
 
     // DAT LIST
-    var debug = true;
+    var debug = false;
     var counter = null;
     var $empty = $();
-    var $ghettoblaster = $('<div>');
-    var $ghettoplay = $('<div>');
     var $infos_text = $('#infos-text');
     var $cassette_player = $('#cassette-player');
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
     var $listsitems = $('#posts-year-month .list-item');
 //    var $previewtitle = $('<span>').addClass('sound-preview-title');
-    var $currentsoundplayer = $empty;
+//    var $currentsoundplayer = $empty;
     var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
 //    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
@@ -27,7 +25,7 @@ var Managethesound = function(){
     var _currentindexplay = 0;
     var _maybecurrentindexplay = 0;
     var _lastindexplay = 0;
-    var $currentplayer = $empty;
+//    var $currentplayer = $empty;
     var DOMcurrenttimeline = null;
     var DOMcurrentloadprogress = null;
     var DOMcurrenttimetext = null;
@@ -68,27 +66,27 @@ var Managethesound = function(){
     })();
 
     var _getmp3byindex = function (index) {
-        console.info('_getmp3byindex', index);
+        if (debug)console.info('_getmp3byindex', index);
         return _mp3byindex[index];
     };
     var _getmp3byid = function (id) {
-        console.info('_getmp3byid', id);
+        if (debug)console.info('_getmp3byid', id);
         return _mp3byid[id];
     };
     var _geturlbyindex = function (index) {
-        console.info('_getmp3byindex', index);
+        if (debug)console.info('_getmp3byindex', index);
         return _urlbyindex[index];
     };
     var _geturlbyid = function (id) {
-        console.info('_geturlbyid', id);
+        if (debug)console.info('_geturlbyid', id);
         return _urlbyid[id];
     };
     var _getidbyindex = function (index) {
-        console.info('_getidbyindex');
+        if (debug)console.info('_getidbyindex');
         return _idbyindex[index]
     };
     var _getindexbyid = function (id) {
-        console.info('_getindexbyid');
+        if (debug)console.info('_getindexbyid');
         return _indexbyid[id]
     };
 
@@ -96,7 +94,7 @@ var Managethesound = function(){
     var TIMEOUTanimatewindowtitle = 0;
     var _actualchardocumenttitle = '♫';
     var _animatedocumenttitle = function () {
-//        console.info('_animatedocumenttitle');
+//        if (debug)console.info('_animatedocumenttitle');
         var oldchar = _actualchardocumenttitle;
         _actualchardocumenttitle = _actualchardocumenttitle === '♪' ? '♫' : '♪';
         if(/[♪|♫]/.test(document.title)){
@@ -110,54 +108,55 @@ var Managethesound = function(){
     };
 
     var _cancelanimatedocumenttitle = function () {
-        console.info('_cancelanimatedocumenttitle');
+//        if (debug)console.info('_cancelanimatedocumenttitle');
         clearTimeout(TIMEOUTanimatewindowtitle);
         document.title = document.title.replace(/[♫|♪] /, '');
     };
 
     var _onplay = function(){
-        console.info('_onplay');
+//        if (debug)console.info('_onplay');
         if(this.readyState == 2){
             _onmp3fail();
             playSound();
         }
         else{
-            $ghettoplay.addClass(splayingclassname);
+            _onClickPlay();
             _animatedocumenttitle();
-            $currentsoundplayer.removeClass(classnamecurrentlistitem);
-            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
+//            $currentsoundplayer.removeClass(classnamecurrentlistitem);
+//            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
 
         }
     };
     var _onpause = function(){
-        console.info('_onpause');
-        $ghettoplay.removeClass(splayingclassname);
+//        if (debug)console.info('_onpause');
+        _onClickPause();
         _cancelanimatedocumenttitle();
     };
     var _onresume = function(){
-        console.info('_onresume');
+//        if (debug)console.info('_onresume');
         _onplay.apply(this);
     };
     var _onstop = function(){
-        console.info('_onstop');
+//        if (debug)console.info('_onstop');
+        _onClickPause();
     };
     var _onid3 = function(){
-        console.info('_onid3', this.id3);
+//        if (debug)console.info('_onid3', this.id3);
     };
     var _ondestroy = function(){
-        console.info('_ondestroy');
+//        if (debug)console.info('_ondestroy');
         _onpause();
     };
     var _onfinishsound = function () {
-        console.info('_onfinishsound');
+//        if (debug)console.info('_onfinishsound');
         _playnextsound();
     };
     var _ondataerror = function () {
-        console.error('_ondataerror');
+//        if (debug)console.error('_ondataerror');
 
     };
     var _onload = function (isloaded) {
-        console.info('_onload', isloaded);
+//        if (debug)console.info('_onload', isloaded);
 
         if(!isloaded){
             _onloadfail.apply(this, arguments);
@@ -175,7 +174,7 @@ var Managethesound = function(){
      * @private
      */
     var _playsoundattime = function (starttime, sound) {
-        console.warn('_playsoundattime', sound);
+        if (debug)console.warn('_playsoundattime', sound);
         if(typeof starttime === "number"){
             var attemp = 0;
             var done = false;
@@ -204,20 +203,20 @@ var Managethesound = function(){
     };
 
     var _onloadfail = function () {
-        console.info('_onloadfail');
+        if (debug)console.info('_onloadfail');
         playSound();
-        console.error('network error or mp3 missing');
+        if (debug)console.error('network error or mp3 missing');
 
     };
     var _onmp3fail = function () {
-        console.info('_onmp3fail');
+        if (debug)console.info('_onmp3fail');
         $.get('/').always(function(data, status, xhr){
             if(status === 'error') {
-                console.error('OUPS, ' + location.host + ' IS UNREACHABLE, Y U NO PAY INTENRET CONNEXION ? LOLOLOLOLOLOL');
+                if (debug)console.error('OUPS, ' + location.host + ' IS UNREACHABLE, Y U NO PAY INTENRET CONNEXION ? LOLOLOLOLOLOL');
                 //show a status to tell that intenret has gone, and will never be back :(
             }
             else if(status === 'success'){
-                console.error('MP3 IS DEAD, PLEASE PLAY NEXT, REFRESH OR FREEZE ON THE DANCEFLOOR');
+                if (debug)console.error('MP3 IS DEAD, PLEASE PLAY NEXT, REFRESH OR FREEZE ON THE DANCEFLOOR');
                 //show a status somewhere (over the rainbow) to refresh, play next or play a funky gif of that stop dancing
             }
         });
@@ -229,7 +228,7 @@ var Managethesound = function(){
      * @private
      */
     var _getminutesandseconds = function (fullseconds) {
-        console.info('_getminutesandseconds');
+        if (debug)console.info('_getminutesandseconds');
         var minVar = Math.floor(fullseconds/60);
         var seconds = (fullseconds % 60) >> 0;
         return {s:seconds,m:minVar};
@@ -280,20 +279,20 @@ var Managethesound = function(){
 
 
     var _updateloadprogress = function (force) {
-//            console.info('_updateloadprogress');//flood
+//            if (debug)console.info('_updateloadprogress');//flood
         if(is_post_in_the_page){
-            var position = this.bytesLoaded;
-            if((position - _lastupdateloadprogress) > 0.01 || force){
-                _lastupdateloadprogress = position;
-                DOMcurrentloadprogress.style.cssText = 'width:' + (position/this.bytesTotal  *100 + '%;');
-                var otime = _getminutesandseconds(this.duration / 1000);
-                DOMcurrenttotaltimetext.textContent = otime.m + 'm:' + otime.s + 's';
-            }
+//            var position = this.bytesLoaded;
+//            if((position - _lastupdateloadprogress) > 0.01 || force){
+//                _lastupdateloadprogress = position;
+//                DOMcurrentloadprogress.style.cssText = 'width:' + (position/this.bytesTotal  *100 + '%;');
+//                var otime = _getminutesandseconds(this.duration / 1000);
+//                DOMcurrenttotaltimetext.textContent = otime.m + 'm:' + otime.s + 's';
+//            }
         }
     };
 
     var _gotothistime = function (e) {
-        console.info('_gotothistime');
+        if (debug)console.info('_gotothistime');
         if(e.which === 1){
             var eventtarget = e.target;
             var offsetx = this != eventtarget ? e.offsetX + eventtarget.offsetLeft : e.offsetX;
@@ -308,7 +307,7 @@ var Managethesound = function(){
      * @private
      */
     var _deleteplaylist = function () {
-        console.info('_deleteplaylist');
+        if (debug)console.info('_deleteplaylist');
 
         var sounds = soundManager.soundIDs;
         for (var i = 0; i < sounds.length; i++) {
@@ -318,7 +317,7 @@ var Managethesound = function(){
     };
 
     var _deletesound = function (id) {
-        console.info('_deletesound');
+        if (debug)console.info('_deletesound');
 
         var sound = soundManager.sounds[id];
         if(sound){
@@ -367,26 +366,26 @@ var Managethesound = function(){
     var TIMEOUTusergoprevnext = 0;
 
     var _usergonextprevanimation = function (sclass) {
-        console.info('_usergonextprevanimation');
+        if (debug)console.info('_usergonextprevanimation');
 
 
 
     };
 
     var _usergonext = function () {
-        console.info('_usergonext');
+        if (debug)console.info('_usergonext');
         _usergoprevnext('next');
         _usergonextprevanimation('toloadnext');
     };
 
     var _usergoprev = function () {
-        console.info('_usergoprev');
+        if (debug)console.info('_usergoprev');
         _usergoprevnext('prev');
         _usergonextprevanimation('toloadprev');
     };
 
     var _usergoprevnext = function (direction) {
-        console.info('_usergoprevnext');
+        if (debug)console.info('_usergoprevnext');
         var fn;
         if(direction === 'next'){
             fn = _playnextsound;
@@ -406,25 +405,40 @@ var Managethesound = function(){
      * @private
      */
     var _playnextsound = function (wait) {
-        console.info('_playnextsound', wait);
+        if (debug)console.info('_playnextsound', wait);
 
         if(_maybecurrentindexplay+1 < _playlist.length){
             _playthissound(_getmp3byindex(_maybecurrentindexplay+1), _getidbyindex(_maybecurrentindexplay+1), wait);
         }
         else{
-            console.warn('no more sound, shall we play the first sound ?')
+            if (debug)console.warn('no more sound, shall we play the first sound ?')
         }
     };
 
 
     var _playprevsound = function (wait) {
-        console.info('_playprevsound');
+        if (debug)console.info('_playprevsound');
 
         if(_maybecurrentindexplay-1 >= 0){
             _playthissound(_getmp3byindex(_maybecurrentindexplay-1), _getidbyindex(_maybecurrentindexplay-1), wait);
         }
         else{
-            console.warn('no more sound, shall we play the last sound? ')
+            if (debug)console.warn('no more sound, shall we play the last sound? ')
+        }
+    };
+    var intervalTimoutRewindForward = 125;
+    var diffTimeRewindForward = 200;
+    var TIMEOUTforward = 0;
+    var TIMEOUTrewind = 0;
+
+    var _clearRewindForward = function () {
+        clearTimeout(TIMEOUTforward);
+        clearTimeout(TIMEOUTrewind);
+        if (_sound.paused) {
+            _onClickPause()
+        }
+        else {
+            _onClickPlay()
         }
     };
     /**
@@ -433,25 +447,41 @@ var Managethesound = function(){
      * @private
      */
     var _fastForward = function (time) {
-        console.info('_goforward', time);
+        if (debug)console.info('_fastForward', time);
+        var loop = typeof time === 'boolean' ? time : false;
+        var _time = typeof time === 'number' ? time : diffTimeRewindForward;
         if(_sound){
+            _onClickForward();
             var position = _sound.position;
-            var _time = time ? time : 1000;
-            _gotoposition(position+_time);
+            _gotoposition(position + _time);
+            if (loop) {
+                TIMEOUTforward = setTimeout(function () {
+                    _fastForward(time)
+                }, intervalTimoutRewindForward);
+            }
+
         }
     };
+
     /**
      *
      * @param time {Number}
      * @private
      */
     var _rewind = function (time) {
-        console.info('_gobackward', time);
-        if(_sound){
+        if (debug)console.info('_rewind', time);
+        var loop = typeof time === 'boolean' ? time : false;
+        var _time = typeof time === 'number' ? time : diffTimeRewindForward;
+        if (_sound) {
+            _onClickRewind();
             var position = _sound.position;
-            var _time = time || 1000;
             var new_pos = position - _time;
             _gotoposition(new_pos, _sound);
+            if (loop) {
+                TIMEOUTrewind = setTimeout(function () {
+                    _rewind(time)
+                }, intervalTimoutRewindForward);
+            }
         }
     };
 
@@ -462,8 +492,8 @@ var Managethesound = function(){
      * @param sound
      */
     var _gotoposition = function (position, sound) {
-        console.info('_gotoposition', position);
-        var __sound = sound || _sound;
+        if (debug)console.info('_gotoposition', position);
+        var __sound = sound || _sound; // if not provided, use the current cound
         if(__sound && typeof position === 'number'){
             __sound.setPosition(position);
         }
@@ -475,7 +505,7 @@ var Managethesound = function(){
      * @private
      */
     var _setvolume = function (volume, sound) {
-        console.info('_setvolume', sound);
+        if (debug)console.info('_setvolume', sound);
         var __sound = sound ? sound : _sound;
         if(__sound && volume <= 100 && volume >= 0){
             __sound.setVolume(volume);
@@ -492,7 +522,7 @@ var Managethesound = function(){
      * @param wait
      */
     var _playthissound = function (url, id, wait) {
-        console.warn('_playthissound', id, _maybecurrentindexplay, wait);
+        if (debug)console.warn('_playthissound', id, _maybecurrentindexplay, wait);
 
         _maybecurrentidplay = id;
         _maybecurrentindexplay = _getindexbyid(_maybecurrentidplay);
@@ -519,7 +549,7 @@ var Managethesound = function(){
     };
 
     var _updatehtmlinfo = function () {
-//        console.info('defil _updatehtmlinfo');
+//        if (debug)console.info('defil _updatehtmlinfo');
         $infos_text.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
         $infos_text.attr('href', _geturlbyid(_currentidplay));
 
@@ -528,15 +558,15 @@ var Managethesound = function(){
         var text_width = $infos_text.width();
         var pane = 25; // px
         var nb_steps = Math.round(text_width / pane);
-//        console.log('defil, width',text_width);
-//        console.log('defil, nb_steps',nb_steps);
+//        if (debug)console.log('defil, width',text_width);
+//        if (debug)console.log('defil, nb_steps',nb_steps);
 
         // start defil
         var position = 0;
 
         setInterval(function(){
             if(nb_steps > 0){
-//                console.log('defil nb_steps',nb_steps);
+//                if (debug)console.log('defil nb_steps',nb_steps);
                 $infos_text.css('left', position);
                 position = position - pane;
                 nb_steps --;
@@ -545,24 +575,24 @@ var Managethesound = function(){
         // end defilText()
 
 
-        pm.manager.history.bindLinks($ghettoblaster);
+        pm.manager.history.bindLinks($cassette_player);
     };
 
     /**
      *
      */
     var refreshbind = function ($parent) {
-        console.info('refreshbind');
+        if (debug)console.info('refreshbind');
 
         var $post = $('#post-' + _currentidplay);
         is_post_in_the_page = !!$post.length;
-        $currentplayer.off(timelineevents, _gotothistime); // before update current
-        $currentplayer          = $post.find('.player');
-        DOMcurrentloadprogress  = $currentplayer.find('.loaded')[0];
-        DOMcurrenttimeline      = $currentplayer.find('.currenttime')[0];
-        DOMcurrenttimetext      = $currentplayer.find('.timetext')[0];
-        DOMcurrenttotaltimetext = $currentplayer.find('.totaltime')[0];
-        $currentplayer.on(timelineevents, _gotothistime);
+//        $currentplayer.off(timelineevents, _gotothistime); // before update current
+//        $currentplayer          = $post.find('.player');
+//        DOMcurrentloadprogress  = $currentplayer.find('.loaded')[0];
+//        DOMcurrenttimeline      = $currentplayer.find('.currenttime')[0];
+//        DOMcurrenttimetext      = $currentplayer.find('.timetext')[0];
+//        DOMcurrenttotaltimetext = $currentplayer.find('.totaltime')[0];
+//        $currentplayer.on(timelineevents, _gotothistime);
 
         if($parent){
             $parent.find('.JSplaysoundbyid').on('click', _getandplaythissound);
@@ -572,7 +602,7 @@ var Managethesound = function(){
     };
 
     var _getandplaythissound = function(e){
-        console.info('_getandplaythissound', e);
+        if (debug)console.info('_getandplaythissound', e);
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -592,13 +622,12 @@ var Managethesound = function(){
      * @private
      */
     var _pausesound = function (sound) {
-        console.info('_pausesound');
+        if (debug)console.info('_pausesound');
         var __sound = sound ? sound : _sound;
         var hasbeenpaused = false;
         if(__sound){
             hasbeenpaused = !__sound.paused;
             __sound.pause();
-            pushButton('pause');
         }
         return hasbeenpaused;
     };
@@ -609,20 +638,19 @@ var Managethesound = function(){
      * @private
      */
     var _resumesound = function (sound) {
-        console.info('_resumesound');
+        if (debug)console.info('_resumesound');
         var __sound = sound ? sound : _sound;
         var hasbeenresumed = false;
         if(__sound){
             hasbeenresumed = __sound.paused;
             __sound.resume();
-            pushButton('play');
         }
         return hasbeenresumed;
     };
 
 
     var _playtheveryfirstsoundinpage = function () {
-        console.info('_playtheveryfirstsoundinpage');
+        if (debug)console.info('_playtheveryfirstsoundinpage');
         var soundid = $('.wpaudio').first().data('soundid');
         _playthissound(_getmp3byid(soundid), soundid, false)
     };
@@ -632,7 +660,7 @@ var Managethesound = function(){
      * play the first sound found or resume a paused sound
      */
     var playSound = function(){
-        console.info('playSound', _sound);
+        if (debug)console.info('playSound', _sound);
         if(_sound){
             if(_sound.paused){
                 _resumesound();
@@ -660,7 +688,10 @@ var Managethesound = function(){
      * @private
      */
     var _keyboardshortcuts = function (e) {
-        console.info('_keyboardshortcuts', e);
+        if (debug)console.info('_keyboardshortcuts', e);
+        if(/TEXTAREA|INPUT/.test(e.target.nodeName)){
+            return;
+        }
         var is_keyboard_shortcut = false;
         var is_keyup = e.type === 'keyup'; // keyup or keydown
         var key_code = e.keyCode;
@@ -673,7 +704,7 @@ var Managethesound = function(){
 
         // toggle play/pause
         // we test event keyup because we don't want infinite toggle when user keeps pressing
-        if(is_spacebar && is_keyup || is_music_play_pause_key && is_keyup){
+        if(is_spacebar && !is_keyup || is_music_play_pause_key && !is_keyup){
             togglePlayPause();
 
             is_keyboard_shortcut = true;
@@ -681,21 +712,25 @@ var Managethesound = function(){
         // rewind <<
         else if(!is_shift && !is_ctrl && is_left_arrow){
             _rewind();
+            is_keyup && _clearRewindForward();
             is_keyboard_shortcut = true;
         }
         // fast forward >>
         else if(!is_shift && !is_ctrl && is_right_arrow){
             _fastForward();
+            is_keyup && _clearRewindForward();
             is_keyboard_shortcut = true;
         }
         // rewind faster
         else if(!is_shift && is_ctrl && is_left_arrow){
             _rewind(10000);
+            is_keyup && _clearRewindForward();
             is_keyboard_shortcut = true;
         }
         // fast forward faster
         else if(!is_shift && is_ctrl && is_right_arrow){
             _fastForward(10000);
+            is_keyup && _clearRewindForward();
             is_keyboard_shortcut = true;
         }
         // previous track
@@ -715,18 +750,18 @@ var Managethesound = function(){
     };
 
     var _unbindplaybyid = function ($elem) {
-        console.info('_unbindplaybyid');
+        if (debug)console.info('_unbindplaybyid');
         $elem.off('click', _getandplaythissound);
     };
     var _bindplaybyid = function ($elem) {
-        console.info('_bindplaybyid');
+        if (debug)console.info('_bindplaybyid');
         $elem.on('click', _getandplaythissound);
 
     };
 //    var previewhaspausedcurrentsound = false;
 /*
     var _previewsound = function ($elem) {
-        console.info('_previewsound');
+        if (debug)console.info('_previewsound');
 
         previewhaspausedcurrentsound = false;
         _unbindplaybyid($elem);
@@ -757,14 +792,14 @@ var Managethesound = function(){
 */
 /*
     var _onpreviewendfinally = function () {
-        console.info('_onpreviewendfinally');
+        if (debug)console.info('_onpreviewendfinally');
         $previewtitle.animate({opacity:0},{duration:500,complete:function(){$(this).remove()}});
     };
 */
 
 /*
     var _previewend = function (e) {
-        console.info('_previewend');
+        if (debug)console.info('_previewend');
         var $elem = $(this);
         if(_soundpreview){
             soundManager.destroySound(_soundpreviewid);
@@ -790,7 +825,7 @@ var Managethesound = function(){
 //    var TIMEOUTpreview = 0;
 /*
     var _cancelbeforepreviewbegin = function () {
-        console.info('_cancelbeforepreviewbegin');
+        if (debug)console.info('_cancelbeforepreviewbegin');
         var $elem = $(this);
         $elem.off('mouseup mouseout', _cancelbeforepreviewbegin);
         clearTimeout(TIMEOUTpreview);
@@ -799,7 +834,7 @@ var Managethesound = function(){
 */
 /*
     var _previewsoundbyidctrl = function (e) {
-        console.info('_previewsoundbyidctrl');
+        if (debug)console.info('_previewsoundbyidctrl');
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
@@ -836,47 +871,74 @@ var Managethesound = function(){
             $controls_pushed_all.removeClass('active');
             $control_pushed.addClass('active');
         }
+        //todo action to remove all button pushed (stop)
     };
 
     /**
      * Player control manager
      * What to do when asking an action with the player (onclick)
      */
-    var playerControlManager = function () {
-        console.info('playerControlManager');
+    var playerControlManager = function (e) {
+//        if (debug)console.info('playerControlManager', e);
         var $control_clicked = $(this),
             id = $control_clicked.attr('id'),
             action = id.split('control-')[1],
-            is_already_pushed = $control_clicked.hasClass('active');
-
-        if(!is_already_pushed){
-            // aaaand ... action !
-            switch (action){
-                case 'pause':
-                    _pausesound();
-                    break;
-
-                case 'play':
-                    playSound();
-                    break;
-
-                case 'rewind':
-                    _rewind();
-                    break;
-
-                case 'forward':
-                    _fastForward();
-                    break;
-
-                case 'prev':
-                    _usergoprev();
-                    break;
-
-                case 'next':
-                    _usergonext();
-                    break;
-            }
+            is_already_pushed = $control_clicked.hasClass('active'),
+            is_click = e.type === 'click',
+            is_mouseleave = e.type === 'mouseleave',
+            is_mouseup = e.type === 'mouseup',
+            is_mousedown = e.type === 'mousedown';
+        // aaaand ... action! NO NON NONONOONO I DON'T GIVE A SHIIIIIIIIT
+        switch (action) {
+            case 'pause':
+                !is_already_pushed && is_click && _pausesound();
+                break;
+            case 'play':
+                !is_already_pushed && is_click && playSound();
+                break;
+            case 'rewind':
+                if(is_mouseleave && e.which && is_already_pushed || is_mouseup){
+                    _clearRewindForward();
+                }
+                else if (!is_click && !is_mouseleave) {
+                    _rewind(is_mousedown);
+                }
+                break;
+            case 'forward':
+                if(is_mouseleave && e.which && is_already_pushed || is_mouseup){ // if mouseleave and mouse button is pressed and interface button is pushed or mouseup
+                    _clearRewindForward();
+                }
+                else if (!is_click && !is_mouseleave) {
+                    _fastForward(is_mousedown);
+                }
+                break;
+            case 'prev':
+                !is_already_pushed && is_click && _usergoprev();
+                break;
+            case 'next':
+                !is_already_pushed && is_click && _usergonext();
+                break;
         }
+    };
+
+    var _onClickPlay = function () {
+        pushButton('play');
+        $cassette.removeClass('rotatingfastforward rotatingrewind');
+        $cassette.addClass('rotating');
+    };
+    var _onClickPause = function () {
+        pushButton('pause');
+        $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
+    };
+    var _onClickForward = function () {
+        pushButton('forward');
+        $cassette.removeClass('rotating rotatingrewind');
+        $cassette.addClass('rotatingfastforward');
+    };
+    var _onClickRewind = function () {
+        pushButton('rewind');
+        $cassette.removeClass('rotating rotatingfastforward');
+        $cassette.addClass('rotatingrewind');
     };
 
     /**
@@ -884,13 +946,13 @@ var Managethesound = function(){
      * @private
      */
     var _bind_controls = function () {
-        console.info('_onsoundmanagerready');
+        if (debug)console.info('_onsoundmanagerready');
 
         $linkplaysoundbyid.on('click', _getandplaythissound);
 //        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         // New K7 buttons
-        $controls_all.on('click', playerControlManager);
+        $controls_all.on('mousedown mouseup click mouseleave', playerControlManager);
         // info
         $infos_text.addClass('history').html('micromix').attr('href', '/');
 
@@ -988,9 +1050,7 @@ var Managethesound = function(){
             }, {
                 complete:function(){
                     closeDeckDoor();
-                    setTimeout(function(){
-                        $crans.addClass('rotating');
-                    },300);
+                    setTimeout(playSound,300);
                 }
             });
         }, 300);
@@ -1038,7 +1098,7 @@ var Managethesound = function(){
             onready: _bind_controls,
             defaultOptions: {
                 // set global default volume for all sound objects
-                volume: 100
+                volume: 10
             }
 
         });
