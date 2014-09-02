@@ -53,9 +53,9 @@ if (have_posts()) {
         }
 
         // NAVIGATION
-        if(!isajax()){
+//        if(!isajax()){
             include("navigation.php");
-        }
+//        }
     echo "</div><!-- .result -->";
 }
 else { // NO POSTS FOUND

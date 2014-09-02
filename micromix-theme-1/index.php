@@ -15,9 +15,9 @@ if (have_posts()) {
     }
 
     // NAVIGATION
-    if(!isajax()){
+//    if(!isajax()){
         include("navigation.php");
-    }
+//    }
 }
 else { // NO POSTS FOUND ?>
     <h2 class="center">Not Found</h2>

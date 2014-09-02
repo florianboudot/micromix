@@ -220,7 +220,8 @@ pm.Historymanager = function() {
             $historyitem.off('submit', bindformhistorypush).on('submit', bindformhistorypush);
         }
         else{
-            $historyitem.off('click', bindlinkhistorypush).on('click', bindlinkhistorypush);
+            var reg = new RegExp(document.location.host);
+            reg.test($historyitem.prop('host')) && $historyitem.off('click', bindlinkhistorypush).on('click', bindlinkhistorypush);
         }
         $historyitem.addClass('history');
     };

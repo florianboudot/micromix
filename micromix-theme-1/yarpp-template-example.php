@@ -16,11 +16,11 @@ Author: mitcho (Michael Yoshitaka Erlewine)
                 $image_src = image_attachment_src($post->ID, 'medium'); // thumbnail (150), medium (220), large (500)
 
     			if ($image_src) : ?>
-    				<a href="<?php the_permalink() ?>" class="img">
+    				<a href="<?php the_permalink() ?>" class="img history">
     					<img src="<?php echo $image_src; ?>" alt="<?php the_title(); ?>" />
     				</a>
     		<?php endif; ?>
-    		<a class="title" href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
+    		<a class="title history" href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
     		<br />
     		<small><em>(match score = <?php the_score(); ?>)</em></small>
     	</li>
@@ -43,11 +43,11 @@ $related_query->the_post(); ?>
             $image_src = image_attachment_src($post->ID, 'medium'); // thumbnail (150), medium (220), large (500)
 
             if ($image_src) : ?>
-                <a href="<?php the_permalink() ?>" class="img">
+                <a href="<?php the_permalink() ?>" class="img history">
                     <img src="<?php echo $image_src; ?>" alt="<?php the_title(); ?>" />
                 </a>
         <?php endif; ?>
-			<a class="title" href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
+			<a class="title history" href="<?php the_permalink() ?>" rel="bookmark"><?php the_title(); ?></a>
 		</li>
 	</ol>
 </div>

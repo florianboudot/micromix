@@ -24,9 +24,9 @@ if (have_posts()) { ?>
 		}
 
         // NAVIGATION
-        if(!isajax()){
+//        if(!isajax()){
             include("navigation.php");
-        } ?>
+//        } ?>
 	</div><!-- .result -->
 <?php
 

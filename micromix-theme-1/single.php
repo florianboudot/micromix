@@ -14,9 +14,9 @@ if (have_posts()) {
         $_SESSION["article_id"] = get_the_ID();
 
         // NAVIGATION
-        if(!isajax()){
+//        if(!isajax()){
             include("navigation.php");
-        }
+//        }
 
         // THE POST : title, image, playlist, player, etc.
         include("the_post.php");
