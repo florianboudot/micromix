@@ -976,8 +976,13 @@ var Managethesound = function(){
         var old_num = 0; // init
         var NUM_HEIGHT = 14;
 
+        var $unit3 = $('#unit-3');
+        var html = $unit3.html();
+        $unit3.html(html + html + html + html + html + html + html + html + html + html + html);//llollololololololol
+
         this.update = function(number){
-            var digits = number ? Math.round(number) : 'error : wrong number';
+            var originaldigit;
+            var digits = originaldigit = number ? Math.round(number) : 'error : wrong number';
             if(digits != old_num){
                 digits = typeof digits == 'number' ? digits.toString() : digits;
 
@@ -987,7 +992,8 @@ var Managethesound = function(){
                 }
 
                 digits.split('').forEach(function(num,index){
-                    $('#unit-'+(index+1)).css({ 'top':-(NUM_HEIGHT*num)+'px' });
+                    var _num = index === 2 ? originaldigit : num;
+                    $('#unit-'+(index+1)).css({ 'top':-(NUM_HEIGHT*_num)+'px' });
                 });
 
                 // save
