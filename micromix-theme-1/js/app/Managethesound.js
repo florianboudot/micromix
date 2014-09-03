@@ -548,10 +548,12 @@ var Managethesound = function(){
         _updatehtmlinfo();
     };
 
+    var INTERVAL_infortext = 0;
     var _updatehtmlinfo = function () {
 //        if (debug)console.info('defil _updatehtmlinfo');
         $infos_text.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
         $infos_text.attr('href', _geturlbyid(_currentidplay));
+        clearInterval(INTERVAL_infortext);
 
         // text defil animation (work in progress)
         // todo make a function of the defil text
@@ -564,12 +566,12 @@ var Managethesound = function(){
         // start defil
         var position = 0;
 
-        setInterval(function(){
+        INTERVAL_infortext = setInterval(function(){
             if(nb_steps > 0){
 //                if (debug)console.log('defil nb_steps',nb_steps);
                 $infos_text.css('left', position);
                 position = position - pane;
-                nb_steps --;
+                nb_steps--;
             }
         },1000);
         // end defilText()
