@@ -188,6 +188,7 @@ ol {
 	float:left;
 	width:142px;
 	padding:588px 0 300px 0;
+    position: relative;
 }
 #column1 .col-block {
     padding-left:25px;
