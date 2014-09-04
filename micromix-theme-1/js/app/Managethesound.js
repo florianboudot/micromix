@@ -126,6 +126,13 @@ var Managethesound = function(){
 //            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
 
         }
+
+        $('.list-item.active').removeClass('active');
+        $('.micromix-id-' + _sound.id).addClass('active');
+        _starttime = null;
+        _autoplay = false;
+
+
     };
     var _onpause = function(){
 //        if (debug)console.info('_onpause');
@@ -161,9 +168,10 @@ var Managethesound = function(){
         if(!isloaded){
             _onloadfail.apply(this, arguments);
         }
-        _playsoundattime(1, _sound); // "0" won't play the sound in flash player 9 mode. dunno why
-        _starttime = null;
-        _autoplay = false;
+
+//        _playsoundattime(1, _sound); // "0" won't play the sound in flash player 9 mode. dunno why
+//        _starttime = null;
+//        _autoplay = false;
 
     };
 
@@ -737,12 +745,12 @@ var Managethesound = function(){
         }
         // previous track
         else if(is_shift && is_left_arrow){
-            _usergoprev();
+            is_keyup && _usergoprev();
             is_keyboard_shortcut = true;
         }
         // next track
         else if(is_shift && is_right_arrow){
-            _usergonext();
+            is_keyup && _usergonext();
             is_keyboard_shortcut = true;
         }
 
@@ -1106,7 +1114,7 @@ var Managethesound = function(){
             onready: _bind_controls,
             defaultOptions: {
                 // set global default volume for all sound objects
-                volume: 10
+                volume: 100
             }
 
         });

@@ -153,7 +153,8 @@ function allPostsByYear() {
                     $post_title = $p['post_title'];
 
                     // mark item as active. or not
-                    ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
+                    //'.$micromix_number.'
+                    ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="micromix-id-'.$post_id.' list-item active">' : $list .= '<li class="micromix-id-'.$post_id.' list-item">';
 
                     //keep this instead of image_attachment_src because it will add 1s load (for 100 posts)
                     $image_src = wp_get_attachment_metadata($post_img_att);
