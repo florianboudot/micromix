@@ -41,7 +41,7 @@ html, body {
 	padding:0;
 	font:82% Arial, Verdana, Helvetica, sans-serif;
 	color:#000;
-	background:#fff;
+    background: #DDD;
 }
 img, fieldset, form, legend, h1, h2, h3, h4, h5, h6, p {
 	margin:0;
@@ -131,7 +131,11 @@ ol {
 #mainContainer {
     position: relative;/* helps position #footer */
 }
-#bricks { background:url(../img/bricks.jpg) left top repeat; }
+
+#bricks {
+    background: url(../img/bricks.jpg) left top repeat;
+}
+
 #mainHeader { position:relative; }
 #mainHeader h1 {
 	position:absolute;
