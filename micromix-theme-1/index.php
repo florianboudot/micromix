@@ -1,3 +1,5 @@
+<?php //$timestart = microtime(); ?>
+
 <!-- TEMPLATE INDEX.PHP (home) -->
 <?php
 // HEADER
@@ -32,3 +34,4 @@ if(!isajax()){
 }
 
 ?>
+<?php //$timeend = microtime(); echo 'toto ' .  ($timeend - $timestart) ?>

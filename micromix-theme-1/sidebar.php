@@ -1,3 +1,5 @@
+<?php //$menutimestart = microtime(); ?>
+
 <?php
 
 
@@ -11,3 +13,4 @@ get_footer();
 
 ?>
 
+<?php //$menutimeend = microtime(); echo 'menu ' .  ($menutimeend - $menutimestart) ?>

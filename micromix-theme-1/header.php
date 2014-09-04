@@ -54,6 +54,25 @@
                         <p class="description"><?php bloginfo('description'); ?></p>
                     </div><!-- #mainHeader -->
 
-                    <?php include('column-1.php'); ?>
+                    <?php
+
+
+                    // need plugin W3 total cache
+                    $column1result = wp_cache_get( 'column1result' );
+                    if ( false === $column1result ) {
+                        ob_start();
+
+                        include('column-1.php');
+                        $column1result = ob_get_contents();
+
+                        ob_end_clean();
+                        wp_cache_set( 'column1result', $column1result );
+                    }
+                    echo $column1result;
+                    // Do something with $result;
+
+
+
+                    ?>
 
                     <div id="column2">

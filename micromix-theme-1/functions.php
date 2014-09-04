@@ -72,56 +72,102 @@ function allPostsByYear() {
     $post_mp3_array = array();
     $post_url_array = array();
 
-    $query = "SELECT DISTINCT(YEAR(post_date)) as year
-              FROM wp_posts
-			  WHERE post_type='post'
-              ORDER BY year DESC";
-    $years = $wpdb->get_results($query);
 
-    foreach ($years as $year) {
-        $content .= '<h3 class="year-title"><span class="year-text">'.$year->year.'</span></h3>';
+    $query =
+        "SELECT `ID`, `post_parent`, `post_title`, `post_type`, YEAR(post_date) as year
+        FROM `wp_posts`
+        WHERE (post_type='post' AND post_status='publish')
+        OR post_type='attachment'
+        ORDER BY post_date DESC";
+    $allposts = $wpdb->get_results($query);
+
+    $veryallpostlol = array();
+    foreach ($allposts as $_post) {
+        $posttype = $_post->post_type;
+        $postyear = $_post->year;
+        if($posttype === 'attachment'){
+            $postid = $_post->post_parent;
+            $veryallpostlol[$postyear][$postid]['id_attachment'] = $_post->ID;
+        }
+        else{
+            $postid = $_post->ID;
+            $veryallpostlol[$postyear][$postid]['ID'] = $_post->ID;
+            $veryallpostlol[$postyear][$postid]['post_title'] = $_post->post_title;
+            $veryallpostlol[$postyear][$postid]['year'] = $_post->year;
+        }
+    }
+    $totalposts = 0;
+    foreach ($veryallpostlol as $masterkey => $allpostinayear) {
+        $tmpush = array();
+        foreach ($allpostinayear as $post) {
+            if(isset($post['ID'])){
+                array_push($tmpush, $post);
+                $totalposts++;
+            }
+        }
+        $veryallpostlol[$masterkey] = $tmpush;
+    }
+
+    /*        $query = "SELECT DISTINCT(YEAR(post_date)) as year
+                  FROM wp_posts
+                WHERE post_type='post'
+                  ORDER BY year DESC";
+        $years = $wpdb->get_results($query);*/
+
+
+    foreach ($veryallpostlol as $year => $posts) {
+        $content .= '<h3 class="year-title"><span class="year-text">'.$year.'</span></h3>';
         $content .= "\n";
         $content .= '<ul class="year-list-container">';
         $content .= "\n";
 
         // get all posts from this year
-        $query = "SELECT *
+/*        $query = "SELECT ID, post_title
                   FROM ".$wpdb->posts."
                   WHERE post_type='post'
                   AND post_status='publish'
                   AND post_date LIKE '".$year->year."-%'
                   ORDER BY post_date DESC";
-        $posts = $wpdb->get_results($query);
+        $posts = $wpdb->get_results($query);*/
 
         // build list items
         if (count($posts)) {
             $list = '';
             foreach ($posts as $p) {
-                $post_id = $p->ID;
-                array_push($post_id_array, $post_id); // for javascript purposes
-                $post_url  = get_permalink($p);
+                $post_id = $p['ID'];
+                if(isset($post_id)){
+                    $post_img_att = $p['id_attachment'];
+                    array_push($post_id_array, $post_id); // for javascript purposes
+                    $post_url  = get_permalink($post_id);
 
-                $valmp3_uri = get_post_meta($p->ID, 'enclosure', false);
-                $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
-                $mp3_uri = "/upload/" . $mp3_uri;
+                    $valmp3_uri = get_post_meta($post_id, 'enclosure', false);
+                    $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
+                    $mp3_uri = "/upload/" . $mp3_uri;
 
-                array_push($post_mp3_array, $mp3_uri);// for javascript purposes
-                array_push($post_url_array, $post_url);// for javascript purposes
-                $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
-                $post_title = $p->post_title;
+                    if(isset($post_id)){
+                        array_push($post_mp3_array, $mp3_uri);// for javascript purposes
+                        array_push($post_url_array, $post_url);// for javascript purposes
+                    }
+                    $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
+//                    $micromix_number = $totalposts+1;
+                    $post_title = $p['post_title'];
 
-                // mark item as active. or not
-                ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
+                    // mark item as active. or not
+                    ($_SESSION["article_id"] == $post_id) ? $list .= '<li class="list-item active">' : $list .= '<li class="list-item">';
 
-                $image_src = image_attachment_src($post_id, 'thumbnail'); // thumbnail (150), medium (220), large (500)
-                $image_tag = '<img data-src="'.$image_src.'" alt="" class="mini-poster">';
-                $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span>';
+                    //keep this instead of image_attachment_src because it will add 1s load (for 100 posts)
+                    $image_src = wp_get_attachment_metadata($post_img_att);
+                    $image_src = empty($image_src) ? 'steven-seagal-album-cover.jpg' : $image_src['sizes']['medium']['file'];
+                    $image_tag = '<img data-src="/upload/'.$image_src.'" alt="" class="mini-poster">';
+                    $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span>';
 
-                // build list item
-                $list .= '<span class="micromix-number">#'.$micromix_number.'</span>';
-                $list .= '<a href="'.$post_url.'" class="history">'. $post_title . $image_tag.'</a>';
-                $list .= '</li>';
-                $list .= "\n";
+                    // build list item
+                    $list .= '<span class="micromix-number">#'.$micromix_number.'</span>';
+                    $list .= '<a href="'.$post_url.'" class="history">'. $post_title . $image_tag.'</a>';
+                    $list .= '</li>';
+                    $list .= "\n";
+                    $totalposts--;
+                }
             }
             $content .= $list;
         }
@@ -153,11 +199,12 @@ function allPostsByYear() {
     }
     $full_list .= "];";
     $full_list .= "</script>";
-    echo $full_list;
+//    echo $full_list;
 
 
     // display full html list
-    echo $content;
+//    echo $content;
+    return $full_list . $content;
 }
 
 
