@@ -158,8 +158,8 @@ function allPostsByYear() {
 
                     //keep this instead of image_attachment_src because it will add 1s load (for 100 posts)
                     $image_src = wp_get_attachment_metadata($post_img_att);
-                    $image_src = empty($image_src) ? 'steven-seagal-album-cover.jpg' : $image_src['sizes']['medium']['file'];
-                    $image_tag = '<img data-src="/upload/'.$image_src.'" alt="" class="mini-poster">';
+                    $image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['medium']['file'];
+                    $image_tag = '<img data-src="'.$image_src.'" alt="" class="mini-poster">';
                     $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span>';
 
                     // build list item

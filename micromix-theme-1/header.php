@@ -32,6 +32,7 @@
                 <div id="mainContent">
 
                     <div id="mainHeader">
+                        <a class="history return-index" href="/"></a>
                         <canvas id="tagwall" width="962" height="200"></canvas>
                         <div id="canvas-controls">
                             <span id="save-canvas">save</span>
