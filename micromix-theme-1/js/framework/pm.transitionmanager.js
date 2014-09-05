@@ -34,19 +34,19 @@ pm.Transitionmanager = function () {
         var futurwidth = $futurview.width();
         $futurview.css({position: 'absolute', opacity: 0, width: futurwidth});
         $viewcontainer.height($viewcontainer.height());
-        $actualview.css({opacity: 1, position: 'absolute'}).animate({opacity: 0}, {duration: duration, easing: 'easeOutExpo', complete: function completeoldview() {
+        $actualview.css({opacity: 1, position: 'absolute'}).stop().animate({opacity: 0}, {duration: duration, easing: 'easeOutExpo'}).promise().done(function completeoldview() {
             callbackbetween(function () {
-                $futurview.animate({marginTop: 0, opacity: 1}, {duration: duration, easing: 'easeInExpo', complete: function completefutureview() {
+                $futurview.stop().animate({marginTop: 0, opacity: 1}, {duration: duration, easing: 'easeInExpo'}).promise().done(function completefutureview() {
                     var futureheight = $futurview.height();
                     if (futureheight != $viewcontainer.height()) {
-                        $viewcontainer.animate({height: futureheight}, {duration: 50, complete: onalltransitioncomplete});
+                        $viewcontainer.stop().animate({height: futureheight}, {duration: 50, complete: onalltransitioncomplete});
                     }
                     else {
                         onalltransitioncomplete();
                     }
-                }});
+                });
             });
-        }});
+        });
     };
 
     this.doTransition = doTransition;
