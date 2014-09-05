@@ -284,5 +284,9 @@ var onpostnewcomment = function () {
 };
 
 $(window).on('load', function(){
-    $('.mini-poster').attr('src', function(){return $(this).data('src')})
+    $('.mini-poster').each(function(i,o){
+        setTimeout(function(){
+            $(o).attr('src', function(){return $(this).data('src')});
+        },i*10);
+    })
 });
