@@ -1,5 +1,4 @@
 <?php
-$time0 = microtime();
 
 // HEADER
 if(!isajax()){
@@ -10,7 +9,6 @@ echo '<div class="view" data-context="index">';
 
 // POSTS LOOP
 if (have_posts()) {
-    $timepoststart = microtime();
     $resultpost = wp_cache_get( 'single_post_' . get_the_ID());
     if ( false === $resultpost ) {
 
@@ -47,7 +45,6 @@ if (have_posts()) {
     }
     echo $resultpost;
 
-    $timepostend = microtime();
 }
 else { // NO POSTS FOUND
     echo "<p>Sorry, no posts matched your criteria.</p>";
@@ -58,8 +55,4 @@ echo '</div>';
 if(!isajax()){
     get_sidebar();
 }
-$timeend = microtime();
-
-echo "time total " . ($timepostend - $timepoststart) . "\n";
-echo "time total " . ($timeend - $time0) . "\n";
 ?>
