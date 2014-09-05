@@ -102,7 +102,7 @@
                         </form>
                     </div>
                 </li>
-                <?php wp_list_pages('title_li=<h3 class="col-block-title">Micromix</h3>' ); ?>
+                <div class="parenthistory"><?php wp_list_pages('title_li=<h3 class="col-block-title">Micromix</h3>' ); ?></div>
             <?php endif; ?>
         </ul>
         <div class="social-container col-block">

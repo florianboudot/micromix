@@ -1,30 +1,33 @@
-<?php get_header(); ?>
+<?php
 
-								
-<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
-<div class="article" id="post-<?php the_ID(); ?>">	
+// HEADER
+if (!isajax()) {
+    get_header(); // <div id="column2"> is in header
+}
+echo '<div class="view" data-context="index">';
 
-	<h2><span><?php the_title(); ?></span></h2>
-	
+
+if (have_posts()) : while (have_posts()) : the_post(); ?>
+    <div class="article" id="post-<?php the_ID(); ?>">
+
+        <h2><span><?php the_title(); ?></span></h2>
 
 
-	<div class="page">
-		<?php the_content('<p class="serif">Read the rest of this page &raquo;</p>'); ?><!-- wysiwyg content -->									
-	</div><!-- .page -->
-	
-	<?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
-</div><!-- .article -->
+
+        <div class="page">
+            <?php the_content('<p class="serif">Read the rest of this page &raquo;</p>'); ?><!-- wysiwyg content -->
+        </div><!-- .page -->
+
+        <?php wp_link_pages(array('before' => '<p><strong>Pages:</strong> ', 'after' => '</p>', 'next_or_number' => 'number')); ?>
+    </div><!-- .article -->
 
 
 
 <?php endwhile; endif; ?>
+</div>
 
-
-
-
-
-
-<?php include("support.php"); ?>
-</div><!-- #column2 -->
-
-<?php get_sidebar(); ?>
+<?php // SIDEBAR
+if (!isajax()) {
+    get_sidebar();
+}
+?>
