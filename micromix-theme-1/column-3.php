@@ -107,7 +107,7 @@
         </ul>
         <div class="social-container col-block">
             <p class="bt-social" id="btRss">
-                <a href="<?php bloginfo('rss2_url'); ?>" title="Entries (RSS)">Entries (RSS)</a>
+                <a href="<?php bloginfo('rss2_url'); ?>" target="_blank" title="Entries (RSS)">Entries (RSS)</a>
             </p>
 
             <p class="bt-social" id="btTwitter">
