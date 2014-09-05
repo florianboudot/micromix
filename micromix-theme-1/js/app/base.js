@@ -290,3 +290,56 @@ $(window).on('load', function(){
         },i*10);
     })
 });
+
+var hide_form_native_value = function (e) {
+    var defaultvalue = $(this).data('default-value');
+    if(e.type === 'focus'){
+        this.value = (this.value==defaultvalue) ? '': this.value
+    }
+    else{
+        this.value = (this.value=='') ? defaultvalue : this.value
+    }
+
+};
+$('.JS_hide_default_value').on('focus blur', hide_form_native_value);
+var newsletter_check = function (f) {
+    var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
+    var message = '';
+    if (!re.test(f.elements["ne"].value)) {
+        message = 'what\'s your email address please ?';
+    }
+    if (f.elements["nn"] && (f.elements["nn"].value == "" || f.elements["nn"].value == f.elements["nn"].defaultValue)) {
+        message = 'what\'s your name please ?';
+    }
+    if (f.elements["ny"] && !f.elements["ny"].checked) {
+        message ='You must accept the privacy statement';
+    }
+    return message;
+};
+$('#newletter_form').on('submit', function(e){
+    var check_form = newsletter_check(this);
+    var check_ok = check_form.length === 0;
+    if(check_ok){
+        var $form = $(this);
+        var url = $form.attr('action');
+        var data = $form.serialize();
+        console.info(url);
+        $.ajax({
+            url:url,
+            method: 'POST',
+            data: data
+        }).done(function(){
+            console.info('done')
+        }).fail(function(){
+            console.info('fail')
+        }).always(function(){
+            console.info('always')
+        });
+    }
+    else {
+        console.info(check_form)
+    }
+
+    e.preventDefault();
+
+});

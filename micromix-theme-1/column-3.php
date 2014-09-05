@@ -85,40 +85,16 @@
                 </li>
                 <li>
                     <!-- FORM NEWSLETTER (le récupérer dans l'admin car généré. Oui, c'est sale) -->
-                    <script>
-                        //<![CDATA[
-                        if (typeof newsletter_check !== "function") {
-                            window.newsletter_check = function (f) {
-                                var re = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-]{1,})+\.)+([a-zA-Z0-9]{2,})+$/;
-                                if (!re.test(f.elements["ne"].value)) {
-                                    alert("what\'s your email address please ?");
-                                    return false;
-                                }
-                                if (f.elements["nn"] && (f.elements["nn"].value == "" || f.elements["nn"].value == f.elements["nn"].defaultValue)) {
-                                    alert("what\'s your name please ?");
-                                    return false;
-                                }
-                                if (f.elements["ny"] && !f.elements["ny"].checked) {
-                                    alert("You must accept the privacy statement");
-                                    return false;
-                                }
-                                return true;
-                            }
-                        }
-                        //]]>
-                    </script>
-
                     <div class="newsletter newsletter-subscription col-block">
                         <h3 class="col-block-title">Newsletter</h3>
                         <p><span class="text-bg">Get notified when a new episode goes online :</span></p>
-                        <form method="post" action="http://www.micromix.fr/wp-content/plugins/newsletter/do/subscribe.php" onsubmit="return newsletter_check(this)">
-
+                        <form method="post" action="/wp-content/plugins/newsletter/do/subscribe.php" id="newletter_form">
                             <p>
-                                <input class="newsletter-firstname" type="text" name="nn" size="30" value="name" onfocus="this.value = (this.value=='name') ? '': this.value" onblur="this.value = (this.value=='') ? 'name' : this.value" />
+                                <input class="newsletter-firstname JS_hide_default_value" data-default-value="name" type="text" name="nn" size="30" value="name" />
                             </p>
 
                             <p>
-                                <input class="newsletter-email" type="text" name="ne" size="30" value="email" onfocus="this.value = (this.value=='email') ? '': this.value" onblur="this.value = (this.value=='') ? 'email' : this.value" />
+                                <input class="newsletter-email JS_hide_default_value" data-default-value="email" type="text" name="ne" size="30" value="email" />
                             </p>
                             <p class="newsletter-td-submit">
                                 <input class="newsletter-submit" type="submit" value="Subscribe"/>
