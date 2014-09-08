@@ -33,8 +33,15 @@ module.exports = function (grunt) {
         },
         cssmin: {
             compress: {
-                src: ['css/*', 'css/temp/*.css'],
-                dest: 'css/micromix.min.css'
+
+                expand: true,
+                cwd: 'assets/front/css/',
+                src: ['*.css', '!*.min.css'],
+                dest: 'css/micromix.min.css',
+                ext: '.css'
+
+
+
             }
         },
         clean: ['css/temp'],
@@ -56,10 +63,11 @@ module.exports = function (grunt) {
 //        }
     });
 
-    // Default task.
-    grunt.registerTask('default', ['']);
     grunt.registerTask('js', ['uglify:pm']);
     grunt.registerTask('css', ['cssmin', 'clean']);
     grunt.registerTask('images', ['imageoptim']);
-    grunt.registerTask('production', ['uglify', 'cssmin', 'clean']);
+    grunt.registerTask('production', ['clean', 'uglify', 'cssmin']);
+
+    // Default task.
+    grunt.registerTask('default', ['production']);
 };
