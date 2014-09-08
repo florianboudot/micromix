@@ -661,7 +661,12 @@ var Managethesound = function(){
 
     var _playtheveryfirstsoundinpage = function () {
         if (debug)console.info('_playtheveryfirstsoundinpage');
-        var soundid = $('.wpaudio').first().data('soundid');
+        var soundIDinDOM = $('.wpaudio').first().data('soundid');
+        var soundid = soundIDinDOM;
+        if(!soundid) {
+            var totalsound = list_all_posts.length -1;
+            soundid = list_all_posts[Math.random2(0,totalsound)].id
+        }
         _playthissound(_getmp3byid(soundid), soundid, false)
     };
 
