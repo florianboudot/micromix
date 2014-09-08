@@ -4,7 +4,7 @@
     width:673px;
     -webkit-perspective: 1947px; /* deck door animation */
     height:338px;
-    background:url(../img/player/cassette-player-full.png) 0 0 no-repeat;
+    background:url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;
     bottom: -24px;
     z-index: 3;
     left: 50%;
