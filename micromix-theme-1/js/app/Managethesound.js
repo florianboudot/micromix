@@ -561,27 +561,41 @@ var Managethesound = function(){
 //        if (debug)console.info('defil _updatehtmlinfo');
         $infos_text.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
         $infos_text.attr('href', _geturlbyid(_currentidplay));
-        clearInterval(INTERVAL_infortext);
+        var $info = $('#infos');
 
+        clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)
         // todo make a function of the defil text
-        var text_width = $infos_text.width();
-        var pane = 25; // px
+        var text_width = $infos_text.width() - $info.width();
+        var pane = 24; // px
         var nb_steps = Math.round(text_width / pane);
-//        if (debug)console.log('defil, width',text_width);
-//        if (debug)console.log('defil, nb_steps',nb_steps);
+        var nb_steps_origine = Math.round(text_width / pane);
 
         // start defil
         var position = 0;
-
+        var whileTo = 0;
+        var incremant = 1;
         INTERVAL_infortext = setInterval(function(){
-            if(nb_steps > 0){
-//                if (debug)console.log('defil nb_steps',nb_steps);
-                $infos_text.css('left', position);
+            if(nb_steps > whileTo){
                 position = position - pane;
-                nb_steps--;
+                $infos_text.css('left', position);
+                nb_steps = nb_steps - incremant;
             }
-        },1000);
+            else if(nb_steps < whileTo){
+                position = position + pane;
+                $infos_text.css('left', position);
+                nb_steps = nb_steps + incremant;
+            }
+            else{
+                if(whileTo === 0){
+                    whileTo = nb_steps_origine;
+                }
+                else{
+                    whileTo = 0;
+                }
+            }
+
+        },500);
         // end defilText()
 
 
