@@ -259,22 +259,24 @@
     overflow: hidden;
     line-height: 34px;
     position: absolute;
-    top: 247px;
-    right: 47px;
-    left: 447px;
-    -webkit-transform: perspective( 260px ) rotateX( 6deg );
+    top: 150px;
+    opacity: 0.5;
+    right: 59px;
+    left: 460px;
+    -webkit-transform: rotateX( 8deg );
     -webkit-transform-origin: -72% -15%;
+    text-shadow: 0 0 3px rgba(0,255,0,0.5);
 }
 
 #infos-text{
     /*font-family:'displayotfregular';*/
     /* font-family:'llpikseliregular'; */
     font-family: 'digital-7mono', arial, helvetica, sans-serif;
-    font-size: 47px;
+    font-size: 40px;
     white-space: nowrap;
     display: block;
     text-decoration: none;
     /* right: -520%; */
-    color: green;
+    color: #00ff00;
     position: absolute;
 }
