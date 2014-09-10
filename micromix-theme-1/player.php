@@ -43,6 +43,8 @@
         <div class="front"></div>
         <div class="cran left"></div>
         <div class="cran right"></div>
+        <div class="tape left"></div>
+        <div class="tape right"></div>
     </div>
 
     <!-- Controls -->
