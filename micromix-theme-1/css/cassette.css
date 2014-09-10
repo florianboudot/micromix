@@ -11,11 +11,32 @@
     /*-webkit-transform: scale(1);*/
 }
 #cassette .front {
-    background: url(../img/cassette/cassette-front-1.png) 0 0 no-repeat;
     width: 520px;
     height: 340px;
     position: relative;
     z-index: 3;
+}
+#cassette .front img {
+
+}
+
+.cassette-cover {
+    position: absolute;
+    left: 0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+
+    -webkit-mask: url(../img/cassette/mask.png);
+    mask: url('#mask');
+    -webkit-mask-size: 100% 100%;
+    -webkit-mask-position: center;
+    transition: -webkit-mask-size .3s;
+}
+.cassette-cover img {
+    width: 100%;
+    margin-top: 20px;
 }
 
 
