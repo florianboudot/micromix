@@ -11,6 +11,7 @@
     /*-webkit-transform: scale(1);*/
 }
 #cassette .front {
+    background: url(../img/cassette/cassette-front-2.png) 0 0 no-repeat;
     width: 520px;
     height: 340px;
     position: relative;
@@ -101,6 +102,31 @@
     -webkit-animation: cranrotatingforward .75s linear infinite;
 }
 
+#cassette .tape {
+    background: url(../img/reel-tape.png) right 110px no-repeat;
+    background-size: 80px;
+    border-radius: 100%;
+    width: 263px;
+    height: 263px;
+    position: absolute;
+    left: 20px;
+    top: 50px;
+    z-index: 1;
+    transform: rotate(0deg);
+    -webkit-animation: tape-rotate-play 300ms linear infinite;
+    -webkit-animation-fill-mode: both
+}
+#cassette .tape.right {
+    left: 231px;
+}
+@-webkit-keyframes tape-rotate-play {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(-360deg);
+    }
+}
 
 
 /* END */

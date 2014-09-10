@@ -649,6 +649,7 @@ li#currentAction span {
 
 
 /* POST RESULT */
+/*
 
 .result .post-micromix-number {
     left:52px;
@@ -671,7 +672,8 @@ li#currentAction span {
     float:left;
     width:70%;
 }
-.result h3 {/* tracklist title */
+.result h3 {
+    tracklist title
     display: none;
 }
 .result .article ol {
@@ -683,6 +685,7 @@ li#currentAction span {
 .result .wpa_dl {
     display:none;
 }
+*/
 
 
 

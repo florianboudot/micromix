@@ -46,6 +46,8 @@
 
         <div class="cran left"></div>
         <div class="cran right"></div>
+        <div class="tape left"></div>
+        <div class="tape right"></div>
 
         <div class="cassette-cover mask-me">
             <img src="http://micromix.localhost/upload/jaws-roy-scheider.jpg" alt="" class=""/>
