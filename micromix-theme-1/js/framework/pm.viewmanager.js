@@ -83,7 +83,7 @@ pm.Viewmanager = function() {
      */
     var onbetweentransition = function (callback) {
         if (debug)console.info('onbetweentransition');
-        $('body').animate({'scrollTop': 0}, {duration:250});
+        $('body').animate({'scrollTop': 250}, {duration:400});
         if(callback){callback();}
     };
     /**
