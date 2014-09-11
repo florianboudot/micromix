@@ -265,18 +265,19 @@
     left: 460px;
     -webkit-transform: rotateX( 8deg );
     -webkit-transform-origin: -72% -15%;
-    text-shadow: 0 0 3px rgba(0,255,0,0.5);
 }
 
 #infos-text{
-    /*font-family:'displayotfregular';*/
-    /* font-family:'llpikseliregular'; */
     font-family: 'digital-7mono', arial, helvetica, sans-serif;
     font-size: 40px;
     white-space: nowrap;
     display: block;
     text-decoration: none;
-    /* right: -520%; */
-    color: #00ff00;
+    color: #010074;
+    text-shadow: 0 0 7px rgba(0,154,150,0.6);
     position: absolute;
+}
+#infos-text:hover {
+    background: none;
+    text-shadow: 0 0 7px rgba(0,255,0,0.6);
 }
