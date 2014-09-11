@@ -559,7 +559,11 @@ var Managethesound = function(){
     var INTERVAL_infortext = 0;
     var _updatehtmlinfo = function () {
 //        if (debug)console.info('defil _updatehtmlinfo');
-        $infos_text.html(decodeURI(_getmp3byid(_currentidplay).replace('/upload/', '').replace('.mp3', '')));
+        var $text = $('.micromix-id-' + _currentidplay);
+        var textnumber = $text.find('span:first').html();
+        var title = $text.find('a').prop('innerText');
+        var finaltext = 'Micromix ' + textnumber + ' - ' + title;
+        $infos_text.html(finaltext);
         $infos_text.attr('href', _geturlbyid(_currentidplay));
         var $info = $('#infos');
 
