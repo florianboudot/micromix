@@ -38,8 +38,12 @@
 .cassette-cover img {
     width: 100%;
     margin-top: 20px;
+    position: absolute;
+    z-index: 1;
 }
-
+.cassette-cover .velum {
+    z-index: 2;
+}
 
 
 /* ROTATING CRANS */

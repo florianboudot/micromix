@@ -374,6 +374,7 @@ ol {
 .bt-player {
     padding:0 10px 15px 0;
     float:left;
+    display: none;
 }
 
 
@@ -513,7 +514,7 @@ li#currentAction span {
 }
 #supportWP {
 	text-align:center;
-	padding:368px 0 153px 0;
+    padding: 10px 0 20px 0;
 }
 #supportWP p {
 	display:inline;
