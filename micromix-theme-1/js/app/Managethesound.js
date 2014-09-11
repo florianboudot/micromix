@@ -575,7 +575,7 @@ var Managethesound = function(){
         // text defil animation (work in progress)
         // todo make a function of the defil text
         var text_width = $infos_text.width() - $info.width();
-        var pane = 24; // px
+        var pane = 18; // px
         var nb_steps = Math.round(text_width / pane);
         var nb_steps_origine = Math.round(text_width / pane);
 
