@@ -43,18 +43,45 @@
 
 
 /* ROTATING CRANS */
-#cassette .cran {
-    background: url(../img/cassette/cran.png) 0 0 no-repeat;
-    width: 87px;
-    height: 87px;
+#cassette .reel-base {
+    width: 263px;
+    height: 263px;
     position: absolute;
-    left: 111px;
-    top: 137px;
+    left: 19px;
+    top: 50px;
     z-index: 1;
 }
-#cassette .cran.right {
-    left: 320px;
+
+#cassette .reel-base.right {
+    left: 231px;
 }
+
+#cassette .reel-base div {
+    height: 100%;
+}
+#cassette .reel-base .base {
+    background: url(../img/cassette/cran.png) center no-repeat;
+}
+
+#cassette .tape {
+    background: url(../img/cassette/reel-tape.png) center no-repeat;
+    background-size: 225px;
+    border-radius: 100%;
+    bottom: 0;
+    height: auto !important;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    transform: rotate(0deg);
+    top: 0;
+    z-index: 1;
+}
+#cassette .right .tape {
+    margin: 80px;
+}
+
+
 @-webkit-keyframes cranrotating {
     from{
         -webkit-transform: rotate(0deg);
@@ -63,70 +90,41 @@
         -webkit-transform: rotate(360deg);
     }
 }
-@-webkit-keyframes cranrotatingforward {
-    from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(360deg);
-    }
-}
-@-webkit-keyframes cranrotatingrewind {
-    from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(-360deg);
-    }
-}
-#cassette .cran{
-    -webkit-animation-fill-mode: both
-}
-#cassette.rotating .cran.left{
-    -webkit-animation: cranrotating 2s linear infinite;
-}
-#cassette.rotating .cran.right {
-    -webkit-animation: cranrotating 3s linear infinite;
-}
-#cassette.rotatingrewind .cran.left{
-    -webkit-animation: cranrotatingrewind .5s linear infinite;
-}
-#cassette.rotatingrewind .cran.right {
-    -webkit-animation: cranrotatingrewind .75s linear infinite;
-}
 
-#cassette.rotatingfastforward .cran.left{
-    -webkit-animation: cranrotatingforward .5s linear infinite;
+#cassette .base,#cassette .backward,#cassette .forward {
+    -webkit-animation-play-state: paused !important;
+    animation-play-state: paused !important;
+    -webkit-transform-origin: 49.8% 50.3%;
+    transform-origin: 49.8% 50.3%;
 }
-#cassette.rotatingfastforward .cran.right {
-    -webkit-animation: cranrotatingforward .75s linear infinite;
+#cassette.rotating .base,#cassette.rotatingrewind .backward,#cassette.rotatingfastforward .forward {
+    -webkit-animation-play-state: running !important;
+    animation-play-state: running !important;
 }
+#cassette .left .base {
+    -webkit-animation: cranrotating 2s linear 0s infinite;
+    animation: cranrotating 2s linear infinite;
+}
+#cassette .right .base {
+    -webkit-animation: cranrotating 3s linear 0s infinite;
+    animation: cranrotating 3s linear infinite;
+}
+#cassette .left .backward {
+    -webkit-animation: cranrotating .5s linear 0s infinite reverse;
+    animation: cranrotating .5s linear infinite reverse;
+}
+#cassette .right .backward {
+    -webkit-animation: cranrotating .75s linear 0s infinite reverse;
+    animation: cranrotating .75s linear infinite reverse;
+}
+#cassette .left .forward {
+    -webkit-animation: cranrotating .5s linear 0s infinite;
+    animation: cranrotating .5s linear infinite reverse;
+}
+#cassette .right .forward {
+    -webkit-animation: cranrotating .75s 0s linear infinite;
+    animation: cranrotating .75s linear infinite;
 
-#cassette .tape {
-    background: url(../img/reel-tape.png) right 110px no-repeat;
-    background-size: 80px;
-    border-radius: 100%;
-    width: 263px;
-    height: 263px;
-    position: absolute;
-    left: 20px;
-    top: 50px;
-    z-index: 1;
-    transform: rotate(0deg);
-    -webkit-animation: tape-rotate-play 300ms linear infinite;
-    -webkit-animation-fill-mode: both
 }
-#cassette .tape.right {
-    left: 231px;
-}
-@-webkit-keyframes tape-rotate-play {
-    from{
-        -webkit-transform: rotate(0deg);
-    }
-    to{
-        -webkit-transform: rotate(-360deg);
-    }
-}
-
 
 /* END */

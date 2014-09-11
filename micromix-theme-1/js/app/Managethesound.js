@@ -1006,15 +1006,20 @@ var Managethesound = function(){
         var NUM_HEIGHT = 14;
 
         var $unit3 = $('#unit-3');
+        var $reelTapeRight = $cassette.find('.right .tape');
+        var $reelTapeLeft = $cassette.find('.left .tape');
         var html = $unit3.html();
         $unit3.html(html + html + html + html + html + html + html + html + html + html + html);//llollololololololol
+
+        // tape 19 to 80px margin
 
         this.update = function(number){
             var originaldigit;
             var digits = originaldigit = number ? Math.round(number) : 'error : wrong number';
             if(digits != old_num){
                 digits = typeof digits == 'number' ? digits.toString() : digits;
-
+                $reelTapeLeft.css('margin', 19 + (originaldigit / 100 * 61)); // 19 + (100 / 100 * 61)
+                $reelTapeRight.css('margin', 80 - (originaldigit / 100 * 61));
                 // add zeros if less then 3 digits
                 while(digits.length < 3){
                     digits = '0' + digits;

@@ -41,13 +41,11 @@
     <!-- K7 -->
     <div id="cassette">
         <div class="front">
-            <img src="<?= theme_path ?>/img/cassette/cassette-front-1.png" alt="" class="mask-me">
+            <img src="<?= theme_path ?>/img/cassette/cassette-front-2.png" alt="" class="mask-me">
         </div>
 
-        <div class="cran left"></div>
-        <div class="cran right"></div>
-        <div class="tape left"></div>
-        <div class="tape right"></div>
+        <div class="reel-base left"><div class="forward"><div class="backward"><div class="base"><div class="tape"></div></div></div></div></div>
+        <div class="reel-base right"><div class="forward"><div class="backward"><div class="base"><div class="tape"></div></div></div></div></div>
 
         <div class="cassette-cover mask-me">
             <img src="http://micromix.localhost/upload/jaws-roy-scheider.jpg" alt="" class=""/>
