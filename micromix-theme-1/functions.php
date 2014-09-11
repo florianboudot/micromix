@@ -144,10 +144,8 @@ function allPostsByYear() {
                     $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
                     $mp3_uri = "/upload/" . $mp3_uri;
 
-                    if(isset($post_id)){
-                        array_push($post_mp3_array, $mp3_uri);// for javascript purposes
-                        array_push($post_url_array, $post_url);// for javascript purposes
-                    }
+                    array_push($post_mp3_array, $mp3_uri); // for javascript purposes
+                    array_push($post_url_array, $post_url);// for javascript purposes
                     $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
 //                    $micromix_number = $totalposts+1;
                     $post_title = $p['post_title'];
@@ -158,8 +156,10 @@ function allPostsByYear() {
 
                     //keep this instead of image_attachment_src because it will add 1s load (for 100 posts)
                     $image_src = wp_get_attachment_metadata($post_img_att);
+                    $fat_image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : $image_src['sizes']['large']['file'];
+                    $fat_image_src = empty($fat_image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $fat_image_src;
                     $image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['medium']['file'];
-                    $image_tag = '<img data-src="'.$image_src.'" alt="" class="mini-poster">';
+                    $image_tag = '<img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster">';
                     $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span>';
 
                     // build list item

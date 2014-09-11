@@ -11,12 +11,14 @@ var Managethesound = function(){
     var $empty = $();
     var $infos_text = $('#infos-text');
     var $cassette_player = $('#cassette-player');
+    var $k7face = $('#k7_face');
+    var $info = $('#infos');//todo extract
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
-    var $listsitems = $('#posts-year-month .list-item');
+//    var $listsitems = $('#posts-year-month .list-item');
 //    var $previewtitle = $('<span>').addClass('sound-preview-title');
 //    var $currentsoundplayer = $empty;
-    var classnamecurrentlistitem = 'currentsoundplayed';
+//    var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
 //    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
     var _currentidplay = '';
@@ -26,10 +28,10 @@ var Managethesound = function(){
     var _maybecurrentindexplay = 0;
     var _lastindexplay = 0;
 //    var $currentplayer = $empty;
-    var DOMcurrenttimeline = null;
-    var DOMcurrentloadprogress = null;
-    var DOMcurrenttimetext = null;
-    var DOMcurrenttotaltimetext = null;
+//    var DOMcurrenttimeline = null;
+//    var DOMcurrentloadprogress = null;
+//    var DOMcurrenttimetext = null;
+//    var DOMcurrenttotaltimetext = null;
     var is_post_in_the_page = false;
 
     var _playlist = typeof list_all_posts === 'object' ? list_all_posts : [];
@@ -40,9 +42,9 @@ var Managethesound = function(){
     var _indexbyid = {};
     var _idbyindex = {};
 
-    var timelineevents = 'mousedown mousemove'; // add touch if touch
+//    var timelineevents = 'mousedown mousemove'; // add touch if touch
 
-    var splayingclassname = 'active';
+//    var splayingclassname = 'active';
     var _sound = null;
 //    var _soundpreview = null;
 //    var _soundpreviewid = null;
@@ -559,13 +561,15 @@ var Managethesound = function(){
     var INTERVAL_infortext = 0;
     var _updatehtmlinfo = function () {
 //        if (debug)console.info('defil _updatehtmlinfo');
-        var $text = $('.micromix-id-' + _currentidplay);
-        var textnumber = $text.find('span:first').html();
-        var title = $text.find('a').prop('innerText');
+        var $currentlink = $('.micromix-id-' + _currentidplay);//todo should make a general var
+        var textnumber = $currentlink.find('span:first').html();
+        var title = $currentlink.find('a').prop('innerText');
         var finaltext = 'Micromix ' + textnumber + ' - ' + title;
         $infos_text.html(finaltext);
         $infos_text.attr('href', _geturlbyid(_currentidplay));
-        var $info = $('#infos');
+
+        var imgFatSrc = $currentlink.find('img').data('fatsrc');
+        $k7face.attr('src', imgFatSrc);
 
         clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)

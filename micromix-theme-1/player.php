@@ -48,7 +48,7 @@
         <div class="reel-base right"><div class="forward"><div class="backward"><div class="base"><div class="tape"></div></div></div></div></div>
 
         <div class="cassette-cover mask-me">
-            <img src="http://micromix.localhost/upload/jaws-roy-scheider.jpg" alt="" class=""/>
+            <img id="k7_face" src="http://micromix.localhost/upload/jaws-roy-scheider.jpg" alt="" class=""/>
         </div>
         <svg>
             <!-- THE mask -->
