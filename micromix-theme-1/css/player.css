@@ -3,6 +3,8 @@
     position:fixed;
     width:673px;
     -webkit-perspective: 1947px; /* deck door animation */
+    -moz-perspective: 1947px; /* deck door animation */
+    perspective: 1947px; /* deck door animation */
     height:338px;
     background:url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;
     bottom: -24px;
@@ -103,7 +105,7 @@
     left: 70px;
     top: 17px;
     z-index: 2;
-    -webkit-transform-origin: 50% 94%;
+    transform-origin: 50% 94%;
 }
 #deck.open {
     /*-webkit-transform: perspective( 1947px ) rotateX( -30deg );*/
@@ -117,7 +119,9 @@
     height: 300px;
     z-index: 1;
     opacity: 0;
-    -webkit-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;/* 50ms delay after deck opens */
+    -webkit-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;/* 50ms delay after deck opens */
 }
 #deck-door-shadow.active {
     opacity: 0.8;
@@ -132,6 +136,8 @@
     height: 190px;
     opacity: 0;
     -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
 }
 .open #dark-on-deck-open {
     opacity: 0.2;
@@ -143,10 +149,16 @@
     margin-top: -31px;
     -webkit-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
     -webkit-transition: -webkit-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    -moz-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+    -moz-transition: -moz-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+    transition: transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
     margin-left: 8px;
 }
 .open #top-depth {
      -webkit-transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
+     -moz-transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
+     transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
 }
 
 /* VU METER */
@@ -217,6 +229,8 @@
 }
 #counter .unit {
     -webkit-transition: top 200ms ease-in-out;
+    -moz-transition: top 200ms ease-in-out;
+    transition: top 200ms ease-in-out;
     position: absolute;
     left: 0;
     top: 0;
@@ -265,6 +279,10 @@
     left: 464px;
     -webkit-transform: rotateX( 8deg );
     -webkit-transform-origin: -72% -15%;
+    -moz-transform: rotateX( 8deg );
+    -moz-transform-origin: -72% -15%;
+    transform: rotateX( 8deg );
+    transform-origin: -72% -15%;
 }
 
 #infos-text{

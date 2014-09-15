@@ -30,9 +30,19 @@
     z-index: 3;
 
     -webkit-mask: url(../img/cassette/mask.png);
+    -moz-mask: url(../img/cassette/mask.png);
     mask: url('#mask');
+
     -webkit-mask-size: 100% 100%;
+    -moz-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+
     -webkit-mask-position: center;
+    -moz-mask-position: center;
+    mask-position: center;
+
+    -webkit-transition: -webkit-mask-size .3s;
+    -moz-transition: -webkit-mask-size .3s;
     transition: -webkit-mask-size .3s;
 }
 .cassette-cover img {
@@ -77,6 +87,8 @@
     margin: 0;
     position: absolute;
     right: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
     transform: rotate(0deg);
     top: 0;
     z-index: 1;
@@ -94,39 +106,65 @@
         -webkit-transform: rotate(360deg);
     }
 }
+@-moz-keyframes cranrotating {
+    from{
+        -moz-transform: rotate(0deg);
+    }
+    to{
+        -moz-transform: rotate(360deg);
+    }
+}
+@keyframes cranrotating {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
 
 #cassette .base,#cassette .backward,#cassette .forward {
     -webkit-animation-play-state: paused !important;
+    -moz-animation-play-state: paused !important;
     animation-play-state: paused !important;
+
     -webkit-transform-origin: 49.8% 50.3%;
+    -moz-transform-origin: 49.8% 50.3%;
     transform-origin: 49.8% 50.3%;
 }
 #cassette.rotating .base,#cassette.rotatingrewind .backward,#cassette.rotatingfastforward .forward {
     -webkit-animation-play-state: running !important;
+    -moz-animation-play-state: running !important;
     animation-play-state: running !important;
 }
 #cassette .left .base {
     -webkit-animation: cranrotating 2s linear 0s infinite;
+    -moz-animation: cranrotating 2s linear 0s infinite;
     animation: cranrotating 2s linear infinite;
 }
 #cassette .right .base {
     -webkit-animation: cranrotating 3s linear 0s infinite;
+    -moz-animation: cranrotating 3s linear 0s infinite;
     animation: cranrotating 3s linear infinite;
 }
 #cassette .left .backward {
     -webkit-animation: cranrotating .5s linear 0s infinite reverse;
+    -moz-animation: cranrotating .5s linear 0s infinite reverse;
     animation: cranrotating .5s linear infinite reverse;
 }
 #cassette .right .backward {
     -webkit-animation: cranrotating .75s linear 0s infinite reverse;
+    -moz-animation: cranrotating .75s linear 0s infinite reverse;
     animation: cranrotating .75s linear infinite reverse;
 }
 #cassette .left .forward {
     -webkit-animation: cranrotating .5s linear 0s infinite;
+    -moz-animation: cranrotating .5s linear 0s infinite;
     animation: cranrotating .5s linear infinite reverse;
 }
 #cassette .right .forward {
     -webkit-animation: cranrotating .75s 0s linear infinite;
+    -moz-animation: cranrotating .75s 0s linear infinite;
     animation: cranrotating .75s linear infinite;
 
 }
