@@ -17,9 +17,7 @@
     position: relative;
     z-index: 3;
 }
-#cassette .front img {
 
-}
 
 .cassette-cover {
     position: absolute;
@@ -28,33 +26,17 @@
     top: 0;
     bottom: 0;
     z-index: 3;
+    background-size: cover;
+    width: 520px;
+    height: 340px;
 
     -webkit-mask: url(../img/cassette/mask.png);
-    -moz-mask: url(../img/cassette/mask.png);
-    mask: url('#mask');
-
-    -webkit-mask-size: 100% 100%;
-    -moz-mask-size: 100% 100%;
-    mask-size: 100% 100%;
-
-    -webkit-mask-position: center;
-    -moz-mask-position: center;
-    mask-position: center;
-
-    -webkit-transition: -webkit-mask-size .3s;
-    -moz-transition: -webkit-mask-size .3s;
-    transition: -webkit-mask-size .3s;
-}
-.cassette-cover img {
-    width: 100%;
-    margin-top: 20px;
-    position: absolute;
-    z-index: 1;
+    /* firefox rule is in the html document */
 }
 .cassette-cover .velum {
-    z-index: 2;
+    width: 100%;
+    position: absolute;
 }
-
 
 /* ROTATING CRANS */
 #cassette .reel-base {

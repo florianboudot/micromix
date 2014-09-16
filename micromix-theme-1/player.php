@@ -38,31 +38,35 @@
     </div>
     <div id="deck-door-shadow"></div>
 
+
+
+
     <!-- K7 -->
     <div id="cassette">
-        <div class="front">
-            <img src="<?= theme_path ?>/img/cassette/cassette-front-2.png" alt="" class="mask-me">
-        </div>
+        <div class="front"></div>
 
         <div class="reel-base left"><div class="forward"><div class="backward"><div class="base"><div class="tape"></div></div></div></div></div>
         <div class="reel-base right"><div class="forward"><div class="backward"><div class="base"><div class="tape"></div></div></div></div></div>
 
-        <div class="cassette-cover mask-me">
+        <style>
+            .cassette-cover {
+                mask: url("#cassette-mask");/* keep this rule (firefox) here in the document */
+            }
+        </style>
+        <div class="cassette-cover" id="k7_face" style="background-image: url(/upload/jaws-roy-scheider.jpg)">
             <img src="<?= theme_path ?>/img/cassette/velum.png" alt="" class="velum">
-            <img id="k7_face" src="/upload/jaws-roy-scheider.jpg" alt="" class=""/>
         </div>
-        <svg>
-            <!-- THE mask -->
-            <mask id="mask" maskContentUnits="objectBoundingBox">
-                <!-- using an img, but this img is black/transparent so we filter it to make it white -->
-                <image xlink:href="<?= theme_path ?>/img/cassette/mask.png" width="1" height="1" preserveAspectRatio="none" filter="url(#filter)"/>
-            </mask>
 
-            <!-- the filter to make the image white -->
-            <filter id="filter">
-                <feFlood flood-color="white" />
-                <feComposite in2="SourceAlpha" operator="in" />
+
+
+        <svg height="0">
+            <filter id="maskfilter">
+                <fecolormatrix in="SourceAlpha" type="matrix" values="0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0"></fecolormatrix>
             </filter>
+
+            <mask id="cassette-mask">
+                <image width="520px" height="340px" xlink:href="<?= theme_path ?>/img/cassette/mask.png" filter="url(#maskfilter)"></image>
+            </mask>
         </svg>
 
     </div>

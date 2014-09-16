@@ -569,7 +569,7 @@ var Managethesound = function(){
         $infos_text.attr('href', _geturlbyid(_currentidplay));
 
         var imgFatSrc = $currentlink.find('img').data('fatsrc');
-        $k7face.attr('src', imgFatSrc);
+        $k7face.css('background-image','url('+imgFatSrc+')');
 
         clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)

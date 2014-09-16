@@ -1,13 +1,14 @@
-<?php //$timestart = microtime(); ?>
-
-<!-- TEMPLATE INDEX.PHP (home) -->
-<?php
+<?php //$timestart = microtime();
 // HEADER
 if(!isajax()){
     get_header(); // <div id="column2"> is in header
 }
 
 echo '<div class="view" data-context="index">';
+?>
+
+<!-- TEMPLATE INDEX.PHP (home) -->
+<?php
 // POSTS LOOP
 if (have_posts()) {
     while (have_posts()) {
