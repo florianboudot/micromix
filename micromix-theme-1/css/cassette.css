@@ -6,9 +6,8 @@
     height: 340px;
     position: absolute;
     right: 37px;/* 500 */
-    bottom: 500px;/* 500 */
+    bottom: 1500px;/* 500 */
     z-index: 1;
-    /*-webkit-transform: scale(1);*/
 }
 #cassette .front {
     background: url(../img/cassette/cassette-front-2.png) 0 0 no-repeat;

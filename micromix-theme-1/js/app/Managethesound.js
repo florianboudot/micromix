@@ -116,7 +116,7 @@ var Managethesound = function(){
     };
 
     var _onplay = function(){
-//        if (debug)console.info('_onplay');
+        if (debug)console.info('_onplay');
         if(this.readyState == 2){
             _onmp3fail();
             playSound();
@@ -124,6 +124,7 @@ var Managethesound = function(){
         else{
             _onClickPlay();
             _animatedocumenttitle();
+            cassetteMoveIn(); // todo only once
 //            $currentsoundplayer.removeClass(classnamecurrentlistitem);
 //            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
 
@@ -133,9 +134,8 @@ var Managethesound = function(){
         $('.micromix-id-' + _sound.id).addClass('active');
         _starttime = null;
         _autoplay = false;
-
-
     };
+
     var _onpause = function(){
 //        if (debug)console.info('_onpause');
         _onClickPause();
@@ -556,7 +556,6 @@ var Managethesound = function(){
             _createsound(url, id).play();
 
         }
-//        pushButton('play');
         _updatehtmlinfo();
     };
 
@@ -910,7 +909,6 @@ var Managethesound = function(){
             $controls_pushed_all.removeClass('active');
             $control_pushed.addClass('active');
         }
-        //todo action to remove all button pushed (stop)
     };
 
     /**
@@ -1089,23 +1087,27 @@ var Managethesound = function(){
     var $cassette = $('#cassette');
     var $crans = $cassette.find('.cran');
     var cassetteMoveIn = function () {
-        openDeckDoor();
+        if(!$cassette.hasClass('is-inside-player')){
+            openDeckDoor();
 
-        // wait for the door to open and move in cassette...
-        setTimeout(function(){
-            $cassette.velocity({
-                right: 157,
-                bottom: 61,
-                scale:0.55
-            }, {
-                complete:function(){
-                    closeDeckDoor();
-                    setTimeout(playSound,300);
-                }
-            });
-        }, 300);
+            // wait for the door to open and move in cassette...
+            setTimeout(function(){
+                $cassette.velocity({
+                    right: 157,
+                    bottom: 61,
+                    scale:0.55
+                }, {
+                    duration:1000,
+                    complete:function(){
+                        $cassette.addClass('is-inside-player');
+                        closeDeckDoor();
+                        setTimeout(playSound,300); // todo should we play sound from here ?
+                    }
+                });
+            }, 300);
+        }
     };
-    $cassette.on('click', cassetteMoveIn); // test
+
 
     var init = function () {
         if (debug)console.info('init');
