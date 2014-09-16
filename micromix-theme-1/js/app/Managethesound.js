@@ -6,7 +6,7 @@
 var Managethesound = function(){
 
     // DAT LIST
-    var debug = false;
+    var debug = /localhost/.test(document.location.href);
     var counter = null;
     var $empty = $();
     var $infos_text = $('#infos-text');
@@ -391,6 +391,7 @@ var Managethesound = function(){
     var _usergoprev = function () {
         if (debug)console.info('_usergoprev');
         _usergoprevnext('prev');
+
         _usergonextprevanimation('toloadprev');
     };
 
@@ -405,6 +406,7 @@ var Managethesound = function(){
         }
 
         if(fn){
+            pushButton(direction);
             fn(true);
         }
 
@@ -554,7 +556,7 @@ var Managethesound = function(){
             _createsound(url, id).play();
 
         }
-        pushButton('play');
+//        pushButton('play');
         _updatehtmlinfo();
     };
 
@@ -892,7 +894,7 @@ var Managethesound = function(){
      * @param action
      */
     var pushButton = function (action) {
-        if (debug)console.info('pushButton');
+        if (debug)console.info('pushButton',action);
 
         var button_id = '#control-' + action;
         var id_pushed = button_id + '-pushed';

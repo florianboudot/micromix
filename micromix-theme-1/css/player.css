@@ -138,6 +138,7 @@
     -webkit-transition: opacity 0.3s ease-in-out;
     -moz-transition: opacity 0.3s ease-in-out;
     transition: opacity 0.3s ease-in-out;
+    /* no transition on IE9 */
 }
 .open #dark-on-deck-open {
     opacity: 0.2;
@@ -147,17 +148,21 @@
     width: 350px;
     height: 63px;
     margin-top: -31px;
-    -webkit-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
-    -webkit-transition: -webkit-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
-    -moz-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
-    -moz-transition: -moz-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
-    transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
-    transition: transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
     margin-left: 8px;
+
+    -webkit-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+    -moz-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+    -ms-transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+    transform: perspective( 1918px ) rotateX( 90deg ) rotateY(-0.3deg);
+
+    -webkit-transition: -webkit-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    -moz-transition: -moz-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
 }
 .open #top-depth {
      -webkit-transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
      -moz-transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
+     -ms-transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
      transform: perspective( 1918px )  rotateX( 87deg )  rotateY(-0.3deg);
 }
 
@@ -278,10 +283,13 @@
     right: 64px;
     left: 464px;
     -webkit-transform: rotateX( 8deg );
-    -webkit-transform-origin: -72% -15%;
     -moz-transform: rotateX( 8deg );
-    -moz-transform-origin: -72% -15%;
+    -ms-transform: rotateX( 8deg );
     transform: rotateX( 8deg );
+
+    -webkit-transform-origin: -72% -15%;
+    -moz-transform-origin: -72% -15%;
+    -ms-transform-origin: -72% -15%;
     transform-origin: -72% -15%;
 }
 
