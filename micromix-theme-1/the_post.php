@@ -24,21 +24,21 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
 
     <!-- IMAGE -->
     <div class="post-image">
-        <div class="case">
-            <!-- show a photo in a mask 494x324 -->
-        </div>
-        <?php if(!is_single()) { ?>
-            <a class="history" href="<?= $the_permalink ?>" title="See this post">
-        <?php } ?>
+	    <?php if(false/*!is_single() // NO LINK, NEVER*/) { ?>
+	    <a class="history" href="<?= $the_permalink ?>" title="See this post">
+	    <?php } ?>
+	        <div class="case">
+	            <!-- show a photo in a mask 494x324 -->
+		        <div class="cover" style="background-image:url(<?= $image_src ?>);"></div>
+		        <!-- SOUND, LOL, RLY? THX CAPTN OBVIOUS -->
+		        <?php include("sound.php"); ?>
+	        </div>
 
-        <div class="cover" style="background-image:url(<?= $image_src ?>);"></div>
 
-        <?php if(!is_single()) { ?>
+        <?php if(false/*!is_single()*/) { ?>
             </a>
         <?php } ?>
 
-        <!-- SOUND -->
-        <?php include("sound.php"); ?>
     </div>
 
 

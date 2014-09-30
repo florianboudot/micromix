@@ -214,7 +214,7 @@ ol {
 
 /* POST (ARTICLE) */
 .article {
-	padding:0 57px 30px 47px;
+	padding:0 30px 30px 47px;
 	position:relative;
 	overflow:hidden;
 }
@@ -241,21 +241,20 @@ ol {
     background:#1e4279;
     color:white;
 }
+
 .post-micromix-number {
-    background:#e6e8e7;
-    color:black;
-    float:left;
-	
-    z-index: 2;
-    font-size:2em;
-	padding:0 5px 3px 5px;
-	position:absolute;
-	
+    background: #e6e8e7;
+    color: black;
+    font-size: 2em;
     left: 67px;
-	top:50px;
-	line-height:1em;
-	opacity:0.8;
+    line-height: 1em;
+    opacity: 0.8;
+    padding: 0 5px 3px 5px;
+    position: absolute;
+    top: 50px;
+    z-index: 3;
 }
+
 .post-date {
 	opacity:0.6;
 	padding:3px 0 0 0;
@@ -372,9 +371,28 @@ ol {
     width:100%;
 }
 .bt-player {
-    padding:0 10px 15px 0;
-    float:left;
-    display: none;
+    background: #000;
+    bottom: 0;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: 50%;
+    height: 100px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 100px;
+    z-index: 3;
+}
+.bt-player a {
+    border-top: 30px solid rgba(0, 0, 0, 0);
+    border-left: 50px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 30px solid rgba(0, 0, 0, 0);
+    display: inline-block;
+    height: 0;
+    margin-top: 20px;
+    width: 0;
 }
 
 
