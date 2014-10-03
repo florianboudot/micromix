@@ -1126,7 +1126,7 @@ var Managethesound = function(){
         }
         var $k7out = $cassetteToClone.clone();
         var $currentlink = $('.micromix-id-' + id);
-        var imgFatSrc = $currentlink.find('img').data('fatsrc');
+        var imgFatSrc = $currentlink.find('img').data('fatsrc'); //todo refactor this
 
         $k7out.find('.k7_face').css('background-image','url('+imgFatSrc+')');
         $k7out.css({bottom:0,right:0,zIndex:1});
