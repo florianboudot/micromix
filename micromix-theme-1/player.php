@@ -53,7 +53,7 @@
                 mask: url("#cassette-mask");/* keep this rule (firefox) here in the document */
             }
         </style>
-        <div class="cassette-cover" id="k7_face" style="background-image: url(/upload/jaws-roy-scheider.jpg)">
+        <div class="cassette-cover k7_face" style="background-image: url(/upload/jaws-roy-scheider.jpg)">
             <img src="<?= theme_path ?>/img/cassette/velum.png" alt="" class="velum">
         </div>
 

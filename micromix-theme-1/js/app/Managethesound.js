@@ -11,7 +11,7 @@ var Managethesound = function(){
     var $empty = $();
     var $infos_text = $('#infos-text');
     var $cassette_player = $('#cassette-player');
-    var $k7face = $('#k7_face');
+    var $k7face = $('.k7_face');
     var $info = $('#infos');//todo extract
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
@@ -1125,14 +1125,20 @@ var Managethesound = function(){
             console.info('cassetteMoveOutTheBox')
         }
         var $k7out = $cassetteToClone.clone();
+        var $currentlink = $('.micromix-id-' + id);
+        var imgFatSrc = $currentlink.find('img').data('fatsrc');
+
+        $k7out.find('.k7_face').css('background-image','url('+imgFatSrc+')');
         $k7out.css({bottom:0,right:0,zIndex:1});
+
         $('#post-' + id).css('z-index', 10);
         $('#bt-player-' + id).parents('.post-image').prepend($k7out);
+
         openDeckDoor();
 
         return $.Velocity.animate($k7out, {
             right: -50,
-            bottom: 1500
+            bottom: 1500//todo calculate the exact pixel we need to move
         }, {
             duration: 500,
             complete:function(){
