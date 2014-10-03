@@ -265,7 +265,7 @@ ol {
 .article {
     padding: 0 30px 30px 47px;
     position: relative;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .result .article {
@@ -652,7 +652,6 @@ li#currentAction span {
 /* navigation */
 .navigation {
     overflow: hidden;
-    width: 100%;
     padding: 0 0 25px 21px;
     width: 94%;
 }

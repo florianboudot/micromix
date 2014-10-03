@@ -21,6 +21,11 @@ var Managethesound = function(){
 //    var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
 //    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
+
+    var $cassette = $('.cassette');
+    var $cassetteToClone = $cassette.clone();
+    var $crans = $cassette.find('.cran');
+
     var _currentidplay = '';
     var _maybecurrentidplay = '';
     var _lastidplay = '';
@@ -124,7 +129,7 @@ var Managethesound = function(){
         else{
             _onClickPlay();
             _animatedocumenttitle();
-            cassetteMoveIn(); // todo only once
+            //cassetteMoveInPlayer(); // todo not used like this anymore
 //            $currentsoundplayer.removeClass(classnamecurrentlistitem);
 //            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
 
@@ -533,8 +538,14 @@ var Managethesound = function(){
      * @private
      * @param wait
      */
-    var _playthissound = function (url, id, wait) {
+    var _playthissound = function (url, id, wait, animation) {
         if (debug)console.warn('_playthissound', id, _maybecurrentindexplay, wait);
+
+        if(!animation){
+            // TODO [animation] send K7 to the player with following callback :
+            return cassetteWantToMoveOutTheBox(url, id, wait)
+        }
+
 
         _maybecurrentidplay = id;
         _maybecurrentindexplay = _getindexbyid(_maybecurrentidplay);
@@ -1075,6 +1086,8 @@ var Managethesound = function(){
 
     // debug mode
     $deck.on('click', function(){
+        //todo play another animation if the K7 is playing
+
         if($deck.hasClass('open')){
             closeDeckDoor();
         }
@@ -1083,29 +1096,91 @@ var Managethesound = function(){
         }
     });
 
-    /* CASSETTE : MOVE IN */
-    var $cassette = $('#cassette');
-    var $crans = $cassette.find('.cran');
-    var cassetteMoveIn = function () {
-        if(!$cassette.hasClass('is-inside-player')){
-            openDeckDoor();
+    var cassetteWantToMoveOutTheBox = function (url, id, wait) {
+        console.error('cassetteWantToMoveOutTheBox');
 
-            // wait for the door to open and move in cassette...
-            setTimeout(function(){
-                $cassette.velocity({
-                    right: 157,
-                    bottom: 61,
-                    scale:0.55
-                }, {
-                    duration:1000,
-                    complete:function(){
-                        $cassette.addClass('is-inside-player');
-                        closeDeckDoor();
-                        setTimeout(playSound,300); // todo should we play sound from here ?
-                    }
+        var _callback = function(){
+            console.error('_callback');
+            _playthissound(url, id, wait, true)
+        };
+
+        if ($cassette.hasClass('is-inside-player')) {
+            cassetteMoveOutPlayer().then(function(){
+                cassetteMoveOutTheBox(id).then(function(){
+                    cassetteMoveInPlayer().then(_callback)
                 });
-            }, 300);
+            })
         }
+        else{
+            cassetteMoveOutTheBox(id).then(function(){
+                cassetteMoveInPlayer().then(_callback)
+            });
+        }
+
+
+    };
+
+    var cassetteMoveOutTheBox = function (id) {
+        if (debug) {
+            console.info('cassetteMoveOutTheBox')
+        }
+        var $k7out = $cassetteToClone.clone();
+        $k7out.css({bottom:0,right:0,zIndex:1});
+        $('#post-' + id).css('z-index', 10);
+        $('#bt-player-' + id).parents('.post-image').prepend($k7out);
+        openDeckDoor();
+
+        return $.Velocity.animate($k7out, {
+            right: -50,
+            bottom: 1500
+        }, {
+            duration: 500,
+            complete:function(){
+                $k7out.remove();
+                $('#post-' + id).css('z-index', 0);
+            }
+        });
+    };
+
+    /**
+     * Move the cassette out of the player
+     * @returns Velocity promise
+     */
+    var cassetteMoveOutPlayer = function () {
+        if (debug) {
+            console.info('cassetteMoveOutPlayer')
+        }
+
+        return $.Velocity.animate($cassette,{
+            right: 0,
+            bottom: 1500,
+            scale: 1
+        }, {
+            duration: 1000
+        });
+
+
+    };
+    /**
+     * Move the cassette in the player
+     * @returns Velocity promise
+     */
+    var cassetteMoveInPlayer = function () {
+        console.error('cassetteMoveInPlayer');
+        if (!$cassette.hasClass('is-inside-player')) {
+        }
+
+        return $.Velocity.animate($cassette,{
+            right: 157,
+            bottom: 61,
+            scale: 0.55
+        }, {
+            duration: 1000,
+            complete: function () {
+                $cassette.addClass('is-inside-player');
+                closeDeckDoor();
+            }
+        });
     };
 
 

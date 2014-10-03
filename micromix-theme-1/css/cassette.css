@@ -1,7 +1,7 @@
 /* THE CASETTE AND ITS ANIMATIONS */
 
 /* CASSETTE */
-#cassette {
+.cassette {
     width: 520px;
     height: 340px;
     position: absolute;
@@ -9,7 +9,7 @@
     bottom: 1500px;/* 500 */
     z-index: 1;
 }
-#cassette .front {
+.cassette .front {
     background: url(../img/cassette/cassette-front-2.png) 0 0 no-repeat;
     width: 520px;
     height: 340px;
@@ -38,7 +38,7 @@
 }
 
 /* ROTATING CRANS */
-#cassette .reel-base {
+.cassette .reel-base {
     width: 263px;
     height: 263px;
     position: absolute;
@@ -47,18 +47,18 @@
     z-index: 1;
 }
 
-#cassette .reel-base.right {
+.cassette .reel-base.right {
     left: 231px;
 }
 
-#cassette .reel-base div {
+.cassette .reel-base div {
     height: 100%;
 }
-#cassette .reel-base .base {
+.cassette .reel-base .base {
     background: url(../img/cassette/cran.png) center no-repeat;
 }
 
-#cassette .tape {
+.cassette .tape {
     background: url(../img/cassette/reel-tape.png) center no-repeat;
     background-size: 225px;
     border-radius: 100%;
@@ -74,7 +74,7 @@
     top: 0;
     z-index: 1;
 }
-#cassette .right .tape {
+.cassette .right .tape {
     margin: 80px;
 }
 
@@ -104,7 +104,7 @@
     }
 }
 
-#cassette .base,#cassette .backward,#cassette .forward {
+.cassette .base,.cassette .backward,.cassette .forward {
     -webkit-animation-play-state: paused !important;
     -moz-animation-play-state: paused !important;
     animation-play-state: paused !important;
@@ -113,37 +113,37 @@
     -moz-transform-origin: 49.8% 50.3%;
     transform-origin: 49.8% 50.3%;
 }
-#cassette.rotating .base,#cassette.rotatingrewind .backward,#cassette.rotatingfastforward .forward {
+.cassette.rotating .base,.cassette.rotatingrewind .backward,.cassette.rotatingfastforward .forward {
     -webkit-animation-play-state: running !important;
     -moz-animation-play-state: running !important;
     animation-play-state: running !important;
 }
-#cassette .left .base {
+.cassette .left .base {
     -webkit-animation: cranrotating 2s linear 0s infinite;
     -moz-animation: cranrotating 2s linear 0s infinite;
     animation: cranrotating 2s linear infinite;
 }
-#cassette .right .base {
+.cassette .right .base {
     -webkit-animation: cranrotating 3s linear 0s infinite;
     -moz-animation: cranrotating 3s linear 0s infinite;
     animation: cranrotating 3s linear infinite;
 }
-#cassette .left .backward {
+.cassette .left .backward {
     -webkit-animation: cranrotating .5s linear 0s infinite reverse;
     -moz-animation: cranrotating .5s linear 0s infinite reverse;
     animation: cranrotating .5s linear infinite reverse;
 }
-#cassette .right .backward {
+.cassette .right .backward {
     -webkit-animation: cranrotating .75s linear 0s infinite reverse;
     -moz-animation: cranrotating .75s linear 0s infinite reverse;
     animation: cranrotating .75s linear infinite reverse;
 }
-#cassette .left .forward {
+.cassette .left .forward {
     -webkit-animation: cranrotating .5s linear 0s infinite;
     -moz-animation: cranrotating .5s linear 0s infinite;
     animation: cranrotating .5s linear infinite reverse;
 }
-#cassette .right .forward {
+.cassette .right .forward {
     -webkit-animation: cranrotating .75s 0s linear infinite;
     -moz-animation: cranrotating .75s 0s linear infinite;
     animation: cranrotating .75s linear infinite;

@@ -42,7 +42,7 @@
 
 
     <!-- K7 -->
-    <div id="cassette">
+    <div class="cassette">
         <div class="front"></div>
 
         <div class="reel-base left"><div class="forward"><div class="backward"><div class="base"><div class="tape"></div></div></div></div></div>
