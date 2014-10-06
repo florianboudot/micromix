@@ -1133,23 +1133,25 @@ var Managethesound = function(){
             console.info('cassetteMoveOutTheBox')
         }
         var $k7out = $cassetteToClone.clone();
-        var $currentlink = $('.micromix-id-' + id);
         var imgFatSrc = _getcoverbyid(id);
 
-        $k7out.find('.k7_face').css('background-image','url('+imgFatSrc+')');
-        $k7out.css({bottom:0,right:0,zIndex:1});
+        $k7out.find('.k7_face').css('background-image', 'url(' + imgFatSrc + ')');
+        $k7out.css({bottom: 0, right: 0, zIndex: 1});
 
         $('#post-' + id).css('z-index', 3);
-        $('#bt-player-' + id).parents('.post-image').prepend($k7out);
+        var $postimage = $('#bt-player-' + id).parents('.post-image');
+        $postimage.prepend($k7out);
 
+        var bottom = ($postimage.offset().top + $postimage.height()) - $(document).scrollTop();
+        var left = ($('#deck').offset().left - $postimage.offset().left);
         return $.Velocity.animate($k7out, {
-            right: -50,
-            bottom: 1500//todo calculate the exact pixel we need to move
+            left: left,
+            bottom: bottom//todo calculate the exact pixel we need to move
         }, {
-            duration: 500,
+            duration: 100 + (bottom / 1.2),
             delay: 250,
             easing: 'linear',
-            complete:function(){
+            complete: function () {
                 $k7out.remove();
                 $('#post-' + id).css('z-index', 0);
             }
@@ -1165,12 +1167,14 @@ var Managethesound = function(){
             console.info('cassetteMoveOutPlayer')
         }
         openDeckDoor();
+        var bottom = $(window).height();
+
         return $.Velocity.animate($cassette,{
             right: 0,
-            bottom: 1500,
+            bottom: bottom,
             scale: 1
         }, {
-            duration: 1000,
+            duration: 100 + (bottom/1.2),
             easing: 'linear',
             delay: 250
         });
