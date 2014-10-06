@@ -70,6 +70,7 @@ function allPostsByYear() {
     global $wpdb, $content;
     $post_id_array = array();
     $post_mp3_array = array();
+    $post_imagecover_array = array();
     $post_url_array = array();
 
 
@@ -137,15 +138,12 @@ function allPostsByYear() {
                 $post_id = $p['ID'];
                 if(isset($post_id)){
                     $post_img_att = $p['id_attachment'];
-                    array_push($post_id_array, $post_id); // for javascript purposes
                     $post_url  = get_permalink($post_id);
 
                     $valmp3_uri = get_post_meta($post_id, 'enclosure', false);
                     $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
                     $mp3_uri = "/upload/" . $mp3_uri;
 
-                    array_push($post_mp3_array, $mp3_uri); // for javascript purposes
-                    array_push($post_url_array, $post_url);// for javascript purposes
                     $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
 //                    $micromix_number = $totalposts+1;
                     $post_title = $p['post_title'];
@@ -167,6 +165,10 @@ function allPostsByYear() {
                     $list .= '<a href="'.$post_url.'" class="history">'. $post_title . $image_tag.'</a>';
                     $list .= '</li>';
                     $list .= "\n";
+	                array_push($post_id_array, $post_id); // for javascript purposes
+	                array_push($post_mp3_array, $mp3_uri); // for javascript purposes
+	                array_push($post_url_array, $post_url);// for javascript purposes
+	                array_push($post_imagecover_array, $fat_image_src);// for javascript purposes
                     $totalposts--;
                 }
             }
@@ -192,6 +194,7 @@ function allPostsByYear() {
     foreach ($post_id_array as $index => $id) {
         $full_list .= "{ id : ".$id.", ";
         $full_list .= " mp3 : '".$post_mp3_array[$index]."', ";
+        $full_list .= " imgcover : '".$post_imagecover_array[$index]."', ";
         $full_list .= "url : '".$post_url_array[$index]."' }";
         if($index <= ($nb_posts)){
             $full_list .= ",";

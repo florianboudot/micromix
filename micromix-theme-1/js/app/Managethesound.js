@@ -40,6 +40,7 @@ var Managethesound = function(){
     var is_post_in_the_page = false;
 
     var _playlist = typeof list_all_posts === 'object' ? list_all_posts : [];
+    var _coverbyid = {};
     var _mp3byid = {};
     var _mp3byindex = {};
     var _urlbyid = {};
@@ -63,12 +64,14 @@ var Managethesound = function(){
             var mp3 = obj.mp3;
             var url = obj.url;
             var id = obj.id;
+            var cover = obj.imgcover;
             _mp3byid[id] = mp3;
             _mp3byindex[index] = mp3;
             _urlbyid[id] = url;
             _urlbyindex[index] = url;
             _indexbyid[id] = index;
             _idbyindex[index] = id;
+            _coverbyid[id] = cover;
         }
     })();
 
@@ -95,6 +98,10 @@ var Managethesound = function(){
     var _getindexbyid = function (id) {
         if (debug)console.info('_getindexbyid');
         return _indexbyid[id]
+    };
+    var _getcoverbyid = function (id) {
+        if (debug)console.info('_getindexbyid');
+        return _coverbyid[id]
     };
 
 
@@ -542,17 +549,17 @@ var Managethesound = function(){
         if (debug)console.warn('_playthissound', id, _maybecurrentindexplay, wait);
 
         if(!animation){
-            // TODO [animation] send K7 to the player with following callback :
+            _pausesound();
             return cassetteWantToMoveOutTheBox(url, id, wait)
         }
-
+        //todo play the sound of player starting playing new cassette
 
         _maybecurrentidplay = id;
         _maybecurrentindexplay = _getindexbyid(_maybecurrentidplay);
         clearTimeout(TIMEOUTusergoprevnext);
         if(wait){
             TIMEOUTusergoprevnext = setTimeout(function(){
-                _playthissound(_getmp3byid(_maybecurrentidplay), _maybecurrentidplay, false);
+                _playthissound(_getmp3byid(_maybecurrentidplay), _maybecurrentidplay, false, true);
             },500);
             return false;
         }
@@ -579,9 +586,6 @@ var Managethesound = function(){
         var finaltext = 'Micromix ' + textnumber + ' - ' + title;
         $infos_text.html(finaltext);
         $infos_text.attr('href', _geturlbyid(_currentidplay));
-
-        var imgFatSrc = $currentlink.find('img').data('fatsrc');
-        $k7face.css('background-image','url('+imgFatSrc+')');
 
         clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)
@@ -1099,21 +1103,22 @@ var Managethesound = function(){
     var cassetteWantToMoveOutTheBox = function (url, id, wait) {
         console.error('cassetteWantToMoveOutTheBox');
 
+        //todo we need to know if the cassette is in the flux, or in the menu
+
         var _callback = function(){
-            console.error('_callback');
             _playthissound(url, id, wait, true)
         };
 
         if ($cassette.hasClass('is-inside-player')) {
             cassetteMoveOutPlayer().then(function(){
                 cassetteMoveOutTheBox(id).then(function(){
-                    cassetteMoveInPlayer().then(_callback)
+                    cassetteMoveInPlayer(id).then(_callback)
                 });
             })
         }
         else{
             cassetteMoveOutTheBox(id).then(function(){
-                cassetteMoveInPlayer().then(_callback)
+                cassetteMoveInPlayer(id).then(_callback)
             });
         }
 
@@ -1126,7 +1131,7 @@ var Managethesound = function(){
         }
         var $k7out = $cassetteToClone.clone();
         var $currentlink = $('.micromix-id-' + id);
-        var imgFatSrc = $currentlink.find('img').data('fatsrc'); //todo refactor this
+        var imgFatSrc = _getcoverbyid(id);
 
         $k7out.find('.k7_face').css('background-image','url('+imgFatSrc+')');
         $k7out.css({bottom:0,right:0,zIndex:1});
@@ -1156,7 +1161,7 @@ var Managethesound = function(){
         if (debug) {
             console.info('cassetteMoveOutPlayer')
         }
-
+        openDeckDoor();
         return $.Velocity.animate($cassette,{
             right: 0,
             bottom: 1500,
@@ -1171,10 +1176,13 @@ var Managethesound = function(){
      * Move the cassette in the player
      * @returns Velocity promise
      */
-    var cassetteMoveInPlayer = function () {
+    var cassetteMoveInPlayer = function (id) {
         console.error('cassetteMoveInPlayer');
         if (!$cassette.hasClass('is-inside-player')) {
         }
+
+        var imgFatSrc = _getcoverbyid(id);
+        $k7face.css('background-image','url('+imgFatSrc+')');
 
         return $.Velocity.animate($cassette,{
             right: 157,
