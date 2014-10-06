@@ -51,9 +51,6 @@ pm.initmicromix = (function() {
         if(pm.manager.history.needfirstview){
             pm.manager.view.onfirstview($view, function(){ });
         }
-        else{
-//            $view.css('opacity', 0) // todo maybe find a way to hide the redirection for non history browser
-        }
 
     };
 

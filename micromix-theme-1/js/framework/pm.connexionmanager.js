@@ -28,7 +28,6 @@ pm.Connexionmanager = function() {
     var request = function(options) {
         if (debug)console.info('request', options);
 
-        //todo: add oauth key to data
         if($ajaxrequest && options.needcancel){
             if($ajaxrequest.cancelable){
                 $ajaxrequest.abort()

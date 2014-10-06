@@ -135,7 +135,6 @@ pm.Viewmanager = function() {
     var bind = function($view, data){
         if (debug)console.info('pm.base.Viewmanager:bind', $view, data);
 
-        //todo should load JS files on the fly
         actions('bind', data.data.viewname, {$view:$viewnext,data:data.data});
 
     };

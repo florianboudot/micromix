@@ -5,8 +5,6 @@ if (typeof(pm) == 'undefined') {
 pm.Transitionmanager = function () {
     var debug = pm.base.debug.Transitionmanager;
 
-    //todo when navigating to fast, transition is fucked up
-
     if (debug)console.info('pm.base.Transitionmanager.js');
 
     var viewManager = pm.manager.view;

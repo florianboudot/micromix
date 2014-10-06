@@ -62,7 +62,6 @@ pm.extendviewmanageractions = function (options) {
                 var checkviewcount = 0;
                 var checkview = function () {
                     if (debug)console.info('checkview', view, !!pm.manager.viewscript[view]);
-                    //todo set a counter to avoid infinite loop if network error
                     if (pm.manager.viewscript[view]) {
                         pm.manager.view[view] = new pm.manager.viewscript[view];
                         pm.manager.view[view].bind($view);

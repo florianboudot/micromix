@@ -12,7 +12,7 @@ var Managethesound = function(){
     var $infos_text = $('#infos-text');
     var $cassette_player = $('#cassette-player');
     var $k7face = $('.k7_face');
-    var $info = $('#infos');//todo extract
+    var $info = $('#infos');
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
 //    var $listsitems = $('#posts-year-month .list-item');
@@ -136,10 +136,6 @@ var Managethesound = function(){
         else{
             _onClickPlay();
             _animatedocumenttitle();
-            //cassetteMoveInPlayer(); // todo not used like this anymore
-//            $currentsoundplayer.removeClass(classnamecurrentlistitem);
-//            $currentsoundplayer = $listsitems.eq(_currentindexplay).addClass(classnamecurrentlistitem);
-
         }
 
         $('.list-item.active').removeClass('active');
@@ -580,7 +576,7 @@ var Managethesound = function(){
     var INTERVAL_infortext = 0;
     var _updatehtmlinfo = function () {
 //        if (debug)console.info('defil _updatehtmlinfo');
-        var $currentlink = $('.micromix-id-' + _currentidplay);//todo should make a general var
+        var $currentlink = $('.micromix-id-' + _currentidplay);
         var textnumber = $currentlink.find('span:first').html();
         var title = $currentlink.find('a').prop('innerText');
         var finaltext = 'Micromix ' + textnumber + ' - ' + title;
@@ -893,7 +889,7 @@ var Managethesound = function(){
         e.stopImmediatePropagation();
         // settimout unbind
         var $elem = $(this);
-        $previewtitle.css({opacity:0}).html('hold your click to preview');//todo translate
+        $previewtitle.css({opacity:0}).html('hold your click to preview');
         $elem.append($previewtitle);
         $previewtitle.animate({opacity:1},{duration:500});
         $elem.on('mouseup mouseout', _cancelbeforepreviewbegin);
@@ -1065,8 +1061,8 @@ var Managethesound = function(){
     /* PLAYER : OPEN DECK DOOR */
     var $deck = $('#deck');
     var openDeckDoor = function () {
-        $deck.addClass('open'); // todo : bring the inside animations here
-        $('#deck-door-shadow').addClass('active'); // todo : bring the inside animations here
+        $deck.addClass('open');
+        $('#deck-door-shadow').addClass('active');
         return $.Velocity.animate($deck,{
             rotateX:'-30deg'
         }, {
@@ -1078,8 +1074,8 @@ var Managethesound = function(){
 
     /* PLAYER : CLOSE DECK DOOR */
     var closeDeckDoor = function () {
-        $deck.removeClass('open'); // todo : bring the inside animations here
-        $('#deck-door-shadow').removeClass('active');// todo : bring the inside animations here
+        $deck.removeClass('open');
+        $('#deck-door-shadow').removeClass('active');
         return $.Velocity.animate($deck,{
             rotateX:'0deg'
         }, {
@@ -1104,6 +1100,7 @@ var Managethesound = function(){
         console.error('cassetteWantToMoveOutTheBox');
 
         //todo we need to know if the cassette is in the flux, or in the menu
+        //actually it's ok, but maybe the animation shoulb be different
 
         var _callback = function () {
             _playthissound(url, id, wait, true)
@@ -1236,7 +1233,7 @@ var Managethesound = function(){
         }
 
         soundManager.setup({
-            url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/', //todo find a better whay to extract the themepath without http full link
+            url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/',
             // optional: prefer HTML5 over Flash for MP3/MP4
             flashVersion: 9, // for VU meter
             debugMode: true,

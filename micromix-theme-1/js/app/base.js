@@ -75,7 +75,7 @@ $(document).ready(function() {
             jQuery.ajax({
                 type:'POST',
                 data: 'postId='+postId,
-                url: theme_path + '/ajax.php', //todo make this path dynamic, this won't work if we change the theme folder name
+                url: theme_path + '/ajax.php',
                 success : function(obj) {
                     //console.info('success');
                     //console.info(obj);

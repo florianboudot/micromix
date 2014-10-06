@@ -12,10 +12,6 @@ pm.Navigationmanager = function() {
 
     if (debug)console.info('pm.base.Navigationmanager.js');
 
-    //todo: goto a view
-    //todo: goto position
-    //todo: events of prexecution, execution, postexecution
-
     var goTo = function(view) {
         if (debug)console.info('pm.base.Navigationmanager.js:goTo', view);
 
