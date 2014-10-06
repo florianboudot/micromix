@@ -1066,26 +1066,26 @@ var Managethesound = function(){
     var $deck = $('#deck');
     var openDeckDoor = function () {
         $deck.addClass('open'); // todo : bring the inside animations here
-        $deck.velocity({
+        $('#deck-door-shadow').addClass('active'); // todo : bring the inside animations here
+        return $.Velocity.animate($deck,{
             rotateX:'-30deg'
         }, {
             easing: "easeInOut",
             duration: 300
         });
-        $('#deck-door-shadow').addClass('active'); // todo : bring the inside animations here
     };
 
 
     /* PLAYER : CLOSE DECK DOOR */
     var closeDeckDoor = function () {
         $deck.removeClass('open'); // todo : bring the inside animations here
-        $deck.velocity({
+        $('#deck-door-shadow').removeClass('active');// todo : bring the inside animations here
+        return $.Velocity.animate($deck,{
             rotateX:'0deg'
         }, {
             easing: "easeInOut",
             duration: 300
         });
-        $('#deck-door-shadow').removeClass('active');// todo : bring the inside animations here
     };
 
     // debug mode
@@ -1105,24 +1105,30 @@ var Managethesound = function(){
 
         //todo we need to know if the cassette is in the flux, or in the menu
 
-        var _callback = function(){
+        var _callback = function () {
             _playthissound(url, id, wait, true)
         };
 
         if ($cassette.hasClass('is-inside-player')) {
-            cassetteMoveOutPlayer().then(function(){
-                cassetteMoveOutTheBox(id).then(function(){
-                    cassetteMoveInPlayer(id).then(_callback)
-                });
+            openDeckDoor().then(function () {
+                cassetteMoveOutPlayer().then(function () {
+                    cassetteMoveOutTheBox(id).then(function () {
+                        cassetteMoveInPlayer(id).then(function () {
+                            closeDeckDoor().then(_callback);
+                        })
+                    });
+                })
             })
         }
-        else{
-            cassetteMoveOutTheBox(id).then(function(){
-                cassetteMoveInPlayer(id).then(_callback)
+        else {
+            openDeckDoor().then(function () {
+                cassetteMoveOutTheBox(id).then(function () {
+                    cassetteMoveInPlayer(id).then(function () {
+                        closeDeckDoor().then(_callback);
+                    })
+                })
             });
         }
-
-
     };
 
     var cassetteMoveOutTheBox = function (id) {
@@ -1136,16 +1142,16 @@ var Managethesound = function(){
         $k7out.find('.k7_face').css('background-image','url('+imgFatSrc+')');
         $k7out.css({bottom:0,right:0,zIndex:1});
 
-        $('#post-' + id).css('z-index', 10);
+        $('#post-' + id).css('z-index', 3);
         $('#bt-player-' + id).parents('.post-image').prepend($k7out);
-
-        openDeckDoor();
 
         return $.Velocity.animate($k7out, {
             right: -50,
             bottom: 1500//todo calculate the exact pixel we need to move
         }, {
             duration: 500,
+            delay: 250,
+            easing: 'linear',
             complete:function(){
                 $k7out.remove();
                 $('#post-' + id).css('z-index', 0);
@@ -1167,7 +1173,9 @@ var Managethesound = function(){
             bottom: 1500,
             scale: 1
         }, {
-            duration: 1000
+            duration: 1000,
+            easing: 'linear',
+            delay: 250
         });
 
 
@@ -1190,9 +1198,9 @@ var Managethesound = function(){
             scale: 0.55
         }, {
             duration: 1000,
+            easing: 'linear',
             complete: function () {
                 $cassette.addClass('is-inside-player');
-                closeDeckDoor();
             }
         });
     };
