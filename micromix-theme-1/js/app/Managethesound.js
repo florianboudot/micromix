@@ -291,6 +291,7 @@ var Managethesound = function(){
         if (Math.abs(position - _lastupdatetimeprogress) > 1000) {
             _lastupdatetimeprogress = position;
             var progression = position / this.duration * 100;
+            progression = progression === Infinity ? 0 : progression;
             counter.update(progression);
         }
     };
@@ -447,7 +448,7 @@ var Managethesound = function(){
         }
     };
     var intervalTimoutRewindForward = 125;
-    var diffTimeRewindForward = 200;
+    var diffTimeRewindForward = 1000;
     var TIMEOUTforward = 0;
     var TIMEOUTrewind = 0;
 
@@ -516,6 +517,9 @@ var Managethesound = function(){
         var __sound = sound || _sound; // if not provided, use the current cound
         if(__sound && typeof position === 'number'){
             __sound.setPosition(position);
+            var duration = __sound.duration;
+            duration && counter.update(position / duration * 100);
+
         }
     };
 
@@ -1034,11 +1038,11 @@ var Managethesound = function(){
 
         this.update = function(number){
             var originaldigit;
-            var digits = originaldigit = number ? Math.round(number) : 'error : wrong number';
+            var digits = originaldigit = Math.round(number);
             if(digits != old_num){
                 digits = typeof digits == 'number' ? digits.toString() : digits;
-                $reelTapeLeft.css('margin', 19 + (originaldigit / 100 * 61)); // 19 + (100 / 100 * 61)
-                $reelTapeRight.css('margin', 80 - (originaldigit / 100 * 61));
+                $reelTapeRight.css('margin', 19 + (originaldigit / 100 * 61)); // 19 + (100 / 100 * 61)
+                $reelTapeLeft.css('margin', 80 - (originaldigit / 100 * 61));
                 // add zeros if less then 3 digits
                 while(digits.length < 3){
                     digits = '0' + digits;
@@ -1191,7 +1195,10 @@ var Managethesound = function(){
         }, {
             duration: 100 + (bottom/1.2),
             easing: 'linear',
-            delay: 250
+            delay: 250,
+            complete: function(){
+                counter.update(0);
+            }
         });
 
 

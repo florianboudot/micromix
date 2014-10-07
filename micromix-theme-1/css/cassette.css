@@ -98,7 +98,7 @@
     top: 0;
     z-index: 1;
 }
-.cassette .right .tape {
+.cassette .left .tape {
     margin: 80px;
 }
 
