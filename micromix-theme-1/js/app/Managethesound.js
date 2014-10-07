@@ -1106,24 +1106,41 @@ var Managethesound = function(){
             _playthissound(url, id, wait, true)
         };
 
+        var isPostInList = $('#post-' + id).length;
+
+
         if ($cassette.hasClass('is-inside-player')) {
             openDeckDoor().then(function () {
                 cassetteMoveOutPlayer().then(function () {
-                    cassetteMoveOutTheBox(id).then(function () {
+                    if (isPostInList) {
+                        cassetteMoveOutTheBox(id).then(function () {
+                            cassetteMoveInPlayer(id).then(function () {
+                                closeDeckDoor().then(_callback);
+                            })
+                        });
+                    }
+                    else {
                         cassetteMoveInPlayer(id).then(function () {
                             closeDeckDoor().then(_callback);
                         })
-                    });
+                    }
                 })
             })
         }
         else {
             openDeckDoor().then(function () {
-                cassetteMoveOutTheBox(id).then(function () {
+                if (isPostInList) {
+                    cassetteMoveOutTheBox(id).then(function () {
+                        cassetteMoveInPlayer(id).then(function () {
+                            closeDeckDoor().then(_callback);
+                        })
+                    });
+                }
+                else {
                     cassetteMoveInPlayer(id).then(function () {
                         closeDeckDoor().then(_callback);
                     })
-                })
+                }
             });
         }
     };
