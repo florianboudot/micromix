@@ -586,10 +586,10 @@ var Managethesound = function(){
         clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)
         // todo make a function of the defil text
-        var text_width = $infos_text.width() - $info.width();
-        var pane = 18; // px
-        var nb_steps = Math.round(text_width / pane);
-        var nb_steps_origine = Math.round(text_width / pane);
+        var pane = 18.19; // px (WTF, .19?)
+        var letterCounts = $infos_text.html().length-8; //-8 is for screen width
+        var nb_steps = letterCounts;
+        var nb_steps_origine = letterCounts;
 
         // start defil
         var position = 0;
