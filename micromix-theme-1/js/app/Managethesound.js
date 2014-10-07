@@ -1153,16 +1153,14 @@ var Managethesound = function(){
         var imgFatSrc = _getcoverbyid(id);
 
         $k7out.find('.k7_face').css('background-image', 'url(' + imgFatSrc + ')');
-        $k7out.css({bottom: 0, right: 0, zIndex: 1});
+        $k7out.css({bottom: 0, left: 0, zIndex: 1});
 
         $('#post-' + id).css('z-index', 3);
         var $postimage = $('#bt-player-' + id).parents('.post-image');
         $postimage.prepend($k7out);
 
         var bottom = ($postimage.offset().top + $postimage.height()) - $(document).scrollTop();
-        var left = ($('#deck').offset().left - $postimage.offset().left);
         return $.Velocity.animate($k7out, {
-            left: left,
             bottom: bottom//todo calculate the exact pixel we need to move
         }, {
             duration: 100 + (bottom / 1.2),
@@ -1187,9 +1185,9 @@ var Managethesound = function(){
         var bottom = $(window).height();
 
         return $.Velocity.animate($cassette,{
-            right: 0,
+            right: 157,
             bottom: bottom,
-            scale: 1
+            scale: 0.55
         }, {
             duration: 100 + (bottom/1.2),
             easing: 'linear',
