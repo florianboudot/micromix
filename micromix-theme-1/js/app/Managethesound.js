@@ -578,7 +578,7 @@ var Managethesound = function(){
 //        if (debug)console.info('defil _updatehtmlinfo');
         var $currentlink = $('.micromix-id-' + _currentidplay);
         var textnumber = $currentlink.find('span:first').html();
-        var title = $currentlink.find('a').prop('innerText');
+        var title = latinize($currentlink.find('a').prop('innerText'));
         var finaltext = 'Micromix ' + textnumber + ' - ' + title;
         $infos_text.html(finaltext);
         $infos_text.attr('href', _geturlbyid(_currentidplay));

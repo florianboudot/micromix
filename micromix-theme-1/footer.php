@@ -21,6 +21,7 @@
     <script src="<?= theme_path ?>/js/libs/modernizr.js"></script>
     <script src="<?= theme_path ?>/js/libs/jquery.easing.js"></script>
     <script src="<?= theme_path ?>/js/libs/jquery.history.js"></script>
+    <script src="<?= theme_path ?>/js/libs/latinize.js"></script>
 
     <script src="<?= theme_path ?>/js/framework/setting.js"></script>
     <script src="<?= theme_path ?>/js/framework/pm.addfntocollection.js"></script>
