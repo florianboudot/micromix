@@ -167,7 +167,7 @@ ol {
 }
 
 #bricks {
-    background: url(../img/bricks.jpg) left top repeat;
+    background: url(../img/bricks.jpg) center top repeat;
     position: absolute;
     height: 100%;
     width: 100%;
