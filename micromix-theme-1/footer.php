@@ -1,8 +1,6 @@
 
-                </div><!-- #mainContent -->
-
-        </div><!-- #curtain -->
-    </div><!-- #bricks -->
+            </div><!-- #mainContent -->
+    </div><!-- #curtain -->
 
     <div id="footer">
         <?php include('player.php'); ?>
