@@ -1011,7 +1011,6 @@ var Managethesound = function(){
 
         // bind
         $(window).on('keydown keyup', _keyboardshortcuts);
-        $(window).on('scroll', stickGhettoToBottom);
 
         if(_autoplay){
             _playtheveryfirstsoundinpage();
