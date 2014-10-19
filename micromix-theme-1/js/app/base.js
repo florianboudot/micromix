@@ -188,13 +188,12 @@ $(document).ready(function() {
 /* STICK GHETTOBLASTER TO BOTTOM */
 var $ghetto = $();
 var fixed = true;
-var stickGhettoToBottom = function(){
+var stickGhettoToBottom = function(scrollTop){
     if($ghetto.length < 1){
         $ghetto = $('#cassette-player');
     }
 
     var windowheight = $window.height(),
-        scrollTop = $window.scrollTop(),
         bottomLimit = $body.height() - 214,
         isLimitReached = windowheight + scrollTop >= bottomLimit;
 
@@ -207,6 +206,16 @@ var stickGhettoToBottom = function(){
         fixed = true;
     }
 };
+
+var parallolaxe = function (scrollTop) {
+    $('#bricks').css('background-position', 'center ' + scrollTop / 20 + 'px')
+};
+var onscroll = function () {
+    var scrolltop = $window.scrollTop();
+    stickGhettoToBottom(scrolltop);
+    parallolaxe(scrolltop);
+};
+$(window).on('scroll', onscroll);
 
 
 /* CONSOLE COLOR */

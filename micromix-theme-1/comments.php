@@ -74,7 +74,7 @@
 
 <?php if ( $user_ID ) : ?>
 
-<p class="logged"><span>Logged in as <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php"><?php echo $user_identity; ?></a>. <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="Log out of this account">Log out &raquo;</a></span></p>
+<p class="logged"><span>Logged in as <a href="<?php echo get_option('siteurl'); ?>/wp-admin/profile.php" target="_blank"><?php echo $user_identity; ?></a>. <a href="<?php echo get_option('siteurl'); ?>/wp-login.php?action=logout" title="Log out of this account" target="_blank">Log out &raquo;</a></span></p>
 
 <?php else : ?>
 
