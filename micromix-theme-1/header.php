@@ -24,54 +24,56 @@
 <body>
 
 <div id="mainContainer">
-    <div id="top"></div>
-    <div id="bricks"></div>
-    <div id="curtain">
-        <div id="mainContent">
+    <div id="top">
 
-            <div id="mainHeader">
-                <a class="history return-index" href="/"></a>
-                <canvas id="tagwall" width="962" height="200"></canvas>
-                <div id="canvas-controls">
-                    <span id="save-canvas">save</span>
-                    <span id="clear-canvas">clear</span>
-                    <ul class="spray-colors">
-                        <li id="spray-red"></li>
-                        <li id="spray-green"></li>
-                        <li id="spray-blue"></li>
-                        <li id="spray-white"></li>
-                        <li id="spray-black"></li>
-                        <li id="spray-erase"></li>
-                    </ul>
-                </div>
-                <audio id="spraysound">
-                    <source src="<?= theme_path; ?>/sound/spraycan.wav" type="audio/wav"> <!-- chrome need wav for looping!!! -->
-                    <source src="<?= theme_path; ?>/sound/spraycan.mp3" type="audio/mpeg">
-                </audio>
+    </div>
+    <div id="bricks">
+            <div id="curtain">
+                <div id="mainContent">
 
-                <h1><a href="<?php echo get_option('home'); ?>/" title="back to home page"><?php bloginfo('name'); ?></a></h1>
-                <p class="description"><?php bloginfo('description'); ?></p>
-            </div><!-- #mainHeader -->
+                    <div id="mainHeader">
+                        <a class="history return-index" href="/"></a>
+                        <canvas id="tagwall" width="962" height="200"></canvas>
+                        <div id="canvas-controls">
+                            <span id="save-canvas">save</span>
+                            <span id="clear-canvas">clear</span>
+                            <ul class="spray-colors">
+                                <li id="spray-red"></li>
+                                <li id="spray-green"></li>
+                                <li id="spray-blue"></li>
+                                <li id="spray-white"></li>
+                                <li id="spray-black"></li>
+                                <li id="spray-erase"></li>
+                            </ul>
+                        </div>
+                        <audio id="spraysound">
+                            <source src="<?= theme_path; ?>/sound/spraycan.wav" type="audio/wav"> <!-- chrome need wav for looping!!! -->
+                            <source src="<?= theme_path; ?>/sound/spraycan.mp3" type="audio/mpeg">
+                        </audio>
 
-            <?php
+                        <h1><a href="<?php echo get_option('home'); ?>/" title="back to home page"><?php bloginfo('name'); ?></a></h1>
+                        <p class="description"><?php bloginfo('description'); ?></p>
+                    </div><!-- #mainHeader -->
 
-
-            // need plugin W3 total cache
-            $column1result = wp_cache_get( 'column1result' );
-            if ( false === $column1result ) {
-                ob_start();
-
-                include('column-1.php');
-                $column1result = ob_get_contents();
-
-                ob_end_clean();
-                wp_cache_set( 'column1result', $column1result );
-            }
-            echo $column1result;
-            // Do something with $result;
+                    <?php
 
 
+                    // need plugin W3 total cache
+                    $column1result = wp_cache_get( 'column1result' );
+                    if ( false === $column1result ) {
+                        ob_start();
 
-            ?>
+                        include('column-1.php');
+                        $column1result = ob_get_contents();
 
-            <div id="column2">
+                        ob_end_clean();
+                        wp_cache_set( 'column1result', $column1result );
+                    }
+                    echo $column1result;
+                    // Do something with $result;
+
+
+
+                    ?>
+
+                    <div id="column2">

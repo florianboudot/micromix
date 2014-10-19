@@ -9,30 +9,6 @@
     bottom: 1500px;/* 500 */
     z-index: 1;
 }
-
-.cassette:before {
-    content: '';
-    position: absolute;
-    width: 107px;
-    height: 39px;
-    top: 173px;
-    z-index: 1;
-    left: 203px;
-    opacity: .6;
-    box-shadow: 0 -2px 11px #000 inset;
-}
-.cassette:after {
-    content: '';
-    position: absolute;
-    width: 107px;
-    height: 39px;
-    top: 173px;
-    z-index: 3;
-    left: 203px;
-    opacity: .6;
-    box-shadow: 0 4px 11px #000 inset;
-}
-
 .cassette .front {
     background: url(../img/cassette/cassette-front-2.png) 0 0 no-repeat;
     width: 520px;
@@ -98,7 +74,7 @@
     top: 0;
     z-index: 1;
 }
-.cassette .left .tape {
+.cassette .right .tape {
     margin: 80px;
 }
 

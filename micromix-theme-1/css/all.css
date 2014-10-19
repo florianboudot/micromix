@@ -152,14 +152,13 @@ ol {
 }
 
 #top {
-    background: url(../img/top1.png) 0 0 no-repeat, url(../img/top1.jpg) 145px 298px no-repeat, url(../img/top2.jpg) 24px 298px no-repeat, url(../img/top3.jpg) 24px 0 no-repeat;
-    height: 838px;
-    left: 0;
-    margin: auto;
     position: absolute;
-    right: 0;
+    height: 838px;
+    background: url(../img/top1.png) 0 0 no-repeat, url(../img/top1.jpg) 145px 298px no-repeat, url(../img/top2.jpg) 24px 298px no-repeat, url(../img/top3.jpg) 24px 0 no-repeat;
     width: 1000px;
-    z-index: 1;
+    margin: auto;
+    left: 0;
+    right: 0;
 }
 
 #mainContainer {
@@ -167,10 +166,7 @@ ol {
 }
 
 #bricks {
-    background: url(../img/bricks.jpg) center top repeat;
-    position: absolute;
-    height: 100%;
-    width: 100%;
+    background: url(../img/bricks.jpg) left top repeat;
 }
 
 #mainHeader {
@@ -215,17 +211,17 @@ ol {
 }
 
 #curtain {
-    background: url(../img/bg-curtain.jpg) 21px top repeat-y, url(../img/bg-curtain-back.png) center top repeat-y;
     margin: 0 auto;
-    position: relative;
+    background: url(../img/bg-curtain.jpg) 21px top repeat-y, url(../img/bg-curtain-back.png) center top repeat-y;
     width: 1000px;
 }
 
 #mainContent {
+    width: 1000px;
     margin: 0 auto;
     overflow: hidden;
     padding-bottom: 619px;
-    width: 1000px;
+    /*background:url(../img/top.png) left top no-repeat;*/
 }
 
 /* FOOTER */
@@ -247,7 +243,6 @@ ol {
     width: 142px;
     padding: 588px 0 300px 0;
     position: relative;
-    z-index: 1;
 }
 
 #column1 .col-block {
@@ -258,8 +253,6 @@ ol {
     float: left;
     width: 610px;
     padding: 280px 0 0 0;
-    position: relative;
-    z-index: 1;
 }
 
 #column3 {
@@ -272,6 +265,7 @@ ol {
 .article {
     padding: 0 30px 30px 47px;
     position: relative;
+    /*overflow: hidden;*/
 }
 
 .result .article {
