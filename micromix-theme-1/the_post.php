@@ -52,13 +52,13 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
 
     <!-- AUTHOR -->
     <p class="author">
-        <span>mixed by <?php the_author_posts_link(); ?></span>
+        <span class="parenthistory">mixed by <?php the_author_posts_link(); ?></span>
     </p>
 
 
     <!-- TAGS AND CATEGORIES -->
     <?php if(is_single()) { ?>
-    <p class="postmetadata">
+    <p class="postmetadata parenthistory">
         <?php the_tags('<span><strong>Artists : </strong> ', ', ', '.<br /></span>'); ?>
         <span><strong>Categories : </strong> <?php the_category(', ') ?></span>
     </p>

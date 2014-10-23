@@ -291,6 +291,7 @@ var Managethesound = function(){
         if (Math.abs(position - _lastupdatetimeprogress) > 1000) {
             _lastupdatetimeprogress = position;
             var progression = position / this.duration * 100;
+            progression = progression === Infinity ? 0 : progression;
             counter.update(progression);
         }
     };
@@ -447,7 +448,7 @@ var Managethesound = function(){
         }
     };
     var intervalTimoutRewindForward = 125;
-    var diffTimeRewindForward = 200;
+    var diffTimeRewindForward = 1000;
     var TIMEOUTforward = 0;
     var TIMEOUTrewind = 0;
 
@@ -516,6 +517,9 @@ var Managethesound = function(){
         var __sound = sound || _sound; // if not provided, use the current cound
         if(__sound && typeof position === 'number'){
             __sound.setPosition(position);
+            var duration = __sound.duration;
+            duration && counter.update(position / duration * 100);
+
         }
     };
 
@@ -578,7 +582,7 @@ var Managethesound = function(){
 //        if (debug)console.info('defil _updatehtmlinfo');
         var $currentlink = $('.micromix-id-' + _currentidplay);
         var textnumber = $currentlink.find('span:first').html();
-        var title = $currentlink.find('a').prop('innerText');
+        var title = latinize($currentlink.find('a').prop('innerText'));
         var finaltext = 'Micromix ' + textnumber + ' - ' + title;
         $infos_text.html(finaltext);
         $infos_text.attr('href', _geturlbyid(_currentidplay));
@@ -586,10 +590,10 @@ var Managethesound = function(){
         clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)
         // todo make a function of the defil text
-        var text_width = $infos_text.width() - $info.width();
-        var pane = 18; // px
-        var nb_steps = Math.round(text_width / pane);
-        var nb_steps_origine = Math.round(text_width / pane);
+        var pane = 18.19; // px (WTF, .19?)
+        var letterCounts = $infos_text.html().length-8; //-8 is for screen width
+        var nb_steps = letterCounts;
+        var nb_steps_origine = letterCounts;
 
         // start defil
         var position = 0;
@@ -1007,7 +1011,6 @@ var Managethesound = function(){
 
         // bind
         $(window).on('keydown keyup', _keyboardshortcuts);
-        $(window).on('scroll', stickGhettoToBottom);
 
         if(_autoplay){
             _playtheveryfirstsoundinpage();
@@ -1034,11 +1037,11 @@ var Managethesound = function(){
 
         this.update = function(number){
             var originaldigit;
-            var digits = originaldigit = number ? Math.round(number) : 'error : wrong number';
+            var digits = originaldigit = Math.round(number);
             if(digits != old_num){
                 digits = typeof digits == 'number' ? digits.toString() : digits;
-                $reelTapeLeft.css('margin', 19 + (originaldigit / 100 * 61)); // 19 + (100 / 100 * 61)
-                $reelTapeRight.css('margin', 80 - (originaldigit / 100 * 61));
+                $reelTapeRight.css('margin', 19 + (originaldigit / 100 * 61)); // 19 + (100 / 100 * 61)
+                $reelTapeLeft.css('margin', 80 - (originaldigit / 100 * 61));
                 // add zeros if less then 3 digits
                 while(digits.length < 3){
                     digits = '0' + digits;
@@ -1106,24 +1109,41 @@ var Managethesound = function(){
             _playthissound(url, id, wait, true)
         };
 
+        var isPostInList = $('#post-' + id).length;
+
+
         if ($cassette.hasClass('is-inside-player')) {
             openDeckDoor().then(function () {
                 cassetteMoveOutPlayer().then(function () {
-                    cassetteMoveOutTheBox(id).then(function () {
+                    if (isPostInList) {
+                        cassetteMoveOutTheBox(id).then(function () {
+                            cassetteMoveInPlayer(id).then(function () {
+                                closeDeckDoor().then(_callback);
+                            })
+                        });
+                    }
+                    else {
                         cassetteMoveInPlayer(id).then(function () {
                             closeDeckDoor().then(_callback);
                         })
-                    });
+                    }
                 })
             })
         }
         else {
             openDeckDoor().then(function () {
-                cassetteMoveOutTheBox(id).then(function () {
+                if (isPostInList) {
+                    cassetteMoveOutTheBox(id).then(function () {
+                        cassetteMoveInPlayer(id).then(function () {
+                            closeDeckDoor().then(_callback);
+                        })
+                    });
+                }
+                else {
                     cassetteMoveInPlayer(id).then(function () {
                         closeDeckDoor().then(_callback);
                     })
-                })
+                }
             });
         }
     };
@@ -1136,16 +1156,14 @@ var Managethesound = function(){
         var imgFatSrc = _getcoverbyid(id);
 
         $k7out.find('.k7_face').css('background-image', 'url(' + imgFatSrc + ')');
-        $k7out.css({bottom: 0, right: 0, zIndex: 1});
+        $k7out.css({bottom: 0, left: 0, zIndex: 1});
 
         $('#post-' + id).css('z-index', 3);
         var $postimage = $('#bt-player-' + id).parents('.post-image');
         $postimage.prepend($k7out);
 
         var bottom = ($postimage.offset().top + $postimage.height()) - $(document).scrollTop();
-        var left = ($('#deck').offset().left - $postimage.offset().left);
         return $.Velocity.animate($k7out, {
-            left: left,
             bottom: bottom//todo calculate the exact pixel we need to move
         }, {
             duration: 100 + (bottom / 1.2),
@@ -1170,13 +1188,16 @@ var Managethesound = function(){
         var bottom = $(window).height();
 
         return $.Velocity.animate($cassette,{
-            right: 0,
+            right: 157,
             bottom: bottom,
-            scale: 1
+            scale: 0.55
         }, {
             duration: 100 + (bottom/1.2),
             easing: 'linear',
-            delay: 250
+            delay: 250,
+            complete: function(){
+                counter.update(0);
+            }
         });
 
 
