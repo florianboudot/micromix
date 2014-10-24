@@ -22,6 +22,11 @@ if (have_posts()) : while (have_posts()) : the_post(); ?>
     </div><!-- .article -->
 
 
+    <?php
+    // COMMENTS
+    comments_template();
+    ?>
+
 
 <?php endwhile; endif; ?>
 </div>

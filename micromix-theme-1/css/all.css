@@ -228,10 +228,59 @@ ol {
     width: 1000px;
 }
 
-/* FOOTER */
-#mainFooter {
+
+/* FEEDBACK FORM */
+#feedback-container {
+    width: 290px;
+    padding: 15px;
+    background: gray;
+    position: fixed;
+    bottom: 0;
+    left:0;
+    z-index: 10;
+}
+#feedback-container .message {
+    font-size: 23px;
+    -moz-transition: height 500ms ease-in-out;
+    -webkit-transition: height 500ms ease-in-out;
+    transition: max-height 500ms ease-in-out;
+    overflow: hidden;
+    max-height: 0;
+}
+#feedback-container .message.active {
+    max-height: 200px;
+}
+#feedback-form input,
+#feedback-form textarea {
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 95%;
+}
+#feedback-form input#submit {
+    width: auto;
+    padding: 5px;
+    cursor: pointer;
+}
+#feedback-form input:disabled,
+#feedback-form textarea:disabled {
+    font-style: italic !important;
+}
+#feedback-form .title {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+#feedback-form .subtitle {
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+#feedback-form label {
+    /*font-size: 14px;
+    color: #ffffff;*/
+    display: none;
 }
 
+
+/* FOOTER */
 #footer {
     background: url(../img/footer-bikes.jpg) center bottom no-repeat, url(../img/footer-dax-8bit.png) center top no-repeat;
     bottom: 0;

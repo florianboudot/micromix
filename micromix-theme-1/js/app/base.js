@@ -182,7 +182,87 @@ $(document).ready(function() {
 
     };
     initTagWall();
+
+    postToFeedback();
 });
+
+/* POST COMMENT TO FEEDBACK PAGE */
+var postToFeedback = function () {
+    var $feedback_container = $('#feedback-container');
+
+    if($feedback_container.length > 0){
+
+        var feedback_titles = '' +
+            '<h4 class="title">Feedback</h4>' +
+            '<p class="subtitle">Tell us if something is broken or can be better, thanks !</p>';
+        var feedback_messages = '' +
+            '<p class="message loading">wait...</p>' +
+            '<p class="message success">Thank you ! Your message has been successfully sent</p>' +
+            '<p class="message error">Error sending the message :( <br>please try again <br></p>';
+
+        // get the <form> from the /feedback page
+        $.ajax({
+            url: '/feedback',
+            type: 'GET',
+            dataType: 'html'
+        }).done(function(data) {
+            // inject html form into feedback zone
+            var html_form = $(data).find('#commentform');
+            $feedback_container.html(html_form);
+
+            // on submit => ajax post
+            var $form = $feedback_container.find('form');
+
+            // rename id (to avoid duplicate id)
+            $form.attr('id', 'feedback-form');
+
+            // add some titles and hidden messages
+            $form.prepend(feedback_messages + feedback_titles);
+
+
+            $form.on('submit', function(e){
+                e.preventDefault();
+
+                // hide all messages
+                $feedback_container.find('.message').removeClass('active');
+
+                // wait...
+                $feedback_container.find('.loading').addClass('active');
+
+                // get form values
+                var form_data = $form.serialize();
+                var url = this.action;
+
+                // freeze the form (important : after serialize)
+                $form.find('input, textarea').prop('disabled', true);
+
+                // ajax post form
+                $.post(url, form_data)
+                    .done(function(){
+                        // display success message
+                        $feedback_container.find('.message').removeClass('active');
+                        $feedback_container.find('.success').addClass('active');
+
+                        // remove success message after a while
+                        setTimeout(function(){
+                            $feedback_container.find('.message').removeClass('active');
+
+                            // unfreeze the form
+                            $form.find('input, textarea').prop('disabled', false);
+                        }, 5000);
+                    })
+                    .fail(function(params){
+                        // display error message
+                        $feedback_container.find('.message').removeClass('active');
+                        $feedback_container.find('.error').append('error '+ params.status).addClass('active');
+
+                        // unfreeze the form
+                        $form.find('input, textarea').prop('disabled', false);
+                    });
+            });
+        });
+    }
+};
 
 /* STICK GHETTOBLASTER TO BOTTOM */
 var $ghetto = $();
@@ -216,29 +296,17 @@ var onscroll = function () {
 };
 $(window).on('scroll', onscroll);
 
+var parallolaxe = function (scrollTop) {
+    $('#bricks').css('background-position', 'center ' + (scrollTop / 9) + 'px')
+};
+var onscroll = function () {
+    var scrolltop = $window.scrollTop();
+    stickGhettoToBottom(scrolltop);
+    parallolaxe(scrolltop);
+};
+$(window).on('scroll', onscroll);
 
-/* CONSOLE COLOR */
-var CONSOLE_CSS = 'background:#a4aa0a; color:white; padding:0 4px'; // default
 
-function CustomConsole (prefix, console_css) {
-    console_css = console_css || CONSOLE_CSS;// choose passed arg or default constant
-
-    function processArgs () {
-        var args = Array.prototype.slice.call(arguments);  // converts Arguments to Array
-        args.shift();                                      // remove console method
-        args.unshift('%c' + prefix, console_css);          // adds custom css and prefix at the beginning
-        return args;
-    }
-
-    function handler (type) {
-        return console[type].apply(console, processArgs.apply(this, arguments));
-    }
-
-    // export public methods: .info(), .warn(), whatever method from console you need...
-    ['log', 'info', 'warn'].forEach(function(type) {
-        this[type] = handler.bind(handler, type); // IE9+
-    }, this);
-}
 var removethis = function () {
     $(this).remove()
 };

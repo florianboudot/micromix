@@ -2,7 +2,11 @@
     </div><!-- #curtain -->
 
     <div id="footer">
+
+
+
         <?php include('player.php'); ?>
+        <?php include('feedback.php'); ?>
     </div>
 </div><!-- #mainContainer -->
 
