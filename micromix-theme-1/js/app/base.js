@@ -194,7 +194,7 @@ var postToFeedback = function () {
 
         var feedback_titles = '' +
             '<h4 class="title">Feedback</h4>' +
-            '<p class="subtitle">Tell us if something is broken or can be better, thanks !</p>';
+            '<p class="subtitle">Tell us if something is broken or can be better, thanks ! (french or english)</p>';
         var feedback_messages = '' +
             '<p class="message loading">wait...</p>' +
             '<p class="message success">Thank you ! Your message has been successfully sent</p>' +
