@@ -219,7 +219,12 @@ var postToFeedback = function () {
             // add some titles and hidden messages
             $form.prepend(feedback_messages + feedback_titles);
 
+            // fill author and email and name the parent
+            $form.find('#author').val('feedback user').parents('p').first().addClass('author');
+            $form.find('#email').val('feedback.user@gmail.com').parents('p').first().addClass('email');
+            $form.find('#url').parents('p').first().addClass('website');
 
+            // on submit
             $form.on('submit', function(e){
                 e.preventDefault();
 
@@ -243,12 +248,12 @@ var postToFeedback = function () {
                         $feedback_container.find('.message').removeClass('active');
                         $feedback_container.find('.success').addClass('active');
 
+                        // unfreeze the form
+                        $form.find('input, textarea').prop('disabled', false);
+
                         // remove success message after a while
                         setTimeout(function(){
                             $feedback_container.find('.message').removeClass('active');
-
-                            // unfreeze the form
-                            $form.find('input, textarea').prop('disabled', false);
                         }, 5000);
                     })
                     .fail(function(params){

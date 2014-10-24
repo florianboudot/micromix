@@ -273,7 +273,10 @@ ol {
     font-size: 13px;
     margin-bottom: 10px;
 }
-#feedback-form label {
+#feedback-form label,
+#feedback-form .author,
+#feedback-form .email,
+#feedback-form .website{
     /*font-size: 14px;
     color: #ffffff;*/
     display: none;
