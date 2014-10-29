@@ -51,6 +51,13 @@ Open "tasks" dialog with alt + shift + N and click on the wrench (server setting
 Configure your commit message with :
 `{id} #{number} {summary}`
 
+##update (if env already exist) 
+
+go to wp-admin/post-new.php?post_type=page
+name a new page "feedback"
+check "discussion" in "screen options"
+and checks that the "discusion" checkboxes are checked in discussion field
+thenb clic "publish"
 
 ##Authors
 
