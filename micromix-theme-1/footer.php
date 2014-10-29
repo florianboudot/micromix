@@ -15,7 +15,8 @@
 <!-- SCRIPTS -->
 <script> theme_path = '<?= theme_path ?>'; // javascript var </script>
 <?php if(true){ ?>
-    <script src="<?= theme_path ?>/js/libs/jquery-2.0.2.js"></script>
+    <script src="<?= theme_path ?>/js/libs/jquery-1.11.1.js"></script>
+    <script src="<?= theme_path ?>/js/libs/Promise.js"></script>
     <script src="<?= theme_path ?>/js/libs/soundmanager2.js"></script>
     <script src="<?= theme_path ?>/js/libs/sketcher.js"></script>
     <script src="<?= theme_path ?>/js/libs/jquery.velocity.js"></script>

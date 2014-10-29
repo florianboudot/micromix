@@ -8,7 +8,7 @@ pm.Historymanager = function() {
 	if (debug)console.info('pm.base.Historymanager.js');
 
     var settings = {
-        historyHTML5: window.history
+        historyHTML5: Modernizr.history
     };
     var noexecutiononurlchange = false;
     var needafirstview = true;

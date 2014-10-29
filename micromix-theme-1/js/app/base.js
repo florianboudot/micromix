@@ -92,6 +92,9 @@ $(document).ready(function() {
 
         var sketcher = null;
         var $canvas = $("#tagwall");
+        if(!$canvas[0].getContext) {
+            return
+        }
         var context = $canvas[0].getContext('2d');
         var brush = new Image();
 
