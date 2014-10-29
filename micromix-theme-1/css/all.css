@@ -701,10 +701,12 @@ li#currentAction span {
     padding: 10px 0 20px 0;
 }
 
-#supportWP p {
-    display: inline;
-    background: white;
-    padding: 0 5px;
+#supportWP span {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 2px 5px;
+    border-radius: 0;
+    box-shadow: 0 0 1px #FFF;
 }
 
 /* navigation */
