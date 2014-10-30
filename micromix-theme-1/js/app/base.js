@@ -58,7 +58,7 @@ $(document).ready(function() {
 
     };
 
-    var activity = new Inactivity({events:'mousemove keydown click touchend'});
+    window.activity = new Inactivity({events:'mousemove keydown click touchend'});
 
 
     // STATS
@@ -144,8 +144,9 @@ $(document).ready(function() {
 
             // looping
             spraysound.addEventListener('ended', function(){
-                this.currentTime = 0;
-                this.play();
+                var _this = this;
+                _this.currentTime = 0;
+                _this.play();
             });
 
             $tagwall.on('mousedown',function(){
@@ -295,16 +296,6 @@ var stickGhettoToBottom = function(scrollTop){
 };
 
 var parallolaxe = function (scrollTop) {
-    $('#bricks').css('background-position', 'center ' + scrollTop / 20 + 'px')
-};
-var onscroll = function () {
-    var scrolltop = $window.scrollTop();
-    stickGhettoToBottom(scrolltop);
-    parallolaxe(scrolltop);
-};
-$(window).on('scroll', onscroll);
-
-var parallolaxe = function (scrollTop) {
     $('#bricks').css('background-position', 'center ' + (scrollTop / 9) + 'px')
 };
 var onscroll = function () {
@@ -332,12 +323,11 @@ var onpostnewcomment = function () {
     $.ajax( {
         type: 'POST',
         url: $commentform.attr('action'),
-        data: $( "#commentform" ).serialize(),
+        data: $commentform.serialize(),
         success: function(data){
             var $commentlist = $('.commentlist');
             var $newcomment;
             var $appendto;
-            var action = '';
             var $data = $(data);
             if($commentlist.length){
                 $newcomment = $data.find('.commentlist li:last').addClass('new-comment');
