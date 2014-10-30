@@ -743,13 +743,16 @@ var Managethesound = function(){
     var _keyboardshortcuts = function (e) {
         if (debug)console.info('_keyboardshortcuts', e);
         if(/TEXTAREA|INPUT/.test(e.target.nodeName)){
-            return;
+            return
         }
         var is_keyboard_shortcut = false;
         var is_keyup = e.type === 'keyup'; // keyup or keydown
         var key_code = e.keyCode;
         var is_shift = e.shiftKey;
         var is_ctrl = e.ctrlKey;
+        if(e.altKey){
+            return
+        }
         var is_left_arrow = key_code === 37;
         var is_right_arrow = key_code === 39;
         var is_spacebar = key_code === 32;
