@@ -8,23 +8,15 @@ var Managethesound = function () {
     // DAT LIST
     var debug = /localhost/.test(document.location.href);
     var counter = null;
-    //var $empty = $();
     var $infos_text = $('#infos-text');
     var $cassette_player = $('#cassette-player');
     var $k7face = $('.k7_face');
-    //var $info = $('#infos');
     var $controls_all = $cassette_player.find('.control');
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
-//    var $listsitems = $('#posts-year-month .list-item');
-//    var $previewtitle = $('<span>').addClass('sound-preview-title');
-//    var $currentsoundplayer = $empty;
-//    var classnamecurrentlistitem = 'currentsoundplayed';
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
-//    var $linkpreviewsoundbyid = $('.JSpreviewsoundbyid');
 
     var $cassette = $('.cassette');
     var $cassetteToClone = $cassette.clone();
-    //var $crans = $cassette.find('.cran');
 
     var _currentidplay = '';
     var _maybecurrentidplay = '';
@@ -32,80 +24,132 @@ var Managethesound = function () {
     var _currentindexplay = 0;
     var _maybecurrentindexplay = 0;
     var _lastindexplay = 0;
-//    var $currentplayer = $empty;
-//    var DOMcurrenttimeline = null;
-//    var DOMcurrentloadprogress = null;
-//    var DOMcurrenttimetext = null;
-//    var DOMcurrenttotaltimetext = null;
     var is_post_in_the_page = false;
 
     var originalPlaylist = typeof window.list_all_posts === 'object' ? window.list_all_posts : [];
+    /**
+     * I need a converstion of index by id
+     * Then… that's it
+     */
+
+
     var _playlist = originalPlaylist;
-    var _coverbyid = {};
-    var _mp3byid = {};
-    var _mp3byindex = {};
-    var _urlbyid = {};
-    var _urlbyindex = {};
+    var _originalindexbyid = {};
+    var _originalidbyindex = {};
     var _indexbyid = {};
     var _idbyindex = {};
 
-//    var timelineevents = 'mousedown mousemove'; // add touch if touch
-
-//    var splayingclassname = 'active';
     var _sound = null;
-//    var _soundpreview = null;
-//    var _soundpreviewid = null;
     var _starttime = null;
     var _autoplay = false;
 
-    var _setPlaylist = function (playlist) {
+    var _indexReferences = function (playlist) {
         var feedPlaylist = playlist;
         for (var index = 0; index < feedPlaylist.length; index++) {
             var obj = feedPlaylist[index];
-            var mp3 = obj.mp3;
-            var url = obj.url;
             var id = obj.id;
-            var cover = obj.imgcover;
-            _mp3byid[id] = mp3;
-            _mp3byindex[index] = mp3;
-            _urlbyid[id] = url;
-            _urlbyindex[index] = url;
+            _originalindexbyid[id] = index;
+            _originalidbyindex[index] = id;
             _indexbyid[id] = index;
             _idbyindex[index] = id;
-            _coverbyid[id] = cover;
         }
     };
-    _setPlaylist(_playlist);
+    _indexReferences(_playlist);
 
-    var _getmp3byindex = function (index) {
-        if (debug)console.info('_getmp3byindex', index);
-        return _mp3byindex[index];
+    /**
+     * return an object of a sound
+     * @param id {Number} unique identifier of the sound
+     * @returns {{id: *, mp3, imgcover, url}}
+     * @private
+     */
+    var _createPlaylistItem = function (id) {
+        return {
+            id: id,
+            mp3: _getmp3byid(id),
+            imgcover: _getcoverbyid(id),
+            url: _geturlbyid(id)
+        }
+
     };
+
+    /**
+     *
+     * @param ids {Array} of post id
+     */
+    var createNewPlaylist = function (ids) {
+        if (debug) {
+            console.info('createNewPlaylist', ids.length)
+        }
+        _playlist = [];
+        _indexbyid = {};
+        _idbyindex = {};
+        for (var i = 0; i < ids.length; i++) {
+            var id = ids[i];
+            var item = _createPlaylistItem(id);
+            _playlist.push(item);
+            _indexbyid[id] = i;
+            _idbyindex[i] = id;
+        }
+        _maybecurrentindexplay = _getindexbyid(id) ? _getindexbyid(id) : 0;
+        _currentindexplay = _maybecurrentindexplay;
+
+    };
+
+    var queueToPlaylist = function () {
+        if (debug) {
+            console.info('queueToPlaylist')
+        }
+
+    };
+
+    var playNextInPlaylist = function () {
+        if (debug) {
+            console.info('playNextInPlaylist')
+        }
+
+    };
+
+    //todo check properly if .article are there
+    var createPlaylistFromArticles = function () {
+        if (debug) {
+            console.info('createPlaylistFromArticles')
+        }
+        var ids = [];
+        $('.article').each(function () {
+            ids.push(this.id.replace('post-', '') << 0);
+        });
+        createNewPlaylist(ids);
+    };
+
     var _getmp3byid = function (id) {
-        if (debug)console.info('_getmp3byid', id);
-        return _mp3byid[id];
+        //if (debug)console.info('_getmp3byid', id);
+        return originalPlaylist[_getoriginalindexbyid(id)].mp3;
+    };
+    var _geturlbyid = function (id) {
+        //if (debug)console.info('_geturlbyid', id);
+        return originalPlaylist[_getoriginalindexbyid(id)].url;
     };
 /*
-    var _geturlbyindex = function (index) {
-        if (debug)console.info('_getmp3byindex', index);
-        return _urlbyindex[index];
+    var _getoriginalidbyindex = function (index) {
+        //if (debug)console.info('_getidbyindex');
+        return _originalidbyindex[index]
     };
 */
-    var _geturlbyid = function (id) {
-        if (debug)console.info('_geturlbyid', id);
-        return _urlbyid[id];
+    var _getoriginalindexbyid = function (id) {
+        //if (debug)console.info('_getindexbyid');
+        return _originalindexbyid[id]
     };
     var _getidbyindex = function (index) {
-        if (debug)console.info('_getidbyindex');
+        //if (debug)console.info('_getidbyindex');
         return _idbyindex[index]
     };
     var _getindexbyid = function (id) {
-        if (debug)console.info('_getindexbyid');
+        //if (debug)console.info('_getindexbyid');
         return _indexbyid[id]
     };
     var _getcoverbyid = function (id) {
-        if (debug)console.info('_getindexbyid');
-        return _coverbyid[id]
+        //if (debug)console.info('_getindexbyid');
+        return originalPlaylist[_getoriginalindexbyid(id)].imgcover
     };
 
 
@@ -300,20 +344,20 @@ var Managethesound = function () {
         }
     };
 
-/*
-    var _updateloadprogress = function (force) {
-            if (debug)console.info('_updateloadprogress');//flood
-        if (is_post_in_the_page) {
-            var position = this.bytesLoaded;
-            if((position - _lastupdateloadprogress) > 0.01 || force){
-                _lastupdateloadprogress = position;
-                DOMcurrentloadprogress.style.cssText = 'width:' + (position/this.bytesTotal  *100 + '%;');
-                var otime = _getminutesandseconds(this.duration / 1000);
-                DOMcurrenttotaltimetext.textContent = otime.m + 'm:' + otime.s + 's';
-            }
-        }
-    };
-*/
+    /*
+     var _updateloadprogress = function (force) {
+     if (debug)console.info('_updateloadprogress');//flood
+     if (is_post_in_the_page) {
+     var position = this.bytesLoaded;
+     if((position - _lastupdateloadprogress) > 0.01 || force){
+     _lastupdateloadprogress = position;
+     DOMcurrentloadprogress.style.cssText = 'width:' + (position/this.bytesTotal  *100 + '%;');
+     var otime = _getminutesandseconds(this.duration / 1000);
+     DOMcurrenttotaltimetext.textContent = otime.m + 'm:' + otime.s + 's';
+     }
+     }
+     };
+     */
 
     var _gotothistime = function (e) {
         if (debug)console.info('_gotothistime');
@@ -379,12 +423,12 @@ var Managethesound = function () {
 
         return _sound;
     };
-/*
-    var _inicreatesound = function () {
-        var audiosrc = this.href.replace('http://www.micromix.fr', '');
-        _createsound(audiosrc, this.parentNode.id)
-    };
-*/
+    /*
+     var _inicreatesound = function () {
+     var audiosrc = this.href.replace('http://www.micromix.fr', '');
+     _createsound(audiosrc, this.parentNode.id)
+     };
+     */
     var TIMEOUTusergoprevnext = 0;
 
     var _usergonextprevanimation = function (sclass) {
@@ -431,7 +475,7 @@ var Managethesound = function () {
         if (debug)console.info('_playnextsound', wait);
 
         if (_maybecurrentindexplay + 1 < _playlist.length) {
-            _playthissound(_getmp3byindex(_maybecurrentindexplay + 1), _getidbyindex(_maybecurrentindexplay + 1), wait);
+            _playthissound(_getidbyindex(_maybecurrentindexplay + 1), wait);
         }
         else {
             if (debug)console.warn('no more sound, shall we play the first sound ?')
@@ -443,7 +487,7 @@ var Managethesound = function () {
         if (debug)console.info('_playprevsound');
 
         if (_maybecurrentindexplay - 1 >= 0) {
-            _playthissound(_getmp3byindex(_maybecurrentindexplay - 1), _getidbyindex(_maybecurrentindexplay - 1), wait);
+            _playthissound(_getidbyindex(_maybecurrentindexplay - 1), wait);
         }
         else {
             if (debug)console.warn('no more sound, shall we play the last sound? ')
@@ -543,18 +587,17 @@ var Managethesound = function () {
     /**
      * will create a sound in soundmanager and play it
      * set the vars of currenttimer
-     * @param url
      * @param id
      * @private
      * @param wait
      * @param animation
      */
-    var _playthissound = function (url, id, wait, animation) {
+    var _playthissound = function (id, wait, animation) {
         if (debug)console.warn('_playthissound', id, _maybecurrentindexplay, wait);
 
         if (!animation) {
             _pausesound();
-            return cassetteWantToMoveOutTheBox(url, id, wait)
+            return cassetteWantToMoveOutTheBox(id, wait)
         }
 
         _maybecurrentidplay = id;
@@ -562,7 +605,7 @@ var Managethesound = function () {
         clearTimeout(TIMEOUTusergoprevnext);
         if (wait) {
             TIMEOUTusergoprevnext = setTimeout(function () {
-                _playthissound(_getmp3byid(_maybecurrentidplay), _maybecurrentidplay, false, true);
+                _playthissound(_maybecurrentidplay, false, true);
             }, 500);
             return false;
         }
@@ -574,7 +617,7 @@ var Managethesound = function () {
 
             _deletesound(_lastidplay);
             refreshbind();
-            _createsound(url, id).play();
+            _createsound(_getmp3byid(id), id).play();
 
         }
         _updatehtmlinfo();
@@ -631,8 +674,9 @@ var Managethesound = function () {
     };
 
     var scrollToPost = function () {
-        if(window.activity.isactiv()){
-            $('body').animate({scrollTop:$('#post-' + id).offset().top},{duration:125})
+        var $currentPost = $('#post-' + _currentidplay);
+        if (!window.activity.isactiv() && $currentPost.length) {
+            $('body').animate({scrollTop: $currentPost.offset().top}, {duration: 125})
         }
     };
 
@@ -653,12 +697,12 @@ var Managethesound = function () {
 //        $currentplayer.on(timelineevents, _gotothistime);
 
         if ($parent) {
-            $parent.find('.JSplaysoundbyid').on('click', _getandplaythissound);
+            $parent.find('.JSplaysoundbyid').off('click', _getandplaythissound).on('click', _getandplaythissound);
         }
 
 
     };
-
+    //todo check this function
     var _getandplaythissound = function (e) {
         if (debug)console.info('_getandplaythissound', e);
         e.preventDefault();
@@ -667,7 +711,7 @@ var Managethesound = function () {
         pauseall();
 
         var thisid = $(this).data('soundid');
-        _playthissound(_getmp3byid(thisid), thisid, false);
+        _playthissound(thisid, false);
     };
 
     var pauseall = function () {
@@ -706,7 +750,7 @@ var Managethesound = function () {
         return hasbeenresumed;
     };
 
-
+    //todo check this function
     var _playtheveryfirstsoundinpage = function () {
         if (debug)console.info('_playtheveryfirstsoundinpage');
         var soundid = $('.wpaudio').first().data('soundid');
@@ -714,7 +758,7 @@ var Managethesound = function () {
             var totalsound = originalPlaylist.length - 1;
             soundid = originalPlaylist[Math.random2(0, totalsound)].id
         }
-        _playthissound(_getmp3byid(soundid), soundid, false)
+        _playthissound(soundid, false)
     };
 
 
@@ -1112,11 +1156,16 @@ var Managethesound = function () {
         }
     });
 
-    var cassetteWantToMoveOutTheBox = function (url, id, wait) {
+    /**
+     *
+     * @param id {Number}
+     * @param wait {Boolean}
+     */
+    var cassetteWantToMoveOutTheBox = function (id, wait) {
         console.info('cassetteWantToMoveOutTheBox');
 
         var _callback = function () {
-            _playthissound(url, id, wait, true)
+            _playthissound(id, wait, true)
         };
 
         var isPostInList = $('#post-' + id).length;
