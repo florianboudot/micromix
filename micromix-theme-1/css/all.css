@@ -394,23 +394,24 @@ ol {
 /* POST - IMAGE (CASSETTE PLASTIC CASE) */
 .post-image {
     position: relative;
+    width: 536px;
+    height: 355px;
 }
 
 .post-image .case {
-    width: 536px;
-    z-index: 2;
-    position: relative;
-    height: 355px;
     background: url(../img/cassette/plastic-case.png) 0 0 no-repeat;
+    height: 100%;
+    position: relative;
+    z-index: 2;
 }
 
 .post-image .cover {
     position: absolute;
-    left: 20px;
-    top: 14px;
+    left: 3.6%;
+    top: 4%;
     z-index: 1;
-    width: 494px;
-    height: 324px;
+    bottom: 4.7%;
+    right: 4.05%;
     background-size: cover;
     background-position: top center;
 }
