@@ -5,9 +5,14 @@
     width: 520px;
     height: 340px;
     position: absolute;
-    right: 37px;/* 500 */
-    bottom: 1500px;/* 500 */
-    z-index: 1;
+    right: 157px;/* 500 */
+    bottom: 61px;/* 500 */
+    z-index: 0;
+    transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -o-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -webkit-transform: scale(0.45);
 }
 
 .cassette:before {

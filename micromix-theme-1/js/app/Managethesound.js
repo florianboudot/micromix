@@ -1196,71 +1196,29 @@ var Managethesound = function () {
 
         var isPostInList = $('#post-' + id).length;
 
-
+        //todo find a better way to play this
         if ($cassette.hasClass('is-inside-player')) {
             openDeckDoor().then(function () {
                 cassetteMoveOutPlayer().then(function () {
-                    if (isPostInList) {
-                        cassetteMoveOutTheBox(id).then(function () {
-                            cassetteMoveInPlayer(id).then(function () {
-                                closeDeckDoor().then(_callback);
-                            })
-                        });
-                    }
-                    else {
-                        cassetteMoveInPlayer(id).then(function () {
-                            closeDeckDoor().then(_callback);
-                        })
-                    }
-                })
-            })
-        }
-        else {
-            openDeckDoor().then(function () {
-                if (isPostInList) {
                     cassetteMoveOutTheBox(id).then(function () {
                         cassetteMoveInPlayer(id).then(function () {
                             closeDeckDoor().then(_callback);
                         })
                     });
-                }
-                else {
+                })
+            })
+        }
+        else {
+            openDeckDoor().then(function () {
+                cassetteMoveOutTheBox(id).then(function () {
                     cassetteMoveInPlayer(id).then(function () {
                         closeDeckDoor().then(_callback);
                     })
-                }
+                });
             });
         }
     };
-
-    var cassetteMoveOutTheBox = function (id) {
-        if (debug) {
-            console.info('cassetteMoveOutTheBox')
-        }
-        var $k7out = $cassetteToClone.clone();
-        var imgFatSrc = _getcoverbyid(id);
-
-        $k7out.find('.k7_face').css('background-image', 'url(' + imgFatSrc + ')');
-        $k7out.css({bottom: 0, left: 0, zIndex: 1});
-
-        $('#post-' + id).css('z-index', 3);
-        var $postimage = $('#bt-player-' + id).parents('.post-image');
-        $postimage.prepend($k7out);
-
-        var bottom = ($postimage.offset().top + $postimage.height()) - $(document).scrollTop();
-        return $.Velocity.animate($k7out, {
-            bottom: bottom
-        }, {
-            duration: 100 + (bottom / 1.2),
-            delay: 250,
-            easing: 'linear',
-            complete: function () {
-                $k7out.remove();
-                $('#post-' + id).css('z-index', 0);
-            }
-        });
-    };
-
+    //todo close the door if it's open and there's no more sound to play
     /**
      * Move the cassette out of the player
      * @returns Velocity promise
@@ -1270,23 +1228,57 @@ var Managethesound = function () {
             console.info('cassetteMoveOutPlayer')
         }
         openDeckDoor();
-        var bottom = $(window).height();
 
-        return $.Velocity.animate($cassette, {
-            right: 157,
-            bottom: bottom,
-            scale: 0.55
+        $.Velocity.animate($cassette, {
+            bottom: 270,
+            scale: [0.50, 'easeInExpo']
         }, {
-            duration: 100 + (bottom / 1.2),
-            easing: 'linear',
+            duration: 350,
+            easing: 'easeInOut',
             delay: 250,
             complete: function () {
                 counter.update(0);
+                $cassette.css('zIndex', 0);
             }
+        });
+        return $.Velocity.animate($cassette, {
+            bottom: 61,
+            scale: [0.45, 'easeOutExpo']
+        }, {
+            duration: 350,
+            easing: 'easeInOut'
         });
 
 
     };
+    //todo check why we need this, bug of velocity on first animation
+    $.Velocity.animate($cassette, {
+        scale: [0.45]
+    }, {
+        duration: 1
+    });
+
+
+    var cassetteMoveOutTheBox = function (id) {
+        if (debug) {
+            console.info('cassetteMoveOutTheBox')
+        }
+        var imgFatSrc = _getcoverbyid(id);
+        $k7face.css('background-image', 'url(' + imgFatSrc + ')');
+
+        return $.Velocity.animate($cassette, {
+            bottom: 270,
+            scale: [0.50, 'easeInExpo']
+        }, {
+            duration: 350,
+            easing: 'easeInOut',
+            complete: function () {
+                //$k7out.remove();
+                //$('#post-' + id).css('z-index', 0);
+            }
+        });
+    };
+    //todo I guess we can merge those 2 functions (↓↑)
     /**
      * Move the cassette in the player
      * @returns Velocity promise
@@ -1298,14 +1290,15 @@ var Managethesound = function () {
 
         var imgFatSrc = _getcoverbyid(id);
         $k7face.css('background-image', 'url(' + imgFatSrc + ')');
+        $cassette.css('zIndex', 1);
 
         return $.Velocity.animate($cassette, {
-            right: 157,
             bottom: 61,
-            scale: 0.55
+            scale: [0.55, 'easeOutExpo']
         }, {
-            duration: 1000,
-            easing: 'linear',
+            duration: 350,
+            delay:250,
+            easing: 'easeInOut',
             complete: function () {
                 $cassette.addClass('is-inside-player');
             }
