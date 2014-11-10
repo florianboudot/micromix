@@ -228,6 +228,7 @@ var postToFeedback = function () {
             $form.find('#email').val('feedback.user@gmail.com').parents('p').first().addClass('email');
             $form.find('#url').parents('p').first().addClass('website');
 
+            $feedback_container.addClass('ready');
             // on submit
             $form.on('submit', function(e){
                 e.preventDefault();
@@ -362,7 +363,8 @@ $(window).on('load', function(){
         setTimeout(function(){
             $(o).attr('src', function(){return $(this).data('src')});
         },i*10);
-    })
+    });
+    $('#cassette-player').addClass('ready');
 });
 
 var hide_form_native_value = function (e) {

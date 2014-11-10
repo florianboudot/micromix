@@ -1,16 +1,25 @@
 /* CASSETTE PLAYER */
 #cassette-player {
-    position: fixed;
-    width: 673px;
+    background: url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;
+    bottom: -24px;
+    height: 338px;
     -webkit-perspective: 1947px; /* deck door animation */
     -moz-perspective: 1947px; /* deck door animation */
     perspective: 1947px; /* deck door animation */
-    height: 338px;
-    background: url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;
-    bottom: -24px;
-    z-index: 3;
+    opacity: 0;
+    position: fixed;
     right: 5%;
+    transition: transform 550ms cubic-bezier(0.190, 1.000, 0.220, 1.000), opacity 350ms;
+    transform: scale(1.051);
+    transform-origin: 50% 100%;
+    width: 673px;
+    z-index: 3;
 }
+#cassette-player.ready {
+    opacity: 1;
+    transform: scale(1);
+}
+
 
 .player-skin {
     background: url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;

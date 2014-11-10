@@ -233,11 +233,18 @@ ol {
 #feedback-container {
     width: 290px;
     padding: 15px;
-    background: gray;
+    background: rgba(130,130,130,0.95);
     position: fixed;
     bottom: 0;
     left:0;
     z-index: 10;
+    transition: transform 1000ms cubic-bezier(0.190, 1.000, 0.220, 1.000), opacity 900ms;
+    transform: scale(1.051);
+    transform-origin: 0% 100%;
+}
+#feedback-container.ready {
+    opacity: 1;
+    transform: scale(1);
 }
 #feedback-container .message {
     font-size: 23px;
