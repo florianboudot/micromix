@@ -38,14 +38,15 @@ var Managethesound = function () {
     var _originalidbyindex = {};
     var _indexbyid = {};
     var _idbyindex = {};
-
+    var _playlistSize = 0;
     var _sound = null;
     var _starttime = null;
     var _autoplay = false;
 
     var _indexReferences = function (playlist) {
         var feedPlaylist = playlist;
-        for (var index = 0; index < feedPlaylist.length; index++) {
+        _playlistSize = feedPlaylist.length;
+        for (var index = 0; index < _playlistSize; index++) {
             var obj = feedPlaylist[index];
             var id = obj.id;
             _originalindexbyid[id] = index;
@@ -58,7 +59,7 @@ var Managethesound = function () {
 
     /**
      * return an object of a sound
-     * @param id {Number} unique identifier of the sound
+     * @param id {Number} of post ID
      * @returns {{id: *, mp3, imgcover, url}}
      * @private
      */
@@ -74,7 +75,7 @@ var Managethesound = function () {
 
     /**
      *
-     * @param ids {Array} of post id
+     * @param ids {Array} of post ID
      */
     var createNewPlaylist = function (ids) {
         if (debug) {
@@ -83,7 +84,8 @@ var Managethesound = function () {
         _playlist = [];
         _indexbyid = {};
         _idbyindex = {};
-        for (var i = 0; i < ids.length; i++) {
+        _playlistSize = ids.length;
+        for (var i = 0; i < _playlistSize; i++) {
             var id = ids[i];
             var item = _createPlaylistItem(id);
             _playlist.push(item);
@@ -95,11 +97,19 @@ var Managethesound = function () {
 
     };
 
-    var queueToPlaylist = function () {
+    /**
+     *
+     * @param id {Number} of post ID
+     */
+    var queueToPlaylist = function (id) {
         if (debug) {
             console.info('queueToPlaylist')
         }
-
+        var item = _createPlaylistItem(id);
+        _playlist.push(item);
+        _indexbyid[id] = _playlistSize;
+        _idbyindex[_playlistSize] = id;
+        _playlistSize++;
     };
 
     var playNextInPlaylist = function () {
@@ -108,6 +118,22 @@ var Managethesound = function () {
         }
 
     };
+
+    /*window.queuToPlaylist = function(id){
+        queueToPlaylist(id)
+    };
+    window.createPlaylistFromArticles = function(){
+        createPlaylistFromArticles()
+    };
+    window.getPlaylist = function () {
+        return {
+            _playlist: _playlist,
+            _idbyindex: _idbyindex,
+            _indexbyid: _indexbyid
+        };
+    };
+*/
+
 
     //todo check properly if .article are there
     var createPlaylistFromArticles = function () {
