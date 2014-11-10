@@ -157,8 +157,8 @@ function allPostsByYear() {
                     $fat_image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : $image_src['sizes']['large']['file'];
                     $fat_image_src = empty($fat_image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $fat_image_src;
                     $image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['medium']['file'];
-                    $image_tag = '<img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster">';
-                    $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span>';
+                    $image_tag = '<span class="thumbnail-wrapper"><img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster">';
+                    $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span></span>';
 
                     // build list item
                     $list .= '<span class="micromix-number">#'.$micromix_number.'</span>';
