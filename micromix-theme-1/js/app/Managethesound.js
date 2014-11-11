@@ -25,6 +25,7 @@ var Managethesound = function () {
     var _maybecurrentindexplay = 0;
     var _lastindexplay = 0;
     var is_post_in_the_page = false;
+    var _animatingCassette = false;
 
     var originalPlaylist = typeof window.list_all_posts === 'object' ? window.list_all_posts : [];
     var _playlist = originalPlaylist;
@@ -600,6 +601,7 @@ var Managethesound = function () {
      */
     var _playthatsound = function (id, wait, animation) {
         if (debug)console.warn('_playthatsound', id, _maybecurrentindexplay, wait);
+        _animatingCassette = true;
         if (!animation) {
             _pausesound();
             return cassetteWantToMoveOutTheBox(id, wait)
@@ -623,7 +625,7 @@ var Managethesound = function () {
             _deletesound(_lastidplay);
             refreshbind();
             _createsound(_getmp3byid(id), id).play();
-
+            _animatingCassette = false;
         }
         _updatehtmlinfo();
         scrollToPost(id);
@@ -713,6 +715,9 @@ var Managethesound = function () {
         e.preventDefault();
         e.stopPropagation();
         e.stopImmediatePropagation();
+        if (_animatingCassette) {
+            return
+        }
         pauseall();
 
         var thisid = $(this).data('soundid');
@@ -799,8 +804,9 @@ var Managethesound = function () {
      * @private
      */
     var _keyboardshortcuts = function (e) {
-        if (debug)console.info('_keyboardshortcuts', e);
-        if (/TEXTAREA|INPUT/.test(e.target.nodeName)) {
+        if (debug)console.info('_keyboardshortcuts', e.keyCode, e.ctrlKey);
+        if (e.altKey || _animatingCassette || /TEXTAREA|INPUT/.test(e.target.nodeName)) {
+            console.info('stop clicking everywhere');
             return
         }
         var is_keyboard_shortcut = false;
@@ -808,9 +814,6 @@ var Managethesound = function () {
         var key_code = e.keyCode;
         var is_shift = e.shiftKey;
         var is_ctrl = e.ctrlKey;
-        if (e.altKey) {
-            return
-        }
         var is_left_arrow = key_code  === 37;
         var is_right_arrow = key_code === 39;
         var is_spacebar = key_code === 32;
@@ -902,6 +905,9 @@ var Managethesound = function () {
      */
     var playerControlManager = function (e) {
 //        if (debug)console.info('playerControlManager', e);
+        if (_animatingCassette) {
+            return
+        }
         var $control_clicked = $(this),
             id = $control_clicked.attr('id'),
             action = id.split('control-')[1],
@@ -1080,26 +1086,20 @@ var Managethesound = function () {
             _playthatsound(id, wait, true)
         };
 
-        var isPostInList = $('#post-' + id).length;
-
         //todo find a better way to play this
         if ($cassette.hasClass('is-inside-player')) {
             openDeckDoor().then(function () {
                 cassetteMoveOutPlayer().then(function () {
-                    cassetteMoveOutTheBox(id).then(function () {
                     cassetteMoveInPlayer(id).then(function () {
                         closeDeckDoor().then(_callback);
-                        })
                     });
                 })
             })
         }
         else {
             openDeckDoor().then(function () {
-                cassetteMoveOutTheBox(id).then(function () {
                 cassetteMoveInPlayer(id).then(function () {
                     closeDeckDoor().then(_callback);
-                    })
                 });
             });
         }
@@ -1113,6 +1113,7 @@ var Managethesound = function () {
         if (debug) {
             console.info('cassetteMoveOutPlayer')
         }
+        counter.update(0);
         openDeckDoor();
 
         $.Velocity.animate($cassette, {
@@ -1142,29 +1143,8 @@ var Managethesound = function () {
         duration: 1
     });
 
-
-    var cassetteMoveOutTheBox = function (id) {
-        if (debug) {
-            console.info('cassetteMoveOutTheBox')
-        }
-        var imgFatSrc = _getcoverbyid(id);
-        $k7face.css('background-image', 'url(' + imgFatSrc + ')');
-
-        return $.Velocity.animate($cassette, {
-            bottom: 270,
-            scale: [0.50, 'easeInExpo']
-        }, {
-            duration: 350,
-            easing: 'easeInOut',
-            complete: function () {
-                //$k7out.remove();
-                //$('#post-' + id).css('z-index', 0);
-            }
-        });
-    };
-    //todo I guess we can merge those 2 functions (↓↑)
     /**
-     * Move the cassette in the player
+     * Move the cassette from behing to the player
      * @returns Velocity promise
      */
     var cassetteMoveInPlayer = function (id) {
@@ -1174,7 +1154,17 @@ var Managethesound = function () {
 
         var imgFatSrc = _getcoverbyid(id);
         $k7face.css('background-image', 'url(' + imgFatSrc + ')');
-        $cassette.css('zIndex', 1);
+
+        $.Velocity.animate($cassette, {
+            bottom: 270,
+            scale: [0.50, 'easeInExpo']
+        }, {
+            duration: 350,
+            easing: 'easeInOut',
+            complete: function () {
+                $cassette.css('zIndex', 1);
+            }
+        });
 
         return $.Velocity.animate($cassette, {
             bottom: 61,
