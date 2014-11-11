@@ -578,8 +578,18 @@ var Managethesound = function () {
 
     /**
      *
+     * @param [sound = sound] {Object}
+     * @private
+     */
+    var _getvolume = function (sound) {
+        if (debug)console.info('_setvolume', sound);
+        var __sound = sound ? sound : _sound;
+        return __sound.volume;
+    };
+    /**
+     *
      * @param volume {Number}
-     * @param [sound = sound] {Number}
+     * @param [sound = sound] {Object}
      * @private
      */
     var _setvolume = function (volume, sound) {
@@ -590,6 +600,21 @@ var Managethesound = function () {
         }
     };
 
+    /**
+     * increases the volume by 5%
+     * @private
+     */
+    var _volumeUp = function () {
+        _setvolume(_getvolume()+5);
+
+    };
+    /**
+     * lowers the volume by 5%
+     * @private
+     */
+    var _volumeDown = function () {
+        _setvolume(_getvolume()-5);
+    };
 
     /**
      * will create a sound in soundmanager and play it
@@ -814,9 +839,11 @@ var Managethesound = function () {
         var key_code = e.keyCode;
         var is_shift = e.shiftKey;
         var is_ctrl = e.ctrlKey;
+        var is_spacebar = key_code    === 32;
         var is_left_arrow = key_code  === 37;
+        var is_up_arrow = key_code    === 38;
         var is_right_arrow = key_code === 39;
-        var is_spacebar = key_code === 32;
+        var is_down_arrow = key_code  === 40;
         var is_music_play_pause_key = key_code === 179; // some keyboards have a sound play/pause button
 
         // toggle play/pause
@@ -858,6 +885,16 @@ var Managethesound = function () {
         // next track
         else if (is_shift && is_right_arrow) {
             is_keyup && _usergonext();
+            is_keyboard_shortcut = true;
+        }
+        // volume up
+        else if (is_ctrl && is_up_arrow) {
+            _volumeUp();
+            is_keyboard_shortcut = true;
+        }
+        // volume down
+        else if (is_ctrl && is_down_arrow) {
+            _volumeDown();
             is_keyboard_shortcut = true;
         }
 
