@@ -120,19 +120,19 @@ var Managethesound = function () {
     };
 
     /*window.queuToPlaylist = function(id){
-        queueToPlaylist(id)
-    };
-    window.createPlaylistFromArticles = function(){
-        createPlaylistFromArticles()
-    };
-    window.getPlaylist = function () {
-        return {
-            _playlist: _playlist,
-            _idbyindex: _idbyindex,
-            _indexbyid: _indexbyid
-        };
-    };
-*/
+     queueToPlaylist(id)
+     };
+     window.createPlaylistFromArticles = function(){
+     createPlaylistFromArticles()
+     };
+     window.getPlaylist = function () {
+     return {
+     _playlist: _playlist,
+     _idbyindex: _idbyindex,
+     _indexbyid: _indexbyid
+     };
+     };
+     */
 
 
     //todo check properly if .article are there
@@ -155,12 +155,12 @@ var Managethesound = function () {
         //if (debug)console.info('_geturlbyid', id);
         return originalPlaylist[_getoriginalindexbyid(id)].url;
     };
-/*
-    var _getoriginalidbyindex = function (index) {
-        //if (debug)console.info('_getidbyindex');
-        return _originalidbyindex[index]
-    };
-*/
+    /*
+     var _getoriginalidbyindex = function (index) {
+     //if (debug)console.info('_getidbyindex');
+     return _originalidbyindex[index]
+     };
+     */
     var _getoriginalindexbyid = function (id) {
         //if (debug)console.info('_getindexbyid');
         return _originalindexbyid[id]
@@ -832,7 +832,7 @@ var Managethesound = function () {
         if (e.altKey) {
             return
         }
-        var is_left_arrow = key_code === 37;
+        var is_left_arrow = key_code  === 37;
         var is_right_arrow = key_code === 39;
         var is_spacebar = key_code === 32;
         var is_music_play_pause_key = key_code === 179; // some keyboards have a sound play/pause button
@@ -1201,8 +1201,8 @@ var Managethesound = function () {
             openDeckDoor().then(function () {
                 cassetteMoveOutPlayer().then(function () {
                     cassetteMoveOutTheBox(id).then(function () {
-                        cassetteMoveInPlayer(id).then(function () {
-                            closeDeckDoor().then(_callback);
+                    cassetteMoveInPlayer(id).then(function () {
+                        closeDeckDoor().then(_callback);
                         })
                     });
                 })
@@ -1211,8 +1211,8 @@ var Managethesound = function () {
         else {
             openDeckDoor().then(function () {
                 cassetteMoveOutTheBox(id).then(function () {
-                    cassetteMoveInPlayer(id).then(function () {
-                        closeDeckDoor().then(_callback);
+                cassetteMoveInPlayer(id).then(function () {
+                    closeDeckDoor().then(_callback);
                     })
                 });
             });
@@ -1297,7 +1297,7 @@ var Managethesound = function () {
             scale: [0.55, 'easeOutExpo']
         }, {
             duration: 350,
-            delay:250,
+            delay: 250,
             easing: 'easeInOut',
             complete: function () {
                 $cassette.addClass('is-inside-player');
@@ -1313,8 +1313,7 @@ var Managethesound = function () {
         counter = new Counter();
 
         //todo externalize this hash extract
-        var hashsplit = location.hash.split('#')[1];
-        var hashs = hashsplit ? hashsplit.split('&') : [];
+        var hashs = getUrlHash();
         if (hashs.length) {
 
             for (var i = 0; i < hashs.length; i++) {

@@ -133,6 +133,10 @@ var postToFeedback = function () {
     }
 };
 
+var getUrlHash = function () {
+    var hashsplit = location.hash.split('#')[1];
+    return hashsplit ? hashsplit.split('&') : [];
+};
 var menuhover = function () {
 
     var $menu = $('#posts-year-month');
