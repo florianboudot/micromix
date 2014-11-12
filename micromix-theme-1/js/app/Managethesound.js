@@ -823,20 +823,25 @@ var Managethesound = function () {
         }
     };
 
+    var pressedKeys = {};
+
     /**
      * Keyboard shortcuts
      * @param e
      * @private
      */
     var _keyboardshortcuts = function (e) {
-        if (debug)console.info('_keyboardshortcuts', e.keyCode, e.ctrlKey);
-        if (e.altKey || _animatingCassette || /TEXTAREA|INPUT/.test(e.target.nodeName)) {
-            //console.info('stop clicking everywhere');
+        if (debug)console.info('_keyboardshortcuts', e);
+        var key_code = e.keyCode;
+        pressedKeys[key_code] = e.type === 'keydown';
+
+        if (pressedKeys[91] || pressedKeys[92] || e.altKey || _animatingCassette || /TEXTAREA|INPUT/.test(e.target.nodeName)) {
+            debug && console.info('stop clicking everywhere');
             return
         }
+
         var is_keyboard_shortcut = false;
         var is_keyup = e.type === 'keyup'; // keyup or keydown
-        var key_code = e.keyCode;
         var is_shift = e.shiftKey;
         var is_ctrl = e.ctrlKey;
         var is_spacebar = key_code    === 32;
