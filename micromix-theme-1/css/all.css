@@ -264,6 +264,14 @@ ol {
     margin-bottom: 10px;
     width: 95%;
 }
+#feedback-form textarea {
+    height: 2em;
+    transition: height 200ms ease-in-out 300ms;
+}
+#feedback-form textarea:focus {
+    transition-delay: 0;
+    height: 7em;
+}
 #feedback-form input#submit {
     width: auto;
     padding: 5px;
