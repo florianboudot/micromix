@@ -34,7 +34,6 @@ function image_attachment_src($the_post_id, $the_size){
  * regenerates image thumbnails for old posts
  *
  */
-/*
 require ( ABSPATH . 'wp-admin/includes/image.php' );
 function regenerate_all_attachment_sizes() {
     $args = array(
@@ -52,8 +51,12 @@ function regenerate_all_attachment_sizes() {
         }
     }
 }
-regenerate_all_attachment_sizes();
-*/
+
+if(is_user_logged_in() && isset($_GET['regenimg'])){
+    regenerate_all_attachment_sizes();
+}
+
+
 
 /*
 function : ALL POSTS BY YEAR (in the sidebar)
@@ -319,4 +322,5 @@ function hls_set_query() {
     }
 }
 add_action('wp_print_scripts', 'hls_set_query');
+
 ?>
