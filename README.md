@@ -47,7 +47,7 @@ and
 
 ## .htaccess file
 
-<IfModule mod_rewrite.c>
+`<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 RewriteRule ^index\.php$ - [L]
@@ -55,7 +55,7 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}
-</IfModule>
+</IfModule>`
 
 
 ##phpstorm commit message format
