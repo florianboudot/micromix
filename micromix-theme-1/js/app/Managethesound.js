@@ -1111,6 +1111,10 @@ var Managethesound = function () {
         }
     });
 
+    var K7SCALLEFAR = 0.5;
+    var K7SCALLEMIDDLE = 0.525;
+    var K7SCALLENEAR = 0.55;
+
     /**
      *
      * @param id {Number}
@@ -1155,7 +1159,7 @@ var Managethesound = function () {
 
         $.Velocity.animate($cassette, {
             bottom: 270,
-            scale: [0.50, 'easeInExpo']
+            scale: [K7SCALLEMIDDLE, 'easeInExpo']
         }, {
             duration: 350,
             easing: 'easeInOut',
@@ -1166,7 +1170,7 @@ var Managethesound = function () {
         });
         return $.Velocity.animate($cassette, {
             bottom: 61,
-            scale: [0.45, 'easeOutExpo']
+            scale: [K7SCALLEFAR, 'easeOutExpo']
         }, {
             duration: 350,
             easing: 'easeInOut'
@@ -1175,7 +1179,7 @@ var Managethesound = function () {
     };
     //todo check why we need this, bug of velocity on first animation
     $.Velocity.animate($cassette, {
-        scale: [0.45]
+        scale: [K7SCALLEFAR]
     }, {
         duration: 1
     });
@@ -1194,7 +1198,7 @@ var Managethesound = function () {
 
         $.Velocity.animate($cassette, {
             bottom: 270,
-            scale: [0.50, 'easeInExpo']
+            scale: [K7SCALLEMIDDLE, 'easeInExpo']
         }, {
             duration: 350,
             easing: 'easeInOut',
@@ -1205,10 +1209,10 @@ var Managethesound = function () {
 
         return $.Velocity.animate($cassette, {
             bottom: 61,
-            scale: [0.55, 'easeOutExpo']
+            scale: [K7SCALLENEAR, 'easeOutExpo']
         }, {
             duration: 350,
-            delay: 250,
+            delay: 0,
             easing: 'easeInOut',
             complete: function () {
                 $cassette.addClass('is-inside-player');
