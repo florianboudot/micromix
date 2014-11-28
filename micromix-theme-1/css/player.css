@@ -214,9 +214,6 @@
     left: 0;
     top: 0;
     opacity: 0;
-    -moz-transition: opacity ease-in-out 50ms;
-    -webkit-transition: opacity ease-in-out 50ms;
-    transition: opacity ease-in-out 50ms;
 }
 
 #vu-meter .led.active {
