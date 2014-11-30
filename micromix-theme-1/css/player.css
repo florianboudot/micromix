@@ -147,6 +147,7 @@
     height: 300px;
     z-index: 1;
     opacity: 0;
+    pointer-events: none;
     -webkit-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
     -moz-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
     transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out; /* 50ms delay after deck opens */

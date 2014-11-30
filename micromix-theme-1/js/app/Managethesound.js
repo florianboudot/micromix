@@ -831,7 +831,7 @@ var Managethesound = function () {
     var _keyboardshortcuts = function (e) {
         if (debug)console.info('_keyboardshortcuts', e.keyCode, e.ctrlKey);
         if (e.altKey || _animatingCassette || /TEXTAREA|INPUT/.test(e.target.nodeName)) {
-            console.info('stop clicking everywhere');
+            //console.info('stop clicking everywhere');
             return
         }
         var is_keyboard_shortcut = false;
@@ -1121,7 +1121,7 @@ var Managethesound = function () {
      * @param wait {Boolean}
      */
     var cassetteWantToMoveOutTheBox = function (id, wait) {
-        console.info('cassetteWantToMoveOutTheBox');
+        debug && console.info('cassetteWantToMoveOutTheBox');
 
         var _callback = function () {
             _playthatsound(id, wait, true)
@@ -1189,7 +1189,7 @@ var Managethesound = function () {
      * @returns Velocity promise
      */
     var cassetteMoveInPlayer = function (id) {
-        console.info('cassetteMoveInPlayer');
+        debug && console.info('cassetteMoveInPlayer');
         if (!$cassette.hasClass('is-inside-player')) {
         }
 
@@ -1253,9 +1253,9 @@ var Managethesound = function () {
             url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/',
             // optional: prefer HTML5 over Flash for MP3/MP4
             flashVersion: 9, // for VU meter
-            debugMode: true,
+            debugMode: debug,
             preferFlash: true,
-            useFastPolling: true, // for VU meter
+            //useFastPolling: true, //todo does not exit // for VU meter
             flashPollingInterval: 100, // for VU meter
             useHighPerformance: true,// for VU meter
             onready: _bind_controls,
