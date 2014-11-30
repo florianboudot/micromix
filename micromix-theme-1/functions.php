@@ -38,7 +38,7 @@ require ( ABSPATH . 'wp-admin/includes/image.php' );
 function regenerate_all_attachment_sizes() {
     $args = array(
         'post_type' => 'attachment',
-        'numberposts' => 95, // important
+        'numberposts' => 1000, // important
         'post_status' => null,
         'post_parent' => null,
         'post_mime_type' => 'image'
@@ -145,7 +145,7 @@ function allPostsByYear() {
 
                     $valmp3_uri = get_post_meta($post_id, 'enclosure', false);
                     $mp3_uri = addslashes(trim(htmlspecialchars($valmp3_uri[0])));
-                    $mp3_uri = "/upload/" . $mp3_uri;
+                    $mp3_uri = mb_ereg_replace('http://www.micromix.fr' , '', $mp3_uri);
 
                     $micromix_number = get_post_meta($post_id, 'micromixNumber', true);
 //                    $micromix_number = $totalposts+1;
@@ -158,7 +158,7 @@ function allPostsByYear() {
                     //keep this instead of image_attachment_src because it will add 1s load (for 100 posts)
                     $image_src = wp_get_attachment_metadata($post_img_att);
                     $fat_image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : $image_src['sizes']['large']['file'];
-                    $fat_image_src = empty($fat_image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $fat_image_src;
+//                    $fat_image_src = empty($fat_image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "" . $fat_image_src;
                     $image_src = empty($image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['medium']['file'];
                     $image_tag = '<span class="thumbnail-wrapper"><img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster">';
                     $image_tag .= '<span class="play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '"><span class="play-sound-inside"></span><span class="play-sound-text">►</span></span></span>';
@@ -189,7 +189,7 @@ function allPostsByYear() {
      *  { id : 1470, url : 'http://micromix.localhost/pochette-souple/' }
      * ]
     */
-    $full_list = "<script>";
+    $full_list = "<script>//console.warn('" . microtime() . "');";
     $full_list .= "\n";
     $full_list .= "var list_all_posts = [";
     $nb_posts = count($post_id_array) - 2;
