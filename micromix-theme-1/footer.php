@@ -10,6 +10,8 @@
     </div>
 </div><!-- #mainContainer -->
 
+<div id="vignette"></div>
+
 <?php wp_footer(); ?>
 
 <!-- SCRIPTS -->
