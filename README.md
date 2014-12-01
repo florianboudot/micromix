@@ -34,6 +34,11 @@ and
 * import the images and mp3 files in your `/upload/` folder (ask the owner)
 
 * if you need to regenerate all thumbnails jpg files (small, medium, large), go to `functions.php` and uncomment the function `regenerate_all_attachment_sizes`
+	
+* change this line in media.php to force resize of elements at same size of original
+	if ( $new_w > $orig_w && $new_h > $orig_h )
+		return false;
+
 
 * modify your `.htacccess` adding this line `RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}`
 
