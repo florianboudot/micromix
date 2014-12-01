@@ -14,7 +14,7 @@ $.fn.extend({
 });
 
 var Inactivity = function(options){
-    var debug = true;
+    var debug = false;
     var events = options.events;
 
     var isactiv = false;
@@ -138,6 +138,7 @@ var getUrlHash = function () {
     return hashsplit ? hashsplit.split('&') : [];
 };
 var menuhover = function () {
+    var debug = false;
 
     var $menu = $('#posts-year-month');
     var $item = $menu.find('.list-item a');
@@ -147,17 +148,14 @@ var menuhover = function () {
     var functionwait = function(){};
 
     $item.on('mouseenter mouseleave', function (e) {
-        console.info('####### mouseenter mouseleave');
+        debug && console.info('####### mouseenter mouseleave');
         clearTimeout(TIMEOUTenter);
         if (e.type == 'mouseenter') {
             clearTimeout(TIMEOUTwait);
             var $this = $(this);
-            console.info(!$this.is($currentitem));
             if (!$this.is($currentitem)) {
-                console.info('gogogo!', this);
                 functionwait();
                 TIMEOUTenter = setTimeout(function(){
-                    console.info('ouiiii!');
                     $currentitem.removeClass('hover');
                     $currentitem = $this.addClass('hover')
                 }, 125);
@@ -284,27 +282,28 @@ var newsletter_check = function (f) {
     return message;
 };
 $('#newletter_form').on('submit', function(e){
+    var debug = false;
     var check_form = newsletter_check(this);
     var check_ok = check_form.length === 0;
     if(check_ok){
         var $form = $(this);
         var url = $form.attr('action');
         var data = $form.serialize();
-        console.info(url);
+        debug && console.info(url);
         $.ajax({
             url:url,
             method: 'POST',
             data: data
         }).done(function(){
-            console.info('done')
+            debug && console.info('done')
         }).fail(function(){
-            console.info('fail')
+            debug && console.info('fail')
         }).always(function(){
-            console.info('always')
+            debug && console.info('always')
         });
     }
     else {
-        console.info(check_form)
+        debug && console.info(check_form)
     }
 
     e.preventDefault();

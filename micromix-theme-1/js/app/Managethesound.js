@@ -831,7 +831,7 @@ var Managethesound = function () {
     var _keyboardshortcuts = function (e) {
         if (debug)console.info('_keyboardshortcuts', e.keyCode, e.ctrlKey);
         if (e.altKey || _animatingCassette || /TEXTAREA|INPUT/.test(e.target.nodeName)) {
-            console.info('stop clicking everywhere');
+            //console.info('stop clicking everywhere');
             return
         }
         var is_keyboard_shortcut = false;
@@ -1111,13 +1111,17 @@ var Managethesound = function () {
         }
     });
 
+    var K7SCALLEFAR = 0.5;
+    var K7SCALLEMIDDLE = 0.525;
+    var K7SCALLENEAR = 0.55;
+
     /**
      *
      * @param id {Number}
      * @param wait {Boolean}
      */
     var cassetteWantToMoveOutTheBox = function (id, wait) {
-        console.info('cassetteWantToMoveOutTheBox');
+        debug && console.info('cassetteWantToMoveOutTheBox');
 
         var _callback = function () {
             _playthatsound(id, wait, true)
@@ -1155,7 +1159,7 @@ var Managethesound = function () {
 
         $.Velocity.animate($cassette, {
             bottom: 270,
-            scale: [0.50, 'easeInExpo']
+            scale: [K7SCALLEMIDDLE, 'easeInExpo']
         }, {
             duration: 350,
             easing: 'easeInOut',
@@ -1166,7 +1170,7 @@ var Managethesound = function () {
         });
         return $.Velocity.animate($cassette, {
             bottom: 61,
-            scale: [0.45, 'easeOutExpo']
+            scale: [K7SCALLEFAR, 'easeOutExpo']
         }, {
             duration: 350,
             easing: 'easeInOut'
@@ -1175,7 +1179,7 @@ var Managethesound = function () {
     };
     //todo check why we need this, bug of velocity on first animation
     $.Velocity.animate($cassette, {
-        scale: [0.45]
+        scale: [K7SCALLEFAR]
     }, {
         duration: 1
     });
@@ -1185,7 +1189,7 @@ var Managethesound = function () {
      * @returns Velocity promise
      */
     var cassetteMoveInPlayer = function (id) {
-        console.info('cassetteMoveInPlayer');
+        debug && console.info('cassetteMoveInPlayer');
         if (!$cassette.hasClass('is-inside-player')) {
         }
 
@@ -1194,7 +1198,7 @@ var Managethesound = function () {
 
         $.Velocity.animate($cassette, {
             bottom: 270,
-            scale: [0.50, 'easeInExpo']
+            scale: [K7SCALLEMIDDLE, 'easeInExpo']
         }, {
             duration: 350,
             easing: 'easeInOut',
@@ -1205,10 +1209,10 @@ var Managethesound = function () {
 
         return $.Velocity.animate($cassette, {
             bottom: 61,
-            scale: [0.55, 'easeOutExpo']
+            scale: [K7SCALLENEAR, 'easeOutExpo']
         }, {
             duration: 350,
-            delay: 250,
+            delay: 0,
             easing: 'easeInOut',
             complete: function () {
                 $cassette.addClass('is-inside-player');
@@ -1249,9 +1253,9 @@ var Managethesound = function () {
             url: theme_path.replace(location.protocol + '//' + location.host, '') + '/swf/',
             // optional: prefer HTML5 over Flash for MP3/MP4
             flashVersion: 9, // for VU meter
-            debugMode: true,
+            debugMode: debug,
             preferFlash: true,
-            useFastPolling: true, // for VU meter
+            //useFastPolling: true, //todo does not exit // for VU meter
             flashPollingInterval: 100, // for VU meter
             useHighPerformance: true,// for VU meter
             onready: _bind_controls,
