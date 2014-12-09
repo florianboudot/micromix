@@ -1,0 +1,182 @@
+/* THE CASETTE AND ITS ANIMATIONS */
+
+/* CASSETTE */
+.cassette {
+    width: 520px;
+    height: 340px;
+    position: absolute;
+    right: 157px;/* 500 */
+    bottom: 61px;/* 500 */
+    z-index: 0;
+    transform: scale(0.45);
+    -moz-transform: scale(0.45);
+    -o-transform: scale(0.45);
+    -ms-transform: scale(0.45);
+    -webkit-transform: scale(0.45);
+}
+
+.cassette:before {
+    content: '';
+    position: absolute;
+    width: 107px;
+    height: 39px;
+    top: 173px;
+    z-index: 1;
+    left: 203px;
+    opacity: .6;
+    box-shadow: 0 -2px 11px #000 inset;
+}
+.cassette:after {
+    content: '';
+    position: absolute;
+    width: 107px;
+    height: 39px;
+    top: 173px;
+    z-index: 3;
+    left: 203px;
+    opacity: .6;
+    box-shadow: 0 4px 11px #000 inset;
+}
+
+.cassette .front {
+    background: url(../img/cassette/cassette-front-2.png) 0 0 no-repeat;
+    width: 520px;
+    height: 340px;
+    position: relative;
+    z-index: 3;
+}
+
+
+.cassette-cover {
+    position: absolute;
+    left: 0;
+    right:0;
+    top: 0;
+    bottom: 0;
+    z-index: 3;
+    background-size: cover;
+    width: 520px;
+    height: 340px;
+
+    -webkit-mask: url(../img/cassette/mask.png);
+    /* firefox rule is in the html document */
+}
+.cassette-cover .velum {
+    width: 100%;
+    position: absolute;
+}
+
+/* ROTATING CRANS */
+.cassette .reel-base {
+    width: 263px;
+    height: 263px;
+    position: absolute;
+    left: 19px;
+    top: 50px;
+    z-index: 1;
+}
+
+.cassette .reel-base.right {
+    left: 231px;
+}
+
+.cassette .reel-base div {
+    height: 100%;
+}
+.cassette .reel-base .base {
+    background: url(../img/cassette/cran.png) center no-repeat;
+}
+
+.cassette .tape {
+    background: url(../img/cassette/reel-tape.png) center no-repeat;
+    background-size: 225px;
+    border-radius: 100%;
+    bottom: 0;
+    height: auto !important;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    right: 0;
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    transform: rotate(0deg);
+    top: 0;
+    z-index: 1;
+}
+.cassette .left .tape {
+    margin: 80px;
+}
+
+
+@-webkit-keyframes cranrotating {
+    from{
+        -webkit-transform: rotate(0deg);
+    }
+    to{
+        -webkit-transform: rotate(360deg);
+    }
+}
+@-moz-keyframes cranrotating {
+    from{
+        -moz-transform: rotate(0deg);
+    }
+    to{
+        -moz-transform: rotate(360deg);
+    }
+}
+@keyframes cranrotating {
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.cassette .base,.cassette .backward,.cassette .forward {
+    -webkit-animation-play-state: paused !important;
+    -moz-animation-play-state: paused !important;
+    animation-play-state: paused !important;
+
+    -webkit-transform-origin: 49.8% 50.3%;
+    -moz-transform-origin: 49.8% 50.3%;
+    transform-origin: 49.8% 50.3%;
+}
+.cassette.rotating .base,.cassette.rotatingrewind .backward,.cassette.rotatingfastforward .forward {
+    -webkit-animation-play-state: running !important;
+    -moz-animation-play-state: running !important;
+    animation-play-state: running !important;
+}
+.cassette .left .base {
+    -webkit-animation: cranrotating 2s linear 0s infinite;
+    -moz-animation: cranrotating 2s linear 0s infinite;
+    animation: cranrotating 2s linear infinite;
+}
+.cassette .right .base {
+    -webkit-animation: cranrotating 3s linear 0s infinite;
+    -moz-animation: cranrotating 3s linear 0s infinite;
+    animation: cranrotating 3s linear infinite;
+}
+.cassette .left .backward {
+    -webkit-animation: cranrotating .5s linear 0s infinite reverse;
+    -moz-animation: cranrotating .5s linear 0s infinite reverse;
+    animation: cranrotating .5s linear infinite reverse;
+}
+.cassette .right .backward {
+    -webkit-animation: cranrotating .75s linear 0s infinite reverse;
+    -moz-animation: cranrotating .75s linear 0s infinite reverse;
+    animation: cranrotating .75s linear infinite reverse;
+}
+.cassette .left .forward {
+    -webkit-animation: cranrotating .5s linear 0s infinite;
+    -moz-animation: cranrotating .5s linear 0s infinite;
+    animation: cranrotating .5s linear infinite reverse;
+}
+.cassette .right .forward {
+    -webkit-animation: cranrotating .75s 0s linear infinite;
+    -moz-animation: cranrotating .75s 0s linear infinite;
+    animation: cranrotating .75s linear infinite;
+
+}
+
+/* END */

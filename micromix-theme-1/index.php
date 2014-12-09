@@ -1,54 +1,38 @@
-<?php get_header(); ?>
+<?php //$timestart = microtime();
+// HEADER
+if(!isajax()){
+    get_header(); // <div id="column2"> is in header
+}
 
-    <?php if (have_posts()) : ?>
+echo '<div class="view" data-context="index">';
+?>
 
-        <?php while (have_posts()) : the_post(); ?>
+<!-- TEMPLATE INDEX.PHP (home) -->
+<?php
+// POSTS LOOP
+if (have_posts()) {
+    while (have_posts()) {
+        the_post();
+        // THE POST : title, image, playlist, player, etc.
+        include("the_post.php");
+    }
 
+    // NAVIGATION
+//    if(!isajax()){
+        include("navigation.php");
+//    }
+}
+else { // NO POSTS FOUND ?>
+    <h2 class="center">Not Found</h2>
+    <p class="center">Sorry, but you are looking for something that isn't here.</p>
+    <?php include (TEMPLATEPATH . "/searchform.php");
+}
+echo '</div>';
 
+// SIDEBAR
+if(!isajax()){
+    get_sidebar();
+}
 
-        <div class="article" id="post-<?php the_ID(); ?>">
-
-            
-            <?php include("the_post.php"); //title, image, playlist, player, etc. ?>
-            
-            
-        </div><!-- .article -->
-        
-        <?php endwhile; ?>
-
-        <div class="navigation">
-            <div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-            <div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-        </div>
-    <?php else : ?>
-
-
-
-        <h2 class="center">Not Found</h2>
-
-        <p class="center">Sorry, but you are looking for something that isn't here.</p>
-
-        <?php include (TEMPLATEPATH . "/searchform.php"); ?>
-
-
-
-    <?php endif; ?>
-
-    
-
-    <?php include("support.php"); ?>
-
-        
-
-        
-
-</div><!-- #column2 -->
-
-
-
-<?php get_sidebar(); ?>
-
-
-
-
-
+?>
+<?php //$timeend = microtime(); echo 'toto ' .  ($timeend - $timestart) ?>

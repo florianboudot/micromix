@@ -1,0 +1,384 @@
+/* CASSETTE PLAYER */
+#cassette-player {
+    background: url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;
+    bottom: -24px;
+    height: 338px;
+    -webkit-perspective: 1947px; /* deck door animation */
+    -moz-perspective: 1947px; /* deck door animation */
+    perspective: 1947px; /* deck door animation */
+    opacity: 0;
+    position: fixed;
+    right: 5%;
+    transition: transform 550ms cubic-bezier(0.190, 1.000, 0.220, 1.000), opacity 350ms;
+    transform: scale(1.051);
+    transform-origin: 50% 100%;
+    width: 673px;
+    z-index: 3;
+}
+#cassette-player.ready {
+    opacity: 1;
+    transform: scale(1);
+}
+
+
+.player-skin {
+    background: url(../img/player/cassette-player-bg-contour.png) 0 0 no-repeat, url(../img/player/player-front.jpg) 30px 5px no-repeat;
+    height: 100%;
+    position: relative;
+}
+
+#cassette-player.positionabsolute {
+    position: absolute;
+    bottom: 198px;
+}
+
+/* CONTROLS */
+#cassette-player .control {
+    position: absolute;
+    overflow: hidden;
+    text-indent: -9999px;
+    width: 46px;
+    cursor: pointer;
+    height: 61px;
+    top: 241px;
+    z-index: 5;
+}
+
+#cassette-player .control.active {
+    cursor: default;
+}
+
+#cassette-player #control-pause {
+    left: 112px;
+}
+
+#cassette-player #control-play {
+    left: 159px;
+    width: 46px;
+}
+
+#cassette-player #control-rewind {
+    left: 205px;
+    width: 47px;
+}
+
+#cassette-player #control-forward {
+    left: 253px;
+    width: 46px;
+}
+
+#cassette-player #control-prev {
+    left: 299px;
+    width: 47px;
+}
+
+#cassette-player #control-next {
+    left: 347px;
+}
+
+/* CONTROLS PUSHED */
+#cassette-player .control-pushed {
+    z-index: 4;
+    position: absolute;
+    top: 238px;
+    width: 61px;
+    height: 70px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    display: none;
+}
+
+#cassette-player .control-pushed.active {
+    display: block;
+}
+
+#cassette-player #control-pause-pushed {
+    background-image: url(../img/player/control-1-pushed.jpg); /* todo sprite me */
+    left: 105px;
+}
+
+#cassette-player #control-play-pushed {
+    background-image: url(../img/player/control-2-pushed.jpg);
+    left: 151px;
+}
+
+#cassette-player #control-rewind-pushed {
+    background-image: url(../img/player/control-3-pushed.jpg);
+    left: 198px;
+}
+
+#cassette-player #control-forward-pushed {
+    background-image: url(../img/player/control-4-pushed.jpg);
+    left: 246px;
+}
+
+#cassette-player #control-prev-pushed {
+    background-image: url(../img/player/control-5-pushed.jpg);
+    left: 292px;
+}
+
+#cassette-player #control-next-pushed {
+    background-image: url(../img/player/control-6-pushed.jpg);
+    left: 338px;
+}
+
+/* DECK DOOR (OPEN / CLOSE)*/
+#deck {
+    width: 366px;
+    height: 194px;
+    background: url(../img/player/deck.png) 0 0 no-repeat;
+    position: absolute;
+    left: 70px;
+    top: 17px;
+    z-index: 2;
+    transform-origin: 50% 94%;
+}
+
+#deck.open {
+    /*-webkit-transform: perspective( 1947px ) rotateX( -30deg );*/
+}
+
+#deck-door-shadow {
+    position: absolute;
+    left: 9px;
+    bottom: 73px;
+    background: url(../img/player/deck-door-shadow.png) 0 0 no-repeat;
+    width: 507px;
+    height: 300px;
+    z-index: 1;
+    opacity: 0;
+    pointer-events: none;
+    -webkit-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out, height 0.3s ease-in-out; /* 50ms delay after deck opens */
+}
+
+#deck-door-shadow.active {
+    opacity: 0.8;
+    height: 235px;
+}
+
+#dark-on-deck-open {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    background: url(../img/player/dark-on-deck-open.png) 0 0 no-repeat;
+    width: 366px;
+    height: 190px;
+    opacity: 0;
+    -webkit-transition: opacity 0.3s ease-in-out;
+    -moz-transition: opacity 0.3s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
+    /* no transition on IE9 */
+}
+
+.open #dark-on-deck-open {
+    opacity: 0.2;
+}
+
+#top-depth {
+    background: url(../img/player/deck-top-depth.jpg) 0 0 repeat-x;
+    width: 350px;
+    height: 63px;
+    margin-top: -31px;
+    margin-left: 8px;
+
+    -webkit-transform: perspective(1918px) rotateX(87deg) rotateY(-0.3deg);
+    -moz-transform: perspective(1918px) rotateX(87deg) rotateY(-0.3deg);
+    -ms-transform: perspective(1918px) rotateX(87deg) rotateY(-0.3deg);
+    transform: perspective(1918px) rotateX(87deg) rotateY(-0.3deg);
+
+    -webkit-transition: -webkit-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    -moz-transition: -moz-transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, margin-top 0.3s ease-in-out;
+}
+
+/*
+.open #top-depth {
+}
+*/
+
+/* VU METER */
+#vu-meter {
+    position: absolute;
+    left: 467px;
+    top: 91px;
+    width: 10px;
+    height: 10px;
+}
+
+#vu-meter .led {
+    width: 26px;
+    height: 11px;
+    background: url(../img/player/vu-metre-leds.png) 0 0 no-repeat;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+}
+
+#vu-meter .led.active {
+    opacity: 1;
+}
+
+#vu-meter .led.green {
+    background-position: 0 0;
+}
+
+#vu-meter .led.red {
+    background-position: -26px 0;
+}
+
+#vu-meter .bar {
+    position: absolute;
+    left: 0;
+}
+
+#vu-meter .bar.left {
+    top: 0;
+}
+
+#vu-meter .bar.right {
+    top: 12px;
+}
+
+#vu-meter .vu-20 {
+    left: 0;
+}
+
+#vu-meter .vu-40 {
+    left: 17px;
+}
+
+#vu-meter .vu-60 {
+    left: 32px;
+}
+
+#vu-meter .vu-80 {
+    left: 48px;
+}
+
+#vu-meter .vu-100 {
+    left: 65px;
+}
+
+/* COUNTER */
+#counter {
+    position: absolute;
+    left: 465px;
+    top: 39px;
+    width: 47px;
+    height: 14px;
+    font-size: 12px;
+    overflow: hidden;
+}
+
+#counter .unit {
+    -webkit-transition: top 200ms ease-in-out;
+    -moz-transition: top 200ms ease-in-out;
+    transition: top 200ms ease-in-out;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+}
+
+.unit .number {
+    width: 12px;
+    height: 14px;
+    overflow: hidden;
+    text-indent: -9999px;
+    background-image: url(../img/player/counter-numbers.png);
+    background-repeat: no-repeat;
+}
+
+.unit .number-0 {
+    background-position: 0 0;
+}
+
+.unit .number-1 {
+    background-position: 0 -14px;
+}
+
+.unit .number-2 {
+    background-position: 0 -28px;
+}
+
+.unit .number-3 {
+    background-position: 0 -42px;
+}
+
+.unit .number-4 {
+    background-position: 0 -56px;
+}
+
+.unit .number-5 {
+    background-position: 0 -70px;
+}
+
+.unit .number-6 {
+    background-position: 0 -84px;
+}
+
+.unit .number-7 {
+    background-position: 0 -98px;
+}
+
+.unit .number-8 {
+    background-position: 0 -112px;
+}
+
+.unit .number-9 {
+    background-position: 0 -126px;
+}
+
+#counter #unit-1 {
+    left: 0;
+}
+
+#counter #unit-2 {
+    left: 18px;
+}
+
+#counter #unit-3 {
+    left: 36px;
+}
+
+/* MIX INFOS ON THE PLAYER */
+#infos {
+    height: 40px;
+    overflow: hidden;
+    line-height: 34px;
+    position: absolute;
+    top: 150px;
+    opacity: 0.5;
+    right: 64px;
+    left: 464px;
+    -webkit-transform: rotateX(8deg);
+    -moz-transform: rotateX(8deg);
+    -ms-transform: rotateX(8deg);
+    transform: rotateX(8deg);
+
+    -webkit-transform-origin: -72% -15%;
+    -moz-transform-origin: -72% -15%;
+    -ms-transform-origin: -72% -15%;
+    transform-origin: -72% -15%;
+    z-index: 1;
+}
+
+#infos-text {
+    font-family: 'digital-7mono', arial, helvetica, sans-serif;
+    font-size: 40px;
+    white-space: nowrap;
+    display: block;
+    text-decoration: none;
+    color: #010074;
+    text-shadow: 0 0 7px rgba(0, 154, 150, 0.6);
+    transition: text-shadow 100ms ease-in-out;
+    position: absolute;
+}
+
+#infos-text:hover {
+    background: none;
+    text-shadow: 0 0 7px rgba(0, 255, 0, 0.6);
+}
