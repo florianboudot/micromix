@@ -318,6 +318,7 @@ author : Jean-Luc Nguyen (2009/11/03)
 */
 function allPostsByYear() {
 	global $wpdb, $content;
+	$post_number_array     = array();
 	$post_id_array         = array();
 	$post_mp3_array        = array();
 	$post_imagecover_array = array();
@@ -439,6 +440,7 @@ function allPostsByYear() {
 					$list .= '<a href="' . $post_url . '" class="history">' . $post_title . $image_tag . '</a>';
 					$list .= '</li>';
 					$list .= "\n";
+					array_push( $post_number_array, $micromix_number ); // for javascript purposes
 					array_push( $post_id_array, $post_id ); // for javascript purposes
 					array_push( $post_mp3_array, $mp3_uri ); // for javascript purposes
 					array_push( $post_url_array, $post_url );// for javascript purposes
@@ -480,6 +482,7 @@ function allPostsByYear() {
 
 	foreach ( $post_id_array as $index => $id ) {
 		$full_list .= "{ id : " . $id . ", ";
+		$full_list .= " number : '" . $post_number_array[ $index ] . "', ";
 		$full_list .= " mp3 : '" . $post_mp3_array[ $index ] . "', ";
 		$full_list .= " imgcover : '" . $post_imagecover_array[ $index ] . "', ";
 		$full_list .= "url : '" . $post_url_array[ $index ] . "' }";

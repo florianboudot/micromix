@@ -150,12 +150,6 @@ var Managethesound = function () {
         //if (debug)console.info('_geturlbyid', id);
         return originalPlaylist[_getoriginalindexbyid(id)].url;
     };
-    /*
-     var _getoriginalidbyindex = function (index) {
-     //if (debug)console.info('_getidbyindex');
-     return _originalidbyindex[index]
-     };
-     */
     var _getoriginalindexbyid = function (id) {
         //if (debug)console.info('_getindexbyid');
         return _originalindexbyid[id]
@@ -171,6 +165,10 @@ var Managethesound = function () {
     var _getcoverbyid = function (id) {
         //if (debug)console.info('_getindexbyid');
         return originalPlaylist[_getoriginalindexbyid(id)].imgcover
+    };
+    var _getnumberbyid = function (id) {
+        //if (debug)console.info('_getindexbyid');
+        return typeof _getoriginalindexbyid(id) === 'number' && originalPlaylist[_getoriginalindexbyid(id)].number
     };
 
 
@@ -605,7 +603,7 @@ var Managethesound = function () {
      * @private
      */
     var _volumeUp = function () {
-        _setvolume(_getvolume()+5);
+        _setvolume(_getvolume() + 5);
 
     };
     /**
@@ -613,7 +611,7 @@ var Managethesound = function () {
      * @private
      */
     var _volumeDown = function () {
-        _setvolume(_getvolume()-5);
+        _setvolume(_getvolume() - 5);
     };
 
     /**
@@ -713,11 +711,24 @@ var Managethesound = function () {
     };
 
     /**
+     * update the display
+     */
+    var updateDisplayMixData = function () {
+        $('.article').each(function () {
+            var _id = this.id.split('post-')[1];
+            if(_id){
+                $(this).find('.post-micromix-number').html(_getnumberbyid(_id));
+                $(this).find('.wpaudio').attr('href', _getmp3byid(_id));
+            }
+        });
+    };
+
+    /**
      *
      */
     var refreshbind = function ($parent) {
         if (debug)console.info('refreshbind');
-
+        updateDisplayMixData();
         var $post = $('#post-' + _currentidplay);
         is_post_in_the_page = !!$post.length;
 //        $currentplayer.off(timelineevents, _gotothistime); // before update current
@@ -844,11 +855,11 @@ var Managethesound = function () {
         var is_keyup = e.type === 'keyup'; // keyup or keydown
         var is_shift = e.shiftKey;
         var is_ctrl = e.ctrlKey;
-        var is_spacebar = key_code    === 32;
-        var is_left_arrow = key_code  === 37;
-        var is_up_arrow = key_code    === 38;
+        var is_spacebar = key_code === 32;
+        var is_left_arrow = key_code === 37;
+        var is_up_arrow = key_code === 38;
         var is_right_arrow = key_code === 39;
-        var is_down_arrow = key_code  === 40;
+        var is_down_arrow = key_code === 40;
         var is_music_play_pause_key = key_code === 179; // some keyboards have a sound play/pause button
 
         // toggle play/pause
