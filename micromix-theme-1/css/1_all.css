@@ -535,29 +535,30 @@ ol {
 }
 
 .bt-player {
-    background: #000;
-    bottom: 0;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 50%;
-    height: 100px;
-    left: 0;
-    margin: auto;
+    background: rgba(0, 0, 0, 0.5);
+    bottom: 40px;
+    border: 1px solid rgba(200, 200, 200, 0.2);
+    border-radius: 5px;
+    height: 40px;
     position: absolute;
-    right: 0;
+    right: 40px;
     text-align: center;
-    top: 0;
-    width: 100px;
+    width: 70px;
     z-index: 3;
 }
 
 .bt-player a {
-    border-top: 30px solid rgba(0, 0, 0, 0);
-    border-left: 50px solid rgba(255, 255, 255, 0.6);
-    border-bottom: 30px solid rgba(0, 0, 0, 0);
+    background: none !important;
+    border-top: 11px solid rgba(0, 0, 0, 0.4);
+    border-left: 40px solid rgba(255, 255, 255, 0.6);
+    border-bottom: 11px solid rgba(0, 0, 0, 0.4);
     display: inline-block;
     height: 0;
-    margin-top: 20px;
+    margin-top: 9px;
+    transition: all 125ms;
     width: 0;
+    margin-left: 3px;
+    box-shadow: 1px 1px 21px 1px #000;
 }
 
 .postmetadata {

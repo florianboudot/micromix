@@ -5,11 +5,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) {  echo "#".get_post_meta($post->ID, 'micromixNumber', true);  } ?> <?php wp_title(); ?></title>
 
-    <?php if(true){ ?>
-        <link rel="stylesheet" href="<?= theme_path ?>/css/all.css">
-        <link rel="stylesheet" href="<?= theme_path ?>/css/player.css">
-        <link rel="stylesheet" href="<?= theme_path ?>/css/cassette.css">
-        <link rel="stylesheet" href="<?= theme_path ?>/css/archives.css">
+    <?php if(is_local()){ ?>
+        <link rel="stylesheet" href="<?= theme_path ?>/css/1_all.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/2_player.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/3_cassette.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/4_archives.css">
     <?php } else { ?>
         <link rel="stylesheet" href="<?= theme_path ?>/css/micromix.min.css">
     <?php } ?>
@@ -19,7 +19,9 @@
     <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>">
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-    <?php wp_head(); ?>
+    <?php
+    wp_deregister_script( 'jquery' );
+    wp_head(); ?>
 </head>
 <body>
 
