@@ -34,11 +34,10 @@ module.exports = function (grunt) {
         cssmin: {
             compress: {
 
-                expand: true,
-                cwd: 'assets/front/css/',
-                src: ['*.css', '!*.min.css'],
+                //expand: true,
+                src: ['css/*.css', '!css/*.min.css'],
                 dest: 'css/micromix.min.css',
-                ext: '.css'
+                //ext: '.css'
 
 
 
