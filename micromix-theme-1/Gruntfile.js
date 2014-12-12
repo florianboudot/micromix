@@ -1,13 +1,10 @@
 module.exports = function (grunt) {
     'use strict';
 
-    grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
-//    grunt.loadNpmTasks('grunt-contrib-csslint');
-    grunt.loadNpmTasks('grunt-devtools');
-    grunt.loadNpmTasks('grunt-contrib-clean');
-	grunt.loadNpmTasks('grunt-imageoptim');
+    grunt.loadNpmTasks('grunt-sass');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     var jsPath = 'js';
     var aScriptLoad = {
@@ -23,6 +20,33 @@ module.exports = function (grunt) {
 
     // Project configuration
     grunt.initConfig({
+        watch: {
+            options: {
+                debounceDelay: 50
+            },
+            configFiles: {
+                files: ['Gruntfile.js', 'config/*.js'],
+                options: {
+                    reload: true
+                }
+            },
+            sass: {
+                files: ['**/*.scss'],
+                tasks: ['sass'],
+                options: {
+                    spawn: false
+                }
+            }
+        },
+        sass: {
+            files: {
+                expand: true,
+                cwd: 'css',
+                src: ['**/*.scss'],
+                dest: 'css',
+                ext: '.dev.css'
+            }
+        },
         uglify: {
             pm: {
                 files: {
@@ -32,41 +56,17 @@ module.exports = function (grunt) {
             }
         },
         cssmin: {
-            compress: {
-
+            minify: {
                 //expand: true,
-                src: ['css/*.css', '!css/*.min.css'],
-                dest: 'css/micromix.min.css',
-                //ext: '.css'
-
-
-
-            }
-        },
-        clean: ['css/temp'],
-        imageoptim: {
-            files: [
-                'img'
-            ],
-            options: {
-                imageAlpha: false
+                src: ['css/all.dev.css'],
+                dest: 'css/micromix.min.css'
             }
         }
-//        csslint: {
-//            lax: {
-//                options: {
-//                    import: false
-//                },
-//                src: ['css/**/*.css']
-//            }
-//        }
     });
-
     grunt.registerTask('js', ['uglify:pm']);
-    grunt.registerTask('css', ['cssmin', 'clean']);
-    grunt.registerTask('images', ['imageoptim']);
-    grunt.registerTask('production', ['clean', 'uglify', 'cssmin']);
+    grunt.registerTask('css', ['sass', 'cssmin']);
+    grunt.registerTask('prod', ['uglify', 'sass', 'cssmin']);
 
     // Default task.
-    grunt.registerTask('default', ['production']);
+    grunt.registerTask('default', ['prod']);
 };

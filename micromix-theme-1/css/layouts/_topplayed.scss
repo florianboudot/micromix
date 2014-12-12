@@ -1,0 +1,40 @@
+/* TOP 5 */
+#top-played {
+
+}
+
+#top-played ol {
+    padding: 10px 0 0 0;
+    margin: 0;
+}
+
+#top-played ol li {
+    overflow: hidden;
+    margin: 0 0 10px 0;
+    position: relative;
+}
+
+#top-played ol li strong {
+    font-size: 1.6em;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: #e6e8e7;
+    color: black;
+    padding: 0 2px;
+    display: block;
+    float: left;
+    position: absolute;
+    left: 0;
+    top: 5px;
+}
+
+#top-played ol li a {
+    padding: 2px;
+    display: block;
+    float: left;
+    background: #E6E8E7;
+}
+
+#top-played img {
+    width: 95px;
+    display: block;
+}

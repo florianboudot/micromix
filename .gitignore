@@ -1,7 +1,9 @@
 # ignore all files from phpstorm local settings
+npm-debug.log
 *.idea
 node_modules
 twentyfourteen
 twentythirteen
 *.min.*
 min
+*.dev.css

@@ -440,7 +440,7 @@ function allPostsByYear() {
 					$fat_image_src = empty( $image_src ) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['large']['file'];
 //                  $fat_image_src = empty($fat_image_src) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "" . $fat_image_src;
 					$image_src = empty( $image_src ) ? theme_path . '/img/steven-seagal-album-cover.jpg' : "/upload/" . $image_src['sizes']['medium']['file'];
-					$image_tag = '<img data-src="' . $image_src . '" data-fatsrc="' . $fat_image_src . '" alt="" class="mini-poster thumbnail-wrapper play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '">';
+					$image_tag = '<img data-src="' . $image_src . '" alt="" class="mini-poster thumbnail-wrapper play-sound JSplaysoundbyid JSpreviewsoundbyid" data-soundid="' . $post_id . '">';
 
 					// build list item
 					$list .= '<a href="' . $post_url . '" class="history">#' . $micromix_number . ' ' . $post_title . $image_tag . '</a>';
@@ -481,17 +481,16 @@ function allPostsByYear() {
 	 *  { id : 1470, url : 'http://micromix.localhost/pochette-souple/' }
 	 * ]
 	*/
-	$full_list = "<script>//console.warn('" . microtime() . "');";
-	$full_list .= "\n";
+	$full_list = "<script>";
 	$full_list .= "var list_all_posts = [";
 	$nb_posts = count( $post_id_array ) - 2;
 
 	foreach ( $post_id_array as $index => $id ) {
-		$full_list .= "{ id : " . $id . ", ";
-		$full_list .= " number : '" . $post_number_array[ $index ] . "', ";
-		$full_list .= " mp3 : '" . $post_mp3_array[ $index ] . "', ";
-		$full_list .= " imgcover : '" . $post_imagecover_array[ $index ] . "', ";
-		$full_list .= "url : '" . $post_url_array[ $index ] . "' }";
+		$full_list .= "{id:" . $id . ",";
+		$full_list .= "number:'" . $post_number_array[ $index ] . "',";
+		$full_list .= "mp3:'" . $post_mp3_array[ $index ] . "',";
+		$full_list .= "imgcover:'" . $post_imagecover_array[ $index ] . "',";
+		$full_list .= "url:'" . $post_url_array[ $index ] . "'}";
 		if ( $index <= ( $nb_posts ) ) {
 			$full_list .= ",";
 		}

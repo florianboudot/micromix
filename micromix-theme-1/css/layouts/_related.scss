@@ -1,0 +1,53 @@
+/* RELATED POSTS */
+.related-list {
+    padding-left: 47px;
+    padding-bottom: 40px;
+}
+
+.related-list h3 {
+    display: inline-block;
+    padding: 0 2px 2px 2px;
+    font: bold 1.5em Georgia, "Times New Roman", Times, serif;
+    background: #E6E8E7;
+}
+
+.related-list .title {
+    display: inline-block;
+    padding: 0 2px 2px 2px;
+    font: bold 1.1em Georgia, "Times New Roman", Times, serif;
+    background: #E6E8E7;
+    text-decoration: none;
+}
+
+.related-list .title:hover {
+    background: #1e4279;
+    color: white;
+}
+
+.related-list ol {
+    overflow: hidden;
+    zoom: 1;
+    padding-left: 0;
+}
+
+.related-list li {
+    float: left;
+    list-style: none;
+    margin-right: 10px;
+    overflow: hidden;
+    width: 156px;
+}
+
+.related-list li img {
+    height: 175px;
+    margin-left: -15px;
+    margin-top: -15px;
+    display: block;
+}
+
+.related-list li a.img {
+    display: block;
+    height: 130px;
+    overflow: hidden;
+    border: 2px solid #E6E8E7;
+}

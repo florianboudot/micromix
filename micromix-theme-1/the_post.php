@@ -19,7 +19,7 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
     </h2>
 
     <!-- DATE -->
-    <p class="post-date"><small><?php the_time('F jS, Y') ?></small></p>
+    <p class="post-date"><?php the_time('F jS, Y') ?></p>
 
 
     <!-- IMAGE -->

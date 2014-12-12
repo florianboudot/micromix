@@ -1,0 +1,52 @@
+#top {
+    background: url(../img/top1.png) 0 0 no-repeat, url(../img/top1.jpg) 145px 298px no-repeat, url(../img/top2.jpg) 24px 298px no-repeat, url(../img/top3.jpg) 24px 0 no-repeat;
+    height: 838px;
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    width: 1000px;
+    z-index: 1;
+}
+
+#mainHeader {
+    position: relative;
+    z-index: 2;
+}
+
+.return-index {
+    position: absolute;
+    width: 100px;
+    height: 70px;
+    z-index: 5555;
+    left: 19px;
+    background: transparent !important;
+}
+
+#mainHeader h1 {
+    position: absolute;
+    left: 166px;
+    top: 63px;
+    opacity: 0;
+}
+
+#mainHeader h1 a {
+    display: block;
+    width: 597px;
+    height: 201px;
+    text-align: center;
+    font-size: 11em;
+    color: white;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    line-height: 2.5em;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+#mainHeader h1 a:hover {
+    text-indent: inherit;
+}
+
+#mainHeader .description {
+    display: none;
+}

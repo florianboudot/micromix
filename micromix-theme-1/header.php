@@ -6,10 +6,7 @@
     <title><?php bloginfo('name'); ?> <?php if ( is_single() ) {  echo "#".get_post_meta($post->ID, 'micromixNumber', true);  } ?> <?php wp_title(); ?></title>
 
     <?php if(is_local()){ ?>
-        <link rel="stylesheet" href="<?= theme_path ?>/css/1_all.css">
-        <link rel="stylesheet" href="<?= theme_path ?>/css/2_player.css">
-        <link rel="stylesheet" href="<?= theme_path ?>/css/3_cassette.css">
-        <link rel="stylesheet" href="<?= theme_path ?>/css/4_archives.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/all.dev.css">
     <?php } else { ?>
         <link rel="stylesheet" href="<?= theme_path ?>/css/micromix.min.css">
     <?php } ?>

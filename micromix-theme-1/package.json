@@ -3,12 +3,10 @@
   "version": "0.1.0",
   "devDependencies": {
     "grunt": "latest",
-    "grunt-contrib-jshint": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-cssmin": "latest",
-    "grunt-contrib-csslint": "latest",
-    "grunt-devtools": "latest",
-    "grunt-contrib-clean": "latest",
-    "grunt-imageoptim": "latest"
+    "node-sass": "latest",
+    "grunt-sass": "latest",
+    "grunt-contrib-watch": "latest"
   }
 }
