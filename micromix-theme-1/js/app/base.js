@@ -52,12 +52,15 @@ var micromix = {};
 /* POST COMMENT TO FEEDBACK PAGE */
 var postToFeedback = function () {
     var $feedback_container = $('#feedback-container');
-
+    var $close = $('<span>').addClass('close');
+    $close.on('click', function(){
+        $feedback_container.toggleClass('closed');
+    });
     if($feedback_container.length > 0){
 
         var feedback_titles = '' +
             '<h4 class="title">Feedback</h4>' +
-            '<p class="subtitle">Tell us if something is broken or can be better, thanks ! (french or english)</p>';
+            '<div class="MICROMIX_MESSAGE">##TEXT##</div>';
         var feedback_messages = '' +
             '<p class="message loading">wait...</p>' +
             '<p class="message success">Thank you ! Your message has been successfully sent</p>' +
@@ -65,22 +68,24 @@ var postToFeedback = function () {
 
         // get the <form> from the /feedback page
         $.ajax({
-            url: '/feedback',
+            url: '/feedback/',
             type: 'GET',
             dataType: 'html'
         }).done(function(data) {
             // inject html form into feedback zone
             var html_form = $(data).find('#commentform');
+            var html_text = $(data).find('.page').html();
             $feedback_container.html(html_form);
+            $feedback_container.prepend($close);
 
             // on submit => ajax post
             var $form = $feedback_container.find('form');
-
+            var _feedback_title = feedback_titles.replace('##TEXT##', html_text);
             // rename id (to avoid duplicate id)
             $form.attr('id', 'feedback-form');
 
             // add some titles and hidden messages
-            $form.prepend(feedback_messages + feedback_titles);
+            $form.prepend(feedback_messages + _feedback_title);
 
             // fill author and email and name the parent
             $form.find('#author').val('feedback user').parents('p').first().addClass('author');

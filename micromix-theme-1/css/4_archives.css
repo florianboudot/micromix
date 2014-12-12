@@ -1,9 +1,9 @@
 /* ARCHIVES IN SIDEBAR - ALL POSTS BY YEAR */
 
 .year-title {
-    /*background:url(../img/icons.png) 2px 3px no-repeat;*/
     padding: 0 0 5px 0;
     font-size: 13px;
+    margin: 10px 0 0 0;
 }
 
 .year-text {
@@ -15,28 +15,26 @@
 }
 
 .year-list-container {
-    padding-bottom: 20px !important; /* todo */
+    padding-bottom: 0;
 }
 
 .year-list-container .list-item {
-    padding: 0 0 0 10px;
+    padding: 0;
     position: relative;
+    -webkit-perspective: 600;
+    -moz-perspective: 600;
+    perspective: 600;
 }
 
 .year-list-container .list-item a {
     text-decoration: none;
-    display: inline-block;
-    -webkit-perspective: 600;
-    -moz-perspective: 600;
-    perspective: 600;
-    -webkit-perspective-origin: 50% 50%;
-    -moz-perspective-origin: 50% 50%;
-    perspective-origin: 50% 50%;
 }
 
+/*
 .year-list-container .list-item.active {
 
 }
+*/
 
 .year-list-container .list-item.active a {
     font-weight: bold;
@@ -48,42 +46,37 @@
 }
 
 .thumbnail-wrapper {
-    opacity: 0;
-    margin-right: 10px;
-    position: absolute;
-    right: 100%;
-    transform: rotateY(1deg) translate3D(-15px, -50%, 0);
-    transform-origin: 100% 50%;
-    transform-style: preserve-3d;
-    transition: visibility 0s linear 350ms, opacity 150ms linear 0ms, transform 150ms ease-in-out 0ms;
-    visibility: hidden;
+    /*margin-right: 10px;*/
+    /*position: absolute;*/
 }
 
-.hover .thumbnail-wrapper {
+.year-list-container .mini-poster {
+    border: 3px solid #e6e8e7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    left: -200px;
+    margin: auto;
+    opacity: 0;
+    position: absolute;
+    right: 100%;
+    text-align: center;
+    transform: rotateY(1deg) translate3D(-15px, -50%, 0);
+    transform-origin: 100% 50%;
+    transition: visibility 0s linear 350ms, opacity 150ms linear 0ms, transform 150ms ease-in-out 0ms;
+    visibility: hidden;
+    width: 180px;
+}
+.year-list-container .hover .mini-poster {
     transition: visibility 0s linear 0ms, opacity 150ms linear 150ms, transform 150ms ease-in-out 150ms;
     transform: rotateY(18deg) translate3D(-20px, -50%, 0);
     opacity: 1;
     visibility: visible;
 }
 
-.year-list-container .mini-poster {
-    border: 3px solid #e6e8e7;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    right: 0;
-    top: -10px;
-    width: 150px; /* todo : generate smaller thumbs */
-}
-
 .play-sound {
-    bottom: 0;
-    height: 56px;
-    left: 0;
-    margin: auto;
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 56px;
-    text-align: center;
+    /*bottom: 0;*/
+    /*height: 56px;*/
+    /*right: 0;*/
+    /*top: 0;*/
 }
 
 .play-sound-inside {
