@@ -68,7 +68,7 @@ var postToFeedback = function () {
 
         // get the <form> from the /feedback page
         $.ajax({
-            url: '/feedback',
+            url: '/feedback/',
             type: 'GET',
             dataType: 'html'
         }).done(function(data) {
