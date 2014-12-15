@@ -237,7 +237,10 @@ var Managethesound = function () {
     };
     var _onstop = function () {
 //        if (debug)console.info('_onstop');
-        _onClickPause();
+        counter.update(0);
+        save_peak_data_left = updateVuMeter(0, $left_leds, save_peak_data_left);
+        save_peak_data_right = updateVuMeter(0, $right_leds, save_peak_data_right);
+        _onClickStop();
     };
     var _onid3 = function () {
 //        if (debug)console.info('_onid3', this.id3);
@@ -643,7 +646,7 @@ var Managethesound = function () {
         if (debug)console.warn('_playthatsound', id, _maybecurrentindexplay, wait);
         _animatingCassette = true;
         if (!animation) {
-            _pausesound();
+            _stopsound();
             return cassetteWantToMoveOutTheBox(id, wait)
         }
 
@@ -811,6 +814,22 @@ var Managethesound = function () {
         }
         return hasbeenresumed;
     };
+    /**
+     *
+     * @param [sound = sound] {Object}
+     * @return {Boolean}
+     * @private
+     */
+    var _stopsound = function (sound) {
+        if (debug)console.info('_resumesound');
+        var __sound = sound ? sound : _sound;
+        //var hasbeenresumed = false;
+        if (__sound) {
+            //hasbeenresumed = __sound.paused;
+            __sound.stop();
+        }
+        return __sound;
+    };
 
     //todo check this function
     var _playtheveryfirstsoundinpage = function () {
@@ -958,12 +977,14 @@ var Managethesound = function () {
         var is_already_pushed = $control_pushed.hasClass('active');
 
         if (!is_already_pushed) {
-            // remove cursor hand
-            $controls_all.removeClass('active');
-            $(button_id).addClass('active');
+            if(action !== 'stop'){
+                // remove cursor hand
 
-            // show control "pushed"
-            $controls_pushed_all.removeClass('active');
+                // show control "pushed"
+                $controls_pushed_all.removeClass('active');
+                $controls_all.removeClass('active');
+            }
+            $(button_id).addClass('active');
             $control_pushed.addClass('active');
         }
     };
@@ -1034,6 +1055,10 @@ var Managethesound = function () {
     };
     var _onClickPause = function () {
         pushButton('pause');
+        $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
+    };
+    var _onClickStop = function () {
+        pushButton('stop');
         $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
     };
     var _onClickForward = function () {
@@ -1195,7 +1220,6 @@ var Managethesound = function () {
         if (debug) {
             console.info('cassetteMoveOutPlayer')
         }
-        counter.update(0);
         openDeckDoor();
 
         $.Velocity.animate($cassette, {
