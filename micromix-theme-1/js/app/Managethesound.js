@@ -15,6 +15,11 @@ var Managethesound = function () {
     var $controls_pushed_all = $cassette_player.find('.control-pushed');
     var $linkplaysoundbyid = $('.JSplaysoundbyid');
 
+    var EVENT_down = Modernizr.touch ? 'touchstart' : 'mousedown';
+    var EVENT_up = Modernizr.touch ? 'touchend' : 'mouseup';
+    var EVENT_click = Modernizr.touch ? 'click' : 'click';
+    var EVENT_leave = Modernizr.touch ? 'touchcancel' : 'mouseleave';
+
     var $cassette = $('.cassette');
     //var $cassetteToClone = $cassette.clone();
 
@@ -37,6 +42,16 @@ var Managethesound = function () {
     var _sound = null;
     var _starttime = null;
     var _autoplay = false;
+
+    var contextMenuAction = function () {
+        return false;
+    };
+    var _cancelcontextmenu = function () {
+        $(window).on('contextmenu', contextMenuAction);
+    };
+    var _allowcontextmenu = function () {
+        $(window).off('contextmenu', contextMenuAction);
+    };
 
     var _indexReferences = function (playlist) {
         var feedPlaylist = playlist;
@@ -349,10 +364,12 @@ var Managethesound = function () {
         //console.info('_updatetimeprogress',force, this.peakData);//flood
 
         // RUN VU METER
-        var peak_data_left = parseInt(this.peakData.left * 100);
-        var peak_data_right = parseInt(this.peakData.right * 100);
-        save_peak_data_left = updateVuMeter(peak_data_left, $left_leds, save_peak_data_left);
-        save_peak_data_right = updateVuMeter(peak_data_right, $right_leds, save_peak_data_right);
+        if(!Modernizr.touch){
+            var peak_data_left = parseInt(this.peakData.left * 100);
+            var peak_data_right = parseInt(this.peakData.right * 100);
+            save_peak_data_left = updateVuMeter(peak_data_left, $left_leds, save_peak_data_left);
+            save_peak_data_right = updateVuMeter(peak_data_right, $right_leds, save_peak_data_right);
+        }
 
         // update player COUNTER
         var position = this.position;
@@ -951,6 +968,7 @@ var Managethesound = function () {
         }
     };
 
+    var lastControlZIndex = '';
     /**
      * Player control manager
      * What to do when asking an action with the player (onclick)
@@ -964,10 +982,10 @@ var Managethesound = function () {
             id = $control_clicked.attr('id'),
             action = id.split('control-')[1],
             is_already_pushed = $control_clicked.hasClass('active'),
-            is_click = e.type === 'click',
-            is_mouseleave = e.type === 'mouseleave',
-            is_mouseup = e.type === 'mouseup',
-            is_mousedown = e.type === 'mousedown';
+            is_click = e.type === EVENT_click,
+            is_mouseleave = e.type === EVENT_leave,
+            is_mouseup = e.type === EVENT_up,
+            is_mousedown = e.type === EVENT_down;
         // aaaand ... action! NO NON NONONOONO I DON'T GIVE A SHIIIIIIIIT
         switch (action) {
             case 'pause':
@@ -978,17 +996,23 @@ var Managethesound = function () {
                 break;
             case 'rewind':
                 if (is_mouseleave && e.which && is_already_pushed || is_mouseup) {
+                    _allowcontextmenu();
                     _clearRewindForward();
                 }
                 else if (!is_click && !is_mouseleave) {
+//                    _cancelcontextmenu();
+                    e.preventDefault();
                     _rewind(is_mousedown);
                 }
                 break;
             case 'forward':
                 if (is_mouseleave && e.which && is_already_pushed || is_mouseup) { // if mouseleave and mouse button is pressed and interface button is pushed or mouseup
+                    _allowcontextmenu();
                     _clearRewindForward();
                 }
                 else if (!is_click && !is_mouseleave) {
+//                    _cancelcontextmenu();
+                    e.preventDefault();
                     _fastForward(is_mousedown);
                 }
                 break;
@@ -1030,17 +1054,19 @@ var Managethesound = function () {
     var _bind_controls = function () {
         if (debug)console.info('_onsoundmanagerready');
 
-        $linkplaysoundbyid.on('click', _getandplaythatsound);
+        $linkplaysoundbyid.on(EVENT_click, _getandplaythatsound);
 //        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         // New K7 buttons
-        $controls_all.on('mousedown mouseup click mouseleave', playerControlManager);
+        $controls_all.on(EVENT_down + ' ' + EVENT_up + ' ' + EVENT_click + ' ' + EVENT_leave + ' touchmove', playerControlManager);
         // info
         $infos_text.addClass('history').html('micromix').attr('href', '/');
 
 
         // bind
-        $(window).on('keydown keyup', _keyboardshortcuts);
+        if(!Modernizr.touch){
+            $(window).on('keydown keyup', _keyboardshortcuts);
+        }
 
         if (_autoplay) {
             _playtheveryfirstsoundinpage();
