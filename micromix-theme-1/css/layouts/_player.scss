@@ -122,6 +122,19 @@
     left: 338px;
 }
 
+/* BUTTON REC */
+#button-rec {
+    width: 100px;
+    height: 20px;
+    position: absolute;
+    left: 446px;
+    top: 65px;
+    background: url(../img/player/button-rec-active.png) 0 -100px no-repeat;
+    &:hover {
+        background-position: 0 0;
+    }
+}
+
 /* DECK DOOR (OPEN / CLOSE)*/
 #deck {
     width: 366px;

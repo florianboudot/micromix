@@ -31,6 +31,9 @@
 	</div>
 	<div class="player-skin">
 
+		<!-- button rec (save as) -->
+		<a href="#" id="button-rec" title="save as mp3"></a>
+
 		<!-- VU meter -->
 		<div id="vu-meter">
 			<div class="debug" style="position: relative; z-index: 2"></div>
