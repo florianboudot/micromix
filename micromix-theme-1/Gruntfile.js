@@ -39,6 +39,9 @@ module.exports = function (grunt) {
             }
         },
         sass: {
+            options: {                       // Target options
+                style: 'expanded'
+            },
             files: {
                 expand: true,
                 cwd: 'css',
@@ -63,10 +66,12 @@ module.exports = function (grunt) {
             }
         }
     });
+
     grunt.registerTask('js', ['uglify:pm']);
     grunt.registerTask('css', ['sass', 'cssmin']);
     grunt.registerTask('prod', ['uglify', 'sass', 'cssmin']);
 
-    // Default task.
+// Default task.
     grunt.registerTask('default', ['prod']);
 };
+
