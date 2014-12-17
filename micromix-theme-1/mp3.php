@@ -49,7 +49,7 @@ if(isset($_GET) && isset($_GET['file'])){
 if(file_exists($filename)) {
     header("HTTP/1.0 200 OK");
     header('Content-Type: audio/mpeg');
-    header('Content-Disposition: filename="'.str_ireplace('upload/','',$filename).'"');
+    header('Content-Disposition: attachment; filename="'.str_ireplace('upload/','',$filename).'"');
     header('Content-length: '.filesize($filename));
     header('Cache-Control: no-cache');
     header("Content-Transfer-Encoding: chunked");

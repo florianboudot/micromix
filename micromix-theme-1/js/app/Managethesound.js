@@ -692,6 +692,7 @@ var Managethesound = function () {
         var finaltext = 'Micromix ' + title;
         $infos_text.html(finaltext);
         $infos_text.attr('href', _geturlbyid(_currentidplay));
+        $('#button-rec').attr('href', _getmp3byid(_currentidplay));
 
         clearInterval(INTERVAL_infortext);
         // text defil animation (work in progress)
