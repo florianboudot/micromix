@@ -123,6 +123,9 @@ var postToFeedback = function () {
                         // unfreeze the form
                         $form.find('input, textarea').prop('disabled', false);
 
+                        // empty the message
+                        $form.find('textarea').val('');
+
                         // remove success message after a while
                         setTimeout(function(){
                             $feedback_container.find('.message').removeClass('active');
