@@ -1,12 +1,15 @@
 <?php
+add_filter( 'jpeg_quality', create_function( '', 'return 60;' ) );
 
-function is_local(){
+function is_local() {
 	$whitelist = array(
 		'127.0.0.1',
 		'::1'
 	);
-	return in_array($_SERVER['REMOTE_ADDR'], $whitelist);
+
+	return in_array( $_SERVER['REMOTE_ADDR'], $whitelist );
 }
+
 // returns absolute theme path in a variable 'theme_path'
 define( 'theme_path', get_bloginfo( 'template_url' ) );
 
@@ -284,6 +287,7 @@ function image_attachment_src( $the_post_id, $the_size ) {
 	$image_id          = $first_image->ID;
 	$img_src           = wp_get_attachment_image_src( $image_id, $the_size );
 	$img_src           = $img_src[0];
+
 	return ( $img_src == '' ) ? theme_path . '/img/steven-seagal-album-cover.jpg' : $img_src;
 }
 
@@ -309,8 +313,8 @@ function regenerate_all_attachment_sizes() {
 	}
 }
 
-if ( is_user_logged_in() && isset( $_GET['migration'] ) ) {
-    regenerate_all_attachment_sizes();
+if ( is_user_logged_in() && ( isset( $_GET['migration'] ) || isset( $_GET['imgregen'] ) ) ) {
+	regenerate_all_attachment_sizes();
 }
 
 /*
