@@ -2,60 +2,51 @@
 // to work, you need to edit the .htaccess file with this line:
 // RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}
 $filename = '';
-if(isset($_GET) && isset($_GET['file'])){
-    $filename = '../../../' . substr($_GET['file'], 1);
+if ( isset( $_GET ) && isset( $_GET['file'] ) ) {
+	$filename = '../../../' . substr( $_GET['file'], 1 );
 
-    require('../../../wp-blog-header.php');
+	require( '../../../wp-blog-header.php' );
 
-    function getpostidfrommp3($mp3){
-        global $wpdb;
-        /*
-            * requête optionelle pour cleaner les chemins vers les MP3 dans la table wp-postmeta
-            * /
-           $query2 = "SELECT * FROM  `wp_postmeta` WHERE meta_key =  'enclosure' LIMIT 0 , 500";
-           $lines2 = $wpdb->get_results($query2);
-           foreach ($lines2 as $line) {
-               $mp3clean = urldecode($line->meta_value);
-               $mp3clean = str_ireplace('/upload/','',$mp3clean);
-               $mp3clean = str_ireplace('http://www.micromix.fr','',$mp3clean);
-               $mp3clean = addslashes($mp3clean);
-               $query3 = "UPDATE  `wp_postmeta` SET `meta_value` =  '". $mp3clean ."' WHERE `meta_id` = ". $line->meta_id;
-               echo $query3 . "\n";
-               $wpdb->query($query3);
+	function getpostidfrommp3( $post_name ) {
+		$id     = 0;
+		$_posts = get_posts();
+		foreach ( $_posts as $post ) {
+			if ( $post->post_name == $post_name ) {
+				$id = $post->ID;
+				break;
+			}
+		}
 
-           }
+		return $id;
+	}
 
-       */
-        $id = null;
-        $lines = $wpdb->get_results($wpdb->prepare("SELECT post_id FROM wp_postmeta WHERE meta_value = %s", $mp3));
-        $id = $lines[0]->post_id;
-        return $id;
-    }
-    $postid = getpostidfrommp3(urldecode(substr($_GET['file'], 8)));
-    //todo update database to have a download_count and stream_count
-    if($_SERVER["HTTP_REFERER"]){
-        if($postid){
-            incrementVisit($postid);
-        }
-        //if we have a referer, that means play from the player
-    }
-    else{
-        // if no referer, that means that the file has been downloaded
-        if($postid){
-            incrementVisit($postid);
-        }
-    }
+	$post_name = urldecode( substr( $_GET['file'], 8 ) );
+	$post_name = mb_strtolower( str_ireplace( ' ', '-', preg_replace( "/Micromix [0-9]{3} - (.*)\.mp3/", "$1", $post_name ) ) );
+	$postid    = getpostidfrommp3( $post_name );
+
+	//todo update database to have a download_count and stream_count
+	if ( $_SERVER["HTTP_REFERER"] ) {
+		if ( $postid ) {
+			incrementVisit( $postid );
+		}
+		//if we have a referer, that means play from the player
+	} else {
+		// if no referer, that means that the file has been downloaded
+		if ( $postid ) {
+			incrementVisit( $postid );
+		}
+	}
 }
-if(file_exists($filename)) {
-    header("HTTP/1.0 200 OK");
-    header('Content-Type: audio/mpeg');
-    header('Content-Disposition: attachment; filename="'.str_ireplace('upload/','',$filename).'"');
-    header('Content-length: '.filesize($filename));
-    header('Cache-Control: no-cache');
-    header("Content-Transfer-Encoding: chunked");
-    header('HTTP_REFERER: ' . $_SERVER["HTTP_REFERER"] . '');
-    readfile($filename);
+if ( file_exists( $filename ) ) {
+	header( "HTTP/1.0 200 OK" );
+	header( 'Content-Type: audio/mpeg' );
+	header( 'Content-Disposition: attachment; filename="' . str_ireplace( 'upload/', '', $filename ) . '"' );
+	header( 'Content-length: ' . filesize( $filename ) );
+	header( 'Cache-Control: max-age=29030400' );
+	header( "Content-Transfer-Encoding: chunked" );
+	header( 'HTTP_REFERER: ' . $_SERVER["HTTP_REFERER"] . '' );
+	readfile( $filename );
 } else {
-    header("HTTP/1.0 404 Not Found");
+	header( "HTTP/1.0 404 Not Found" );
 }
 ?>
