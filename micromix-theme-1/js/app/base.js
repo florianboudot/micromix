@@ -55,7 +55,7 @@ var micromix = {};
 /* POST COMMENT TO FEEDBACK PAGE */
 var postToFeedback = function () {
     var $feedback_container = $('#feedback-container');
-    var $close = $('<span>').addClass('close');
+    var $close = $('<span class="close-wrap"><span class="close">');
     $close.on('click', function(){
         $feedback_container.toggleClass('closed');
     });
