@@ -69,7 +69,7 @@ var postToFeedback = function () {
             '<p class="message success">Thank you ! Your message has been successfully sent</p>' +
             '<p class="message error">Error sending the message :( <br>please try again <br></p>';
 
-        // get the <form> from the /feedback page
+        // get the <form> from th e /feedback page
         $.ajax({
             url: '/feedback/',
             type: 'GET',
@@ -91,7 +91,7 @@ var postToFeedback = function () {
             $form.prepend(feedback_messages + _feedback_title);
 
             // fill author and email and name the parent
-            $form.find('#author').val('feedback user').parents('p').first().addClass('author');
+            $form.find('#author').val('anonymous').parents('p').first().addClass('author');
             $form.find('#email').val('feedback.user@gmail.com').parents('p').first().addClass('email');
             $form.find('#url').parents('p').first().addClass('website');
 
