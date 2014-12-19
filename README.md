@@ -34,6 +34,21 @@ and
 		return false;
 * modify your `.htacccess` adding this line `RewriteRule \.(mp3)$ /wp-content/themes/micromix-theme-1/mp3.php?file=%{REQUEST_URI}`
 
+##Supported browsers
+
+**100% compatible:**
+* Chrome lastest
+* Firefox lastest
+* IE 11 and above
+* Safari
+
+**At least functional and good looking (no aminations is ok):**
+* IE 10
+* IE 9
+
+**At least functionnal (skin broken is ok, no animation is ok)!**
+* IE 8
+
 ##Node / Grunt
 
 * install nodejs on your dev environment
