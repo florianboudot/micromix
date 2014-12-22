@@ -44,8 +44,8 @@
     <script src="<?= theme_path ?>/js/app/base.js"></script>
     <script src="<?= theme_path ?>/js/app/microondeinit.js"></script>
 <?php } else { ?>
-    <script src="<?= theme_path ?>/js/min/lib.js"></script>
-    <script src="<?= theme_path ?>/js/min/app.js"></script>
+    <script src="<?= theme_path ?>/js/min/lib.js?<?php echo getmicromixversion(); ?>"></script>
+    <script src="<?= theme_path ?>/js/min/app.js?<?php echo getmicromixversion(); ?>"></script>
 <?php } ?>
 </body>
 </html>

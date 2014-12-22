@@ -8,7 +8,7 @@
     <?php if(is_local()){ ?>
         <link rel="stylesheet" href="<?= theme_path ?>/css/all.dev.css">
     <?php } else { ?>
-        <link rel="stylesheet" href="<?= theme_path ?>/css/micromix.min.css">
+        <link rel="stylesheet" href="<?= theme_path ?>/css/micromix.min.css?<?php echo getmicromixversion(); ?>">
     <?php } ?>
 
 
