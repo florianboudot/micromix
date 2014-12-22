@@ -4,7 +4,7 @@ This is the custom Wordpress theme for www.micromix.fr
 
 ##installation steps
 
-* download Wordpress, install it and clone this repo into your `/wp-content/themes/` so you will have `/wp-content/themes/micromix-theme-1`
+* download Wordpress, install it and clone this repo into a folder you create under `themes/` such as  `/wp-content/themes/micromix-theme-1`
 * configure your apache with `Listen *:80`
 
 and
