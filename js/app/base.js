@@ -336,6 +336,7 @@ $(document).ready(function() {
 
     // STATS
     // play +=1 in the statistics
+/*
     var stachts = {}; // object
     jQuery('.bt-player a').bind('mousedown',function(){
         var postId = jQuery(this).parents('.bt-player')[0].id;
@@ -359,6 +360,7 @@ $(document).ready(function() {
             });
         }
     });
+*/
 
     /* -- INIT TAG WALL --  */
     var initTagWall = function(){

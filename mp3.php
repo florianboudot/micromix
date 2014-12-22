@@ -5,24 +5,35 @@ $filename = '';
 if ( isset( $_GET ) && isset( $_GET['file'] ) ) {
 	$filename = '../../../' . substr( $_GET['file'], 1 );
 
-	require('../../../wp-blog-header.php');
+	require( '../../../wp-blog-header.php' );
+
+	$args = array(
+		'posts_per_page'   => - 1,
+		'offset'           => 0,
+		'post_type'        => 'post',
+		'post_status'      => 'publish',
+		'suppress_filters' => true
+	);
 
 	function getpostidfrommp3( $post_name ) {
-		$id     = 0;
-		$_posts = get_posts();
+		global $args;
+		$id = 0;
+		$_posts = get_posts( $args );
 		foreach ( $_posts as $post ) {
-			if ( $post->post_name == $post_name ) {
+			if ( mb_strtolower( convertAccentsAndSpecialToNormal( trim( str_ireplace( "'", " ", $post->post_title ) ) ) ) == $post_name ) {
 				$id = $post->ID;
 				break;
+
 			}
 		}
 
 		return $id;
 	}
 
-	$post_name = urldecode( substr( $_GET['file'], 8 ) );
-	$post_name = mb_strtolower( str_ireplace( ' ', '-', preg_replace( "/Micromix [0-9]{3} - (.*)\.mp3/", "$1", $post_name ) ) );
-	$postid    = getpostidfrommp3( $post_name );
+	$post_name       = urldecode( substr( $_GET['file'], 8 ) );
+	$stringToReplace = array( " ", "," );
+	$post_name       = mb_strtolower( preg_replace( "/Micromix [0-9]{3} - (.*)\.mp3/", "$1", $post_name ) );
+	$postid          = getpostidfrommp3( $post_name );
 
 	//todo update database to have a download_count and stream_count
 	if ( $_SERVER["HTTP_REFERER"] ) {
