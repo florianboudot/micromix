@@ -20,11 +20,10 @@ pm.analytics = {
         var debug = pm.base.debug.Analytics;
         if (debug)console.info('init');
 
+        window._gaq = window._gaq || [];
         if(GOOGLE_GI_ACTIVATE) {
-            window._gaq = window._gaq || [];
             _gaq.push(['_setAccount', GOOGLE_GI_ACCOUNT]);
             this.trackpage(document.location.href);
-//            _gaq.push(['_trackPageview', document.location.href]);
             (function () {
                 var ga = document.createElement('script');
                 ga.type = 'text/javascript';
@@ -35,7 +34,7 @@ pm.analytics = {
             })();
         }
         else {
-            console.warn('NO ANALYTICS');
+            debug && console.warn('NO ANALYTICS');
         }
 
 

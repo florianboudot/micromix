@@ -45,7 +45,7 @@ pm.initmicromix = (function() {
         pm.manager.transition = new pm.Transitionmanager();
 
         pm.manager.history.bindLinks();
-
+        pm.analytics.init();
         var $view = $('#column2').find(('.view'));//todo should be a param somewhere
 
         if(pm.manager.history.needfirstview){
