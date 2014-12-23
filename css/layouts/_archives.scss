@@ -1,23 +1,69 @@
-/* ARCHIVES IN SIDEBAR - ALL POSTS BY YEAR */
 
+/* COLUMN 3 */
+#column3 {
+    float: left;
+    width: 220px;
+    padding: 260px 0 450px 0;
+}
+#sidebar {
+    padding: 20px 0 0 9px;
+    position: relative;
+    z-index: 2;
+}
+
+#sidebar .searchform .s {
+    width: 146px;
+    margin: 0 0 3px 0;
+}
+
+#sidebar .searchform .searchsubmit {
+    width: 56px;
+}
+
+#sidebar .text-bg {
+    font-size: 0.9em;
+}
+
+#sidebar li ul {
+    padding-bottom: 0;
+}
+
+#sidebar .list-item.currentsoundplayed {
+    font-weight: bold;
+}
+#sidebar li a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    max-width: 200px;
+}
+#sidebar li a {
+    background: #e6e8e7;
+    padding: 0 2px;
+}
+
+#sidebar ul li a:hover {
+    color: #e6e8e7;
+    background: #1e4279;
+}
+
+
+/* ARCHIVES IN SIDEBAR - ALL POSTS BY YEAR */
 .year-title {
     padding: 0 0 5px 0;
     font-size: 13px;
     margin: 10px 0 0 0;
 }
-
 .year-text {
     background: #e6e8e7;
 }
-
 .year-title.active {
     background-position: -486px 4px;
 }
-
 .year-list-container {
     padding-bottom: 0;
 }
-
 .year-list-container .list-item {
     padding: 0;
     position: relative;
