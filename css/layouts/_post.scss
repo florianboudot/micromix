@@ -10,20 +10,26 @@
 
 .post-title {
     font-size: 2em;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    overflow: hidden;
-    padding: 0 0 0 0;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    padding: 0;
     border: 0;
     margin: 0;
+    position: absolute;
     width: 100%;
+    top: 14px;
+    z-index: 2;
+    left: 66px;
 }
 
 .post-title .the-title {
     background: #e6e8e7;
-    color: black;
+    color: #000;
     padding: 0 5px;
-    float: left;
+    position: absolute;
     text-decoration: none;
+    top: 250px;
+    opacity: 0.8;
+    left: 0;
 }
 
 .post-title a:hover {
@@ -32,19 +38,20 @@
 }
 
 .post-micromix-number {
-    background: #e6e8e7;
-    color: black;
+    color: white;
     font-size: 2em;
-    left: 67px;
+    left: 7px;
     line-height: 1em;
-    opacity: 0.8;
+    opacity: 0.7;
     padding: 0 5px 3px 5px;
     position: absolute;
-    top: 50px;
+    top: 15px;
+    text-shadow: 1px 1px 1px #000;
     z-index: 3;
 }
 
 .post-date {
+    display: none;/* temp */
     font-size: 9px;
     left: 66px;
     opacity: 0.6;
@@ -145,9 +152,14 @@
 
 /* POST - AUTHOR */
 .author {
-    padding: 0 0 20px 0;
-    color: white;
-    opacity: 0.9;
+    padding: 0 0 20px;
+    color: #fff;
+    opacity: 0.8;
+    position: absolute;
+    left: 63px;
+    top: 291px;
+    z-index: 2;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
 }
 
 .result .author {
@@ -155,12 +167,15 @@
 }
 
 .author span {
-    background: gray;
     padding: 0 5px;
 }
 
 .author a {
     color: white;
+    text-decoration: none;
+}
+.author a:hover {
+    background: none;
 }
 
 /* POST - COMMENTS */
@@ -181,30 +196,17 @@
 }
 
 .bt-player {
-    background: rgba(0, 0, 0, 0.5);
-    bottom: 40px;
-    border: 1px solid rgba(200, 200, 200, 0.2);
-    border-radius: 5px;
-    height: 40px;
-    position: absolute;
-    right: 40px;
-    text-align: center;
-    width: 70px;
-    z-index: 3;
+
 }
 
 .bt-player a {
-    background: none !important;
-    border-top: 11px solid rgba(0, 0, 0, 0.4);
-    border-left: 40px solid rgba(255, 255, 255, 0.6);
-    border-bottom: 11px solid rgba(0, 0, 0, 0.4);
-    display: inline-block;
-    height: 0;
-    margin-top: 9px;
-    transition: all 125ms;
-    width: 0;
-    margin-left: 3px;
-    box-shadow: 1px 1px 21px 1px #000;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: none;
 }
 
 .postmetadata {
