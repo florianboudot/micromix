@@ -461,7 +461,7 @@ function allPostsByYear() {
 					array_push( $post_imagecover_array, $fat_image_src );// for javascript purposes
 
 					if ( is_user_logged_in() && isset( $_GET['migration'] ) ) {
-						$oldmp3name = get_post_meta( $post_id, 'enclosure', false );
+						$oldmp3name = "\upload\\" . get_post_meta( $post_id, 'enclosure', false );
 						$oldmp3name = urldecode( trim( $oldmp3name[0] ) );
 						$oldmp3name = mb_ereg_replace( 'http://www.micromix.fr', '', $oldmp3name );
 

@@ -7,6 +7,7 @@
 
         <?php include('player.php'); ?>
         <?php include('feedback.php'); ?>
+        <?php include('keyboard-shortcuts.php'); ?>
     </div>
 </div><!-- #mainContainer -->
 

@@ -460,8 +460,30 @@ $(document).ready(function() {
         $('#clear-canvas').on('click',clearCanvas);
 
     };
-    initTagWall();
 
+    var $modal = $('.modal-overlay');
+    var showKeyboardShortcuts = function () {
+        $modal.addClass('visible');
+    };
+    var hideKeyboardShortcuts = function () {
+        $modal.removeClass('visible');
+    };
+
+    /* -- bindKeyBoardShortcuts --  */
+    var bindKeyBoardShortcuts = function(){
+        $(document).keydown(function(e){
+            if(e.shiftKey && e.keyCode == '188'){
+                showKeyboardShortcuts();
+            };
+        });
+        $modal.find('.keyboard-shortcuts').on('click', function () {
+            hideKeyboardShortcuts();
+        })
+    };
+
+
+    initTagWall();
+    bindKeyBoardShortcuts();
     postToFeedback();
 
 });
