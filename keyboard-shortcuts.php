@@ -1,9 +1,13 @@
 <div class="modal-overlay">
 
 	<div class="keyboard-shortcuts">
-		<button class="modal-close">♫</button>
+		<button class="modal-close">
+			♫
+		</button>
 
-		<p>Keyboard shorcut</p>
+		<p>
+			Keyboard shorcuts
+		</p>
 
 		<dl class="keyboard-shortcuts-item">
 			<dt>

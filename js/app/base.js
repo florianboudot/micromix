@@ -472,9 +472,10 @@ $(document).ready(function() {
     /* -- bindKeyBoardShortcuts --  */
     var bindKeyBoardShortcuts = function(){
         $(document).keydown(function(e){
-            if(e.shiftKey && e.keyCode == '188'){
+            var is_key_comma = e.keyCode == '188'; // ? or , key
+            if(e.shiftKey && is_key_comma){
                 showKeyboardShortcuts();
-            };
+            }
         });
         $modal.find('.keyboard-shortcuts').on('click', function () {
             hideKeyboardShortcuts();
