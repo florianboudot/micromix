@@ -5,39 +5,36 @@ $image_format = (is_home() || is_single()) ? 'large' : 'medium';
 $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150), medium (220), large (500)
 ?>
 
+<!-- ARTICLE -->
 <div class="article" id="post-<?php the_ID(); ?>">
-    <!-- TITLE -->
-    <h2 class="post-title">
-        <strong class="post-micromix-number"><?= $micromix_number ?></strong>
-        <?php if(!is_single()): ?>
-            <a class="history the-title" href="<?= $the_permalink ?>" rel="bookmark" title="Leave a comment ?">
-                &ldquo;<?php the_title(); ?>&rdquo;
-            </a>
-        <?php else: ?>
-            <span class="the-title">&ldquo;<?php the_title(); ?>&rdquo;</span>
-        <?php endif; ?>
-    </h2>
-
-    <!-- DATE -->
-    <p class="post-date"><?php the_time('F jS, Y') ?></p>
 
 
     <!-- IMAGE -->
     <div class="post-image">
-	    <?php if(false/*!is_single() // NO LINK, NEVER*/) { ?>
-	    <a class="history" href="<?= $the_permalink ?>" title="See this post">
-	    <?php } ?>
-		    <!-- show a photo in a mask 494x324 -->
-		    <div class="cover" style="background-image:url(<?= $image_src ?>);"></div>
-	        <div class="case">
-		        <!-- SOUND, LOL, RLY? THX CAPTN OBVIOUS -->
-		        <?php include("sound.php"); ?>
-	        </div>
+        <!-- IMAGE COVER : shows a photo in a mask 494x324 -->
+        <div class="cover" style="background-image:url(<?= $image_src ?>);"></div>
 
+        <!-- PLASTIC CASE -->
+        <div class="case">
+            <?php include("sound.php"); ?>
+        </div>
 
-        <?php if(false/*!is_single()*/) { ?>
-            </a>
-        <?php } ?>
+        <!-- TITLE -->
+        <h2 class="post-title">
+            <strong class="post-micromix-number">
+                <?= $micromix_number ?>
+            </strong>
+            <?php if(!is_single()): ?>
+                <a class="history the-title" href="<?= $the_permalink ?>" rel="bookmark">
+                    &ldquo;<?php the_title(); ?>&rdquo;
+                </a>
+            <?php else: ?>
+                <span class="the-title">&ldquo;<?php the_title(); ?>&rdquo;</span>
+            <?php endif; ?>
+        </h2>
+
+        <!-- DATE -->
+        <p class="post-date"><?php the_time('F jS, Y') ?></p>
 
     </div>
 
@@ -63,5 +60,5 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
         <span><strong>Categories : </strong> <?php the_category(', ') ?></span>
     </p>
     <?php } ?>
-</div><!-- .article -->
+</div>
 

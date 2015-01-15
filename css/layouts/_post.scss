@@ -17,8 +17,8 @@
     position: absolute;
     width: 100%;
     top: 14px;
-    z-index: 2;
-    left: 66px;
+    z-index: 1;
+    left: 20px;
 }
 
 .post-title .the-title {
@@ -77,7 +77,7 @@
     background: url(../img/cassette/plastic-case.png) 0 0 no-repeat;
     height: 100%;
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 
 .post-image .cover {
