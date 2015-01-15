@@ -157,9 +157,15 @@ var Managethesound = function () {
         createNewPlaylist(ids);
     };
 
+    var _isamix = function(id){
+        return !!_originalindexbyid[id];
+    };
+
     var _getmp3byid = function (id) {
         //if (debug)console.info('_getmp3byid', id);
-        return originalPlaylist[_getoriginalindexbyid(id)].mp3;
+        //if (debug)console.trace('_getmp3byid', id);
+        var getoriginalindexbyid = _getoriginalindexbyid(id);
+        return getoriginalindexbyid ? originalPlaylist[getoriginalindexbyid].mp3 : getoriginalindexbyid;
     };
     var _geturlbyid = function (id) {
         //if (debug)console.info('_geturlbyid', id);
@@ -167,7 +173,7 @@ var Managethesound = function () {
     };
     var _getoriginalindexbyid = function (id) {
         //if (debug)console.info('_getindexbyid');
-        return _originalindexbyid[id]
+        return _originalindexbyid[id];
     };
     var _getidbyindex = function (index) {
         //if (debug)console.info('_getidbyindex');
@@ -746,9 +752,10 @@ var Managethesound = function () {
     var updateDisplayMixData = function () {
         $('.article').each(function () {
             var _id = this.id.split('post-')[1];
-            if (_id) {
+            if (_isamix(_id)) {
+                var mp3path = _getmp3byid(_id);
                 $(this).find('.post-micromix-number').html(_getnumberbyid(_id));
-                $(this).find('.wpaudio').attr('href', _getmp3byid(_id));
+                $(this).find('.wpaudio').attr('href', mp3path);
             }
         });
     };
