@@ -22,17 +22,23 @@ module.exports = function (grunt) {
     grunt.initConfig({
         watch: {
             options: {
-                debounceDelay: 50
+                livereload: true // http://feedback.livereload.com/knowledgebase/articles/86242-how-do-i-install-and-use-the-browser-extensions-
             },
             configFiles: {
                 files: ['Gruntfile.js', 'config/*.js'],
                 options: {
-                    reload: true
+                    spawn: false
                 }
             },
             sass: {
                 files: ['**/*.scss'],
                 tasks: ['sass'],
+                options: {
+                    spawn: false
+                }
+            },
+            scripts: {
+                files: [jsPath + '/**/*.js'],
                 options: {
                     spawn: false
                 }
