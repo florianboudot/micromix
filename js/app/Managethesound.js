@@ -157,7 +157,7 @@ var Managethesound = function () {
         createNewPlaylist(ids);
     };
 
-    var _isamix = function(id){
+    var _isamix = function (id) {
         return !!_originalindexbyid[id];
     };
 
@@ -165,7 +165,7 @@ var Managethesound = function () {
         //if (debug)console.info('_getmp3byid', id);
         //if (debug)console.trace('_getmp3byid', id);
         var getoriginalindexbyid = _getoriginalindexbyid(id);
-        return getoriginalindexbyid ? originalPlaylist[getoriginalindexbyid].mp3 : getoriginalindexbyid;
+        return getoriginalindexbyid !== null ? originalPlaylist[getoriginalindexbyid].mp3 : getoriginalindexbyid;
     };
     var _geturlbyid = function (id) {
         //if (debug)console.info('_geturlbyid', id);
@@ -681,7 +681,7 @@ var Managethesound = function () {
             _currentidplay = _maybecurrentidplay = id;
             _currentindexplay = _maybecurrentindexplay = _getindexbyid(_currentidplay);
 
-            _deletesound(_lastidplay);
+            _lastidplay && _deletesound(_lastidplay);
             refreshbind();
             _createsound(_getmp3byid(id), id).play();
             _animatingCassette = false;
@@ -848,7 +848,7 @@ var Managethesound = function () {
         _UIPausing();
         isPausing = true;
         if (__sound) {
-            _fadeOut().promise().done(function(){
+            _fadeOut().promise().done(function () {
                 hasbeenpaused = !__sound.paused;
                 __sound.pause();
                 isPausing = false;
