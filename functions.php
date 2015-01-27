@@ -2,7 +2,7 @@
 add_filter( 'jpeg_quality', create_function( '', 'return 60;' ) );
 
 function getmicromixversion(){
-	return "2.0.2";
+	return "2.0.3";
 }
 
 function is_local() {
