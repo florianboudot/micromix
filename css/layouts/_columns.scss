@@ -1,0 +1,39 @@
+/* COLUMN 1 */
+#column1 {
+    float: left;
+    width: 142px;
+    padding: 588px 0 300px 0;
+    position: relative;
+    z-index: 1;
+}
+
+#column1 .col-block {
+    padding-left: 25px;
+}
+#column1 li a,
+#column1 li span {
+    background: #e6e8e7;
+    padding: 0 2px;
+}
+#column1 ul li a:hover {
+    color: #e6e8e7;
+    background: #1e4279;
+}
+
+
+#column2 {
+    float: left;
+    width: 610px;
+    padding: 280px 0 0 0;
+    position: relative;
+    z-index: 1;
+}
+
+.col-block-title,
+.text-bg {
+    color: black;
+    background: #e6e8e7;
+    display: inline;
+    font-size: 1.1em;
+    padding: 0 2px;
+}

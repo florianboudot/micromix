@@ -1,0 +1,63 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font: 82% Arial, Verdana, Helvetica, sans-serif;
+    color: #000;
+    background: #DDD;
+}
+
+img, fieldset, form, legend, h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 1em;
+}
+
+a {
+    text-decoration: underline;
+    color: black;
+}
+
+a:hover {
+    text-decoration: none;
+    background: #1e4279;
+    color: white;
+}
+
+/* FORMS */
+input,
+select,
+textarea,
+button {
+    font: 1em Arial, Verdana, Helvetica, sans-serif;
+    color: #000;
+    border: 1px solid #333;
+    padding: 2px;
+}
+
+.inputText,
+textarea {
+    border: 1px solid #333;
+    padding: 2px;
+}
+
+textarea {
+    overflow: auto;
+}
+
+select {
+    border: 1px solid #333;
+    padding: 1px;
+}
+
+/* LISTS (default) */
+ul {
+    list-style: none;
+    padding: 0 0 0 0;
+}
+
+ol {
+    list-style: decimal;
+    padding: 0 0 0 17px;
+}
+

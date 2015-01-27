@@ -1,0 +1,108 @@
+/*
+    www.micromix.fr (2008 - 2014)
+    author : supakazes@hotmail.com
+*/
+/* DEFAULT */
+
+#column2 .searchform {
+    padding: 0 0 100px 21px;
+}
+
+
+#mainContent {
+    margin: 0 auto;
+    overflow: hidden;
+    padding-bottom: 619px;
+    width: 1000px;
+}
+
+
+/* BODY VIGNETTE EFFECT */
+#vignette {
+    position: fixed;
+    box-shadow: inset 0 0 150px 70px rgba(0,0,0,0.3);
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: -50px;
+    z-index: 10;
+    border-radius: 0;
+    pointer-events: none;
+}
+
+/* BUTTONS SOCIAL (facebook, twitter, etc) */
+.bt-social {
+
+}
+
+#btRss {
+    padding: 94px 0 0 12px;
+}
+
+#btRss a {
+    display: block;
+    width: 88px;
+    height: 96px;
+    text-indent: -9999px;
+    overflow: hidden;
+    background: url(../img/rss-feeds.gif) left top no-repeat;
+}
+
+#btTwitter {
+    padding: 9px 0 0 30px;
+    display: block;
+}
+
+#btTwitter a:hover {
+    background: none;
+}
+
+#btFB {
+    padding: 13px 0 0 30px;
+    display: block;
+}
+
+#btFB a:hover {
+    background: none;
+}
+
+
+/* TAG CLOUD */
+#column-2 ul.wp-tag-cloud {//todo still exist?
+    list-style: decimal;
+    padding-left: 25px;
+}
+
+li#currentAction span {
+    background: #E6E8E7;
+    padding: 0 2px;
+}
+
+#supportWP {
+    text-align: center;
+    padding: 10px 0 20px 0;
+}
+
+#supportWP span {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 2px 5px;
+    border-radius: 0;
+    box-shadow: 0 0 1px #FFF;
+}
+
+.search-excerpt {//todo not used anymore
+    background: yellow;
+}
+
+/* NEWSLETTER PLUGIN */
+.newsletter-subscription input {//todo column right
+    width: 90px;
+}
+
+@media print {
+    /* TO DO : no backgrounds *///todo lol
+
+}
+
+/* END */

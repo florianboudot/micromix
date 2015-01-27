@@ -1,0 +1,21 @@
+/* navigation */
+.navigation {
+    overflow: hidden;
+    padding: 0 0 25px 21px;
+    width: 94%;
+}
+
+.navigation .alignleft,
+.navigation .alignright {
+    float: left;
+    background: #E6E8E7;
+    padding: 0 2px;
+}
+
+.navigation .alignright {
+    float: right;
+}
+
+.navigation .alignleft {
+    margin: 0 10px 0 0;
+}

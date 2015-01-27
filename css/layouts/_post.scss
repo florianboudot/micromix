@@ -1,0 +1,245 @@
+/* POST (ARTICLE) */
+.article {
+    padding: 0 30px 30px 47px;
+    position: relative;
+}
+
+.result .article {
+    padding-left: 50px;
+}
+
+.post-title {
+    font-size: 2em;
+    font-family: Georgia,"Times New Roman",Times,serif;
+    padding: 0;
+    border: 0;
+    margin: 0;
+    position: absolute;
+    width: 100%;
+    top: 14px;
+    z-index: 1;
+    left: 20px;
+}
+
+.post-title .the-title {
+    background: #e6e8e7;
+    color: #000;
+    padding: 0 5px;
+    position: absolute;
+    text-decoration: none;
+    top: 250px;
+    opacity: 0.8;
+    left: 0;
+}
+
+.post-title a:hover {
+    background: #1e4279;
+    color: white;
+}
+
+.post-micromix-number {
+    color: white;
+    font-size: 2em;
+    left: 7px;
+    line-height: 1em;
+    opacity: 0.7;
+    padding: 0 5px 3px 5px;
+    position: absolute;
+    top: 15px;
+    text-shadow: 1px 1px 1px #000;
+    z-index: 3;
+}
+
+.post-date {
+    display: none;/* temp */
+    font-size: 9px;
+    left: 66px;
+    opacity: 0.6;
+    padding: 3px 0 0 0;
+    position: absolute;
+    top: 96px;
+    z-index: 3;
+    background: #E6E8E7;
+}
+
+.result .post-date {
+    display: none;
+}
+
+/* POST - IMAGE (CASSETTE PLASTIC CASE) */
+.post-image {
+    position: relative;
+    width: 536px;
+    height: 355px;
+}
+
+.post-image .case {
+    background: url(../img/cassette/plastic-case.png) 0 0 no-repeat;
+    height: 100%;
+    position: relative;
+    z-index: 3;
+}
+
+.post-image .cover {
+    position: absolute;
+    left: 3.6%;
+    top: 4%;
+    z-index: 1;
+    bottom: 4.7%;
+    right: 4.05%;
+    background-size: cover;
+    background-position: top center;
+}
+
+/* POST - TRACKLIST */
+.article h3 {
+    /* tracklist title */
+    color: black;
+    background: #e6e8e7;
+    display: inline-block;
+    font: bold 1.5em Georgia, "Times New Roman", Times, serif;
+    padding: 0 2px;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+.article ol {
+    padding: 0 0 0 25px;
+    margin: 0 0 0 0;
+}
+
+.article li {
+    font-size: 1.1em; /*line-height:1.6em;*/
+    font-weight: bold;
+    padding: 0 0 0 0;
+}
+
+.article li span {
+    background: #e6e8e7;
+    font-weight: normal;
+    padding: 2px 5px;
+    display: inline-block;
+}
+
+.article li span strong {
+    font-weight: bold;
+}
+
+.article li a {
+    text-decoration: underline;
+}
+
+/* POST - PERMALINK */
+.post-permalink {
+    display: none; /* default is display:none */
+    text-align: right;
+    clear: both;
+    padding: 20px 0 0 0;
+}
+
+.result .post-content p.post-permalink {
+    display: block; /* default is display:none */
+}
+
+.post-permalink a {
+    background: #E6E8E7;
+    padding: 0 2px;
+}
+
+.post-permalink a:hover {
+    color: black;
+}
+
+/* POST - AUTHOR */
+.author {
+    padding: 0 0 20px;
+    color: #fff;
+    opacity: 0.8;
+    position: absolute;
+    left: 63px;
+    top: 291px;
+    z-index: 2;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
+}
+
+.result .author {
+    display: none;
+}
+
+.author span {
+    padding: 0 5px;
+}
+
+.author a {
+    color: white;
+    text-decoration: none;
+}
+.author a:hover {
+    background: none;
+}
+
+/* POST - COMMENTS */
+.post-comments {
+    overflow: hidden;
+    zoom: 1;
+}
+
+.post-comments p {
+    float: right;
+    padding: 0 0 0 20px;
+}
+
+/* POST - SOUND PLAYER */
+.article .sound {
+    overflow: hidden;
+    width: 100%;
+}
+
+.bt-player {
+
+}
+
+.bt-player a {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    background: none;
+}
+
+.postmetadata {
+    padding: 0 20px 12px 0;
+}
+
+.postmetadata span {
+    background: #E6E8E7;
+    padding: 0 5px;
+}
+
+/* POST CONTENT */
+.post-content {
+    padding: 0 0 20px 0;
+    width: 508px;
+    line-height: 1.3em;
+}
+
+.post-content p {
+    margin: 0 0 10px 0;
+    padding: 2px 4px;
+    background: #e6e8e7;
+    line-height: 1.47em;
+}
+
+.result .post-content p {
+    display: none;
+}
+
+/* highlight title & search result */
+.article .hilite {
+    background: yellow;
+    float: none;
+    display: inline;
+    padding: 0;
+}

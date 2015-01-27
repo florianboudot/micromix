@@ -1,0 +1,144 @@
+
+/* COLUMN 3 */
+#column3 {
+    float: left;
+    width: 220px;
+    padding: 260px 0 450px 0;
+}
+#sidebar {
+    padding: 20px 0 0 9px;
+    position: relative;
+    z-index: 2;
+}
+
+#sidebar .searchform .s {
+    width: 146px;
+    margin: 0 0 3px 0;
+}
+
+#sidebar .searchform .searchsubmit {
+    width: 56px;
+}
+
+#sidebar .text-bg {
+    font-size: 0.9em;
+}
+
+#sidebar li ul {
+    padding-bottom: 0;
+}
+
+#sidebar .list-item.currentsoundplayed {
+    font-weight: bold;
+}
+#sidebar li a {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display: inline-block;
+    max-width: 200px;
+}
+#sidebar li a {
+    background: #e6e8e7;
+    padding: 0 2px;
+}
+
+#sidebar ul li a:hover {
+    color: #e6e8e7;
+    background: #1e4279;
+}
+
+
+/* ARCHIVES IN SIDEBAR - ALL POSTS BY YEAR */
+.year-title {
+    padding: 0 0 5px 0;
+    font-size: 13px;
+    margin: 10px 0 0 0;
+}
+.year-text {
+    background: #e6e8e7;
+}
+.year-title.active {
+    background-position: -486px 4px;
+}
+.year-list-container {
+    padding-bottom: 0;
+}
+.year-list-container .list-item {
+    padding: 0;
+    position: relative;
+    -webkit-perspective: 600;
+    -moz-perspective: 600;
+    perspective: 600;
+}
+
+.year-list-container .list-item a {
+    text-decoration: none;
+}
+
+/*
+.year-list-container .list-item.active {
+
+}
+*/
+
+.year-list-container .list-item.active a {
+    font-weight: bold;
+    color: red !important; /* todo */
+}
+
+.year-list-container .micromix-number {
+    background: #e6e8e7;
+}
+
+.thumbnail-wrapper {
+    /*margin-right: 10px;*/
+    /*position: absolute;*/
+}
+
+.year-list-container .mini-poster {
+    border: 3px solid #e6e8e7;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    left: -200px;
+    margin: auto;
+    opacity: 0;
+    position: absolute;
+    right: 100%;
+    text-align: center;
+    transform: rotateY(1deg) translate3D(-15px, -50%, 0);
+    transform-origin: 100% 50%;
+    transition: visibility 0s linear 350ms, opacity 150ms linear 0ms, transform 150ms ease-in-out 0ms;
+    visibility: hidden;
+    width: 180px;
+}
+.year-list-container .hover .mini-poster {
+    transition: visibility 0s linear 0ms, opacity 150ms linear 150ms, transform 150ms ease-in-out 150ms;
+    transform: rotateY(18deg) translate3D(-20px, -50%, 0);
+    opacity: 1;
+    visibility: visible;
+}
+
+.play-sound {
+    /*bottom: 0;*/
+    /*height: 56px;*/
+    /*right: 0;*/
+    /*top: 0;*/
+}
+
+.play-sound-inside {
+    background: rgba(0, 0, 0, 0.5);
+    border: dashed 3px #FFF;
+    border-radius: 100%;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    box-sizing: border-box;
+}
+
+.play-sound-text {
+    color: #FFF;
+    font-size: 25px;
+    line-height: 57px;
+    position: relative;
+}
