@@ -79,8 +79,12 @@ li#currentAction span {
 }
 
 #supportWP {
-    text-align: center;
+    bottom: -50px;
+    height: 0;
     padding: 10px 0 20px 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
 }
 
 #supportWP span {

@@ -742,7 +742,7 @@ var Managethesound = function () {
     var scrollToPost = function () {
         var $currentPost = $('#post-' + _currentidplay);
         if (!window.activity.isactiv() && $currentPost.length) {
-            $('body').animate({scrollTop: $currentPost.offset().top}, {duration: 125})
+            $('body').velocity('scroll', {offset: $currentPost.offset().top, duration: 125})
         }
     };
 
