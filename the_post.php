@@ -36,6 +36,11 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
         <!-- DATE -->
         <p class="post-date"><?php the_time('F jS, Y') ?></p>
 
+        <!-- AUTHOR -->
+        <p class="author">
+            <span class="parenthistory">mixed by <?php the_author_posts_link(); ?></span>
+        </p>
+
     </div>
 
 
@@ -47,18 +52,26 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
     </div>
     -->
 
-    <!-- AUTHOR -->
-    <p class="author">
-        <span class="parenthistory">mixed by <?php the_author_posts_link(); ?></span>
-    </p>
-
 
     <!-- TAGS AND CATEGORIES -->
     <?php if(is_single()) { ?>
-    <p class="postmetadata parenthistory">
-        <?php the_tags('<span><strong>Artists : </strong> ', ', ', '.<br /></span>'); ?>
-        <span><strong>Categories : </strong> <?php the_category(', ') ?></span>
-    </p>
+        <p class="postmetadata parenthistory">
+            <?php the_tags('<span><strong>Artists : </strong> ', ', ', '.<br /></span>'); ?>
+            <span><strong>Categories : </strong> <?php the_category(', ') ?></span>
+        </p>
     <?php } ?>
+
+    <!-- TEST -->
+    <div class="cube">
+        <div class="flippety">
+            <h1>Flippity</h1>
+        </div>
+        <div class="flop">
+            <h2>Flop</h2>
+        </div>
+        <div class="flap">
+            <h2>Flap</h2>
+        </div>
+    </div>
 </div>
 

@@ -151,32 +151,44 @@
 }
 
 /* POST - AUTHOR */
-.author {
-    padding: 0 0 20px;
-    color: #fff;
-    opacity: 0.8;
-    position: absolute;
-    left: 63px;
-    top: 291px;
-    z-index: 2;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
+.article {
+    .author {
+        padding: 0 0 20px;
+        color: #fff;
+        opacity: 0.8;
+        position: absolute;
+        left: 20px;
+        top: 291px;
+        z-index: 2;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.74);
+
+        span {
+            padding: 0 5px;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+
+            &:hover {
+                background: none;
+            }
+        }
+    }
 }
+
+
 
 .result .author {
     display: none;
 }
 
-.author span {
-    padding: 0 5px;
-}
 
-.author a {
-    color: white;
-    text-decoration: none;
-}
-.author a:hover {
-    background: none;
-}
+
+
+
+
+
 
 /* POST - COMMENTS */
 .post-comments {
@@ -242,4 +254,70 @@
     float: none;
     display: inline;
     padding: 0;
+}
+
+
+/* test flip box */
+/* Set-up */
+.article {
+    -webkit-perspective: 1000px; /* <-NB */
+}
+
+/* Container box to set the sides relative to */
+.cube {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30%;
+    text-align: center;
+    margin: 0 auto;
+    height: 100px;
+    z-index: 4;
+
+    -webkit-transition: -webkit-transform 1s;
+    transition: transform 1s; /* Animate the transform properties */
+
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d; /* <-NB */
+}
+
+/* Rotate the cube */
+.cube:hover {
+    -webkit-transform: rotateX(180deg);
+    transform: rotateX(180deg); /* Text bleed at 90º */
+}
+
+/* The two faces of the cube */
+.flippety,
+.flop,
+.flap {
+    background-size: cover;
+    border: 1px solid rgba(147, 184, 189, .8);
+
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+
+    -webkit-box-shadow: 0 5px 20px rgba(105, 108, 109, .3), 0 0 8px 5px rgba(208, 223, 226, .4) inset;
+    box-shadow: 0 5px 20px rgba(105, 108, 109, .3), 0 0 8px 5px rgba(208, 223, 226, .4) inset;
+    height: 100px;
+}
+
+/* Position the faces */
+.flippety {
+    background: url(http://micromix.localhost/upload/remember-the-titans-500x326.jpg) 0 0 no-repeat;
+    -webkit-transform: translateZ(50px);
+    transform: translateZ(50px);
+}
+
+.flop {
+    background: url(http://micromix.localhost/upload/robocop-street-scum.jpg) 0 0 no-repeat;
+    -webkit-transform: rotateX(-90deg) translateZ(-50px);
+    transform: rotateX(-90deg) translateZ(-50px);
+}
+
+.flap {
+    background: url(http://micromix.localhost/upload/remember-the-titans-500x326.jpg) 0 0 no-repeat;
+//    -webkit-transform: rotateX(-180deg) translateZ(-150px);
+    transform: rotateX(-180deg) translateY(200px) translateZ(50px);
 }
