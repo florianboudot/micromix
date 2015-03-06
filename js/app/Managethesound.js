@@ -158,7 +158,7 @@ var Managethesound = function () {
     };
 
     var _isamix = function (id) {
-        return !!_originalindexbyid[id];
+        return typeof _originalindexbyid[id] === 'number';
     };
 
     var _getmp3byid = function (id) {
