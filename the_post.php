@@ -45,12 +45,12 @@ $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150),
 
 
     <!-- POST CONTENT -->
-    <!--
+
     <div class="post-content parenthistory">
         <?php the_content('<p>Read the rest of this entry &raquo;</p>'); ?>
         <p class="post-permalink">> <a class="history" href="<?= $the_permalink ?>" rel="bookmark">read this post</a></p>
     </div>
-    -->
+
 
 
     <!-- TAGS AND CATEGORIES -->
