@@ -20,6 +20,14 @@ var Managethesound = function () {
     var EVENT_click = Modernizr.touch ? 'click' : 'click';
     var EVENT_leave = Modernizr.touch ? 'touchcancel' : 'mouseleave';
 
+    var interfaceSoundButtonPush;
+    var interfaceSoundRewind;
+    var interfaceSoundForward;
+    var interfaceSoundOpen;
+    var interfaceSoundClose;
+    var interfaceSoundButtonRelease;
+    var interfaceSoundK7In;
+    var interfaceSoundK7Out;
     var $cassette = $('.cassette');
     //var $cassetteToClone = $cassette.clone();
 
@@ -518,6 +526,7 @@ var Managethesound = function () {
             _playthatsound(_getidbyindex(_maybecurrentindexplay + 1), wait);
         }
         else {
+            cassetteMoveOutPlayer().then(closeDeckDoor);
             if (debug)console.info('no more sound, shall we play the first sound ?')
         }
     };
@@ -539,6 +548,7 @@ var Managethesound = function () {
     var TIMEOUTrewind = 0;
 
     var _clearRewindForward = function () {
+        interfaceSoundRewind.stop();
         clearTimeout(TIMEOUTforward);
         clearTimeout(TIMEOUTrewind);
         if (_sound.paused) {
@@ -1109,24 +1119,38 @@ var Managethesound = function () {
 
     var _onClickPlay = function () {
         pushButton('play');
+
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.stop();
+        interfaceSoundRewind.stop();
         $cassette.removeClass('rotatingfastforward rotatingrewind');
         $cassette.addClass('rotating');
     };
     var _onClickPause = function () {
         pushButton('pause');
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.stop();
+        interfaceSoundRewind.stop();
         $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
     };
     var _onClickStop = function () {
         pushButton('stop');
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.stop();
+        interfaceSoundRewind.stop();
         $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
     };
     var _onClickForward = function () {
         pushButton('forward');
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.play();
         $cassette.removeClass('rotating rotatingrewind');
         $cassette.addClass('rotatingfastforward');
     };
     var _onClickRewind = function () {
         pushButton('rewind');
+        interfaceSoundButtonPush.play();
+        interfaceSoundRewind.play();
         $cassette.removeClass('rotating rotatingfastforward');
         $cassette.addClass('rotatingrewind');
     };
@@ -1137,6 +1161,19 @@ var Managethesound = function () {
      */
     var _bind_controls = function () {
         if (debug)console.info('_onsoundmanagerready');
+        interfaceSoundButtonPush = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/test/button_click.mp3',id:'btnpush',multiShot: false, autoLoad: true});
+        interfaceSoundButtonRelease = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/test/button_click.mp3',id:'btnrelease',multiShot: false, autoLoad: true});
+        interfaceSoundK7In = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/auda/in.mp3',id:'k7in',multiShot: false, autoLoad: true});
+        interfaceSoundK7Out = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/test/button_click.mp3',id:'k7out',multiShot: false, autoLoad: true});
+
+        interfaceSoundRewind = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/auda/rewind.mp3',id:'rewind',multiShot: false, autoLoad: true,
+            onfinish:function(){this.play({from:450})}});
+        interfaceSoundForward = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/auda/forward.mp3',id:'forward',multiShot: false, autoLoad: true,
+            onfinish:function(){this.play({from:200})}});
+
+        //interfaceSoundForward = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/test/rewind.mp3',id:'forward',multiShot: false, autoLoad: true});
+        interfaceSoundOpen = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/auda/open-desk.mp3',id:'open',multiShot: false, autoLoad: true});
+        interfaceSoundClose = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/auda/close-desk.mp3',id:'close',multiShot: false, autoLoad: true});
 
         $linkplaysoundbyid.on(EVENT_click, _getandplaythatsound);
 //        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
@@ -1203,6 +1240,7 @@ var Managethesound = function () {
     var $deck = $('#deck');
     var openDeckDoor = function () {
         $deck.addClass('open');
+        interfaceSoundOpen.play();
         $('#deck-door-shadow').addClass('active');
         return $.Velocity.animate($deck, {
             rotateX: '-30deg'
@@ -1216,6 +1254,7 @@ var Managethesound = function () {
     var closeDeckDoor = function () {
         $deck.removeClass('open');
         $('#deck-door-shadow').removeClass('active');
+        interfaceSoundClose.play();
         return $.Velocity.animate($deck, {
             rotateX: '0deg'
         }, {
@@ -1280,7 +1319,7 @@ var Managethesound = function () {
             console.info('cassetteMoveOutPlayer')
         }
         openDeckDoor();
-
+        //todo sound effet
         $.Velocity.animate($cassette, {
             bottom: 270,
             scale: [K7SCALLEMIDDLE, 'easeInExpo']
@@ -1305,7 +1344,7 @@ var Managethesound = function () {
     $.Velocity.animate($cassette, {
         scale: [K7SCALLEFAR]
     }, {
-        duration: 1
+        duration: 0
     });
 
     /**
@@ -1319,7 +1358,7 @@ var Managethesound = function () {
 
         var imgFatSrc = _getcoverbyid(id);
         $k7face.css('background-image', 'url(' + imgFatSrc + ')');
-
+        interfaceSoundK7In.play();
         $.Velocity.animate($cassette, {
             bottom: 270,
             scale: [K7SCALLEMIDDLE, 'easeInExpo']
@@ -1330,7 +1369,7 @@ var Managethesound = function () {
                 $cassette.css('zIndex', 1);
             }
         });
-
+        //todo play sound effect
         return $.Velocity.animate($cassette, {
             bottom: 61,
             scale: [K7SCALLENEAR, 'easeOutExpo']
@@ -1389,6 +1428,8 @@ var Managethesound = function () {
             }
 
         });
+
+
     };
 
     this.refreshbind = refreshbind;
