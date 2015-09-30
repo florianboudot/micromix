@@ -36,7 +36,6 @@
     <script src="<?= theme_path ?>/js/framework/pm.contentmanager.js"></script>
     <script src="<?= theme_path ?>/js/framework/pm.getterssetters.js"></script>
     <script src="<?= theme_path ?>/js/framework/pm.historymanager.js"></script>
-    <script src="<?= theme_path ?>/js/framework/pm.navigationmanager.js"></script>
     <script src="<?= theme_path ?>/js/framework/pm.transitionmanager.js"></script>
     <script src="<?= theme_path ?>/js/framework/pm.viewactions.js"></script>
     <script src="<?= theme_path ?>/js/framework/pm.viewmanager.js"></script>
