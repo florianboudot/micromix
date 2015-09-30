@@ -25,12 +25,11 @@ var Managethesound = function () {
     var interfaceSoundForward;
     var interfaceSoundOpen;
     var interfaceSoundClose;
-    var interfaceSoundButtonRelease;
     var interfaceSoundK7In;
     var interfaceSoundK7Out;
     var $cassette = $('.cassette');
-    //var $cassetteToClone = $cassette.clone();
 
+    var basicDocumentTitle = '';
     var _currentidplay = '';
     var _maybecurrentidplay = '';
     var _lastidplay = '';
@@ -203,11 +202,15 @@ var Managethesound = function () {
 
     var TIMEOUTanimatewindowtitle = 0;
     var _actualchardocumenttitle = '♫';
+    var _startAnimateDocumentTitle = function () {
+        clearTimeout(TIMEOUTanimatewindowtitle);
+        document.title = getMixtitle();
+        _animatedocumenttitle();
+    };
     var _animatedocumenttitle = function () {
-//        if (debug)console.info('_animatedocumenttitle');
         var oldchar = _actualchardocumenttitle;
         _actualchardocumenttitle = _actualchardocumenttitle === '♪' ? '♫' : '♪';
-        if (/[♪|♫]/.test(document.title)) {
+        if (/♪|♫/.test(document.title)) {
             document.title = document.title.replace(oldchar, _actualchardocumenttitle);
         }
         else {
@@ -218,9 +221,8 @@ var Managethesound = function () {
     };
 
     var _cancelanimatedocumenttitle = function () {
-//        if (debug)console.info('_cancelanimatedocumenttitle');
         clearTimeout(TIMEOUTanimatewindowtitle);
-        document.title = document.title.replace(/[♫|♪] /, '');
+        document.title = basicDocumentTitle;
     };
 
     var _UIPausing = function () {
@@ -229,7 +231,7 @@ var Managethesound = function () {
     };
     var _UIPlaying = function () {
         _onClickPlay();
-        _animatedocumenttitle();
+        _startAnimateDocumentTitle();
     };
 
     var _onplay = function () {
@@ -700,13 +702,16 @@ var Managethesound = function () {
         scrollToPost(id);
     };
 
+    var getMixtitle = function () {
+        var $currentlink = $('.micromix-id-' + _currentidplay);
+        var title = latinize($currentlink.text());
+        return 'Micromix ' + title;
+    };
+
     var INTERVAL_infortext = 0;
     var _updatehtmlinfo = function () {
 //        if (debug)console.info('defil _updatehtmlinfo');
-        var $currentlink = $('.micromix-id-' + _currentidplay);
-        var title = latinize($currentlink.text());
-        var finaltext = 'Micromix ' + title;
-        $infos_text.html(finaltext);
+        $infos_text.html(getMixtitle());
         $infos_text.attr('href', _geturlbyid(_currentidplay));
         $('#button-rec').attr('href', _getmp3byid(_currentidplay));
 
@@ -759,15 +764,41 @@ var Managethesound = function () {
     /**
      * update the display
      */
-    var updateDisplayMixData = function () {
+    var updateDisplayMixData = function ($parent) {
         $('.article').each(function () {
             var _id = this.id.split('post-')[1];
             if (_isamix(_id)) {
                 var mp3path = _getmp3byid(_id);
                 $(this).find('.post-micromix-number').html(_getnumberbyid(_id));
                 $(this).find('.wpaudio').attr('href', mp3path);
+
             }
         });
+
+
+        //changing document.title
+        if ($('.pagetitle').length) {
+            //tag
+            basicDocumentTitle = 'Micromix | ' + $parent.find('.pagetitle').text().trim();
+        }
+        else if ($parent.find('.post-title').length > 1) {
+            //HP
+            basicDocumentTitle = 'Micromix';
+        }
+        else if ($parent.find('.post-title').length) {
+            //post
+            basicDocumentTitle = 'Micromix #' + $parent.find('.post-title').text().trim();
+        }
+        else {
+            //other pages
+            basicDocumentTitle = 'Micromix | ' + $parent.find('h2').text().trim();
+        }
+
+        if (!isPausing) {
+            document.title = basicDocumentTitle;
+        }
+
+
     };
 
     /**
@@ -775,7 +806,7 @@ var Managethesound = function () {
      */
     var refreshbind = function ($parent) {
         if (debug)console.info('refreshbind');
-        updateDisplayMixData();
+        updateDisplayMixData($parent);
         var $post = $('#post-' + _currentidplay);
         is_post_in_the_page = !!$post.length;
 //        $currentplayer.off(timelineevents, _gotothistime); // before update current
@@ -1118,7 +1149,7 @@ var Managethesound = function () {
     };
 
     var _onClickPlay = function () {
-        console.info('_onClickPlay');
+        debug && console.info('_onClickPlay');
         interfaceSoundButtonPush.play();
         interfaceSoundForward.stop();
         interfaceSoundRewind.stop();
@@ -1127,7 +1158,7 @@ var Managethesound = function () {
         pushButton('play');
     };
     var _onClickPause = function () {
-        console.info('_onClickPause');
+        debug && console.info('_onClickPause');
         interfaceSoundButtonPush.play();
         interfaceSoundForward.stop();
         interfaceSoundRewind.stop();
@@ -1135,7 +1166,7 @@ var Managethesound = function () {
         pushButton('pause');
     };
     var _onClickStop = function () {
-        console.info('_onClickStop');
+        debug && console.info('_onClickStop');
         interfaceSoundButtonPush.play();
         interfaceSoundForward.stop();
         interfaceSoundRewind.stop();
@@ -1143,7 +1174,7 @@ var Managethesound = function () {
         pushButton('stop');
     };
     var _onClickForward = function () {
-        console.info('_onClickForward');
+        debug && console.info('_onClickForward');
         //interfaceSoundButtonPush.play();
         interfaceSoundForward.play();
         $cassette.removeClass('rotating rotatingrewind');
@@ -1151,7 +1182,7 @@ var Managethesound = function () {
         pushButton('forward');
     };
     var _onClickRewind = function () {
-        console.info('_onClickRewind');
+        debug && console.info('_onClickRewind');
         //interfaceSoundButtonPush.play();
         interfaceSoundRewind.play();
         $cassette.removeClass('rotating rotatingfastforward');
