@@ -1,15 +1,17 @@
 /* http://ejohn.org/blog/fast-javascript-maxmin/ */
-if(typeof(pm) == 'undefined'){var pm = {}}
-Array.prototype.max = function() {
+if (typeof(pm) == 'undefined') {
+    var pm = {}
+}
+Array.prototype.max = function () {
     return Math.max.apply(null, this);
 };
-Array.prototype.min = function(){
+Array.prototype.min = function () {
     return Math.min.apply(null, this);
 };
-Math.random2 = function (min, max){
+Math.random2 = function (min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 };
-Math.rounddec = function (num,numdec){
+Math.rounddec = function (num, numdec) {
     var factor = 1;
     for (var i = 0; i < numdec; i++) {
         factor *= 10;
@@ -17,7 +19,7 @@ Math.rounddec = function (num,numdec){
     return Math.round(num * factor) / factor;
 };
 if (!Array.indexOf) {
-    Array.prototype.indexOf = function(obj, start) {
+    Array.prototype.indexOf = function (obj, start) {
         for (var i = (start || 0); i < this.length; i++) {
             if (this[i] == obj) {
                 return i;
@@ -28,7 +30,7 @@ if (!Array.indexOf) {
 }
 // Array Remove - By John Resig (MIT Licensed)
 if (!Array.remove) {
-    Array.prototype.remove = function(from, to) {
+    Array.prototype.remove = function (from, to) {
         var rest = this.slice((to || from) + 1 || this.length);
         this.length = from < 0 ? this.length + from : from;
         return this.push.apply(this, rest);
@@ -37,12 +39,12 @@ if (!Array.remove) {
 
 // Array Random - By Antoine Sanchez
 if (!Array.random) {
-    Array.prototype.random = function() {
-        return this[Math.random2(0, this.length-1)];
+    Array.prototype.random = function () {
+        return this[Math.random2(0, this.length - 1)];
     };
 }
 
-(function() {
+(function () {
     window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
     window.cancelAnimationFrame = window.cancelAnimationFrame || window.webkitCancelRequestAnimationFrame || window.webkitCancelAnimationFrame || window.mozCancelAnimationFrame || window.msCancelAnimationFrame;
 
@@ -65,11 +67,15 @@ if (!Array.random) {
  **/
 var allCookies = {
     getItem: function (sKey) {
-        if (!sKey || !this.hasItem(sKey)) { return null; }
+        if (!sKey || !this.hasItem(sKey)) {
+            return null;
+        }
         return unescape(document.cookie.replace(new RegExp("(?:^|.*;\\s*)" + escape(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*((?:[^;](?!;))*[^;]?).*"), "$1"));
     },
     setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
-        if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return; }
+        if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) {
+            return;
+        }
         var sExpires = "";
         if (vEnd) {
             switch (vEnd.constructor) {
@@ -87,7 +93,9 @@ var allCookies = {
         document.cookie = escape(sKey) + "=" + escape(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
     },
     removeItem: function (sKey, sPath) {
-        if (!sKey || !this.hasItem(sKey)) { return; }
+        if (!sKey || !this.hasItem(sKey)) {
+            return;
+        }
         document.cookie = escape(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sPath ? "; path=" + sPath : "");
     },
     hasItem: function (sKey) {
@@ -95,12 +103,14 @@ var allCookies = {
     },
     keys: /* optional method: you can safely remove it! */ function () {
         var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
-        for (var nIdx = 0; nIdx < aKeys.length; nIdx++) { aKeys[nIdx] = unescape(aKeys[nIdx]); }
+        for (var nIdx = 0; nIdx < aKeys.length; nIdx++) {
+            aKeys[nIdx] = unescape(aKeys[nIdx]);
+        }
         return aKeys;
     }
 };
 
-var basemicroonde = (function($) {
+var basemicroonde = (function ($) {
 
     var documentlocationhost = document.location.host;
     var debug = /antsan|stecov|flobou|local|192/.test(documentlocationhost);
@@ -111,33 +121,24 @@ var basemicroonde = (function($) {
     var $w = $(w);
 
     var $body = $('body');
-    var $loaderimgcontainer = $('<div>');
-    $body.append($loaderimgcontainer);
-    var $loaderprogression = null;
+    var $loaderimgcontainer = $('<div>').attr('id', 'loader').attr('style', 'display:none;position: fixed;top: 50%;left: 50%;margin:-50px;width: 100px;height: 100px;');
+    var $loaderprogression = $('<div>').addClass('loader-progression').attr('style', 'width:100%;height: 100px;background: url(/wp-content/themes/micromix-theme-1/img/cassette/cran.png) center no-repeat;;');
+    $body.append($loaderimgcontainer.append($loaderprogression));
 
     var _loaderinit = function () {
-        if ($loaderimgcontainer === null) {
-            $loaderimgcontainer = $('#loader');
-            if($loaderimgcontainer.length === 0){
-                $loaderimgcontainer = $('<div>').attr('id', 'loader');
-                $body.append($loaderimgcontainer);
-            }
-        }
 
-        if ($loaderprogression === null) {
-            $loaderprogression = $loaderimgcontainer.find('.loader-progression');
-        }
     };
 
     var _loadershow = function (callback) {
         if (debug)console.info('_loadershow');
-
-
+        $loaderprogression.velocity({rotateZ: '0deg'}, {duration: 0});
+        return $loaderimgcontainer.velocity({opacity: 1}, {duration: 100}).promise();
     };
+
     var _loaderhide = function (callback) {
         if (debug)console.info('_loaderhide — callback ?', typeof(callback));
-        var loaderOpacity = $loaderimgcontainer.css('opacity');
-
+        //var loaderOpacity = $loaderimgcontainer.css('opacity');
+        return $loaderimgcontainer.velocity({opacity: 0}, {duration: 100}).promise();
     };
 
     var _oldloaderstep = 0;
@@ -145,12 +146,9 @@ var basemicroonde = (function($) {
         if (debug)console.info('_loaderprogression');
 
         _oldloaderstep = ipercent;
-        $loaderprogression.stop().animate({width:ipercent + '%'}, {
-            duration: 500,
-            easing:'linear',
-            step: function(i){
-//                $loadertextprogression[0].innerHTML = Math.floor(i)
-            }
+        $loaderprogression.velocity({rotateZ: (ipercent * 3.6) + 'deg'}, {
+            duration: 5000,
+            easing: 'linear'
         });
 
     };
@@ -159,47 +157,46 @@ var basemicroonde = (function($) {
      *
      * @param $medias {jQuery} img or any media that can be loaded (avoid video since old browser don't load them)
      * @param callback {Function}
+     * @param showprogress {Boolean}
      * @private call by pm.base.loadermanager
      */
     var _loadermanager = function ($medias, callback, showprogress) {
-        if (debug)console.info('_loadermanager');
+        if (debug)console.info('_loadermanager', callback);
 
-        showprogress = false; // actually, no progress
+        //showprogress = false; // actually, no progress
 //        showprogress = typeof(showprogress) == 'undefined' ? true : showprogress;
-/*
-        if(showprogress){
-            _loaderinit();
+        if (showprogress) {
+            //_loaderinit();
         }
-*/
 
         var iloaded = 0;
         var imedialength = $medias.length;
         var count = function (e) {
-//            if (debug)console.info('count', this);
-            if(e.type == 'error'){
+            if (debug)console.info('count', iloaded, imedialength);
+            if (e.type == 'error') {
                 if (debug)console.warn('loader image error', this);
             }
             var $img = $(this);
             $img.remove();
             iloaded++;
-            if(showprogress){
-                _loaderprogression(iloaded/imedialength*100);
+            if (showprogress) {
+                _loaderprogression(iloaded / imedialength * 100);
             }
-            if(iloaded == imedialength){
+            if (iloaded === imedialength) {
                 if (debug)console.info('_loadermanager::count finish', e.type);
-                if(showprogress){
-                    _loaderhide(callback)
+                if (showprogress) {
+                    _loaderhide().done(callback)
                 }
-                else{
+                else {
                     callback();
                 }
             }
         };
-        if(showprogress){
+        if (showprogress) {
             _loadershow();
         }
 
-        $medias.each(function(i,o){
+        $medias.each(function (i, o) {
             var $ocopy = $(o).clone();
             $ocopy.one('load error', count).hide();
             $loaderimgcontainer.append($ocopy);
@@ -210,18 +207,18 @@ var basemicroonde = (function($) {
     var _postloaderhide = function (callback) {
         if (debug)console.info('_postloaderhide');
         $(this).css('display', 'none').trigger('hided');
-        if(typeof(callback) == 'function'){
+        if (typeof(callback) == 'function') {
             callback()
         }
     };
 
     window.pm = (typeof(window.pm) == 'undefined') ? {} : window.pm;
     window.pm.base = {
-        ctx:{path:document.location.pathname},
-        loadermanager:_loadermanager,
+        ctx: {path: document.location.pathname},
+        loadermanager: _loadermanager,
         loadershow: _loadershow,
         loaderhide: _loaderhide,
-        view: { current: null, currentShortName: null, $current: $(), old: null, oldShortName: null, $old: $(), currentSection: null, oldSection: null },
+        view: {current: null, currentShortName: null, $current: $(), old: null, oldShortName: null, $old: $(), currentSection: null, oldSection: null},
         $loader: $loaderimgcontainer
     };
 

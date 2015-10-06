@@ -25,10 +25,13 @@
     height: 300px;
     background: white;
     transition: all 500ms cubic-bezier(.78,.37,.26,.72) 0ms;
+    transform: translate3d(0, -300%, 0);
     -webkit-transform: translate3d(0, -300%, 0);
+    -webkit-backface-visibility: hidden;
 }
 .modal-overlay.visible .keyboard-shortcuts{
     transition: all 500ms cubic-bezier(.13,1.07,.5,1.01) 500ms;
+    transform: translate3d(0, 0, 0);
     -webkit-transform: translate3d(0, 0, 0);
 }
 

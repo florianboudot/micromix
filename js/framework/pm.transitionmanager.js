@@ -19,7 +19,7 @@ pm.Transitionmanager = function () {
             callback()
         };
 
-        var duration = 100;
+        var duration = 400;
 
         var onalltransitioncomplete = function () {
             if (debug)console.info('onalltransitioncomplete');
@@ -32,12 +32,12 @@ pm.Transitionmanager = function () {
         var futurwidth = $futurview.width();
         $futurview.css({position: 'absolute', opacity: 0, width: futurwidth});
         $viewcontainer.height($viewcontainer.height());
-        $actualview.css({opacity: 1, position: 'absolute'}).stop().animate({opacity: 0}, {duration: duration, easing: 'easeOutExpo'}).promise().done(function completeoldview() {
+        $actualview.css({opacity: 1, position: 'absolute'}).velocity('stop').velocity({translateY: -5, opacity: 0}, {duration: duration/2, easing: 'easeInCubic'}).promise().done(function completeoldview() {
             callbackbetween(function () {
-                $futurview.stop().animate({marginTop: 0, opacity: 1}, {duration: duration, easing: 'easeInExpo'}).promise().done(function completefutureview() {
+                $futurview.velocity('stop').velocity({translateY: 5}, {duration: 0 }).velocity({translateY: 0, opacity: 1}, {duration: duration, easing: 'easeOutCubic'}).promise().done(function completefutureview() {
                     var futureheight = $futurview.height();
                     if (futureheight != $viewcontainer.height()) {
-                        $viewcontainer.stop().animate({height: futureheight}, {duration: 50, complete: onalltransitioncomplete});
+                        $viewcontainer.velocity('stop').velocity({height: futureheight}, {duration: 50, complete: onalltransitioncomplete});
                     }
                     else {
                         onalltransitioncomplete();

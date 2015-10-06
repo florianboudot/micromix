@@ -20,9 +20,16 @@ var Managethesound = function () {
     var EVENT_click = Modernizr.touch ? 'click' : 'click';
     var EVENT_leave = Modernizr.touch ? 'touchcancel' : 'mouseleave';
 
+    var interfaceSoundButtonPush;
+    var interfaceSoundRewind;
+    var interfaceSoundForward;
+    var interfaceSoundOpen;
+    var interfaceSoundClose;
+    var interfaceSoundK7In;
+    var interfaceSoundK7Out;
     var $cassette = $('.cassette');
-    //var $cassetteToClone = $cassette.clone();
 
+    var basicDocumentTitle = '';
     var _currentidplay = '';
     var _maybecurrentidplay = '';
     var _lastidplay = '';
@@ -195,11 +202,15 @@ var Managethesound = function () {
 
     var TIMEOUTanimatewindowtitle = 0;
     var _actualchardocumenttitle = '♫';
+    var _startAnimateDocumentTitle = function () {
+        clearTimeout(TIMEOUTanimatewindowtitle);
+        document.title = getMixtitle();
+        _animatedocumenttitle();
+    };
     var _animatedocumenttitle = function () {
-//        if (debug)console.info('_animatedocumenttitle');
         var oldchar = _actualchardocumenttitle;
         _actualchardocumenttitle = _actualchardocumenttitle === '♪' ? '♫' : '♪';
-        if (/[♪|♫]/.test(document.title)) {
+        if (/♪|♫/.test(document.title)) {
             document.title = document.title.replace(oldchar, _actualchardocumenttitle);
         }
         else {
@@ -210,9 +221,8 @@ var Managethesound = function () {
     };
 
     var _cancelanimatedocumenttitle = function () {
-//        if (debug)console.info('_cancelanimatedocumenttitle');
         clearTimeout(TIMEOUTanimatewindowtitle);
-        document.title = document.title.replace(/[♫|♪] /, '');
+        document.title = basicDocumentTitle;
     };
 
     var _UIPausing = function () {
@@ -221,7 +231,7 @@ var Managethesound = function () {
     };
     var _UIPlaying = function () {
         _onClickPlay();
-        _animatedocumenttitle();
+        _startAnimateDocumentTitle();
     };
 
     var _onplay = function () {
@@ -518,6 +528,7 @@ var Managethesound = function () {
             _playthatsound(_getidbyindex(_maybecurrentindexplay + 1), wait);
         }
         else {
+            cassetteMoveOutPlayer().then(closeDeckDoor);
             if (debug)console.info('no more sound, shall we play the first sound ?')
         }
     };
@@ -539,6 +550,7 @@ var Managethesound = function () {
     var TIMEOUTrewind = 0;
 
     var _clearRewindForward = function () {
+        interfaceSoundRewind.stop();
         clearTimeout(TIMEOUTforward);
         clearTimeout(TIMEOUTrewind);
         if (_sound.paused) {
@@ -690,13 +702,16 @@ var Managethesound = function () {
         scrollToPost(id);
     };
 
+    var getMixtitle = function () {
+        var $currentlink = $('.micromix-id-' + _currentidplay);
+        var title = latinize($currentlink.text());
+        return 'Micromix ' + title;
+    };
+
     var INTERVAL_infortext = 0;
     var _updatehtmlinfo = function () {
 //        if (debug)console.info('defil _updatehtmlinfo');
-        var $currentlink = $('.micromix-id-' + _currentidplay);
-        var title = latinize($currentlink.text());
-        var finaltext = 'Micromix ' + title;
-        $infos_text.html(finaltext);
+        $infos_text.html(getMixtitle());
         $infos_text.attr('href', _geturlbyid(_currentidplay));
         $('#button-rec').attr('href', _getmp3byid(_currentidplay));
 
@@ -742,30 +757,57 @@ var Managethesound = function () {
     var scrollToPost = function () {
         var $currentPost = $('#post-' + _currentidplay);
         if (!window.activity.isactiv() && $currentPost.length) {
-            $('body').animate({scrollTop: $currentPost.offset().top}, {duration: 125})
+            $('body').velocity('scroll', {offset: $currentPost.offset().top, duration: 125})
         }
     };
 
     /**
      * update the display
      */
-    var updateDisplayMixData = function () {
+    var updateDisplayMixData = function ($parent) {
         $('.article').each(function () {
             var _id = this.id.split('post-')[1];
             if (_isamix(_id)) {
                 var mp3path = _getmp3byid(_id);
                 $(this).find('.post-micromix-number').html(_getnumberbyid(_id));
                 $(this).find('.wpaudio').attr('href', mp3path);
+
             }
         });
+
+
+        //changing document.title
+        if ($('.pagetitle').length) {
+            //tag
+            basicDocumentTitle = 'Micromix | ' + $parent.find('.pagetitle').text().trim();
+        }
+        else if ($parent.find('.post-title').length > 1) {
+            //HP
+            basicDocumentTitle = 'Micromix';
+        }
+        else if ($parent.find('.post-title').length) {
+            //post
+            basicDocumentTitle = 'Micromix #' + $parent.find('.post-title').text().trim();
+        }
+        else {
+            //other pages
+            basicDocumentTitle = 'Micromix | ' + $parent.find('h2').text().trim();
+        }
+
+        if (!isPausing) {
+            document.title = basicDocumentTitle;
+        }
+
+
     };
 
     /**
      *
      */
     var refreshbind = function ($parent) {
+        $parent = $parent || $('.view');
         if (debug)console.info('refreshbind');
-        updateDisplayMixData();
+        updateDisplayMixData($parent);
         var $post = $('#post-' + _currentidplay);
         is_post_in_the_page = !!$post.length;
 //        $currentplayer.off(timelineevents, _gotothistime); // before update current
@@ -1108,27 +1150,45 @@ var Managethesound = function () {
     };
 
     var _onClickPlay = function () {
-        pushButton('play');
+        debug && console.info('_onClickPlay');
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.stop();
+        interfaceSoundRewind.stop();
         $cassette.removeClass('rotatingfastforward rotatingrewind');
         $cassette.addClass('rotating');
+        pushButton('play');
     };
     var _onClickPause = function () {
-        pushButton('pause');
+        debug && console.info('_onClickPause');
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.stop();
+        interfaceSoundRewind.stop();
         $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
+        pushButton('pause');
     };
     var _onClickStop = function () {
-        pushButton('stop');
+        debug && console.info('_onClickStop');
+        interfaceSoundButtonPush.play();
+        interfaceSoundForward.stop();
+        interfaceSoundRewind.stop();
         $cassette.removeClass('rotatingfastforward rotating rotatingrewind');
+        pushButton('stop');
     };
     var _onClickForward = function () {
-        pushButton('forward');
+        debug && console.info('_onClickForward');
+        //interfaceSoundButtonPush.play();
+        interfaceSoundForward.play();
         $cassette.removeClass('rotating rotatingrewind');
         $cassette.addClass('rotatingfastforward');
+        pushButton('forward');
     };
     var _onClickRewind = function () {
-        pushButton('rewind');
+        debug && console.info('_onClickRewind');
+        //interfaceSoundButtonPush.play();
+        interfaceSoundRewind.play();
         $cassette.removeClass('rotating rotatingfastforward');
         $cassette.addClass('rotatingrewind');
+        pushButton('rewind');
     };
 
     /**
@@ -1137,9 +1197,17 @@ var Managethesound = function () {
      */
     var _bind_controls = function () {
         if (debug)console.info('_onsoundmanagerready');
+        interfaceSoundButtonPush = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/button_click.mp3',id:'btnpush',multiShot: false, autoLoad: true, volume: 20});
+        interfaceSoundK7In = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/in.mp3',id:'k7in',multiShot: false, autoLoad: true});
+        interfaceSoundK7Out = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/take-K7.mp3',id:'k7out',multiShot: false, autoLoad: true});
+        interfaceSoundRewind = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/rewind.mp3',id:'rewind',multiShot: false, autoLoad: true,
+            onfinish:function(){this.play({from:450})}});
+        interfaceSoundForward = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/forward.mp3',id:'forward',multiShot: false, autoLoad: true,
+            onfinish:function(){this.play({from:200})}});
+        interfaceSoundOpen = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/open-desk.mp3',id:'open',multiShot: false, autoLoad: true});
+        interfaceSoundClose = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/close-desk.mp3',id:'close',multiShot: false, autoLoad: true});
 
         $linkplaysoundbyid.on(EVENT_click, _getandplaythatsound);
-//        $linkpreviewsoundbyid.on('mousedown', _previewsoundbyidctrl);
 
         // New K7 buttons
         $controls_all.on(EVENT_down + ' ' + EVENT_up + ' ' + EVENT_click + ' ' + EVENT_leave + ' touchmove', playerControlManager);
@@ -1203,6 +1271,7 @@ var Managethesound = function () {
     var $deck = $('#deck');
     var openDeckDoor = function () {
         $deck.addClass('open');
+        interfaceSoundOpen.play();
         $('#deck-door-shadow').addClass('active');
         return $.Velocity.animate($deck, {
             rotateX: '-30deg'
@@ -1216,6 +1285,7 @@ var Managethesound = function () {
     var closeDeckDoor = function () {
         $deck.removeClass('open');
         $('#deck-door-shadow').removeClass('active');
+        interfaceSoundClose.play();
         return $.Velocity.animate($deck, {
             rotateX: '0deg'
         }, {
@@ -1280,7 +1350,7 @@ var Managethesound = function () {
             console.info('cassetteMoveOutPlayer')
         }
         openDeckDoor();
-
+        //todo sound effet
         $.Velocity.animate($cassette, {
             bottom: 270,
             scale: [K7SCALLEMIDDLE, 'easeInExpo']
@@ -1288,6 +1358,9 @@ var Managethesound = function () {
             duration: 350,
             easing: 'easeInOut',
             delay: 250,
+            begin: function () {
+                interfaceSoundK7Out.play();
+            },
             complete: function () {
                 $cassette.css('zIndex', 0);
             }
@@ -1305,7 +1378,7 @@ var Managethesound = function () {
     $.Velocity.animate($cassette, {
         scale: [K7SCALLEFAR]
     }, {
-        duration: 1
+        duration: 0
     });
 
     /**
@@ -1317,20 +1390,21 @@ var Managethesound = function () {
         if (!$cassette.hasClass('is-inside-player')) {
         }
 
+        interfaceSoundK7In.play();
         var imgFatSrc = _getcoverbyid(id);
         $k7face.css('background-image', 'url(' + imgFatSrc + ')');
-
         $.Velocity.animate($cassette, {
             bottom: 270,
             scale: [K7SCALLEMIDDLE, 'easeInExpo']
         }, {
+            delay: 100,
             duration: 350,
             easing: 'easeInOut',
             complete: function () {
                 $cassette.css('zIndex', 1);
             }
         });
-
+        //todo play sound effect
         return $.Velocity.animate($cassette, {
             bottom: 61,
             scale: [K7SCALLENEAR, 'easeOutExpo']
@@ -1389,6 +1463,7 @@ var Managethesound = function () {
             }
 
         });
+
     };
 
     this.refreshbind = refreshbind;

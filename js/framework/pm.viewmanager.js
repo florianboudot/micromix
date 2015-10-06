@@ -1,26 +1,28 @@
-if(typeof(pm) == 'undefined'){var pm = {}}
+if (typeof(pm) == 'undefined') {
+    var pm = {}
+}
 
-pm.Viewmanager = function() {
+pm.Viewmanager = function () {
     var debug = pm.base.debug.Viewmanager;
 
     if (debug)console.info('pm.base.Viewmanager.js');
 
     var getters = pm.getters;
-    var setters = pm.setters;
+    //var setters = pm.setters;
     var viewaction;
     var $viewcontainer = $('#column2');//todo should be a param
-    var $viewsctn = $viewcontainer;
+    //var $viewsctn = $viewcontainer;
     var viewNotCached = 'club-index';
     var $viewnext = $();
     var $viewnow = $viewcontainer.find('.view');
     var $viewold = $();
-    var viewinaction = false;
+    //var viewinaction = false;
 
     var preshow = function (data, callback) {
         if (debug)console.info('pm.base.Viewmanager:preshow', data);
 
         // In all views, check if header has to be retracted
-        actions('preshow', data.viewname, {callback:callback});
+        actions('preshow', data.viewname, {callback: callback});
     };
 
     var postshow = function ($view) {
@@ -36,12 +38,12 @@ pm.Viewmanager = function() {
 
     };
 
-    var makeviewname = function(view, old){
+    var makeviewname = function (view, old) {
         if (debug)console.info('pm.base.Viewmanager:makeviewname', view, old);
 
         var ctx = old ? getters.getOldCtx() : getters.getCtx();
 
-        if(ctx){
+        if (ctx) {
             return view + ctx.path.replace(/[^a-z0-9]+/g, '-');
         }
     };
@@ -51,7 +53,7 @@ pm.Viewmanager = function() {
         $viewtoremove.remove();
     };
 
-    var _appendbind = function ($viewnext, data, viewname) {
+    var _appendbind = function ($viewnext, data) {
         if (debug)console.info('pm.base.Viewmanager:_appendbind', $viewnext, data);
         removeview($('.view').not($viewnow).not($viewnext));
         $viewcontainer.prepend($viewnext);
@@ -59,7 +61,7 @@ pm.Viewmanager = function() {
         bind($viewnext, data);
     };
 
-    var getViewName = function(view){
+    var getViewName = function (view) {
         if (debug)console.info('pm.base.Viewmanager:getViewName', view);
 
         var realView = view;
@@ -83,8 +85,25 @@ pm.Viewmanager = function() {
      */
     var onbetweentransition = function (callback) {
         if (debug)console.info('onbetweentransition');
-        $('body').animate({'scrollTop': 250}, {duration:400});
-        if(callback){callback();}
+        if($(window).scrollTop() !== 200){
+            $("body").velocity("scroll",
+                {
+                    offset: "200px",
+                    easing: "easeInOutCubic",
+                    duration: 200
+                }).promise().done(
+                function () {
+                    if (callback) {
+                        callback();
+                    }
+                }
+            );
+        }
+        else{
+            if (callback) {
+                callback();
+            }
+        }
     };
     /**
      *
@@ -100,23 +119,23 @@ pm.Viewmanager = function() {
         var realView = viewName.view;
         var $tmp = $('<div>').html(data.html);
         $viewnext = $tmp.find('.view');
-        $viewnext.css('opacity',0);
+        $viewnext.css('opacity', 0);
         var $toload = $viewnext.find('img[src!=""]');
 
-        var doShow = function(){
+        var doShow = function () {
             onviewinjected($viewnext);
-            pm.manager.transition.doTransition($viewnext, $viewnow, {callbackbetween:onbetweentransition});
+            pm.manager.transition.doTransition($viewnext, $viewnow, {callbackbetween: onbetweentransition});
         };
         var _onviewreadytoinject = function () {
-            if (debug)console.info('_onviewreadytoinject');
+            if (true)console.info('_onviewreadytoinject');
             _appendbind($viewnext, data, realView);
             onviewloaded($viewnext);
             doShow();
         };
 
-        preshow(data, function(){
+        preshow(data, function () {
             if ($toload.length) {
-                pm.base.loadermanager($toload, _onviewreadytoinject);
+                pm.base.loadermanager($toload, _onviewreadytoinject, false);
             } else {
                 _onviewreadytoinject();
             }
@@ -132,41 +151,41 @@ pm.Viewmanager = function() {
 
     };
 
-    var bind = function($view, data){
+    var bind = function ($view, data) {
         if (debug)console.info('pm.base.Viewmanager:bind', $view, data);
 
-        actions('bind', data.data.viewname, {$view:$viewnext,data:data.data});
+        actions('bind', data.data.viewname, {$view: $viewnext, data: data.data});
 
     };
 
-    var _cleanvideo = function (i,o) {
+    var _cleanvideo = function (i, o) {
         if (debug)console.info('pm.base.Viewmanager:_cleanvideo');
         var id = o.parentNode.id;
         pm.manager.video.remove(id);
     };
 
-    var unbind = function(view, $viewtounbind){
+    var unbind = function (view, $viewtounbind) {
         if (debug)console.info('pm.base.Viewmanager:unbind', $viewtounbind);
 
-        if(view){
+        if (view) {
 
             $viewtounbind.find('.vjs-tech').each(_cleanvideo);
             $viewtounbind.removeClass('view-displayed').css('zIndex', 1);
-            actions('unbind', view, {option:{$view:$viewtounbind}});
+            actions('unbind', view, {option: {$view: $viewtounbind}});
         }
 
     };
 
     var cache = {
         stack: {},
-        exist: function(view){
+        exist: function (view) {
             if (debug)console.info('pm.base.Viewmanager:cache:exist', view);
             return !!this.stack[view];
         },
-        add: function(view, $html, data){
+        add: function (view, $html, data) {
             if (debug)console.info('pm.base.Viewmanager:cache:add', view, data);
 
-            if(this.exist(view)){
+            if (this.exist(view)) {
                 if (debug)console.info('pm.base.Viewmanager:cache:add, view already exist in cache !', view);
             } else {
                 this.stack[view] = {
@@ -176,7 +195,7 @@ pm.Viewmanager = function() {
                 };
             }
         },
-        get: function(view){
+        get: function (view) {
             if (debug)console.info('pm.base.Viewmanager:cache:get', view);
 
             return this.stack[view];
@@ -192,22 +211,22 @@ pm.Viewmanager = function() {
     var actions = function (actiontype, view, options) {
         if (debug)console.info('pm.base.Viewmanager:actions', view, actiontype, options);
 
-        if(viewaction[actiontype]){
-            if(viewaction[actiontype].start){
-                var start = viewaction[actiontype].start(view, options, function(){
-                    if(viewaction[actiontype]['finally']){
+        if (viewaction[actiontype]) {
+            if (viewaction[actiontype].start) {
+                var start = viewaction[actiontype].start(view, options, function () {
+                    if (viewaction[actiontype]['finally']) {
                         viewaction[actiontype]['finally'](options.callback);
                     }
-                    else{
+                    else {
                         if (debug)console.info('no finally function for : "' + actiontype + '"');
                     }
                 });
             }
-            else{
+            else {
                 if (debug)console.error('no start function for : "' + actiontype + '"');
             }
         }
-        else{
+        else {
             if (debug)console.error('error no action "' + actiontype + '" defined');
         }
 
@@ -224,8 +243,8 @@ pm.Viewmanager = function() {
     };
 
     var onviewloaded = function ($view) {
-        if (debug)console.info('pm.base.Viewmanager:onviewloaded',$view.attr('class'));
-        
+        if (debug)console.info('pm.base.Viewmanager:onviewloaded', $view.attr('class'));
+
         for (var key in collectionloadedview) {
             collectionloadedview[key]();
         }
@@ -249,24 +268,30 @@ pm.Viewmanager = function() {
     var onfirstview = function ($view, callbackonfirstview) {
         if (debug)console.info('onfirstview');
         var viewname = 'index';//$view.data('context');
-        actions('preshow', viewname, {callback:function(){
-            onviewloaded($view);
-            actions('bind', viewname, {$view:$view});
-            var $imgs = $view.find('img');
-            if($imgs.length){
-                pm.base.loadermanager($imgs, function(){
+        actions('preshow', viewname, {
+            callback: function () {
+                onviewloaded($view);
+                actions('bind', viewname, {$view: $view});
+                var $imgs = $view.find('img');
+                if ($imgs.length) {
+                    pm.base.loadermanager($imgs, function () {
+                        onviewinjected($view);
+                        onviewdisplayed($view);
+                        if (callbackonfirstview) {
+                            callbackonfirstview();
+                        }
+                    });
+                }
+                else {
                     onviewinjected($view);
                     onviewdisplayed($view);
-                    if(callbackonfirstview){callbackonfirstview();}
-                });
+                    if (callbackonfirstview) {
+                        callbackonfirstview();
+                    }
+                }
+                //TODO provide an addonfirstview action
             }
-            else{
-                onviewinjected($view);
-                onviewdisplayed($view);
-                if(callbackonfirstview){callbackonfirstview();}
-            }
-            //TODO provide an addonfirstview action
-        }});
+        });
 
     };
     /**
@@ -302,14 +327,14 @@ pm.Viewmanager = function() {
         collectiondisplayedview = pm.removefntocollection(collectiondisplayedview, key, fn);
     };
 
-    viewaction = pm.extendviewmanageractions({cache:cache,makeviewname:makeviewname});
+    viewaction = pm.extendviewmanageractions({cache: cache, makeviewname: makeviewname});
 
     this.loadview = load;
-    this.addtoonloadingview    = addonloading;
-    this.addtoonloadedview     = addonloaded;
-    this.addtoondisplayview    = addondisplay;
+    this.addtoonloadingview = addonloading;
+    this.addtoonloadedview = addonloaded;
+    this.addtoondisplayview = addondisplay;
     this.removetoonloadingview = removeonloading;
-    this.removetoonloadedview  = removeonloaded;
+    this.removetoonloadedview = removeonloaded;
     this.removetoondisplayview = removeondisplay;
     this.preshow = preshow;
     this.doaction = actions;

@@ -5,18 +5,19 @@ var $ = jQuery;
  * HIGHLIGHT SEARCH RESULTS plugin
  */
 $.fn.extend({
-    highlight: function(search, insensitive, hls_class){
-        var regex = new RegExp("(<[^>]*>)|(\\b"+ search.replace(/([-.*+?^${}()|[\]\/\\])/g,"\\$1") +")", insensitive ? "ig" : "g");
+    highlight: function (search, insensitive, hls_class) {
+        var regex = new RegExp("(<[^>]*>)|(\\b" + search.replace(/([-.*+?^${}()|[\]\/\\])/g, "\\$1") + ")", insensitive ? "ig" : "g");
         var html = '';
-        if(this.html()){
+        if (this.html()) {
             html = this.html(this.html().replace(regex, function (a, b, c) {
                 return (a.charAt(0) == "<") ? a : "<span class=\"" + hls_class + "\">" + c + "</span>";
-            }));}
+            }));
+        }
         return html;
     }
 });
 
-var Inactivity = function(options){
+var Inactivity = function (options) {
     var debug = false;
     var events = options.events;
 
@@ -39,7 +40,7 @@ var Inactivity = function(options){
 
         clearTimeout(TIMEOUTactivity);
         isactiv = true;
-        TIMEOUTactivity = setTimeout(_setinactiv, 10*1000*60); // 10 minutes
+        TIMEOUTactivity = setTimeout(_setinactiv, 10 * 1000 * 60); // 10 minutes
 
     };
     $window.on(events, _bindevents);
@@ -56,10 +57,10 @@ var micromix = {};
 var postToFeedback = function () {
     var $feedback_container = $('#feedback-container');
     var $close = $('<span class="close-wrap"><span class="close">');
-    $close.on('click', function(){
+    $close.on('click', function () {
         $feedback_container.toggleClass('closed');
     });
-    if($feedback_container.length > 0){
+    if ($feedback_container.length > 0) {
 
         var feedback_titles = '' +
             '<h4 class="title">Feedback</h4>' +
@@ -74,7 +75,7 @@ var postToFeedback = function () {
             url: '/feedback/',
             type: 'GET',
             dataType: 'html'
-        }).done(function(data) {
+        }).done(function (data) {
             // inject html form into feedback zone
             var html_form = $(data).find('#commentform');
             var html_text = $(data).find('.page').html();
@@ -97,7 +98,7 @@ var postToFeedback = function () {
 
             $feedback_container.addClass('ready');
             // on submit
-            $form.on('submit', function(e){
+            $form.on('submit', function (e) {
                 e.preventDefault();
 
                 // hide all messages
@@ -115,7 +116,7 @@ var postToFeedback = function () {
 
                 // ajax post form
                 $.post(url, form_data)
-                    .done(function(){
+                    .done(function () {
                         // display success message
                         $feedback_container.find('.message').removeClass('active');
                         $feedback_container.find('.success').addClass('active');
@@ -127,14 +128,14 @@ var postToFeedback = function () {
                         $form.find('textarea').val('');
 
                         // remove success message after a while
-                        setTimeout(function(){
+                        setTimeout(function () {
                             $feedback_container.find('.message').removeClass('active');
                         }, 5000);
                     })
-                    .fail(function(params){
+                    .fail(function (params) {
                         // display error message
                         $feedback_container.find('.message').removeClass('active');
-                        $feedback_container.find('.error').append('error '+ params.status).addClass('active');
+                        $feedback_container.find('.error').append('error ' + params.status).addClass('active');
 
                         // unfreeze the form
                         $form.find('input, textarea').prop('disabled', false);
@@ -154,9 +155,10 @@ var menuhover = function () {
     var $menu = $('#posts-year-month');
     var $item = $menu.find('.list-item a');
     var $currentitem = $();
-    var TIMEOUTwait  = 0;
+    var TIMEOUTwait = 0;
     var TIMEOUTenter = 0;
-    var functionwait = function(){};
+    var functionwait = function () {
+    };
 
     $item.on('mouseenter mouseleave', function (e) {
         debug && console.info('####### mouseenter mouseleave');
@@ -166,7 +168,7 @@ var menuhover = function () {
             var $this = $(this);
             if (!$this.is($currentitem)) {
                 functionwait();
-                TIMEOUTenter = setTimeout(function(){
+                TIMEOUTenter = setTimeout(function () {
                     $currentitem.removeClass('hover');
                     $currentitem = $this.addClass('hover')
                 }, 125);
@@ -186,8 +188,8 @@ var menuhover = function () {
 /* STICK GHETTOBLASTER TO BOTTOM */
 var $ghetto = $();
 var fixed = true;
-var stickGhettoToBottom = function(scrollTop){
-    if($ghetto.length < 1){
+var stickGhettoToBottom = function (scrollTop) {
+    if ($ghetto.length < 1) {
         $ghetto = $('#cassette-player');
     }
 
@@ -195,11 +197,11 @@ var stickGhettoToBottom = function(scrollTop){
         bottomLimit = $body.height() - 214,
         isLimitReached = windowheight + scrollTop >= bottomLimit;
 
-    if (isLimitReached && fixed){
+    if (isLimitReached && fixed) {
         $ghetto.addClass('positionabsolute');
         fixed = false;
     }
-    else if(!isLimitReached && !fixed) {
+    else if (!isLimitReached && !fixed) {
         $ghetto.removeClass('positionabsolute');
         fixed = true;
     }
@@ -224,26 +226,26 @@ var onpostnewcomment = function () {
     var $hide = $('<div>').addClass('comment-mask');
     $commentform.append($hide);
     $hide.velocity({
-        opacity:.6
+        opacity: .6
     }, {
         easing: "easeInOut",
         duration: 300
     });
 
-    $.ajax( {
+    $.ajax({
         type: 'POST',
         url: $commentform.attr('action'),
         data: $commentform.serialize(),
-        success: function(data){
+        success: function (data) {
             var $commentlist = $('.commentlist');
             var $newcomment;
             var $appendto;
             var $data = $(data);
-            if($commentlist.length){
+            if ($commentlist.length) {
                 $newcomment = $data.find('.commentlist li:last').addClass('new-comment');
                 $commentlist.append($newcomment);
             }
-            else{
+            else {
                 $newcomment = $data.find('.commentlist').addClass('new-comment');
                 $newcomment.find('li:last').addClass('new-comment');
                 $appendto = $('.commentsContainer');
@@ -253,12 +255,14 @@ var onpostnewcomment = function () {
 
             //
             $commentform.find('.comment-mask').velocity({
-                opacity:0
+                opacity: 0
             }, {
                 easing: "easeInOut",
                 duration: 300
             }).promise().always(removethis);
-            setTimeout(function(){$('.new-comment').removeClass('new-comment')}, 1000);
+            setTimeout(function () {
+                $('.new-comment').removeClass('new-comment')
+            }, 1000);
             //todo we should have an array of setTimeout/interval to clear when changing page
 
         }
@@ -269,11 +273,11 @@ var onpostnewcomment = function () {
 
 var hide_form_native_value = function (e) {
     var defaultvalue = $(this).data('default-value');
-    if(e.type === 'focus'){
-        this.value = (this.value==defaultvalue) ? '': this.value
+    if (e.type === 'focus') {
+        this.value = (this.value == defaultvalue) ? '' : this.value
     }
-    else{
-        this.value = (this.value=='') ? defaultvalue : this.value
+    else {
+        this.value = (this.value == '') ? defaultvalue : this.value
     }
 
 };
@@ -288,28 +292,28 @@ var newsletter_check = function (f) {
         message = 'what\'s your name please ?';
     }
     if (f.elements["ny"] && !f.elements["ny"].checked) {
-        message ='You must accept the privacy statement';
+        message = 'You must accept the privacy statement';
     }
     return message;
 };
-$('#newletter_form').on('submit', function(e){
+$('#newletter_form').on('submit', function (e) {
     var debug = false;
     var check_form = newsletter_check(this);
     var check_ok = check_form.length === 0;
-    if(check_ok){
+    if (check_ok) {
         var $form = $(this);
         var url = $form.attr('action');
         var data = $form.serialize();
         debug && console.info(url);
         $.ajax({
-            url:url,
+            url: url,
             method: 'POST',
             data: data
-        }).done(function(){
+        }).done(function () {
             debug && console.info('done')
-        }).fail(function(){
+        }).fail(function () {
             debug && console.info('fail')
-        }).always(function(){
+        }).always(function () {
             debug && console.info('always')
         });
     }
@@ -321,9 +325,9 @@ $('#newletter_form').on('submit', function(e){
 
 });
 
-$(document).ready(function() {
+$(document).ready(function () {
     /* If search, call highlight */
-    if(typeof(hls_query) != 'undefined'){
+    if (typeof(hls_query) != 'undefined') {
         $(".result").highlight(hls_query, 1, "hilite");
     }
 
@@ -332,119 +336,119 @@ $(document).ready(function() {
 
     menuhover();
 
-    window.activity = new Inactivity({events:'mousemove keydown click touchend'});
+    window.activity = new Inactivity({events: 'mousemove keydown click touchend'});
 
     // STATS
     // play +=1 in the statistics
-/*
-    var stachts = {}; // object
-    jQuery('.bt-player a').bind('mousedown',function(){
-        var postId = jQuery(this).parents('.bt-player')[0].id;
+    /*
+     var stachts = {}; // object
+     jQuery('.bt-player a').bind('mousedown',function(){
+     var postId = jQuery(this).parents('.bt-player')[0].id;
 
-        if (typeof stachts[postId] == 'undefined') {
+     if (typeof stachts[postId] == 'undefined') {
 
-            stachts[postId] = true;
+     stachts[postId] = true;
 
-            jQuery.ajax({
-                type:'POST',
-                data: 'postId='+postId,
-                url: theme_path + '/ajax.php',
-                success : function(obj) {
-                    //console.info('success');
-                    //console.info(obj);
-                },
-                error : function(obj) {
-                    //console.error('faiiiiil');
-                    //console.error(obj);
-                }
-            });
-        }
-    });
-*/
+     jQuery.ajax({
+     type:'POST',
+     data: 'postId='+postId,
+     url: theme_path + '/ajax.php',
+     success : function(obj) {
+     //console.info('success');
+     //console.info(obj);
+     },
+     error : function(obj) {
+     //console.error('faiiiiil');
+     //console.error(obj);
+     }
+     });
+     }
+     });
+     */
 
     /* -- INIT TAG WALL --  */
-    var initTagWall = function(){
+    var initTagWall = function () {
 
         var sketcher = null;
         var $canvas = $("#tagwall");
-        if(!$canvas[0].getContext) {
+        if (!$canvas[0].getContext) {
             return
         }
         var context = $canvas[0].getContext('2d');
         var brush = new Image();
 
         // fix cursor on canvas
-        $canvas.on('hover mousedown onselectstart', function(e){
+        $canvas.on('hover mousedown onselectstart', function (e) {
             e.preventDefault();
             e.stopPropagation();
-            e.target.style.cursor = 'url("'+theme_path+'/img/spraycan.png"), auto';
+            e.target.style.cursor = 'url("' + theme_path + '/img/spraycan.png"), auto';
         });
 
         //init sketcher
-        var initSketcker = function(){
-            brush.src = theme_path+'/img/spray-red.png';
-            brush.onload = function(){
-                sketcher = new Sketcher("tagwall", brush );
+        var initSketcker = function () {
+            brush.src = theme_path + '/img/spray-red.png';
+            brush.onload = function () {
+                sketcher = new Sketcher("tagwall", brush);
             };
         };
 
         // clear Canvas
-        var clearCanvas = function(){
+        var clearCanvas = function () {
             sketcher.clear();
             localStorage.removeItem('savedcanvas');
         };
 
         // save Canvas
-        var saveCanvas = function(){
+        var saveCanvas = function () {
             var imgBase64 = sketcher.toDataURL();
-            localStorage.setItem("savedcanvas",imgBase64);
+            localStorage.setItem("savedcanvas", imgBase64);
         };
 
         // load Saved Canvas
-        var loadSavedCanvas = function(){
+        var loadSavedCanvas = function () {
             var imgBase64 = localStorage.getItem("savedcanvas");
-            if (imgBase64){
+            if (imgBase64) {
                 var imageObj = new Image();
                 imageObj.src = imgBase64;
-                imageObj.onload = function() {
+                imageObj.onload = function () {
                     context.drawImage(this, 0, 0);
                 };
             }
         };
 
         // spray sound
-        var spraySound = function(){
+        var spraySound = function () {
             var $tagwall = $('#tagwall');
             var spraysound = document.getElementById('spraysound');
 
             // looping
-            spraysound.addEventListener('ended', function(){
+            spraysound.addEventListener('ended', function () {
                 var _this = this;
                 _this.currentTime = 0;
                 _this.play();
             });
 
-            $tagwall.on('mousedown',function(){
+            $tagwall.on('mousedown', function () {
                 spraysound.play();
             });
 
-            $tagwall.on('mouseup',function(){
+            $tagwall.on('mouseup', function () {
                 spraysound.currentTime = 0;
                 spraysound.pause();
             });
         };
 
         // change Brush Color
-        var changeBrushColor = function(){
-            $('.spray-colors li').each(function(i,o){
-                $(o).on('click',function(){
+        var changeBrushColor = function () {
+            $('.spray-colors li').each(function (i, o) {
+                $(o).on('click', function () {
                     var id = $(o).attr('id');
-                    brush.src = theme_path+'/img/'+id+'.png';
+                    brush.src = theme_path + '/img/' + id + '.png';
 
-                    if (id === 'spray-erase'){
+                    if (id === 'spray-erase') {
                         // erase mode
                         context.globalCompositeOperation = 'destination-out';
-                    }else{
+                    } else {
                         context.globalCompositeOperation = 'source-over';
                     }
                 })
@@ -456,28 +460,35 @@ $(document).ready(function() {
         spraySound();
         changeBrushColor();
 
-        $('#save-canvas').on('click',saveCanvas);
-        $('#clear-canvas').on('click',clearCanvas);
+        $('#save-canvas').on('click', saveCanvas);
+        $('#clear-canvas').on('click', clearCanvas);
 
     };
 
     var $modal = $('.modal-overlay');
+    var closePopinOnEscape = function (e) {
+        if (e.keyCode === 27) {
+            hideKeyboardShortcuts();
+        }
+    };
     var showKeyboardShortcuts = function () {
         $modal.addClass('visible');
+        $window.on('keydown', closePopinOnEscape)
     };
     var hideKeyboardShortcuts = function () {
         $modal.removeClass('visible');
+        $window.off('keydown', closePopinOnEscape)
     };
 
     /* -- bindKeyBoardShortcuts --  */
-    var bindKeyBoardShortcuts = function(){
-        $(document).keydown(function(e){
+    var bindKeyBoardShortcuts = function () {
+        $(document).keydown(function (e) {
             var is_key_comma = e.keyCode == '188'; // ? or , key
-            if(e.shiftKey && is_key_comma){
+            if (e.shiftKey && is_key_comma) {
                 showKeyboardShortcuts();
             }
         });
-        $modal.find('.keyboard-shortcuts').on('click', function () {
+        $modal.on('click', function () {
             hideKeyboardShortcuts();
         })
     };
@@ -489,11 +500,13 @@ $(document).ready(function() {
 
 });
 
-$(window).on('load', function(){
-    $('.mini-poster').each(function(i,o){
-        setTimeout(function(){
-            $(o).attr('src', function(){return $(this).data('src')});
-        },i*10);
+$(window).on('load', function () {
+    $('.mini-poster').each(function (i, o) {
+        setTimeout(function () {
+            $(o).attr('src', function () {
+                return $(this).data('src')
+            });
+        }, i * 10);
     });
     $('#cassette-player').addClass('ready');
 });

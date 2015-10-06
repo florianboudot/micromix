@@ -1,4 +1,3 @@
-<!-- TEMPLATE ARCHIVE.PHP (search with tag) -->
 <?php
 // HEADER
 if(!isajax()){
@@ -12,6 +11,7 @@ if (have_posts()) {
     $author = $authordata->user_nicename;
     $nb_posts_found = $wp_query->found_posts; ?>
 
+<!-- TEMPLATE ARCHIVE.PHP (search with tag) -->
     <div class="result">
         <h2 class="pagetitle">
             <span>

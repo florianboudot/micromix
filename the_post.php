@@ -1,7 +1,7 @@
 <?php
 $micromix_number = get_post_meta($post->ID, 'micromixNumber', true);
 $the_permalink = the_permalink_return();
-$image_format = (is_home() || is_single()) ? 'large' : 'medium';
+$image_format = 'large';
 $image_src = image_attachment_src($post->ID, $image_format); // thumbnail (150), medium (220), large (500)
 ?>
 
