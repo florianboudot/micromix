@@ -1197,15 +1197,15 @@ var Managethesound = function () {
      */
     var _bind_controls = function () {
         if (debug)console.info('_onsoundmanagerready');
-        interfaceSoundButtonPush = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/button_click.mp3',id:'btnpush',multiShot: false, autoLoad: true, volume: 20});
-        interfaceSoundK7In = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/in.mp3',id:'k7in',multiShot: false, autoLoad: true});
-        interfaceSoundK7Out = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/take-K7.mp3',id:'k7out',multiShot: false, autoLoad: true});
-        interfaceSoundRewind = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/rewind.mp3',id:'rewind',multiShot: false, autoLoad: true,
+        interfaceSoundButtonPush = soundManager.createSound({url:theme_path+'/sound/interface/button_click.mp3',id:'btnpush',multiShot: false, autoLoad: true, volume: 20});
+        interfaceSoundK7In = soundManager.createSound({url:theme_path+'/sound/interface/in.mp3',id:'k7in',multiShot: false, autoLoad: true});
+        interfaceSoundK7Out = soundManager.createSound({url:theme_path+'/sound/interface/take-K7.mp3',id:'k7out',multiShot: false, autoLoad: true});
+        interfaceSoundRewind = soundManager.createSound({url:theme_path+'/sound/interface/rewind.mp3',id:'rewind',multiShot: false, autoLoad: true,
             onfinish:function(){this.play({from:450})}});
-        interfaceSoundForward = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/forward.mp3',id:'forward',multiShot: false, autoLoad: true,
+        interfaceSoundForward = soundManager.createSound({url:theme_path+'/sound/interface/forward.mp3',id:'forward',multiShot: false, autoLoad: true,
             onfinish:function(){this.play({from:200})}});
-        interfaceSoundOpen = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/open-desk.mp3',id:'open',multiShot: false, autoLoad: true});
-        interfaceSoundClose = soundManager.createSound({url:'/wp-content/themes/micromix-theme-1/sound/interface/close-desk.mp3',id:'close',multiShot: false, autoLoad: true});
+        interfaceSoundOpen = soundManager.createSound({url:theme_path+'/sound/interface/open-desk.mp3',id:'open',multiShot: false, autoLoad: true});
+        interfaceSoundClose = soundManager.createSound({url:theme_path+'/sound/interface/close-desk.mp3',id:'close',multiShot: false, autoLoad: true});
 
         $linkplaysoundbyid.on(EVENT_click, _getandplaythatsound);
 
