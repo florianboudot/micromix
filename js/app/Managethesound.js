@@ -805,6 +805,7 @@ var Managethesound = function () {
      *
      */
     var refreshbind = function ($parent) {
+        $parent = $parent || $('.view');
         if (debug)console.info('refreshbind');
         updateDisplayMixData($parent);
         var $post = $('#post-' + _currentidplay);
@@ -1359,7 +1360,6 @@ var Managethesound = function () {
             delay: 250,
             begin: function () {
                 interfaceSoundK7Out.play();
-                console.error('lol');
             },
             complete: function () {
                 $cassette.css('zIndex', 0);
